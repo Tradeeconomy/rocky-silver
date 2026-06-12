@@ -89,7 +89,7 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
   </div>
 </div>
 
-<div id="tabs">
+<div id="tabs" ontouchstart="window.scrollTo(0,0);document.body.scrollTop=0;document.documentElement.scrollTop=0;">
   <button class="tbtn active" onclick="showTab('summary')">DAILY</button>
   <button class="tbtn" onclick="showTab('chart')">CHART</button>
   <button class="tbtn" onclick="showTab('poly')">POLY</button>
@@ -2506,9 +2506,12 @@ function showTab(id) {
   }
   var tc = document.getElementById("tc-"+id);
   if (tc) { tc.classList.add("active"); tc.style.display="block"; }
-  try{window.scrollTo(0,0);}catch(e){}
-  try{document.body.scrollTop=0;}catch(e){}
-  try{document.documentElement.scrollTop=0;}catch(e){}
+  // Scroll header into view - most reliable method on Android
+  var hdr = document.getElementById("hdr");
+  if (hdr) { hdr.scrollIntoView({behavior:"instant",block:"start"}); }
+  window.scrollTo(0,0);
+  document.body.scrollTop=0;
+  document.documentElement.scrollTop=0;
   if (id==="chart") {
     // Force canvas to get real dimensions after tab is visible
     setTimeout(function() {
