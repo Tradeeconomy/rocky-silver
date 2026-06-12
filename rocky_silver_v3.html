@@ -1398,7 +1398,7 @@ function drawChart() {
     var v = minV + (maxV-minV)*i/steps;
     var y = yp(v);
     // Grid
-    ctx.strokeStyle = "#1E2530";
+    ctx.strokeStyle = "#E0E4EA";
     ctx.lineWidth   = 1;
     ctx.setLineDash([3,4]);
     ctx.beginPath(); ctx.moveTo(pad.left, y); ctx.lineTo(W-pad.right+4, y); ctx.stroke();
@@ -1973,7 +1973,7 @@ function drawPolyChart() {
   canvas.style.height = H + "px";
   var ctx = canvas.getContext("2d");
   ctx.scale(dpr, dpr);
-  ctx.fillStyle = "#12131A";
+  ctx.fillStyle = "#F8F9FB";
   ctx.fillRect(0,0,W,H);
   var pad = {top:10,right:8,bottom:30,left:8};
   var cW = W - pad.left - pad.right;
@@ -4216,7 +4216,7 @@ function drawEMAChart(data, prices, ema20, ema50, ema200, upper, lower) {
   function xp(i){return pad.left+(i+0.5)*(cW/data.length);}
 
   // Background
-  ctx.fillStyle="#161820"; ctx.fillRect(0,0,W,H);
+  ctx.fillStyle="#F8F9FB"; ctx.fillRect(0,0,W,H);
 
   // Grid
   for (var i=0;i<=5;i++) {
@@ -4295,7 +4295,7 @@ function drawRSIChart(data, rsiVals) {
   function yp(v){return pad.top+cH-((v-0)/100)*cH;}
   function xp(i){return pad.left+(i+0.5)*(cW/data.length);}
 
-  ctx.fillStyle="#161820"; ctx.fillRect(0,0,W,H);
+  ctx.fillStyle="#F8F9FB"; ctx.fillRect(0,0,W,H);
 
   // Zones
   ctx.fillStyle="rgba(224,85,85,0.08)";
@@ -4359,7 +4359,7 @@ function drawMACDChart(data, macd, signal, hist) {
   function xp(i){return pad.left+(i+0.5)*(cW/data.length);}
   var bw=Math.max(1,Math.floor(cW/data.length*0.6));
 
-  ctx.fillStyle="#161820"; ctx.fillRect(0,0,W,H);
+  ctx.fillStyle="#F8F9FB"; ctx.fillRect(0,0,W,H);
 
   // Zero line
   ctx.strokeStyle="#2A3040"; ctx.lineWidth=1; ctx.setLineDash([3,4]);
