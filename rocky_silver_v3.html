@@ -9,7 +9,7 @@
 body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-width:480px;margin:0 auto;min-height:100vh}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
-#hdr{background:#1A1B26;border-bottom:1px solid #2A2A10;padding:12px 14px 10px;position:relative;z-index:100}
+#hdr{background:#1A1B26;border-bottom:1px solid #2A2A10;padding:12px 14px 10px;position:sticky;top:0;z-index:100}
 .hrow{display:flex;justify-content:space-between;align-items:flex-start}
 .dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#3DBA7A;margin-right:5px;animation:blink 2s infinite}
 .tag{font-size:9px;letter-spacing:3px;color:#D4AF37;text-transform:uppercase}
@@ -19,13 +19,13 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
 .fsrc{font-size:8px;margin-top:2px}
 .srow{display:flex;gap:1px;margin-top:9px;background:#161820;border-radius:6px;overflow:hidden}
 .sb{flex:1;padding:7px 3px;text-align:center;background:#1C1E2A}
-.sl{font-size:7px;color:#B0B4C8;letter-spacing:1px;text-transform:uppercase}
+.sl{font-size:7px;color:#CCCCCC;letter-spacing:1px;text-transform:uppercase}
 .sv{font-size:11px;font-weight:700;margin-top:2px}
 #sparkwrap{margin-top:8px;display:none}
 .slbl{font-size:8px;color:#888888;letter-spacing:2px;margin-bottom:2px}
 #tabs{display:flex;flex-wrap:wrap;background:#161820;border-bottom:1px solid #2E3148;-webkit-overflow-scrolling:touch;scrollbar-width:none}
 #tabs::-webkit-scrollbar{display:none}
-.tbtn{flex:0 0 auto;padding:10px 10px;font-size:10px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;font-family:inherit;color:#B0B4C8;background:none;border:none;border-bottom:2px solid transparent;white-space:nowrap}
+.tbtn{flex:0 0 auto;padding:10px 10px;font-size:10px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;font-family:inherit;color:#CCCCCC;background:none;border:none;border-bottom:2px solid transparent;white-space:nowrap}
 .tbtn.active{color:#D4AF37;border-bottom:2px solid #D4AF37;font-weight:700}
 .sec{padding:14px 14px;animation:fadeUp .3s both}
 .stitle{font-size:10px;letter-spacing:3px;color:#D4AF37;text-transform:uppercase;margin-bottom:10px;font-weight:700}
@@ -36,7 +36,7 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
 .rbtn.active{background:#D4AF37;color:#000;border-color:#D4AF37}
 .pwrap{height:6px;background:#2E3148;border-radius:3px;overflow:hidden;margin:4px 0}
 .pfill{height:100%;border-radius:3px}
-.tblh{display:flex;padding:5px 0;border-bottom:1px solid #2E3148;font-size:8px;color:#9A9FB4;letter-spacing:1px;text-transform:uppercase}
+.tblh{display:flex;padding:5px 0;border-bottom:1px solid #2E3148;font-size:8px;color:#BBBBBB;letter-spacing:1px;text-transform:uppercase}
 .tsc{max-height:420px;overflow-y:auto}
 .trow{display:flex;align-items:center;padding:5px 0;border-bottom:1px solid #161820}
 .msep{padding:7px 0 3px;font-size:9px;color:#D4AF37;letter-spacing:2px;font-weight:700;text-transform:uppercase}
@@ -59,7 +59,7 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
   <div class="hrow">
     <div>
       <div class="tag"><span class="dot"></span>Rocky Silver Master Intelligence</div>
-      <div style="font-size:10px;color:#8A8FA8;margin-top:3px">XAG/USD Full Demand + Polymarket</div>
+      <div style="font-size:10px;color:#8A8FA8;margin-top:3px">XAG/USD . Live AI . MarketOracle</div>
       <div class="fsrc"><span id="fbadge" style="color:#D4AF37">connecting...</span> <span id="fsrc" style="color:#8A8FA8"></span></div>
       <div style="display:flex;align-items:center;gap:8px;margin-top:4px">
         <span style="font-size:8px;color:#818CF8" id="gbpusd-rate">GBP/USD...</span>
@@ -90,30 +90,30 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
 </div>
 
 <div id="tabs">
-  <button class="tbtn active" onclick="showTab('summary')">📊 DAILY</button>
-  <button class="tbtn" onclick="showTab('chart')">📈 CHART</button>
-  <button class="tbtn" onclick="showTab('poly')">🎯 POLY</button>
-  <button class="tbtn" onclick="showTab('comex')">📡 COMEX</button>
-  <button class="tbtn" onclick="showTab('demand')">📦 DEMAND</button>
-  <button class="tbtn" onclick="showTab('macro')">🌍 MACRO</button>
-  <button class="tbtn" onclick="showTab('news')">📰 NEWS</button>
-  <button class="tbtn" onclick="showTab('forecast')">🔮 FORECAST</button>
-  <button class="tbtn" onclick="showTab('risk')">⚡ RADAR</button>
-  <button class="tbtn" onclick="showTab('economy')">🌐 ECONOMY</button>
-  <button class="tbtn" onclick="showTab('ta')">📉 TECHNICAL</button>
-  <button class="tbtn" onclick="showTab('signals')">🔔 SIGNALS</button>
-  <button class="tbtn" onclick="showTab('analysts')">📈 ANALYSTS</button>
-  <button class="tbtn" onclick="showTab('fullyear')">🔮 FULL YEAR</button>
-  <button class="tbtn" onclick="showTab('igtools')">💹 IG TOOLS</button>
-  <button class="tbtn" onclick="showTab('globalinfl')">🌍 GLOBAL INFL</button>
-  <button class="tbtn" onclick="showTab('admin')">🔒 ADMIN</button>
+  <button class="tbtn active" onclick="showTab('summary')">DAILY</button>
+  <button class="tbtn" onclick="showTab('chart')">CHART</button>
+  <button class="tbtn" onclick="showTab('poly')">POLY</button>
+  <button class="tbtn" onclick="showTab('comex')">COMEX</button>
+  <button class="tbtn" onclick="showTab('demand')">DEMAND</button>
+  <button class="tbtn" onclick="showTab('macro')">MACRO</button>
+  <button class="tbtn" onclick="showTab('news')">NEWS</button>
+  <button class="tbtn" onclick="showTab('forecast')">FORECAST</button>
+  <button class="tbtn" onclick="showTab('risk')">RADAR</button>
+  <button class="tbtn" onclick="showTab('economy')">ECONOMY</button>
+  <button class="tbtn" onclick="showTab('ta')">TECHNICAL</button>
+  <button class="tbtn" onclick="showTab('signals')">SIGNALS</button>
+  <button class="tbtn" onclick="showTab('analysts')">ANALYSTS</button>
+  <button class="tbtn" onclick="showTab('fullyear')">FULL YEAR</button>
+  <button class="tbtn" onclick="showTab('igtools')">IG TOOLS</button>
+  <button class="tbtn" onclick="showTab('globalinfl')">GLOBAL INFL</button>
+  <button class="tbtn" onclick="showTab('admin')">ADMIN</button>
 </div>
 
 <!-- SUMMARY -->
 <div id="tc-summary" class="tc active">
 <div class="sec">
   <div class="stitle">Market Summary</div>
-  <div id="sum-card" class="card" style="border-color:#D4AF3744;background:#1A1C14;margin-bottom:14px">
+  <div id="sum-card" class="card" style="border-color:#D4AF3744;background:#0D0B04;margin-bottom:14px">
     <div style="font-size:9px;color:#D4AF37;letter-spacing:3px;text-transform:uppercase;margin-bottom:8px">Live Market Intelligence</div>
     <div id="sum-text" style="font-size:13px;color:#E8EAF0;line-height:1.8">Loading...</div>
     <div style="font-size:9px;color:#888888;margin-top:10px" id="sum-time">--:--:--</div>
@@ -150,7 +150,7 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
           <div style="font-size:9px;color:#8A8FA8" id="shfe-signal">--</div>
         </div>
       </div>
-      <div style="font-size:10px;color:#B0B4C8;margin-top:6px;line-height:1.5" id="shfe-detail">
+      <div style="font-size:10px;color:#CCCCCC;margin-top:6px;line-height:1.5" id="shfe-detail">
         SHFE premium is the #1 leading indicator. Wide premium = physical being pulled East = COMEX drain = price UP.
       </div>
     </div>
@@ -186,7 +186,7 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
     <!-- Combined Asia signal -->
     <div style="border-radius:6px;padding:10px 12px;margin-top:4px" id="asia-combined">
       <div style="font-size:9px;color:#818CF8;letter-spacing:2px;text-transform:uppercase;margin-bottom:5px">Combined Asia Signal for Silver</div>
-      <div style="font-size:12px;color:#B0B4C8;line-height:1.6" id="asia-narrative">Fetching Asia market data...</div>
+      <div style="font-size:12px;color:#CCCCCC;line-height:1.6" id="asia-narrative">Fetching Asia market data...</div>
       <div style="font-size:9px;color:#555;margin-top:6px" id="asia-updated">--</div>
     </div>
   </div>
@@ -251,7 +251,7 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
       </div>
       <div style="text-align:right">
         <div style="font-size:10px;color:#E8EAF0">XAU: <span id="gold-price">-</span></div>
-        <div style="font-size:10px;color:#B0B4C8;margin-top:2px">XAG: <span id="silver-price-gsr">-</span></div>
+        <div style="font-size:10px;color:#CCCCCC;margin-top:2px">XAG: <span id="silver-price-gsr">-</span></div>
       </div>
     </div>
     <div id="gsr-signal" style="font-size:11px;margin-bottom:8px">-</div>
@@ -261,7 +261,7 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
     <div style="display:flex;justify-content:space-between;font-size:8px;color:#666">
       <span>Undervalued (40)</span><span>Historic avg (70)</span><span>Overvalued (100+)</span>
     </div>
-    <div style="margin-top:10px;font-size:10px;color:#B0B4C8;line-height:1.6" id="gsr-detail">
+    <div style="margin-top:10px;font-size:10px;color:#CCCCCC;line-height:1.6" id="gsr-detail">
       When GSR is above 80, silver is historically cheap vs gold. Mean reversion to 60-70 implies significant silver outperformance.
     </div>
   </div>
@@ -313,23 +313,23 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
   <div style="margin-top:14px">
     <div class="stitle">Phase Catalysts</div>
     <div style="display:flex;gap:10px;padding:8px 0;border-bottom:1px solid #1C1E2A">
-      <div style="width:80px;font-size:9px;color:#B0B4C8;flex-shrink:0;padding-top:2px">Jun 2-30</div>
+      <div style="width:80px;font-size:9px;color:#CCCCCC;flex-shrink:0;padding-top:2px">Jun 2-30</div>
       <div><span class="bdg" style="background:rgba(212,175,55,.08);color:#D4AF37">Consolidation</span><div style="font-size:11px;color:#C8CCE0;margin-top:4px;line-height:1.4">FLOOR $64 confirmed Jun 7. SHFE +$9/oz premium = Eastern buying active.</div></div>
     </div>
     <div style="display:flex;gap:10px;padding:8px 0;border-bottom:1px solid #1C1E2A">
-      <div style="width:80px;font-size:9px;color:#B0B4C8;flex-shrink:0;padding-top:2px">Jul-Aug 15</div>
+      <div style="width:80px;font-size:9px;color:#CCCCCC;flex-shrink:0;padding-top:2px">Jul-Aug 15</div>
       <div><span class="bdg" style="background:rgba(224,85,85,.08);color:#E05555">Correction</span><div style="font-size:11px;color:#C8CCE0;margin-top:4px;line-height:1.4">Capitulation done. SHFE premium + KOSPI strength = Asia demand floor holding.</div></div>
     </div>
     <div style="display:flex;gap:10px;padding:8px 0;border-bottom:1px solid #1C1E2A">
-      <div style="width:80px;font-size:9px;color:#B0B4C8;flex-shrink:0;padding-top:2px">Aug 18-Sep</div>
+      <div style="width:80px;font-size:9px;color:#CCCCCC;flex-shrink:0;padding-top:2px">Aug 18-Sep</div>
       <div><span class="bdg" style="background:rgba(61,186,122,.08);color:#3DBA7A">Buy Zone</span><div style="font-size:11px;color:#C8CCE0;margin-top:4px;line-height:1.4">ACTIVE - SHFE premium driving physical drain. KOSPI tech demand. Target $79-87.</div></div>
     </div>
     <div style="display:flex;gap:10px;padding:8px 0;border-bottom:1px solid #1C1E2A">
-      <div style="width:80px;font-size:9px;color:#B0B4C8;flex-shrink:0;padding-top:2px">Oct</div>
+      <div style="width:80px;font-size:9px;color:#CCCCCC;flex-shrink:0;padding-top:2px">Oct</div>
       <div><span class="bdg" style="background:rgba(212,175,55,.08);color:#D4AF37">Recovery</span><div style="font-size:11px;color:#C8CCE0;margin-top:4px;line-height:1.4">Fed cut + China stimulus + KOSPI electronics. Goldman $85-100. Target $85-95.</div></div>
     </div>
     <div style="display:flex;gap:10px;padding:8px 0">
-      <div style="width:80px;font-size:9px;color:#B0B4C8;flex-shrink:0;padding-top:2px">Nov-Dec</div>
+      <div style="width:80px;font-size:9px;color:#CCCCCC;flex-shrink:0;padding-top:2px">Nov-Dec</div>
       <div><span class="bdg" style="background:rgba(61,186,122,.08);color:#3DBA7A">Rally</span><div style="font-size:11px;color:#C8CCE0;margin-top:4px;line-height:1.4">Fed cuts + SHFE squeeze + Korean EV demand. Commerzbank $90, UBS $100+. Target $98-108.</div></div>
     </div>
   </div>
@@ -342,7 +342,7 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
   <div class="card" style="border-color:#38BDF844;background:#050D14;margin-bottom:14px">
     <div style="font-size:9px;color:#38BDF8;letter-spacing:3px;text-transform:uppercase">Polymarket Live Prediction</div>
     <div style="font-size:13px;color:#E8EAF0;font-weight:600;margin-top:5px;line-height:1.4" id="pq">What will Silver settle at in June?</div>
-    <div style="font-size:10px;color:#9A9FB4;margin-top:4px">Closes <span id="pend">Jun 30 2026</span> - Vol $<span id="pvol">675K</span> USDC</div>
+    <div style="font-size:10px;color:#BBBBBB;margin-top:4px">Closes <span id="pend">Jun 30 2026</span> - Vol $<span id="pvol">675K</span> USDC</div>
     <div style="font-size:8px;margin-top:4px" id="plive" style="color:#D4AF37">Loading...</div>
   </div>
   <div class="stitle">Probability Distribution</div>
@@ -351,7 +351,7 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
   <div id="pdiv" style="margin-top:14px"></div>
   <div class="card" style="margin-top:10px">
     <div style="font-size:9px;color:#D4AF37;letter-spacing:2px;font-weight:700;text-transform:uppercase;margin-bottom:8px">How to read this</div>
-    <div style="font-size:10px;color:#B0B4C8;line-height:1.7">
+    <div style="font-size:10px;color:#CCCCCC;line-height:1.7">
       <b style="color:#E8EAF0">Strength:</b> Real USDC bets - skin in the game removes bias<br>
       <b style="color:#E8EAF0">Weakness:</b> Thin volume can be moved by few wallets<br>
       <b style="color:#E8EAF0">Agree:</b> High conviction - model and crowd aligned<br>
@@ -385,13 +385,13 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
       <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:10px;color:#E8EAF0;font-weight:600">Open Interest (paper claims)</span><span style="font-size:10px;font-weight:700;color:#38BDF8">~575M oz</span></div>
       <div style="height:10px;background:#2E3148;border-radius:5px;overflow:hidden"><div style="width:100%;height:100%;background:#38BDF8;border-radius:5px"></div></div>
     </div>
-    <div style="margin-top:10px;font-size:9px;color:#9A9FB4;line-height:1.7;border-top:1px solid #2E3148;padding-top:8px">Only 14.7% of paper claims have registered metal. If 25%+ demand delivery simultaneously - structural crisis.</div>
+    <div style="margin-top:10px;font-size:9px;color:#BBBBBB;line-height:1.7;border-top:1px solid #2E3148;padding-top:8px">Only 14.7% of paper claims have registered metal. If 25%+ demand delivery simultaneously - structural crisis.</div>
   </div>
   <div class="stitle">Registered Inventory Timeline</div>
   <div class="card" style="margin-bottom:14px" id="ctim"></div>
   <div class="stitle">What This Means for Price</div>
   <div id="cscen"></div>
-  <div class="card" style="border-color:#D4AF3733;background:#1A1C14;margin-top:6px">
+  <div class="card" style="border-color:#D4AF3733;background:#0D0B04;margin-top:6px">
     <div style="font-size:9px;color:#D4AF37;letter-spacing:2px;font-weight:700;text-transform:uppercase;margin-bottom:8px">Key Thresholds to Watch</div>
     <div id="cthr"></div>
   </div>
@@ -494,11 +494,11 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
   <!-- Category tabs -->
   <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:12px" id="risk-cats">
     <button onclick="filterRisk('all',this)" style="padding:4px 10px;font-size:9px;background:#D4AF37;color:#000;border:none;border-radius:4px;cursor:pointer;font-family:'Courier New',monospace;font-weight:700">ALL</button>
-    <button onclick="filterRisk('seismic',this)" style="padding:4px 10px;font-size:9px;background:#1C1E2A;color:#B0B4C8;border:1px solid #2E3148;border-radius:4px;cursor:pointer;font-family:'Courier New',monospace">SEISMIC</button>
-    <button onclick="filterRisk('weather',this)" style="padding:4px 10px;font-size:9px;background:#1C1E2A;color:#B0B4C8;border:1px solid #2E3148;border-radius:4px;cursor:pointer;font-family:'Courier New',monospace">WEATHER</button>
-    <button onclick="filterRisk('nuclear',this)" style="padding:4px 10px;font-size:9px;background:#1C1E2A;color:#B0B4C8;border:1px solid #2E3148;border-radius:4px;cursor:pointer;font-family:'Courier New',monospace">NUCLEAR</button>
-    <button onclick="filterRisk('geopolitical',this)" style="padding:4px 10px;font-size:9px;background:#1C1E2A;color:#B0B4C8;border:1px solid #2E3148;border-radius:4px;cursor:pointer;font-family:'Courier New',monospace">GEO-POL</button>
-    <button onclick="filterRisk('market',this)" style="padding:4px 10px;font-size:9px;background:#1C1E2A;color:#B0B4C8;border:1px solid #2E3148;border-radius:4px;cursor:pointer;font-family:'Courier New',monospace">MARKET</button>
+    <button onclick="filterRisk('seismic',this)" style="padding:4px 10px;font-size:9px;background:#1C1E2A;color:#CCCCCC;border:1px solid #2E3148;border-radius:4px;cursor:pointer;font-family:'Courier New',monospace">SEISMIC</button>
+    <button onclick="filterRisk('weather',this)" style="padding:4px 10px;font-size:9px;background:#1C1E2A;color:#CCCCCC;border:1px solid #2E3148;border-radius:4px;cursor:pointer;font-family:'Courier New',monospace">WEATHER</button>
+    <button onclick="filterRisk('nuclear',this)" style="padding:4px 10px;font-size:9px;background:#1C1E2A;color:#CCCCCC;border:1px solid #2E3148;border-radius:4px;cursor:pointer;font-family:'Courier New',monospace">NUCLEAR</button>
+    <button onclick="filterRisk('geopolitical',this)" style="padding:4px 10px;font-size:9px;background:#1C1E2A;color:#CCCCCC;border:1px solid #2E3148;border-radius:4px;cursor:pointer;font-family:'Courier New',monospace">GEO-POL</button>
+    <button onclick="filterRisk('market',this)" style="padding:4px 10px;font-size:9px;background:#1C1E2A;color:#CCCCCC;border:1px solid #2E3148;border-radius:4px;cursor:pointer;font-family:'Courier New',monospace">MARKET</button>
   </div>
 
   <!-- Risk Events List -->
@@ -519,7 +519,7 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
   <!-- Sources -->
   <div class="card" style="margin-top:8px">
     <div style="font-size:9px;color:#D4AF37;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">Live Data Sources</div>
-    <div style="font-size:10px;color:#B0B4C8;line-height:1.9">
+    <div style="font-size:10px;color:#CCCCCC;line-height:1.9">
       Seismic: USGS Earthquake Hazards (real-time, free)<br>
       Tsunami: NOAA Pacific Tsunami Warning Center (RSS)<br>
       Severe Weather: NOAA National Weather Service (RSS)<br>
@@ -582,10 +582,10 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
   </div>
 
   <!-- Silver Impact Signal -->
-  <div class="card" style="border-color:#D4AF3744;background:#1A1C14;margin-bottom:14px" id="macro-signal-card">
+  <div class="card" style="border-color:#D4AF3744;background:#0D0B04;margin-bottom:14px" id="macro-signal-card">
     <div style="font-size:9px;color:#D4AF37;letter-spacing:3px;text-transform:uppercase;margin-bottom:6px">Combined Macro Signal for Silver</div>
     <div style="font-size:24px;font-weight:700;margin-bottom:4px" id="macro-signal-val">Loading...</div>
-    <div style="font-size:11px;color:#B0B4C8;line-height:1.6" id="macro-signal-txt">Fetching macro data...</div>
+    <div style="font-size:11px;color:#CCCCCC;line-height:1.6" id="macro-signal-txt">Fetching macro data...</div>
     <div style="height:6px;background:#2E3148;border-radius:3px;overflow:hidden;margin-top:10px">
       <div id="macro-signal-bar" style="height:100%;border-radius:3px;background:#D4AF37;width:50%;transition:width 1s,background 1s"></div>
     </div>
@@ -638,7 +638,7 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
         <div style="font-size:9px;color:#8A8FA8;margin-top:2px">Updated Fridays</div>
       </div>
     </div>
-    <div style="font-size:10px;color:#B0B4C8;line-height:1.6" id="cot-detail">
+    <div style="font-size:10px;color:#CCCCCC;line-height:1.6" id="cot-detail">
       Spec longs deleveraging (111M vs 123M prior week) — still elevated but unwinding. Commercial shorts remain heavy. When specs approach 80M oz net long, setup for next rally improves significantly. Watch for commercial short covering as accumulation signal.
     </div>
   </div>
@@ -659,7 +659,7 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
   <!-- Data sources note -->
   <div class="card" style="margin-top:8px">
     <div style="font-size:9px;color:#D4AF37;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">Live Data Sources</div>
-    <div style="font-size:10px;color:#B0B4C8;line-height:1.9">
+    <div style="font-size:10px;color:#CCCCCC;line-height:1.9">
       Oil Brent/WTI: Yahoo Finance (BZ=F, CL=F)<br>
       DXY Dollar Index: Yahoo Finance (DX-Y.NYB)<br>
       US 10yr Treasury: Yahoo Finance (^TNX)<br>
@@ -731,12 +731,12 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
     <!-- Geographic Substitution Tracker -->
     <div class="card" style="border-color:#FB923C44;background:#120D05;margin-bottom:10px">
       <div style="font-size:9px;color:#FB923C;letter-spacing:3px;text-transform:uppercase;margin-bottom:8px">Geographic Substitution — Non-Traditional Sources</div>
-      <div style="font-size:10px;color:#B0B4C8;line-height:1.6;margin-bottom:10px">Silver being sourced from non-traditional refiners to meet delivery obligations. Lower purity, different bar markings, non-NY vault locations being approved.</div>
+      <div style="font-size:10px;color:#CCCCCC;line-height:1.6;margin-bottom:10px">Silver being sourced from non-traditional refiners to meet delivery obligations. Lower purity, different bar markings, non-NY vault locations being approved.</div>
       <div id="geo-sub-list"></div>
     </div>
 
     <!-- Manipulation Impact on Price -->
-    <div class="card" style="border-color:#D4AF3744;background:#1A1C14;margin-bottom:10px">
+    <div class="card" style="border-color:#D4AF3744;background:#0D0B04;margin-bottom:10px">
       <div style="font-size:9px;color:#D4AF37;letter-spacing:3px;text-transform:uppercase;margin-bottom:8px">Price Manipulation Impact Analysis</div>
       <div id="manip-impact"></div>
     </div>
@@ -764,7 +764,7 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
 <div class="sec">
 
   <!-- Signal Strength Meter -->
-  <div class="card" style="border-color:#D4AF3744;background:#1A1C14;margin-bottom:12px" id="ta-signal-card">
+  <div class="card" style="border-color:#D4AF3744;background:#0D0B04;margin-bottom:12px" id="ta-signal-card">
     <div style="font-size:9px;color:#D4AF37;letter-spacing:3px;text-transform:uppercase;margin-bottom:6px">Technical Signal Strength</div>
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
       <div>
@@ -834,7 +834,7 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
         <div style="font-size:9px;margin-top:2px" id="ta-spy-sig">--</div>
       </div>
     </div>
-    <div style="font-size:10px;color:#B0B4C8;line-height:1.7" id="ta-context">
+    <div style="font-size:10px;color:#CCCCCC;line-height:1.7" id="ta-context">
       Loading market context...
     </div>
   </div>
@@ -851,7 +851,7 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
 <div class="sec">
   <div class="stitle">Signal & Prediction Tracker</div>
 
-  <div class="card" style="border-color:#D4AF3744;background:#1A1C14;margin-bottom:14px">
+  <div class="card" style="border-color:#D4AF3744;background:#0D0B04;margin-bottom:14px">
     <div style="font-size:9px;color:#D4AF37;letter-spacing:3px;text-transform:uppercase;margin-bottom:8px">Track Record</div>
     <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:8px">
       <div style="background:#161820;border-radius:6px;padding:8px;text-align:center">
@@ -925,15 +925,15 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
   </div>
   <div class="card" style="border:1px solid #3DBA7A44;margin-bottom:8px">
     <div style="font-size:9px;color:#3DBA7A;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">Bull Case Long-Term</div>
-    <div style="font-size:11px;color:#C8CCE0;line-height:1.7">Solar/EV demand 59% of total growing 15%/yr. 6th consecutive 46Moz+ deficit. SHFE premium +$9/oz Asian accumulation. Gold/Silver ratio 63x - silver cheap vs gold historically.</div>
+    <div style="font-size:11px;color:#C8CCE0;line-height:1.7">Solar/EV demand 59% of total growing 15%/yr. 6th consecutive 46Moz+ deficit. SHFE premium +$9/oz Asian accumulation. Gold/Silver ratio historically signals silver outperformance.</div>
   </div>
   <div class="card" style="border:1px solid #E0555544;margin-bottom:8px">
     <div style="font-size:9px;color:#E05555;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">Bear Case Now</div>
-    <div style="font-size:11px;color:#C8CCE0;line-height:1.7">Hot CPI 4.2%+ confirmed Jun 10. 200-day MA $67.92 broken. Fed rate hike 72% probability Dec 2026. USD/DXY strengthening. CoinCodex $61.66 by Jun 15 algorithmic forecast.</div>
+    <div style="font-size:11px;color:#C8CCE0;line-height:1.7">Hot CPI 4.2%+ confirmed Jun 10. 200-day MA $67.92 broken. Fed rate hike 72% probability Dec 2026. USD strengthening. Wait for $62-63 base before re-entry.</div>
   </div>
   <div class="card" style="border:1px solid #D4AF3744">
     <div style="font-size:9px;color:#D4AF37;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">Rocky Silver View</div>
-    <div style="font-size:11px;color:#C8CCE0;line-height:1.7">SHORT: Do not buy yet. $65 broken. Wait $62-63 base. MED: Jul recovery likely. PPI Thursday key catalyst. LONG: $85-93 YE target intact. Jackson Hole Aug 17 is THE re-entry signal.</div>
+    <div style="font-size:11px;color:#C8CCE0;line-height:1.7">SHORT: Do not buy yet. Wait $62-63 base. MED: Jul recovery likely. LONG: $85-93 YE target intact. Jackson Hole Aug 17 is THE re-entry signal. 2024 precedent: +25% in 6 weeks after Jackson Hole.</div>
   </div>
 </div>
 </div>
@@ -943,8 +943,8 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
 <div class="sec">
   <div class="stitle">Full Year Intelligence 2025-2026</div>
   <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:10px">
-    <div class="card" style="text-align:center"><div style="font-size:8px;color:#8A8FA8;text-transform:uppercase">Jan 2025</div><div style="font-size:16px;font-weight:700;color:#3DBA7A;margin-top:4px">$30.50</div></div>
-    <div class="card" style="text-align:center"><div style="font-size:8px;color:#8A8FA8;text-transform:uppercase">Peak Apr 2026</div><div style="font-size:16px;font-weight:700;color:#D4AF37;margin-top:4px">$95.30</div></div>
+    <div class="card" style="text-align:center"><div style="font-size:8px;color:#8A8FA8;text-transform:uppercase">Jan 2025</div><div style="font-size:16px;font-weight:700;color:#3DBA7A;margin-top:4px">$29.80</div></div>
+    <div class="card" style="text-align:center"><div style="font-size:8px;color:#8A8FA8;text-transform:uppercase">Now</div><div style="font-size:16px;font-weight:700;color:#E05555;margin-top:4px">$67.44</div></div>
     <div class="card" style="text-align:center"><div style="font-size:8px;color:#8A8FA8;text-transform:uppercase">YE Target</div><div style="font-size:16px;font-weight:700;color:#3DBA7A;margin-top:4px">$85-93</div></div>
   </div>
   <div class="card" style="margin-bottom:8px">
@@ -952,14 +952,14 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
     <div style="font-size:10px">
       <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #2E3148"><span style="color:#C8CCE0">Q1 2025</span><span style="color:#3DBA7A">$29-34</span><span style="color:#3DBA7A">Accumulation</span></div>
       <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #2E3148"><span style="color:#C8CCE0">Q2 2025</span><span style="color:#3DBA7A">$32-38</span><span style="color:#3DBA7A">Breakout</span></div>
-      <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #2E3148"><span style="color:#C8CCE0">Q3 2025</span><span style="color:#D4AF37">$30-36</span><span style="color:#D4AF37">Consolidation</span></div>
-      <div style="display:flex;justify-content:space-between;padding:5px 0"><span style="color:#C8CCE0">Q4 2025</span><span style="color:#3DBA7A">$29-33</span><span style="color:#3DBA7A">Base building</span></div>
+      <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #2E3148"><span style="color:#C8CCE0">Q3 2025</span><span style="color:#D4AF37">$36-42</span><span style="color:#D4AF37">Consolidation</span></div>
+      <div style="display:flex;justify-content:space-between;padding:5px 0"><span style="color:#C8CCE0">Q4 2025</span><span style="color:#3DBA7A">$40-46</span><span style="color:#3DBA7A">Base building</span></div>
     </div>
   </div>
   <div class="card" style="margin-bottom:8px">
     <div style="font-size:9px;color:#D4AF37;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">2026 Monthly Forecast</div>
     <div style="font-size:10px">
-      <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #2E3148"><span style="color:#C8CCE0">Jun 2026</span><span style="color:#E05555">$61-67</span><span style="color:#E05555">BEARISH - CPI</span></div>
+      <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #2E3148"><span style="color:#C8CCE0">Jun 2026</span><span style="color:#E05555">$61-67</span><span style="color:#E05555">BEARISH</span></div>
       <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #2E3148"><span style="color:#C8CCE0">Jul 2026</span><span style="color:#3DBA7A">$70-76</span><span style="color:#3DBA7A">RECOVERY</span></div>
       <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #2E3148"><span style="color:#C8CCE0">Aug 2026</span><span style="color:#D4AF37">$72-80</span><span style="color:#D4AF37">Jackson Hole</span></div>
       <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #2E3148"><span style="color:#C8CCE0">Sep 2026</span><span style="color:#3DBA7A">$76-84</span><span style="color:#3DBA7A">BULLISH</span></div>
@@ -968,8 +968,8 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
     </div>
   </div>
   <div class="card" style="border:1px solid #3DBA7A44">
-    <div style="font-size:9px;color:#3DBA7A;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">Jackson Hole Catalyst</div>
-    <div style="font-size:11px;color:#C8CCE0;line-height:1.7">Aug 17 Powell speech is THE moment. Wait for $62-63 base Jun/Jul. Position ahead of Jackson Hole for Aug-Dec rally. Year-end target $85-93 intact despite CPI shock. 2024 precedent: silver +25% in 6 weeks after Jackson Hole.</div>
+    <div style="font-size:9px;color:#3DBA7A;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">Jackson Hole Aug 17 Catalyst</div>
+    <div style="font-size:11px;color:#C8CCE0;line-height:1.7">Wait for $62-63 base Jun/Jul. Position ahead of Jackson Hole for Aug-Dec rally. Year-end $85-93 intact despite CPI shock. 2024: silver +25% in 6 weeks after Jackson Hole.</div>
   </div>
 </div>
 </div>
@@ -982,8 +982,8 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
     <div style="font-size:9px;color:#3DBA7A;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">XAG/USD to IG DFB Pence Converter</div>
     <div style="font-size:9px;color:#8A8FA8;margin-bottom:8px">Formula: IG pence = round(USD / GBP_USD x 100) + 937</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
-      <div><div style="font-size:8px;color:#8A8FA8;text-transform:uppercase;margin-bottom:3px">XAG/USD Price</div><input id="convUSD" type="number" value="67.44" step="0.01" oninput="convertIGPrice()" style="width:100%;background:#161820;border:1px solid #2E3148;color:#E8EAF0;padding:6px;font-family:inherit;font-size:11px;border-radius:4px"></div>
-      <div><div style="font-size:8px;color:#8A8FA8;text-transform:uppercase;margin-bottom:3px">GBP/USD Rate</div><input id="convGBP" type="number" value="1.2750" step="0.0001" oninput="convertIGPrice()" style="width:100%;background:#161820;border:1px solid #2E3148;color:#E8EAF0;padding:6px;font-family:inherit;font-size:11px;border-radius:4px"></div>
+      <div><div style="font-size:8px;color:#8A8FA8;text-transform:uppercase;margin-bottom:3px">XAG/USD</div><input id="convUSD" type="number" value="67.44" step="0.01" oninput="convertIGPrice()" style="width:100%;background:#161820;border:1px solid #2E3148;color:#E8EAF0;padding:6px;font-family:inherit;font-size:11px;border-radius:4px"></div>
+      <div><div style="font-size:8px;color:#8A8FA8;text-transform:uppercase;margin-bottom:3px">GBP/USD</div><input id="convGBP" type="number" value="1.2750" step="0.0001" oninput="convertIGPrice()" style="width:100%;background:#161820;border:1px solid #2E3148;color:#E8EAF0;padding:6px;font-family:inherit;font-size:11px;border-radius:4px"></div>
     </div>
     <div style="background:#D4AF3715;border:1px solid #D4AF3744;border-radius:6px;padding:10px;text-align:center">
       <div style="font-size:9px;color:#D4AF37;text-transform:uppercase;margin-bottom:3px">IG DFB Pence</div>
@@ -998,8 +998,8 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
       <div><div style="font-size:8px;color:#8A8FA8;text-transform:uppercase;margin-bottom:3px">Per Point (GBP)</div><input id="plSize" type="number" value="0.50" step="0.10" style="width:100%;background:#161820;border:1px solid #2E3148;color:#E8EAF0;padding:6px;font-family:inherit;font-size:11px;border-radius:4px"></div>
       <div><div style="font-size:8px;color:#8A8FA8;text-transform:uppercase;margin-bottom:3px">Direction</div><select id="plDir" style="width:100%;background:#161820;border:1px solid #2E3148;color:#E8EAF0;padding:6px;font-family:inherit;font-size:11px;border-radius:4px"><option value="long">LONG</option><option value="short">SHORT</option></select></div>
     </div>
-    <button onclick="calcIGPL()" style="width:100%;padding:8px;background:#3DBA7A20;color:#3DBA7A;border:1px solid #3DBA7A44;border-radius:4px;font-family:inherit;font-size:10px;cursor:pointer">Calculate P&L</button>
-    <div id="plResult" style="display:none;margin-top:10px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px">
+    <button onclick="calcIGPL()" style="width:100%;padding:8px;background:#3DBA7A20;color:#3DBA7A;border:1px solid #3DBA7A44;border-radius:4px;font-family:inherit;font-size:10px;cursor:pointer;letter-spacing:1px">CALCULATE P&L</button>
+    <div id="plResult" style="margin-top:10px;display:none;grid-template-columns:1fr 1fr 1fr;gap:6px">
       <div style="background:#161820;border-radius:6px;padding:8px;text-align:center"><div style="font-size:8px;color:#8A8FA8">Points</div><div id="plPts" style="font-size:18px;font-weight:700;margin-top:3px">-</div></div>
       <div style="background:#161820;border-radius:6px;padding:8px;text-align:center"><div style="font-size:8px;color:#8A8FA8">P&L</div><div id="plVal" style="font-size:18px;font-weight:700;margin-top:3px">-</div></div>
       <div style="background:#161820;border-radius:6px;padding:8px;text-align:center"><div style="font-size:8px;color:#8A8FA8">Move %</div><div id="plPct" style="font-size:18px;font-weight:700;margin-top:3px">-</div></div>
@@ -1012,7 +1012,7 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
       <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #2E3148"><span style="color:#C8CCE0">$80 Target</span><span style="color:#3DBA7A">~7,330p</span></div>
       <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #2E3148"><span style="color:#C8CCE0">$67.92 200MA</span><span style="color:#E05555">~6,284p BROKEN</span></div>
       <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #2E3148"><span style="color:#C8CCE0">$65 Floor</span><span style="color:#D4AF37">~6,062p Watch</span></div>
-      <div style="display:flex;justify-content:space-between;padding:4px 0"><span style="color:#C8CCE0">$62 Base Target</span><span style="color:#3DBA7A">~5,791p Buy zone</span></div>
+      <div style="display:flex;justify-content:space-between;padding:4px 0"><span style="color:#C8CCE0">$62 Base</span><span style="color:#3DBA7A">~5,791p Buy zone</span></div>
     </div>
   </div>
 </div>
@@ -1025,21 +1025,21 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
   <div class="card" style="border:1px solid #E0555544;margin-bottom:8px">
     <div style="font-size:9px;color:#E05555;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">CPI by Country - Jun 2026</div>
     <div style="font-size:10px">
-      <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #2E3148"><span style="color:#E8EAF0;font-weight:700">🇺🇸 USA</span><span style="color:#E05555;font-weight:700">4.2%</span><span style="color:#E05555">HOT - Bearish</span></div>
-      <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #2E3148"><span style="color:#E8EAF0">🇬🇧 UK</span><span style="color:#D4AF37">2.8%</span><span style="color:#D4AF37">Above target</span></div>
-      <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #2E3148"><span style="color:#E8EAF0">🇪🇺 Eurozone</span><span style="color:#D4AF37">3.2%</span><span style="color:#D4AF37">Elevated</span></div>
-      <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #2E3148"><span style="color:#E8EAF0">🇨🇦 Canada</span><span style="color:#D4AF37">2.9%</span><span style="color:#D4AF37">Moderating</span></div>
-      <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #2E3148"><span style="color:#E8EAF0">🇨🇳 China</span><span style="color:#3DBA7A">1.2%</span><span style="color:#3DBA7A">Low - buying dip</span></div>
-      <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #2E3148"><span style="color:#E8EAF0">🇮🇳 India</span><span style="color:#D4AF37">4.8%</span><span style="color:#3DBA7A">Physical demand</span></div>
-      <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #2E3148"><span style="color:#E8EAF0">🇯🇵 Japan</span><span style="color:#D4AF37">2.1%</span><span style="color:#D4AF37">Rising slowly</span></div>
-      <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #2E3148"><span style="color:#E8EAF0">🇧🇷 Brazil</span><span style="color:#E05555">5.8%</span><span style="color:#3DBA7A">Silver hedge</span></div>
-      <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #2E3148"><span style="color:#E8EAF0">🇿🇦 S.Africa</span><span style="color:#E05555">5.2%</span><span style="color:#3DBA7A">Top producer</span></div>
-      <div style="display:flex;justify-content:space-between;padding:6px 0"><span style="color:#E8EAF0">🇹🇷 Turkey</span><span style="color:#E05555">68.0%</span><span style="color:#3DBA7A">Silver as hedge</span></div>
+      <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #2E3148"><span style="color:#E8EAF0;font-weight:700">USA</span><span style="color:#E05555;font-weight:700">4.2%</span><span style="color:#E05555">HOT - Bearish</span></div>
+      <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #2E3148"><span style="color:#E8EAF0">UK</span><span style="color:#D4AF37">2.8%</span><span style="color:#D4AF37">Above target</span></div>
+      <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #2E3148"><span style="color:#E8EAF0">Eurozone</span><span style="color:#D4AF37">3.2%</span><span style="color:#D4AF37">Elevated</span></div>
+      <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #2E3148"><span style="color:#E8EAF0">Canada</span><span style="color:#D4AF37">2.9%</span><span style="color:#D4AF37">Moderating</span></div>
+      <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #2E3148"><span style="color:#E8EAF0">China</span><span style="color:#3DBA7A">1.2%</span><span style="color:#3DBA7A">Low - buying</span></div>
+      <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #2E3148"><span style="color:#E8EAF0">India</span><span style="color:#D4AF37">4.8%</span><span style="color:#3DBA7A">Physical demand</span></div>
+      <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #2E3148"><span style="color:#E8EAF0">Japan</span><span style="color:#D4AF37">2.1%</span><span style="color:#D4AF37">Rising</span></div>
+      <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #2E3148"><span style="color:#E8EAF0">Brazil</span><span style="color:#E05555">5.8%</span><span style="color:#3DBA7A">Silver hedge</span></div>
+      <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #2E3148"><span style="color:#E8EAF0">South Africa</span><span style="color:#E05555">5.2%</span><span style="color:#3DBA7A">Top producer</span></div>
+      <div style="display:flex;justify-content:space-between;padding:6px 0"><span style="color:#E8EAF0">Turkey</span><span style="color:#E05555">68.0%</span><span style="color:#3DBA7A">Silver as hedge</span></div>
     </div>
   </div>
   <div class="card">
-    <div style="font-size:9px;color:#D4AF37;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">Silver Impact Analysis</div>
-    <div style="font-size:11px;color:#C8CCE0;line-height:1.7">US hot CPI (4.2%+) is the primary headwind - delays Fed cuts, strengthens USD, pressures silver price. However global physical demand from inflation-hedge buyers (India, Turkey, Brazil, EM) provides structural floor. Watch for CPI rolling over below 3% as the key re-entry signal for silver longs.</div>
+    <div style="font-size:9px;color:#D4AF37;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">Silver Impact</div>
+    <div style="font-size:11px;color:#C8CCE0;line-height:1.7">US hot CPI (4.2%+) delays Fed cuts and strengthens USD - primary headwind for silver. However global physical demand from inflation-hedge buyers (India, Turkey, Brazil) provides structural floor. Watch for CPI rolling below 3% as the re-entry signal.</div>
   </div>
 </div>
 </div>
@@ -1050,16 +1050,16 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
   <div style="text-align:center;padding:30px 0 15px">
     <div style="font-size:32px;margin-bottom:10px">🔒</div>
     <div style="font-size:9px;letter-spacing:3px;color:#D4AF37;text-transform:uppercase;margin-bottom:4px">MarketOracle</div>
-    <div style="font-size:11px;color:#8A8FA8">Admin Access . Rocky Silver MI v3</div>
+    <div style="font-size:11px;color:#8A8FA8">Admin Access - Rocky Silver MI v3</div>
   </div>
   <div class="card" style="border:1px solid #D4AF3744;margin-bottom:10px">
     <div style="font-size:9px;color:#D4AF37;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px">Sign In</div>
     <div style="margin-bottom:8px">
-      <div style="font-size:8px;color:#8A8FA8;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">Username or Email</div>
+      <div style="font-size:8px;color:#8A8FA8;text-transform:uppercase;margin-bottom:4px">Username or Email</div>
       <input id="admin-user" type="text" placeholder="123Rocky@trade" style="width:100%;background:#161820;border:1px solid #2E3148;border-radius:6px;padding:8px;color:#E8EAF0;font-family:inherit;font-size:11px;outline:none">
     </div>
     <div style="margin-bottom:12px">
-      <div style="font-size:8px;color:#8A8FA8;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">Password</div>
+      <div style="font-size:8px;color:#8A8FA8;text-transform:uppercase;margin-bottom:4px">Password</div>
       <input id="admin-pass" type="password" placeholder="..." style="width:100%;background:#161820;border:1px solid #2E3148;border-radius:6px;padding:8px;color:#E8EAF0;font-family:inherit;font-size:11px;outline:none">
     </div>
     <button onclick="adminLogin()" style="width:100%;padding:10px;background:#D4AF37;color:#000;border:none;border-radius:6px;font-family:inherit;font-size:11px;font-weight:700;cursor:pointer;letter-spacing:1px">SIGN IN</button>
@@ -1069,7 +1069,6 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
     <button onclick="showAdminForgot()" style="background:none;border:none;color:#8A8FA8;font-size:10px;font-family:inherit;cursor:pointer;text-decoration:underline">Forgot password?</button>
   </div>
 </div>
-
 <div id="admin-forgot" class="sec" style="display:none">
   <div style="text-align:center;padding:20px 0 10px"><div style="font-size:28px">🔑</div><div style="font-size:9px;letter-spacing:3px;color:#D4AF37;text-transform:uppercase;margin-top:6px">Reset Password</div></div>
   <div class="card" style="margin-bottom:8px">
@@ -1079,23 +1078,22 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
   </div>
   <div style="text-align:center"><button onclick="showAdminLogin()" style="background:none;border:none;color:#8A8FA8;font-size:10px;font-family:inherit;cursor:pointer;text-decoration:underline">Back to login</button></div>
 </div>
-
 <div id="admin-panel" class="sec" style="display:none">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
-    <div><div style="font-size:9px;letter-spacing:3px;color:#D4AF37;text-transform:uppercase">Admin Panel</div><div style="font-size:10px;color:#3DBA7A;margin-top:2px">Logged in as 123Rocky@trade</div></div>
+    <div><div style="font-size:9px;letter-spacing:3px;color:#D4AF37;text-transform:uppercase">Admin Panel</div><div style="font-size:10px;color:#3DBA7A;margin-top:2px">Logged in: 123Rocky@trade</div></div>
     <button onclick="adminLogout()" style="padding:5px 10px;background:#E0555520;color:#E05555;border:1px solid #E0555544;border-radius:4px;font-family:inherit;font-size:9px;cursor:pointer">LOGOUT</button>
   </div>
   <div class="card" style="border:1px solid #D4AF3744;margin-bottom:8px">
     <div style="font-size:9px;color:#D4AF37;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px">AI Function Controls</div>
-    <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #2E3148"><div><div style="font-size:11px;color:#E8EAF0">Live Price Feed</div><div style="font-size:9px;color:#8A8FA8">Swissquote / Alpha Vantage</div></div><button onclick="toggleAI('price')" id="btn-price" style="padding:4px 12px;border-radius:4px;font-family:inherit;font-size:9px;font-weight:700;cursor:pointer;border:none;background:#3DBA7A;color:#000">ON</button></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #2E3148"><div><div style="font-size:11px;color:#E8EAF0">Live Price Feed</div><div style="font-size:9px;color:#8A8FA8">Swissquote</div></div><button onclick="toggleAI('price')" id="btn-price" style="padding:4px 12px;border-radius:4px;font-family:inherit;font-size:9px;font-weight:700;cursor:pointer;border:none;background:#3DBA7A;color:#000">ON</button></div>
     <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #2E3148"><div><div style="font-size:11px;color:#E8EAF0">News Feed</div><div style="font-size:9px;color:#8A8FA8">Live silver news</div></div><button onclick="toggleAI('news')" id="btn-news" style="padding:4px 12px;border-radius:4px;font-family:inherit;font-size:9px;font-weight:700;cursor:pointer;border:none;background:#3DBA7A;color:#000">ON</button></div>
     <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0"><div><div style="font-size:11px;color:#E8EAF0">Polymarket Feed</div><div style="font-size:9px;color:#8A8FA8">Crowd odds</div></div><button onclick="toggleAI('poly')" id="btn-poly" style="padding:4px 12px;border-radius:4px;font-family:inherit;font-size:9px;font-weight:700;cursor:pointer;border:none;background:#3DBA7A;color:#000">ON</button></div>
     <button onclick="killAllAI()" style="width:100%;margin-top:10px;padding:8px;background:#E0555520;color:#E05555;border:1px solid #E0555544;border-radius:6px;font-family:inherit;font-size:10px;font-weight:700;cursor:pointer">EMERGENCY STOP - KILL ALL AI</button>
-    <button onclick="restoreAllAI()" style="width:100%;margin-top:6px;padding:8px;background:#3DBA7A20;color:#3DBA7A;border:1px solid #3DBA7A44;border-radius:6px;font-family:inherit;font-size:10px;font-weight:700;cursor:pointer">RESTORE ALL AI FUNCTIONS</button>
+    <button onclick="restoreAllAI()" style="width:100%;margin-top:6px;padding:8px;background:#3DBA7A20;color:#3DBA7A;border:1px solid #3DBA7A44;border-radius:6px;font-family:inherit;font-size:10px;font-weight:700;cursor:pointer">RESTORE ALL AI</button>
   </div>
   <div class="card" style="border:1px solid #818CF844;margin-bottom:8px">
     <div style="font-size:9px;color:#818CF8;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">Security Centre</div>
-    <input type="file" id="av-upload" accept=".json,.txt,.js,.conf,.zip" style="display:none" onchange="handleAVUpload(this)">
+    <input type="file" id="av-upload" accept=".json,.txt,.js,.zip" style="display:none" onchange="handleAVUpload(this)">
     <button onclick="document.getElementById('av-upload').click()" style="width:100%;padding:8px;background:#818CF820;color:#818CF8;border:1px solid #818CF844;border-radius:4px;font-family:inherit;font-size:10px;cursor:pointer">Upload Security File</button>
     <div id="av-status" style="display:none;margin-top:8px;font-size:10px;color:#3DBA7A"></div>
   </div>
@@ -1107,153 +1105,14 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
   </div>
 </div>
 </div>
+
+<div id="ftr">
   Sources: Silver Institute BloombergNEF ING UBS Metals Focus Federal Reserve GoldSilver.com Polymarket CME Group Alpha Vantage<br>
   <span style="color:#E05555">NOT FINANCIAL ADVICE.</span> Model-generated. Consult a qualified advisor.
 </div>
 
 <script>
 var AV_KEY = "THT8QBBLU72ZIKGJ";
-
-// ---- 2025 HISTORICAL DATA ----
-var HISTORICAL_2025 = [
-  {date:"2025-01-02",price:29.80,open:29.50,hi:30.10,lo:29.30,real:true,label:"2 Jan",month:"Jan 2025"},
-  {date:"2025-01-06",price:29.45,open:29.80,hi:30.00,lo:29.20,real:true,label:"6 Jan",month:"Jan 2025"},
-  {date:"2025-01-13",price:30.20,open:29.45,hi:30.50,lo:29.10,real:true,label:"13 Jan",month:"Jan 2025"},
-  {date:"2025-01-20",price:30.80,open:30.20,hi:31.10,lo:30.00,real:true,label:"20 Jan",month:"Jan 2025"},
-  {date:"2025-01-27",price:31.50,open:30.80,hi:31.90,lo:30.60,real:true,label:"27 Jan",month:"Jan 2025"},
-  {date:"2025-02-03",price:31.20,open:31.50,hi:31.80,lo:30.90,real:true,label:"3 Feb",month:"Feb 2025"},
-  {date:"2025-02-10",price:32.40,open:31.20,hi:32.80,lo:31.00,real:true,label:"10 Feb",month:"Feb 2025"},
-  {date:"2025-02-17",price:33.10,open:32.40,hi:33.50,lo:32.10,real:true,label:"17 Feb",month:"Feb 2025"},
-  {date:"2025-02-24",price:32.60,open:33.10,hi:33.40,lo:32.20,real:true,label:"24 Feb",month:"Feb 2025"},
-  {date:"2025-03-03",price:33.80,open:32.60,hi:34.20,lo:32.40,real:true,label:"3 Mar",month:"Mar 2025"},
-  {date:"2025-03-10",price:34.50,open:33.80,hi:34.90,lo:33.60,real:true,label:"10 Mar",month:"Mar 2025"},
-  {date:"2025-03-17",price:33.20,open:34.50,hi:34.80,lo:32.90,real:true,label:"17 Mar",month:"Mar 2025"},
-  {date:"2025-03-24",price:33.90,open:33.20,hi:34.30,lo:33.00,real:true,label:"24 Mar",month:"Mar 2025"},
-  {date:"2025-03-31",price:34.10,open:33.90,hi:34.50,lo:33.70,real:true,label:"31 Mar",month:"Mar 2025"},
-  {date:"2025-04-07",price:30.50,open:34.10,hi:34.20,lo:30.10,real:true,label:"7 Apr",month:"Apr 2025"},
-  {date:"2025-04-14",price:32.30,open:30.50,hi:32.80,lo:30.20,real:true,label:"14 Apr",month:"Apr 2025"},
-  {date:"2025-04-22",price:33.60,open:32.30,hi:34.00,lo:32.10,real:true,label:"22 Apr",month:"Apr 2025"},
-  {date:"2025-04-28",price:33.00,open:33.60,hi:33.90,lo:32.70,real:true,label:"28 Apr",month:"Apr 2025"},
-  {date:"2025-05-05",price:32.40,open:33.00,hi:33.20,lo:32.00,real:true,label:"5 May",month:"May 2025"},
-  {date:"2025-05-12",price:32.80,open:32.40,hi:33.10,lo:32.20,real:true,label:"12 May",month:"May 2025"},
-  {date:"2025-05-19",price:33.50,open:32.80,hi:33.80,lo:32.60,real:true,label:"19 May",month:"May 2025"},
-  {date:"2025-05-27",price:34.20,open:33.50,hi:34.60,lo:33.30,real:true,label:"27 May",month:"May 2025"},
-  {date:"2025-06-02",price:35.10,open:34.20,hi:35.50,lo:34.00,real:true,label:"2 Jun",month:"Jun 2025"},
-  {date:"2025-06-09",price:35.80,open:35.10,hi:36.20,lo:34.90,real:true,label:"9 Jun",month:"Jun 2025"},
-  {date:"2025-06-16",price:36.40,open:35.80,hi:36.80,lo:35.60,real:true,label:"16 Jun",month:"Jun 2025"},
-  {date:"2025-06-23",price:35.90,open:36.40,hi:36.70,lo:35.50,real:true,label:"23 Jun",month:"Jun 2025"},
-  {date:"2025-06-30",price:36.20,open:35.90,hi:36.60,lo:35.70,real:true,label:"30 Jun",month:"Jun 2025"},
-  {date:"2025-07-07",price:35.60,open:36.20,hi:36.40,lo:35.30,real:true,label:"7 Jul",month:"Jul 2025"},
-  {date:"2025-07-14",price:36.80,open:35.60,hi:37.10,lo:35.40,real:true,label:"14 Jul",month:"Jul 2025"},
-  {date:"2025-07-21",price:37.50,open:36.80,hi:37.90,lo:36.60,real:true,label:"21 Jul",month:"Jul 2025"},
-  {date:"2025-07-28",price:38.20,open:37.50,hi:38.60,lo:37.30,real:true,label:"28 Jul",month:"Jul 2025"},
-  {date:"2025-08-04",price:37.80,open:38.20,hi:38.50,lo:37.50,real:true,label:"4 Aug",month:"Aug 2025"},
-  {date:"2025-08-11",price:38.90,open:37.80,hi:39.20,lo:37.60,real:true,label:"11 Aug",month:"Aug 2025"},
-  {date:"2025-08-18",price:39.60,open:38.90,hi:40.00,lo:38.70,real:true,label:"18 Aug",month:"Aug 2025"},
-  {date:"2025-08-25",price:40.20,open:39.60,hi:40.60,lo:39.40,real:true,label:"25 Aug",month:"Aug 2025"},
-  {date:"2025-09-02",price:39.80,open:40.20,hi:40.50,lo:39.50,real:true,label:"2 Sep",month:"Sep 2025"},
-  {date:"2025-09-08",price:40.50,open:39.80,hi:40.90,lo:39.60,real:true,label:"8 Sep",month:"Sep 2025"},
-  {date:"2025-09-15",price:41.20,open:40.50,hi:41.60,lo:40.30,real:true,label:"15 Sep",month:"Sep 2025"},
-  {date:"2025-09-22",price:40.80,open:41.20,hi:41.50,lo:40.50,real:true,label:"22 Sep",month:"Sep 2025"},
-  {date:"2025-09-29",price:41.50,open:40.80,hi:41.90,lo:40.60,real:true,label:"29 Sep",month:"Sep 2025"},
-  {date:"2025-10-06",price:40.90,open:41.50,hi:41.80,lo:40.60,real:true,label:"6 Oct",month:"Oct 2025"},
-  {date:"2025-10-13",price:41.80,open:40.90,hi:42.10,lo:40.70,real:true,label:"13 Oct",month:"Oct 2025"},
-  {date:"2025-10-20",price:42.50,open:41.80,hi:42.90,lo:41.60,real:true,label:"20 Oct",month:"Oct 2025"},
-  {date:"2025-10-27",price:43.10,open:42.50,hi:43.50,lo:42.30,real:true,label:"27 Oct",month:"Oct 2025"},
-  {date:"2025-11-03",price:42.70,open:43.10,hi:43.40,lo:42.40,real:true,label:"3 Nov",month:"Nov 2025"},
-  {date:"2025-11-10",price:43.40,open:42.70,hi:43.80,lo:42.50,real:true,label:"10 Nov",month:"Nov 2025"},
-  {date:"2025-11-17",price:44.10,open:43.40,hi:44.50,lo:43.20,real:true,label:"17 Nov",month:"Nov 2025"},
-  {date:"2025-11-24",price:43.80,open:44.10,hi:44.40,lo:43.50,real:true,label:"24 Nov",month:"Nov 2025"},
-  {date:"2025-12-01",price:44.50,open:43.80,hi:44.90,lo:43.60,real:true,label:"1 Dec",month:"Dec 2025"},
-  {date:"2025-12-08",price:45.20,open:44.50,hi:45.60,lo:44.30,real:true,label:"8 Dec",month:"Dec 2025"},
-  {date:"2025-12-15",price:44.80,open:45.20,hi:45.50,lo:44.50,real:true,label:"15 Dec",month:"Dec 2025"},
-  {date:"2025-12-22",price:29.50,open:44.80,hi:45.10,lo:29.20,real:true,label:"22 Dec",month:"Dec 2025"},
-  {date:"2025-12-29",price:29.14,open:29.50,hi:29.70,lo:28.90,real:true,label:"29 Dec",month:"Dec 2025"}
-];
-
-// ---- ADMIN FUNCTIONS ----
-var ADMIN_USERS=[{username:'123Rocky@trade',email:'portosantozezo@yahoo.co.uk',password:'Rocky123y.'}];
-var adminLoggedIn=false;
-var aiStates={price:true,news:true,poly:true};
-
-function adminLogin(){
-  var u=(document.getElementById('admin-user').value||'').trim();
-  var p=(document.getElementById('admin-pass').value||'').trim();
-  var match=ADMIN_USERS.find(function(a){return(a.username===u||a.email===u)&&a.password===p;});
-  if(match){
-    adminLoggedIn=true;
-    document.getElementById('admin-login').style.display='none';
-    document.getElementById('admin-panel').style.display='block';
-    document.getElementById('admin-error').style.display='none';
-  }else{
-    document.getElementById('admin-error').style.display='block';
-    document.getElementById('admin-pass').value='';
-  }
-}
-function adminLogout(){
-  adminLoggedIn=false;
-  document.getElementById('admin-panel').style.display='none';
-  document.getElementById('admin-login').style.display='block';
-  document.getElementById('admin-user').value='';
-  document.getElementById('admin-pass').value='';
-}
-function showAdminForgot(){document.getElementById('admin-login').style.display='none';document.getElementById('admin-forgot').style.display='block';}
-function showAdminLogin(){document.getElementById('admin-forgot').style.display='none';document.getElementById('admin-login').style.display='block';}
-function adminForgot(){
-  var email=(document.getElementById('forgot-email').value||'').trim();
-  var match=ADMIN_USERS.find(function(a){return a.email===email;});
-  var msg=document.getElementById('forgot-msg');msg.style.display='block';
-  if(match){msg.style.color='#3DBA7A';msg.textContent='Reset instructions sent to '+email;}
-  else{msg.style.color='#E05555';msg.textContent='Email not found in system.';}
-}
-function toggleAI(key){
-  aiStates[key]=!aiStates[key];
-  var btn=document.getElementById('btn-'+key);
-  if(aiStates[key]){btn.textContent='ON';btn.style.background='#3DBA7A';btn.style.color='#000';}
-  else{btn.textContent='OFF';btn.style.background='#E05555';btn.style.color='#fff';}
-}
-function killAllAI(){Object.keys(aiStates).forEach(function(k){if(aiStates[k]){aiStates[k]=true;toggleAI(k);}});}
-function restoreAllAI(){Object.keys(aiStates).forEach(function(k){if(!aiStates[k]){aiStates[k]=false;toggleAI(k);}});}
-function handleAVUpload(input){var file=input.files[0];if(!file)return;var s=document.getElementById('av-status');s.style.display='block';s.textContent='File received: '+file.name+' - staged for deployment';}
-function forceRefreshAll(){try{fetchPrice();fetchPoly();fetchNews();}catch(e){}var m=document.getElementById('override-msg');m.style.display='block';m.textContent='All data refreshed '+new Date().toLocaleTimeString();}
-function clearAllCache(){try{localStorage.clear();}catch(e){}var m=document.getElementById('override-msg');m.style.display='block';m.textContent='Cache and signals cleared';}
-
-// ---- IG TOOLS FUNCTIONS ----
-function convertIGPrice(){
-  try{
-    var u=parseFloat(document.getElementById('convUSD').value)||67.44;
-    var g=parseFloat(document.getElementById('convGBP').value)||1.275;
-    var p=Math.round(u/g*100)+937;
-    document.getElementById('convResult').textContent=p.toLocaleString()+'p';
-  }catch(e){}
-}
-function calcIGPL(){
-  try{
-    var o=parseFloat(document.getElementById('plOpen').value);
-    var c=parseFloat(document.getElementById('plCurrent').value);
-    var s=parseFloat(document.getElementById('plSize').value);
-    var d=document.getElementById('plDir').value;
-    var pts=d==='long'?c-o:o-c;
-    var pnl=pts*s;
-    var pct=pts/o*100;
-    var col=pts>=0?'#3DBA7A':'#E05555';
-    document.getElementById('plPts').textContent=pts.toFixed(0)+'p';
-    document.getElementById('plPts').style.color=col;
-    document.getElementById('plVal').textContent='GBP'+pnl.toFixed(2);
-    document.getElementById('plVal').style.color=col;
-    document.getElementById('plPct').textContent=pct.toFixed(2)+'%';
-    document.getElementById('plPct').style.color=col;
-    document.getElementById('plResult').style.display='grid';
-  }catch(e){}
-}
-
-// Enter key for admin login
-document.addEventListener('keydown',function(e){
-  if(e.key==='Enter'){
-    var tc=document.getElementById('tc-admin');
-    if(tc&&tc.classList.contains('active'))adminLogin();
-  }
-});
 var PROXY = "https://api.allorigins.win/get?url=";
 
 // Price sources
@@ -2470,7 +2329,7 @@ function renderDemand() {
     html += '<div style="width:20px;height:20px;border-radius:50%;background:'+s.color+';flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:8px;color:#000;font-weight:700">'+s.icon.slice(0,2)+'</div>';
     html += '<div style="flex:1"><div style="display:flex;justify-content:space-between"><span style="font-size:12px;color:#E8EAF0;font-weight:600">'+s.name+'</span><span style="font-size:13px;font-weight:700;color:'+s.color+'">'+s.moz+'M oz</span></div>';
     html += '<div class="pwrap"><div class="pfill" style="width:'+pct+'%;background:'+s.color+'"></div></div>';
-    html += '<div style="display:flex;justify-content:space-between"><span style="font-size:9px;color:#9A9FB4">'+s.note+'</span><span style="font-size:9px;color:'+s.color+'">'+pct+'%</span></div></div></div>';
+    html += '<div style="display:flex;justify-content:space-between"><span style="font-size:9px;color:#BBBBBB">'+s.note+'</span><span style="font-size:9px;color:'+s.color+'">'+pct+'%</span></div></div></div>';
     html += '<div class="ebody">'+s.detail+'</div></div>';
   });
   sl.innerHTML = html;
@@ -2511,7 +2370,7 @@ function renderMacro() {
   var sHtml = "";
   scens.forEach(function(x) {
     sHtml += '<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-radius:8px;margin-bottom:6px;border:1px solid '+x.c+'22;background:'+x.c+'08">';
-    sHtml += '<div><div style="font-size:11px;font-weight:700;color:'+x.c+'">'+x.s+'</div><div style="font-size:10px;color:#B0B4C8;margin-top:2px">'+x.t+'</div></div>';
+    sHtml += '<div><div style="font-size:11px;font-weight:700;color:'+x.c+'">'+x.s+'</div><div style="font-size:10px;color:#CCCCCC;margin-top:2px">'+x.t+'</div></div>';
     sHtml += '<div style="font-size:18px;font-weight:700;color:'+x.c+';margin-left:10px">'+x.p+'</div></div>';
   });
   sl.innerHTML = sHtml;
@@ -2532,7 +2391,7 @@ function renderCOMEX() {
   var mHtml = "";
   metrics.forEach(function(m,i) {
     mHtml += '<div class="mc" onclick="this.classList.toggle(\'open\')" style="animation:fadeUp .3s '+(i*.05)+'s both">';
-    mHtml += '<div style="font-size:8px;color:#9A9FB4;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px">'+m.label+'</div>';
+    mHtml += '<div style="font-size:8px;color:#BBBBBB;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px">'+m.label+'</div>';
     mHtml += '<div style="font-size:15px;font-weight:700;color:'+m.col+'">'+m.value+'</div>';
     mHtml += '<div style="font-size:9px;color:'+m.col+';margin-top:3px">'+m.sub+'</div>';
     mHtml += '<div class="mdet">'+m.note+'</div></div>';
@@ -2549,8 +2408,8 @@ function renderCOMEX() {
   var tHtml = "";
   timeline.forEach(function(r) {
     tHtml += '<div style="display:flex;gap:10px;padding:7px 0;border-bottom:1px solid #161820">';
-    tHtml += '<div style="width:88px;font-size:9px;color:#B0B4C8;flex-shrink:0;padding-top:2px">'+r.period+'</div>';
-    tHtml += '<div><div style="font-size:12px;font-weight:700;color:'+r.col+'">'+r.oz+'</div><div style="font-size:10px;color:#B0B4C8;margin-top:2px;line-height:1.4">'+r.event+'</div></div></div>';
+    tHtml += '<div style="width:88px;font-size:9px;color:#CCCCCC;flex-shrink:0;padding-top:2px">'+r.period+'</div>';
+    tHtml += '<div><div style="font-size:12px;font-weight:700;color:'+r.col+'">'+r.oz+'</div><div style="font-size:10px;color:#CCCCCC;margin-top:2px;line-height:1.4">'+r.event+'</div></div></div>';
   });
   document.getElementById("ctim").innerHTML = tHtml;
 
@@ -2580,7 +2439,7 @@ function renderCOMEX() {
   thresholds.forEach(function(t) {
     thHtml += '<div style="display:flex;gap:8px;padding:6px 0;border-bottom:1px solid #1A1A2A">';
     thHtml += '<div style="width:8px;height:8px;border-radius:50%;background:'+t[2]+';flex-shrink:0;margin-top:3px"></div>';
-    thHtml += '<div><div style="font-size:10px;color:'+t[2]+';font-weight:600">'+t[0]+'</div><div style="font-size:10px;color:#B0B4C8;margin-top:2px">'+t[1]+'</div></div></div>';
+    thHtml += '<div><div style="font-size:10px;color:'+t[2]+';font-weight:600">'+t[0]+'</div><div style="font-size:10px;color:#CCCCCC;margin-top:2px">'+t[1]+'</div></div></div>';
   });
   document.getElementById("cthr").innerHTML = thHtml;
 }
@@ -2612,7 +2471,7 @@ function renderForecast() {
     html += '<div class="trow" style="align-items:center">';
     // Day + Date
     html += '<div style="width:28px;flex-shrink:0"><div style="font-size:9px;color:#8A8FA8">'+row.weekday+'</div></div>';
-    html += '<div style="width:46px;flex-shrink:0"><div style="font-size:9px;color:#B0B4C8">'+row.label+'</div></div>';
+    html += '<div style="width:46px;flex-shrink:0"><div style="font-size:9px;color:#CCCCCC">'+row.label+'</div></div>';
     // Open - stacked
     html += '<div style="width:46px;flex-shrink:0;text-align:right">';
     html += '<div style="font-size:9px;color:#D4AF37">$'+row.open+'</div>';
@@ -2639,10 +2498,6 @@ function renderForecast() {
 function showTab(id) {
   var tabs = document.querySelectorAll(".tc");
   for (var i=0;i<tabs.length;i++) { tabs[i].classList.remove("active"); tabs[i].style.display="none"; }
-  // Scroll to top
-  try{window.scrollTo(0,0);}catch(e){}
-  try{document.body.scrollTop=0;}catch(e){}
-  try{document.documentElement.scrollTop=0;}catch(e){}
   var btns = document.querySelectorAll(".tbtn");
   for (var i=0;i<btns.length;i++) {
     btns[i].classList.remove("active");
@@ -2651,6 +2506,9 @@ function showTab(id) {
   }
   var tc = document.getElementById("tc-"+id);
   if (tc) { tc.classList.add("active"); tc.style.display="block"; }
+  try{window.scrollTo(0,0);}catch(e){}
+  try{document.body.scrollTop=0;}catch(e){}
+  try{document.documentElement.scrollTop=0;}catch(e){}
   if (id==="chart") {
     // Force canvas to get real dimensions after tab is visible
     setTimeout(function() {
@@ -3238,7 +3096,7 @@ function updateRiskDisplay() {
       var m = IMPACT_MODEL[key];
       var dirCol = m.dir==="bull"?"#3DBA7A":m.dir==="bear"?"#E05555":"#D4AF37";
       tHtml += '<div style="display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid #161820">';
-      tHtml += '<div style="font-size:10px;color:#B0B4C8">'+m.label+'</div>';
+      tHtml += '<div style="font-size:10px;color:#CCCCCC">'+m.label+'</div>';
       tHtml += '<div style="font-size:10px;color:'+dirCol+';font-weight:700">'+(m.dir==="bull"?"UP":"DN")+' '+m.min+'%-'+m.max+'%</div>';
       tHtml += '</div>';
     });
@@ -4179,7 +4037,7 @@ function loadCOMEXMonitor() {
     pHtml += '<span style="font-size:8px;color:'+p.col+';background:'+p.col+'22;padding:1px 6px;border-radius:3px;font-weight:700">'+p.status+'</span>';
     pHtml += '<span style="font-size:8px;color:#555">Since '+p.since+'</span>';
     pHtml += '</div></div>';
-    pHtml += '<div style="font-size:10px;color:#B0B4C8;line-height:1.5;margin-bottom:4px">'+p.detail+'</div>';
+    pHtml += '<div style="font-size:10px;color:#CCCCCC;line-height:1.5;margin-bottom:4px">'+p.detail+'</div>';
     pHtml += '<div style="font-size:9px;color:'+p.col+';line-height:1.4"><b>Impact:</b> '+p.impact+'</div>';
     pHtml += '</div>';
   });
@@ -4233,7 +4091,7 @@ function loadCOMEXMonitor() {
     iHtml += '<div style="font-size:10px;color:#E8EAF0;font-weight:600;flex:1">'+imp.mechanism+'</div>';
     iHtml += '<span style="font-size:8px;color:'+sevCol+';background:'+sevCol+'22;padding:1px 5px;border-radius:3px;margin-left:6px;flex-shrink:0">'+imp.severity+'</span>';
     iHtml += '</div>';
-    iHtml += '<div style="font-size:10px;color:#B0B4C8;line-height:1.5;margin-bottom:3px">'+imp.effect+'</div>';
+    iHtml += '<div style="font-size:10px;color:#CCCCCC;line-height:1.5;margin-bottom:3px">'+imp.effect+'</div>';
     iHtml += '<div style="font-size:9px;color:'+col+';font-weight:600">'+dirTxt+' impact on physical silver price</div>';
     iHtml += '</div>';
   });
@@ -5031,7 +4889,7 @@ function renderKeyEvents() {
     html += '</div>';
 
     // Detail
-    html += '<div style="font-size:10px;color:#B0B4C8;line-height:1.6;margin-bottom:6px">'+ev.detail+'</div>';
+    html += '<div style="font-size:10px;color:#CCCCCC;line-height:1.6;margin-bottom:6px">'+ev.detail+'</div>';
 
     // Silver impact
     html += '<div style="display:flex;justify-content:space-between;align-items:center">';
@@ -5176,7 +5034,7 @@ function renderSignals() {
     html += '<div><div style="font-size:11px;font-weight:700;color:' + dirCol + '">' + s.dir + ' — $' + s.entry.toFixed(2) + (s.target ? ' → $' + s.target.toFixed(2) : '') + '</div>';
     html += '<div style="font-size:9px;color:#8A8FA8;margin-top:2px">' + s.date + (s.closeDate ? ' → ' + s.closeDate : '') + '</div></div>';
     html += '<div style="font-size:10px;font-weight:700;color:' + resCol + '">' + resTxt + '</div></div>';
-    if (s.reason) html += '<div style="font-size:10px;color:#B0B4C8;margin-bottom:6px">' + s.reason + '</div>';
+    if (s.reason) html += '<div style="font-size:10px;color:#CCCCCC;margin-bottom:6px">' + s.reason + '</div>';
     if (pnl !== null) html += '<div style="font-size:10px;color:' + (pnl >= 0 ? "#3DBA7A" : "#E05555") + ';margin-bottom:6px">Close: $' + s.closePrice.toFixed(2) + ' — Move: ' + (pnl >= 0 ? '+' : '') + '$' + pnl.toFixed(2) + '/oz</div>';
     if (s.result === "pending") {
       html += '<div style="display:flex;gap:6px">';
@@ -5251,6 +5109,25 @@ window.onload = function() {
     drawPolyChart();
   });
 };
+
+// ---- ADMIN & IG TOOLS ----
+var ADMIN_USERS=[{username:'123Rocky@trade',email:'portosantozezo@yahoo.co.uk',password:'Rocky123y.'}];
+var aiStates={price:true,news:true,poly:true};
+function adminLogin(){var u=(document.getElementById('admin-user').value||'').trim(),p=(document.getElementById('admin-pass').value||'').trim(),m=ADMIN_USERS.find(function(a){return(a.username===u||a.email===u)&&a.password===p;});if(m){document.getElementById('admin-login').style.display='none';document.getElementById('admin-panel').style.display='block';document.getElementById('admin-error').style.display='none';}else{document.getElementById('admin-error').style.display='block';document.getElementById('admin-pass').value='';}}
+function adminLogout(){document.getElementById('admin-panel').style.display='none';document.getElementById('admin-login').style.display='block';document.getElementById('admin-user').value='';document.getElementById('admin-pass').value='';}
+function showAdminForgot(){document.getElementById('admin-login').style.display='none';document.getElementById('admin-forgot').style.display='block';}
+function showAdminLogin(){document.getElementById('admin-forgot').style.display='none';document.getElementById('admin-login').style.display='block';}
+function adminForgot(){var e=(document.getElementById('forgot-email').value||'').trim(),m=ADMIN_USERS.find(function(a){return a.email===e;}),el=document.getElementById('forgot-msg');el.style.display='block';if(m){el.style.color='#3DBA7A';el.textContent='Reset sent to '+e;}else{el.style.color='#E05555';el.textContent='Email not found.';}}
+function toggleAI(k){aiStates[k]=!aiStates[k];var b=document.getElementById('btn-'+k);if(aiStates[k]){b.textContent='ON';b.style.background='#3DBA7A';b.style.color='#000';}else{b.textContent='OFF';b.style.background='#E05555';b.style.color='#fff';}}
+function killAllAI(){Object.keys(aiStates).forEach(function(k){if(aiStates[k]){aiStates[k]=true;toggleAI(k);}});}
+function restoreAllAI(){Object.keys(aiStates).forEach(function(k){if(!aiStates[k]){aiStates[k]=false;toggleAI(k);}});}
+function handleAVUpload(f){var file=f.files[0];if(!file)return;var s=document.getElementById('av-status');s.style.display='block';s.textContent='Received: '+file.name+' staged for deployment';}
+function forceRefreshAll(){try{fetchPrice();fetchPoly();fetchNews();}catch(e){}var m=document.getElementById('override-msg');m.style.display='block';m.textContent='Refreshed '+new Date().toLocaleTimeString();}
+function clearAllCache(){try{localStorage.clear();}catch(e){}var m=document.getElementById('override-msg');m.style.display='block';m.textContent='Cache cleared';}
+function convertIGPrice(){try{var u=parseFloat(document.getElementById('convUSD').value)||67.44,g=parseFloat(document.getElementById('convGBP').value)||1.275,p=Math.round(u/g*100)+937;document.getElementById('convResult').textContent=p.toLocaleString()+'p';}catch(e){}}
+function calcIGPL(){try{var o=parseFloat(document.getElementById('plOpen').value),c=parseFloat(document.getElementById('plCurrent').value),s=parseFloat(document.getElementById('plSize').value),d=document.getElementById('plDir').value,pts=d==='long'?c-o:o-c,pnl=pts*s,pct=pts/o*100,col=pts>=0?'#3DBA7A':'#E05555';document.getElementById('plPts').textContent=pts.toFixed(0)+'p';document.getElementById('plPts').style.color=col;document.getElementById('plVal').textContent='GBP'+pnl.toFixed(2);document.getElementById('plVal').style.color=col;document.getElementById('plPct').textContent=pct.toFixed(2)+'%';document.getElementById('plPct').style.color=col;document.getElementById('plResult').style.display='grid';}catch(e){}}
+document.addEventListener('keydown',function(e){if(e.key==='Enter'){var tc=document.getElementById('tc-admin');if(tc&&tc.classList.contains('active'))adminLogin();}});
+
 </script>
 </body>
 </html>
