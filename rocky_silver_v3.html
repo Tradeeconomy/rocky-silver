@@ -6,51 +6,51 @@
 <title>Rocky Silver Master Intelligence v3</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-width:480px;margin:0 auto;min-height:100vh}
+body{background:#F0F2F5;color:#1A2035;font-family:'Courier New',monospace;max-width:480px;margin:0 auto;min-height:100vh}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
-#hdr{background:#1A1B26;border-bottom:1px solid #2A2A10;padding:12px 14px 10px;position:sticky;top:0;z-index:100}
+#hdr{background:#2C3340;border-bottom:1px solid #243050;padding:12px 14px 10px;position:sticky;top:0;z-index:100}
 .hrow{display:flex;justify-content:space-between;align-items:flex-start}
 .dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#3DBA7A;margin-right:5px;animation:blink 2s infinite}
 .tag{font-size:9px;letter-spacing:3px;color:#D4AF37;text-transform:uppercase}
 .pbig{font-size:28px;font-weight:700;line-height:1;transition:color .3s}
 .pchg{font-size:11px;margin-top:2px}
-.pts{font-size:9px;color:#8A8FA8;margin-top:2px}
+.pts{font-size:9px;color:#6B7A8D;margin-top:2px}
 .fsrc{font-size:8px;margin-top:2px}
-.srow{display:flex;gap:1px;margin-top:9px;background:#161820;border-radius:6px;overflow:hidden}
-.sb{flex:1;padding:7px 3px;text-align:center;background:#1C1E2A}
+.srow{display:flex;gap:1px;margin-top:9px;background:#C8D0DC;border-radius:6px;overflow:hidden}
+.sb{flex:1;padding:7px 3px;text-align:center;background:#EEF0F4}
 .sl{font-size:7px;color:#CCCCCC;letter-spacing:1px;text-transform:uppercase}
 .sv{font-size:11px;font-weight:700;margin-top:2px}
 #sparkwrap{margin-top:8px;display:none}
 .slbl{font-size:8px;color:#888888;letter-spacing:2px;margin-bottom:2px}
-#tabs{display:flex;flex-wrap:wrap;background:#161820;border-bottom:1px solid #2E3148;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+#tabs{display:flex;flex-wrap:wrap;background:#353D4A;border-bottom:1px solid #1A2035;-webkit-overflow-scrolling:touch;scrollbar-width:none}
 #tabs::-webkit-scrollbar{display:none}
-.tbtn{flex:0 0 auto;padding:10px 10px;font-size:10px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;font-family:inherit;color:#CCCCCC;background:none;border:none;border-bottom:2px solid transparent;white-space:nowrap}
+.tbtn{flex:0 0 auto;padding:10px 10px;font-size:10px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;font-family:inherit;color:#5A6A7D;background:none;border:none;border-bottom:2px solid transparent;white-space:nowrap}
 .tbtn.active{color:#D4AF37;border-bottom:2px solid #D4AF37;font-weight:700}
 .sec{padding:14px 14px;animation:fadeUp .3s both}
 .stitle{font-size:10px;letter-spacing:3px;color:#D4AF37;text-transform:uppercase;margin-bottom:10px;font-weight:700}
-.tc{display:none}.tc.active{display:block}
-.card{background:#1C1E2A;border:1px solid #2E3148;border-radius:8px;padding:11px 12px;margin-bottom:8px}
+.tc{display:none}.tc.active{display:block;background:#F0F2F5}
+.card{background:#FFFFFF;border:1px solid #C8D0DC;border-radius:8px;padding:11px 12px;margin-bottom:8px}
 .bdg{display:inline-block;padding:2px 7px;border-radius:3px;font-size:9px;letter-spacing:1px;text-transform:uppercase;font-weight:700}
-.rbtn{padding:4px 8px;font-size:9px;letter-spacing:1px;text-transform:uppercase;background:#1C1E2A;color:#555;border:1px solid #2E3148;border-radius:4px;cursor:pointer;font-family:inherit}
+.rbtn{padding:4px 8px;font-size:9px;letter-spacing:1px;text-transform:uppercase;background:#FFFFFF;color:#555;border:1px solid #C8D0DC;border-radius:4px;cursor:pointer;font-family:inherit}
 .rbtn.active{background:#D4AF37;color:#000;border-color:#D4AF37}
 .pwrap{height:6px;background:#2E3148;border-radius:3px;overflow:hidden;margin:4px 0}
 .pfill{height:100%;border-radius:3px}
-.tblh{display:flex;padding:5px 0;border-bottom:1px solid #2E3148;font-size:8px;color:#BBBBBB;letter-spacing:1px;text-transform:uppercase}
+.tblh{display:flex;padding:5px 0;border-bottom:1px solid #D8DDE5;font-size:8px;color:#BBBBBB;letter-spacing:1px;text-transform:uppercase}
 .tsc{max-height:420px;overflow-y:auto}
 .trow{display:flex;align-items:center;padding:5px 0;border-bottom:1px solid #161820}
 .msep{padding:7px 0 3px;font-size:9px;color:#D4AF37;letter-spacing:2px;font-weight:700;text-transform:uppercase}
 .nc{border-radius:8px;padding:10px 12px;margin-bottom:8px;cursor:pointer}
 .mgrid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:14px}
-.mc{background:#1C1E2A;border:1px solid #2E3148;border-radius:8px;padding:10px 10px;cursor:pointer}
+.mc{background:#FFFFFF;border:1px solid #C8D0DC;border-radius:8px;padding:10px 10px;cursor:pointer}
 .mc.open .mdet{display:block}
-.mdet{display:none;font-size:10px;color:#C8CCE0;margin-top:8px;padding-top:8px;border-top:1px solid #2E314840;line-height:1.6}
+.mdet{display:none;font-size:10px;color:#2A3550;margin-top:8px;padding-top:8px;border-top:1px solid #2E314840;line-height:1.6}
 .exp{cursor:pointer}
 .exp.open .ebody{display:block}
-.ebody{display:none;font-size:11px;color:#C8CCE0;line-height:1.6;margin-top:10px;padding-top:10px;border-top:1px solid #2E314840}
-.cbwrap{position:relative;background:#161820;border-radius:8px;padding:4px}
-.ctip{position:absolute;background:#1C1E2A;border-radius:8px;padding:10px 12px;pointer-events:none;z-index:999;min-width:155px;display:none;font-family:'Courier New',monospace}
-#ftr{padding:12px 14px 28px;border-top:1px solid #161820;font-size:9px;color:#8A8FA8;line-height:1.8}
+.ebody{display:none;font-size:11px;color:#2A3550;line-height:1.6;margin-top:10px;padding-top:10px;border-top:1px solid #2E314840}
+.cbwrap{position:relative;background:#F0F2F5;border-radius:8px;padding:4px}
+.ctip{position:absolute;background:#FFFFFF;border-radius:8px;padding:10px 12px;pointer-events:none;z-index:999;min-width:155px;display:none;font-family:'Courier New',monospace}
+#ftr{padding:12px 14px 28px;border-top:1px solid #161820;font-size:9px;color:#6B7A8D;line-height:1.8}
 </style>
 </head>
 <body>
@@ -59,11 +59,11 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
   <div class="hrow">
     <div>
       <div class="tag"><span class="dot"></span>Rocky Silver Master Intelligence</div>
-      <div style="font-size:10px;color:#8A8FA8;margin-top:3px">XAG/USD . Live AI . MarketOracle</div>
-      <div class="fsrc"><span id="fbadge" style="color:#D4AF37">connecting...</span> <span id="fsrc" style="color:#8A8FA8"></span></div>
+      <div style="font-size:10px;color:#A0AABB;margin-top:3px">XAG/USD . Live AI . MarketOracle</div>
+      <div class="fsrc"><span id="fbadge" style="color:#D4AF37">connecting...</span> <span id="fsrc" style="color:#6B7A8D"></span></div>
       <div style="display:flex;align-items:center;gap:8px;margin-top:4px">
         <span style="font-size:8px;color:#818CF8" id="gbpusd-rate">GBP/USD...</span>
-        <button id="currency-toggle" onclick="toggleCurrency()" style="font-size:8px;color:#8A8FA8;background:#1C1E2A;border:1px solid #2E3148;border-radius:4px;padding:2px 8px;cursor:pointer;font-family:'Courier New',monospace">GBP p OFF</button>
+        <button id="currency-toggle" onclick="toggleCurrency()" style="font-size:8px;color:#6B7A8D;background:#FFFFFF;border:1px solid #C8D0DC;border-radius:4px;padding:2px 8px;cursor:pointer;font-family:'Courier New',monospace">GBP p OFF</button>
       </div>
       <div id="stale-warning" style="display:none;margin-top:5px;padding:5px 10px;background:#E0555530;border:1px solid #E05555;border-radius:5px;font-size:9px;color:#E05555;letter-spacing:1px;font-weight:700;animation:blink 1.5s infinite">
         ⚠ STALE PRICE — FEED OFFLINE &gt;90s — DO NOT TRADE ON THIS DATA
@@ -73,7 +73,7 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
       <div class="pbig" id="pp">$74.87</div>
       <div style="font-size:12px;font-weight:600;color:#818CF8;margin-top:1px;text-align:right" id="ig-pence">-- IG p</div>
       <div class="pchg" id="pc" style="color:#3DBA7A">UP $0.43 (+0.58%)</div>
-      <div class="pts" style="color:#8A8FA8" id="pt">--:--:--</div>
+      <div class="pts" style="color:#6B7A8D" id="pt">--:--:--</div>
     </div>
   </div>
   <div class="srow">
@@ -113,19 +113,19 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
 <div id="tc-summary" class="tc active">
 <div class="sec">
   <div class="stitle">Market Summary</div>
-  <div id="sum-card" class="card" style="border-color:#D4AF3744;background:#0D0B04;margin-bottom:14px">
+  <div id="sum-card" class="card" style="border-color:#D4AF3744;background:#F5F7EA;margin-bottom:14px">
     <div style="font-size:9px;color:#D4AF37;letter-spacing:3px;text-transform:uppercase;margin-bottom:8px">Live Market Intelligence</div>
-    <div id="sum-text" style="font-size:13px;color:#E8EAF0;line-height:1.8">Loading...</div>
+    <div id="sum-text" style="font-size:13px;color:#1A2035;line-height:1.8">Loading...</div>
     <div style="font-size:9px;color:#888888;margin-top:10px" id="sum-time">--:--:--</div>
   </div>
 
 
   
     <!-- Next Key Event Banner -->
-    <div id="next-event-summary" style="background:#1A0505;border:1px solid #E0555544;border-radius:8px;padding:10px;margin-bottom:12px;display:none">
+    <div id="next-event-summary" style="background:#FFF0F0;border:1px solid #E0555544;border-radius:8px;padding:10px;margin-bottom:12px;display:none">
       <div style="font-size:9px;color:#E05555;letter-spacing:2px;margin-bottom:4px">NEXT KEY CATALYST</div>
-      <div id="next-event-summary-text" style="font-size:11px;color:#E8EAF0;font-weight:700"></div>
-      <div id="next-event-summary-detail" style="font-size:9px;color:#8A8FA8;margin-top:3px"></div>
+      <div id="next-event-summary-text" style="font-size:11px;color:#1A2035;font-weight:700"></div>
+      <div id="next-event-summary-detail" style="font-size:9px;color:#6B7A8D;margin-top:3px"></div>
     </div>
 
     <div class="stitle">Asia Markets Signal</div>
@@ -133,21 +133,21 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
       <div>
         <div style="font-size:9px;color:#818CF8;letter-spacing:3px;text-transform:uppercase">Asia Markets Live</div>
-        <div style="font-size:11px;color:#8A8FA8;margin-top:3px">SHFE - KOSPI - KRW - Shanghai - Hang Seng</div>
+        <div style="font-size:11px;color:#6B7A8D;margin-top:3px">SHFE - KOSPI - KRW - Shanghai - Hang Seng</div>
       </div>
-      <div id="asia-signal-badge" style="font-size:11px;font-weight:700;padding:4px 10px;border-radius:4px;background:#1C1E2A;color:#8A8FA8">Loading...</div>
+      <div id="asia-signal-badge" style="font-size:11px;font-weight:700;padding:4px 10px;border-radius:4px;background:#FFFFFF;color:#6B7A8D">Loading...</div>
     </div>
 
     <!-- SHFE Premium (most important) -->
-    <div style="background:#161820;border-radius:8px;padding:10px 12px;margin-bottom:8px">
+    <div style="background:#F0F2F5;border-radius:8px;padding:10px 12px;margin-bottom:8px">
       <div style="display:flex;justify-content:space-between;align-items:center">
         <div>
           <div style="font-size:9px;color:#818CF8;letter-spacing:2px;text-transform:uppercase">SHFE Silver Premium</div>
-          <div style="font-size:9px;color:#8A8FA8;margin-top:2px">Shanghai vs COMEX spread</div>
+          <div style="font-size:9px;color:#6B7A8D;margin-top:2px">Shanghai vs COMEX spread</div>
         </div>
         <div style="text-align:right">
           <div style="font-size:20px;font-weight:700" id="shfe-premium">--</div>
-          <div style="font-size:9px;color:#8A8FA8" id="shfe-signal">--</div>
+          <div style="font-size:9px;color:#6B7A8D" id="shfe-signal">--</div>
         </div>
       </div>
       <div style="font-size:10px;color:#CCCCCC;margin-top:6px;line-height:1.5" id="shfe-detail">
@@ -157,29 +157,29 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
 
     <!-- Market grid -->
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px">
-      <div style="background:#161820;border-radius:6px;padding:8px 10px">
-        <div style="font-size:8px;color:#8A8FA8;letter-spacing:1px;text-transform:uppercase">KOSPI (Korea)</div>
+      <div style="background:#F0F2F5;border-radius:6px;padding:8px 10px">
+        <div style="font-size:8px;color:#6B7A8D;letter-spacing:1px;text-transform:uppercase">KOSPI (Korea)</div>
         <div style="font-size:15px;font-weight:700;margin-top:3px" id="kospi-val">--</div>
         <div style="font-size:9px;margin-top:2px" id="kospi-chg">--</div>
-        <div style="font-size:9px;color:#8A8FA8;margin-top:2px" id="kospi-signal">--</div>
+        <div style="font-size:9px;color:#6B7A8D;margin-top:2px" id="kospi-signal">--</div>
       </div>
-      <div style="background:#161820;border-radius:6px;padding:8px 10px">
-        <div style="font-size:8px;color:#8A8FA8;letter-spacing:1px;text-transform:uppercase">KRW/USD</div>
+      <div style="background:#F0F2F5;border-radius:6px;padding:8px 10px">
+        <div style="font-size:8px;color:#6B7A8D;letter-spacing:1px;text-transform:uppercase">KRW/USD</div>
         <div style="font-size:15px;font-weight:700;margin-top:3px" id="krw-val">--</div>
         <div style="font-size:9px;margin-top:2px" id="krw-chg">--</div>
-        <div style="font-size:9px;color:#8A8FA8;margin-top:2px" id="krw-signal">--</div>
+        <div style="font-size:9px;color:#6B7A8D;margin-top:2px" id="krw-signal">--</div>
       </div>
-      <div style="background:#161820;border-radius:6px;padding:8px 10px">
-        <div style="font-size:8px;color:#8A8FA8;letter-spacing:1px;text-transform:uppercase">Shanghai Comp.</div>
+      <div style="background:#F0F2F5;border-radius:6px;padding:8px 10px">
+        <div style="font-size:8px;color:#6B7A8D;letter-spacing:1px;text-transform:uppercase">Shanghai Comp.</div>
         <div style="font-size:15px;font-weight:700;margin-top:3px" id="sse-val">--</div>
         <div style="font-size:9px;margin-top:2px" id="sse-chg">--</div>
-        <div style="font-size:9px;color:#8A8FA8;margin-top:2px" id="sse-signal">--</div>
+        <div style="font-size:9px;color:#6B7A8D;margin-top:2px" id="sse-signal">--</div>
       </div>
-      <div style="background:#161820;border-radius:6px;padding:8px 10px">
-        <div style="font-size:8px;color:#8A8FA8;letter-spacing:1px;text-transform:uppercase">Hang Seng (HK)</div>
+      <div style="background:#F0F2F5;border-radius:6px;padding:8px 10px">
+        <div style="font-size:8px;color:#6B7A8D;letter-spacing:1px;text-transform:uppercase">Hang Seng (HK)</div>
         <div style="font-size:15px;font-weight:700;margin-top:3px" id="hsi-val">--</div>
         <div style="font-size:9px;margin-top:2px" id="hsi-chg">--</div>
-        <div style="font-size:9px;color:#8A8FA8;margin-top:2px" id="hsi-signal">--</div>
+        <div style="font-size:9px;color:#6B7A8D;margin-top:2px" id="hsi-signal">--</div>
       </div>
     </div>
 
@@ -195,41 +195,41 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
   <div class="card" style="border-color:#3DBA7A44;margin-bottom:14px">
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
       <div>
-        <div style="font-size:9px;color:#8A8FA8;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px">Entry Price $</div>
+        <div style="font-size:9px;color:#6B7A8D;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px">Entry Price $</div>
         <input id="entry-price" type="number" step="0.01" placeholder="e.g. 74.50"
-          style="width:100%;background:#161820;border:1px solid #2E3148;border-radius:6px;padding:8px;color:#E8EAF0;font-family:'Courier New',monospace;font-size:13px;outline:none">
+          style="width:100%;background:#F0F2F5;border:1px solid #C8D0DC;border-radius:6px;padding:8px;color:#1A2035;font-family:'Courier New',monospace;font-size:13px;outline:none">
       </div>
       <div>
-        <div style="font-size:9px;color:#8A8FA8;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px">Size (oz)</div>
+        <div style="font-size:9px;color:#6B7A8D;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px">Size (oz)</div>
         <input id="pos-size" type="number" step="1" placeholder="e.g. 100"
-          style="width:100%;background:#161820;border:1px solid #2E3148;border-radius:6px;padding:8px;color:#E8EAF0;font-family:'Courier New',monospace;font-size:13px;outline:none">
+          style="width:100%;background:#F0F2F5;border:1px solid #C8D0DC;border-radius:6px;padding:8px;color:#1A2035;font-family:'Courier New',monospace;font-size:13px;outline:none">
       </div>
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
       <div>
-        <div style="font-size:9px;color:#8A8FA8;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px">Stop-Loss $</div>
+        <div style="font-size:9px;color:#6B7A8D;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px">Stop-Loss $</div>
         <input id="stop-loss" type="number" step="0.01" placeholder="e.g. 60.00"
-          style="width:100%;background:#161820;border:1px solid #2E3148;border-radius:6px;padding:8px;color:#E8EAF0;font-family:'Courier New',monospace;font-size:13px;outline:none">
+          style="width:100%;background:#F0F2F5;border:1px solid #C8D0DC;border-radius:6px;padding:8px;color:#1A2035;font-family:'Courier New',monospace;font-size:13px;outline:none">
       </div>
       <div>
-        <div style="font-size:9px;color:#8A8FA8;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px">Target $</div>
+        <div style="font-size:9px;color:#6B7A8D;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px">Target $</div>
         <input id="take-profit" type="number" step="0.01" placeholder="e.g. 88.00"
-          style="width:100%;background:#161820;border:1px solid #2E3148;border-radius:6px;padding:8px;color:#E8EAF0;font-family:'Courier New',monospace;font-size:13px;outline:none">
+          style="width:100%;background:#F0F2F5;border:1px solid #C8D0DC;border-radius:6px;padding:8px;color:#1A2035;font-family:'Courier New',monospace;font-size:13px;outline:none">
       </div>
     </div>
     <div id="pos-result" style="display:none;margin-top:4px">
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px">
-        <div style="background:#161820;border-radius:6px;padding:8px;text-align:center">
-          <div style="font-size:8px;color:#8A8FA8;text-transform:uppercase">P&L</div>
+        <div style="background:#F0F2F5;border-radius:6px;padding:8px;text-align:center">
+          <div style="font-size:8px;color:#6B7A8D;text-transform:uppercase">P&L</div>
           <div id="pos-pnl" style="font-size:15px;font-weight:700;margin-top:3px">-</div>
           <div id="pos-pnl-p" style="font-size:9px;color:#818CF8;margin-top:2px">-- pts IG</div>
         </div>
-        <div style="background:#161820;border-radius:6px;padding:8px;text-align:center">
-          <div style="font-size:8px;color:#8A8FA8;text-transform:uppercase">Risk $</div>
+        <div style="background:#F0F2F5;border-radius:6px;padding:8px;text-align:center">
+          <div style="font-size:8px;color:#6B7A8D;text-transform:uppercase">Risk $</div>
           <div id="pos-risk" style="font-size:15px;font-weight:700;color:#E05555;margin-top:3px">-</div>
         </div>
-        <div style="background:#161820;border-radius:6px;padding:8px;text-align:center">
-          <div style="font-size:8px;color:#8A8FA8;text-transform:uppercase">R:R</div>
+        <div style="background:#F0F2F5;border-radius:6px;padding:8px;text-align:center">
+          <div style="font-size:8px;color:#6B7A8D;text-transform:uppercase">R:R</div>
           <div id="pos-rr" style="font-size:15px;font-weight:700;color:#D4AF37;margin-top:3px">-</div>
         </div>
       </div>
@@ -247,10 +247,10 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
       <div>
         <div style="font-size:22px;font-weight:700;color:#D4AF37" id="gsr-val">Loading...</div>
-        <div style="font-size:10px;color:#8A8FA8;margin-top:2px">Gold oz per Silver oz (XAU/XAG)</div>
+        <div style="font-size:10px;color:#6B7A8D;margin-top:2px">Gold oz per Silver oz (XAU/XAG)</div>
       </div>
       <div style="text-align:right">
-        <div style="font-size:10px;color:#E8EAF0">XAU: <span id="gold-price">-</span></div>
+        <div style="font-size:10px;color:#1A2035">XAU: <span id="gold-price">-</span></div>
         <div style="font-size:10px;color:#CCCCCC;margin-top:2px">XAG: <span id="silver-price-gsr">-</span></div>
       </div>
     </div>
@@ -272,12 +272,12 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
       <div>
         <div style="font-size:9px;color:#E05555;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px">Alert Below $</div>
         <input id="alert-low" type="number" step="0.01" placeholder="e.g. 65.00"
-          style="width:100%;background:#161820;border:1px solid #E0555544;border-radius:6px;padding:8px;color:#E8EAF0;font-family:'Courier New',monospace;font-size:13px;outline:none">
+          style="width:100%;background:#F0F2F5;border:1px solid #E0555544;border-radius:6px;padding:8px;color:#1A2035;font-family:'Courier New',monospace;font-size:13px;outline:none">
       </div>
       <div>
         <div style="font-size:9px;color:#3DBA7A;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px">Alert Above $</div>
         <input id="alert-high" type="number" step="0.01" placeholder="e.g. 72.00"
-          style="width:100%;background:#161820;border:1px solid #3DBA7A44;border-radius:6px;padding:8px;color:#E8EAF0;font-family:'Courier New',monospace;font-size:13px;outline:none">
+          style="width:100%;background:#F0F2F5;border:1px solid #3DBA7A44;border-radius:6px;padding:8px;color:#1A2035;font-family:'Courier New',monospace;font-size:13px;outline:none">
       </div>
     </div>
     <button onclick="saveAlerts()" style="width:100%;padding:10px;background:#D4AF37;color:#000;border:none;border-radius:6px;font-family:'Courier New',monospace;font-size:12px;font-weight:700;cursor:pointer;letter-spacing:1px">
@@ -301,8 +301,8 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
       <button class="rbtn active" onclick="setR('all',this)">Full</button>
     </div>
   </div>
-  <div style="font-size:8px;color:#8A8FA8;margin-bottom:4px">Solid=Real data  Dashed=Forecast  Blue=Live price</div>
-  <div style="font-size:8px;color:#8A8FA8;margin-bottom:4px">Gold=Consolidation  Red=Correction  Green=Buy Zone/Rally</div>
+  <div style="font-size:8px;color:#6B7A8D;margin-bottom:4px">Solid=Real data  Dashed=Forecast  Blue=Live price</div>
+  <div style="font-size:8px;color:#6B7A8D;margin-bottom:4px">Gold=Consolidation  Red=Correction  Green=Buy Zone/Rally</div>
   <div style="font-size:9px;color:#D4AF37;margin-bottom:8px;letter-spacing:1px">Pinch to zoom  |  Drag to pan  |  Double-tap to reset</div>
   <div style="font-size:8px;color:#3DBA7A;margin-bottom:6px;letter-spacing:1px" id="recal-time">Model auto-recalibrates every 15 min</div>
   <div class="cbwrap">
@@ -314,23 +314,23 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
     <div class="stitle">Phase Catalysts</div>
     <div style="display:flex;gap:10px;padding:8px 0;border-bottom:1px solid #1C1E2A">
       <div style="width:80px;font-size:9px;color:#CCCCCC;flex-shrink:0;padding-top:2px">Jun 2-30</div>
-      <div><span class="bdg" style="background:rgba(212,175,55,.08);color:#D4AF37">Consolidation</span><div style="font-size:11px;color:#C8CCE0;margin-top:4px;line-height:1.4">FLOOR $64 confirmed Jun 7. SHFE +$9/oz premium = Eastern buying active.</div></div>
+      <div><span class="bdg" style="background:rgba(212,175,55,.08);color:#D4AF37">Consolidation</span><div style="font-size:11px;color:#2A3550;margin-top:4px;line-height:1.4">FLOOR $64 confirmed Jun 7. SHFE +$9/oz premium = Eastern buying active.</div></div>
     </div>
     <div style="display:flex;gap:10px;padding:8px 0;border-bottom:1px solid #1C1E2A">
       <div style="width:80px;font-size:9px;color:#CCCCCC;flex-shrink:0;padding-top:2px">Jul-Aug 15</div>
-      <div><span class="bdg" style="background:rgba(224,85,85,.08);color:#E05555">Correction</span><div style="font-size:11px;color:#C8CCE0;margin-top:4px;line-height:1.4">Capitulation done. SHFE premium + KOSPI strength = Asia demand floor holding.</div></div>
+      <div><span class="bdg" style="background:rgba(224,85,85,.08);color:#E05555">Correction</span><div style="font-size:11px;color:#2A3550;margin-top:4px;line-height:1.4">Capitulation done. SHFE premium + KOSPI strength = Asia demand floor holding.</div></div>
     </div>
     <div style="display:flex;gap:10px;padding:8px 0;border-bottom:1px solid #1C1E2A">
       <div style="width:80px;font-size:9px;color:#CCCCCC;flex-shrink:0;padding-top:2px">Aug 18-Sep</div>
-      <div><span class="bdg" style="background:rgba(61,186,122,.08);color:#3DBA7A">Buy Zone</span><div style="font-size:11px;color:#C8CCE0;margin-top:4px;line-height:1.4">ACTIVE - SHFE premium driving physical drain. KOSPI tech demand. Target $79-87.</div></div>
+      <div><span class="bdg" style="background:rgba(61,186,122,.08);color:#3DBA7A">Buy Zone</span><div style="font-size:11px;color:#2A3550;margin-top:4px;line-height:1.4">ACTIVE - SHFE premium driving physical drain. KOSPI tech demand. Target $79-87.</div></div>
     </div>
     <div style="display:flex;gap:10px;padding:8px 0;border-bottom:1px solid #1C1E2A">
       <div style="width:80px;font-size:9px;color:#CCCCCC;flex-shrink:0;padding-top:2px">Oct</div>
-      <div><span class="bdg" style="background:rgba(212,175,55,.08);color:#D4AF37">Recovery</span><div style="font-size:11px;color:#C8CCE0;margin-top:4px;line-height:1.4">Fed cut + China stimulus + KOSPI electronics. Goldman $85-100. Target $85-95.</div></div>
+      <div><span class="bdg" style="background:rgba(212,175,55,.08);color:#D4AF37">Recovery</span><div style="font-size:11px;color:#2A3550;margin-top:4px;line-height:1.4">Fed cut + China stimulus + KOSPI electronics. Goldman $85-100. Target $85-95.</div></div>
     </div>
     <div style="display:flex;gap:10px;padding:8px 0">
       <div style="width:80px;font-size:9px;color:#CCCCCC;flex-shrink:0;padding-top:2px">Nov-Dec</div>
-      <div><span class="bdg" style="background:rgba(61,186,122,.08);color:#3DBA7A">Rally</span><div style="font-size:11px;color:#C8CCE0;margin-top:4px;line-height:1.4">Fed cuts + SHFE squeeze + Korean EV demand. Commerzbank $90, UBS $100+. Target $98-108.</div></div>
+      <div><span class="bdg" style="background:rgba(61,186,122,.08);color:#3DBA7A">Rally</span><div style="font-size:11px;color:#2A3550;margin-top:4px;line-height:1.4">Fed cuts + SHFE squeeze + Korean EV demand. Commerzbank $90, UBS $100+. Target $98-108.</div></div>
     </div>
   </div>
 </div>
@@ -341,7 +341,7 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
 <div class="sec">
   <div class="card" style="border-color:#38BDF844;background:#050D14;margin-bottom:14px">
     <div style="font-size:9px;color:#38BDF8;letter-spacing:3px;text-transform:uppercase">Polymarket Live Prediction</div>
-    <div style="font-size:13px;color:#E8EAF0;font-weight:600;margin-top:5px;line-height:1.4" id="pq">What will Silver settle at in June?</div>
+    <div style="font-size:13px;color:#1A2035;font-weight:600;margin-top:5px;line-height:1.4" id="pq">What will Silver settle at in June?</div>
     <div style="font-size:10px;color:#BBBBBB;margin-top:4px">Closes <span id="pend">Jun 30 2026</span> - Vol $<span id="pvol">675K</span> USDC</div>
     <div style="font-size:8px;margin-top:4px" id="plive" style="color:#D4AF37">Loading...</div>
   </div>
@@ -352,11 +352,11 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
   <div class="card" style="margin-top:10px">
     <div style="font-size:9px;color:#D4AF37;letter-spacing:2px;font-weight:700;text-transform:uppercase;margin-bottom:8px">How to read this</div>
     <div style="font-size:10px;color:#CCCCCC;line-height:1.7">
-      <b style="color:#E8EAF0">Strength:</b> Real USDC bets - skin in the game removes bias<br>
-      <b style="color:#E8EAF0">Weakness:</b> Thin volume can be moved by few wallets<br>
-      <b style="color:#E8EAF0">Agree:</b> High conviction - model and crowd aligned<br>
-      <b style="color:#E8EAF0">Diverge:</b> Risk signal - one side knows something<br>
-      <b style="color:#E8EAF0">Best use:</b> 2-4 week sentiment on our 6-month model
+      <b style="color:#1A2035">Strength:</b> Real USDC bets - skin in the game removes bias<br>
+      <b style="color:#1A2035">Weakness:</b> Thin volume can be moved by few wallets<br>
+      <b style="color:#1A2035">Agree:</b> High conviction - model and crowd aligned<br>
+      <b style="color:#1A2035">Diverge:</b> Risk signal - one side knows something<br>
+      <b style="color:#1A2035">Best use:</b> 2-4 week sentiment on our 6-month model
     </div>
   </div>
 </div>
@@ -367,22 +367,22 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
 <div class="sec">
   <div class="card" style="border-color:#E0555544;background:rgba(224,85,85,.07);margin-bottom:14px">
     <div style="font-size:9px;color:#E05555;letter-spacing:3px;text-transform:uppercase;margin-bottom:5px">COMEX Physical Stress Monitor - Jun 4 2026</div>
-    <div style="font-size:12px;color:#E8EAF0;line-height:1.6">Coverage ratio <b style="color:#E05555">16.6%</b> near critical <b style="color:#E05555">15% stress threshold</b>. Paper leverage <b style="color:#E05555">6.0x</b>. Vault outflows persistent.</div>
+    <div style="font-size:12px;color:#1A2035;line-height:1.6">Coverage ratio <b style="color:#E05555">16.6%</b> near critical <b style="color:#E05555">15% stress threshold</b>. Paper leverage <b style="color:#E05555">6.0x</b>. Vault outflows persistent.</div>
   </div>
   <div class="stitle">Live COMEX Metrics</div>
   <div class="mgrid" id="cmet"></div>
   <div class="stitle">Paper vs Physical Balance</div>
   <div class="card" style="margin-bottom:14px">
     <div style="margin-bottom:12px">
-      <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:10px;color:#E8EAF0;font-weight:600">Registered (deliverable)</span><span style="font-size:10px;font-weight:700;color:#E05555">84.8M oz</span></div>
+      <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:10px;color:#1A2035;font-weight:600">Registered (deliverable)</span><span style="font-size:10px;font-weight:700;color:#E05555">84.8M oz</span></div>
       <div style="height:10px;background:#2E3148;border-radius:5px;overflow:hidden"><div style="width:14.7%;height:100%;background:#E05555;border-radius:5px"></div></div>
     </div>
     <div style="margin-bottom:12px">
-      <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:10px;color:#E8EAF0;font-weight:600">Eligible (stored not warranted)</span><span style="font-size:10px;font-weight:700;color:#D4AF37">231.7M oz</span></div>
+      <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:10px;color:#1A2035;font-weight:600">Eligible (stored not warranted)</span><span style="font-size:10px;font-weight:700;color:#D4AF37">231.7M oz</span></div>
       <div style="height:10px;background:#2E3148;border-radius:5px;overflow:hidden"><div style="width:40.2%;height:100%;background:#D4AF37;border-radius:5px"></div></div>
     </div>
     <div>
-      <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:10px;color:#E8EAF0;font-weight:600">Open Interest (paper claims)</span><span style="font-size:10px;font-weight:700;color:#38BDF8">~575M oz</span></div>
+      <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:10px;color:#1A2035;font-weight:600">Open Interest (paper claims)</span><span style="font-size:10px;font-weight:700;color:#38BDF8">~575M oz</span></div>
       <div style="height:10px;background:#2E3148;border-radius:5px;overflow:hidden"><div style="width:100%;height:100%;background:#38BDF8;border-radius:5px"></div></div>
     </div>
     <div style="margin-top:10px;font-size:9px;color:#BBBBBB;line-height:1.7;border-top:1px solid #2E3148;padding-top:8px">Only 14.7% of paper claims have registered metal. If 25%+ demand delivery simultaneously - structural crisis.</div>
@@ -391,7 +391,7 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
   <div class="card" style="margin-bottom:14px" id="ctim"></div>
   <div class="stitle">What This Means for Price</div>
   <div id="cscen"></div>
-  <div class="card" style="border-color:#D4AF3733;background:#0D0B04;margin-top:6px">
+  <div class="card" style="border-color:#D4AF3733;background:#F5F7EA;margin-top:6px">
     <div style="font-size:9px;color:#D4AF37;letter-spacing:2px;font-weight:700;text-transform:uppercase;margin-bottom:8px">Key Thresholds to Watch</div>
     <div id="cthr"></div>
   </div>
@@ -404,9 +404,9 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
   <div class="stitle">2026 Silver Demand - All Sectors (1104M oz)</div>
   <div id="dstack" style="display:flex;height:8px;border-radius:4px;overflow:hidden;margin-bottom:12px"></div>
   <div style="display:flex;gap:6px;margin-bottom:14px">
-    <div style="flex:1;background:#0F1F14;border:1px solid #3DBA7A22;border-radius:8px;padding:9px 10px"><div style="font-size:8px;color:#E8EAF0;letter-spacing:2px;text-transform:uppercase">Total Demand</div><div style="font-size:16px;font-weight:700;color:#3DBA7A">1104M oz</div></div>
-    <div style="flex:1;background:#1A0F0F;border:1px solid #E0555522;border-radius:8px;padding:9px 10px"><div style="font-size:8px;color:#E8EAF0;letter-spacing:2px;text-transform:uppercase">Mine Supply</div><div style="font-size:16px;font-weight:700;color:#E05555">830M oz</div></div>
-    <div style="flex:1;background:#18140A;border:1px solid #D4AF3722;border-radius:8px;padding:9px 10px"><div style="font-size:8px;color:#E8EAF0;letter-spacing:2px;text-transform:uppercase">Deficit</div><div style="font-size:16px;font-weight:700;color:#D4AF37">274M oz</div></div>
+    <div style="flex:1;background:#0F1F14;border:1px solid #3DBA7A22;border-radius:8px;padding:9px 10px"><div style="font-size:8px;color:#1A2035;letter-spacing:2px;text-transform:uppercase">Total Demand</div><div style="font-size:16px;font-weight:700;color:#3DBA7A">1104M oz</div></div>
+    <div style="flex:1;background:#1A0F0F;border:1px solid #E0555522;border-radius:8px;padding:9px 10px"><div style="font-size:8px;color:#1A2035;letter-spacing:2px;text-transform:uppercase">Mine Supply</div><div style="font-size:16px;font-weight:700;color:#E05555">830M oz</div></div>
+    <div style="flex:1;background:#18140A;border:1px solid #D4AF3722;border-radius:8px;padding:9px 10px"><div style="font-size:8px;color:#1A2035;letter-spacing:2px;text-transform:uppercase">Deficit</div><div style="font-size:16px;font-weight:700;color:#D4AF37">274M oz</div></div>
   </div>
   <div id="slist"></div>
 </div>
@@ -440,7 +440,7 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
 <div class="sec">
   <div class="stitle">Daily Forecast Mon Jun 2 to Dec 31 2026</div>
   <div style="display:flex;gap:6px;margin-bottom:12px">
-    <div style="flex:1;border:1px solid #E0555522;border-radius:8px;padding:8px 6px;text-align:center"><div style="font-size:8px;color:#444">Jan Start</div><div style="font-size:13px;font-weight:700;color:#8A8FA8">$29.00</div></div>
+    <div style="flex:1;border:1px solid #E0555522;border-radius:8px;padding:8px 6px;text-align:center"><div style="font-size:8px;color:#444">Jan Start</div><div style="font-size:13px;font-weight:700;color:#6B7A8D">$29.00</div></div>
     <div style="flex:1;border:1px solid #3DBA7A22;border-radius:8px;padding:8px 6px;text-align:center"><div style="font-size:8px;color:#444">May Peak</div><div style="font-size:13px;font-weight:700;color:#3DBA7A">$95.50</div></div>
     <div style="flex:1;border:1px solid #E0555522;border-radius:8px;padding:8px 6px;text-align:center"><div style="font-size:8px;color:#444">Jun Low</div><div style="font-size:13px;font-weight:700;color:#E05555">$64.00</div></div>
     <div style="flex:1;border:1px solid #D4AF3722;border-radius:8px;padding:8px 6px;text-align:center"><div style="font-size:8px;color:#444">Year-End</div><div style="font-size:13px;font-weight:700;color:#D4AF37">$98-108</div></div>
@@ -471,13 +471,13 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
       <div>
         <div style="font-size:9px;color:#E05555;letter-spacing:3px;text-transform:uppercase">Global Risk Score</div>
-        <div style="font-size:32px;font-weight:700;color:#E8EAF0;line-height:1" id="risk-score">--</div>
+        <div style="font-size:32px;font-weight:700;color:#1A2035;line-height:1" id="risk-score">--</div>
         <div style="font-size:10px;margin-top:3px" id="risk-label">Calculating...</div>
       </div>
       <div style="text-align:right">
-        <div style="font-size:9px;color:#8A8FA8">Silver Impact</div>
+        <div style="font-size:9px;color:#6B7A8D">Silver Impact</div>
         <div style="font-size:16px;font-weight:700;margin-top:3px" id="risk-impact">--</div>
-        <div style="font-size:9px;color:#8A8FA8;margin-top:2px" id="risk-updated">--</div>
+        <div style="font-size:9px;color:#6B7A8D;margin-top:2px" id="risk-updated">--</div>
       </div>
     </div>
     <div style="height:8px;background:#2E3148;border-radius:4px;overflow:hidden">
@@ -494,16 +494,16 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
   <!-- Category tabs -->
   <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:12px" id="risk-cats">
     <button onclick="filterRisk('all',this)" style="padding:4px 10px;font-size:9px;background:#D4AF37;color:#000;border:none;border-radius:4px;cursor:pointer;font-family:'Courier New',monospace;font-weight:700">ALL</button>
-    <button onclick="filterRisk('seismic',this)" style="padding:4px 10px;font-size:9px;background:#1C1E2A;color:#CCCCCC;border:1px solid #2E3148;border-radius:4px;cursor:pointer;font-family:'Courier New',monospace">SEISMIC</button>
-    <button onclick="filterRisk('weather',this)" style="padding:4px 10px;font-size:9px;background:#1C1E2A;color:#CCCCCC;border:1px solid #2E3148;border-radius:4px;cursor:pointer;font-family:'Courier New',monospace">WEATHER</button>
-    <button onclick="filterRisk('nuclear',this)" style="padding:4px 10px;font-size:9px;background:#1C1E2A;color:#CCCCCC;border:1px solid #2E3148;border-radius:4px;cursor:pointer;font-family:'Courier New',monospace">NUCLEAR</button>
-    <button onclick="filterRisk('geopolitical',this)" style="padding:4px 10px;font-size:9px;background:#1C1E2A;color:#CCCCCC;border:1px solid #2E3148;border-radius:4px;cursor:pointer;font-family:'Courier New',monospace">GEO-POL</button>
-    <button onclick="filterRisk('market',this)" style="padding:4px 10px;font-size:9px;background:#1C1E2A;color:#CCCCCC;border:1px solid #2E3148;border-radius:4px;cursor:pointer;font-family:'Courier New',monospace">MARKET</button>
+    <button onclick="filterRisk('seismic',this)" style="padding:4px 10px;font-size:9px;background:#FFFFFF;color:#CCCCCC;border:1px solid #C8D0DC;border-radius:4px;cursor:pointer;font-family:'Courier New',monospace">SEISMIC</button>
+    <button onclick="filterRisk('weather',this)" style="padding:4px 10px;font-size:9px;background:#FFFFFF;color:#CCCCCC;border:1px solid #C8D0DC;border-radius:4px;cursor:pointer;font-family:'Courier New',monospace">WEATHER</button>
+    <button onclick="filterRisk('nuclear',this)" style="padding:4px 10px;font-size:9px;background:#FFFFFF;color:#CCCCCC;border:1px solid #C8D0DC;border-radius:4px;cursor:pointer;font-family:'Courier New',monospace">NUCLEAR</button>
+    <button onclick="filterRisk('geopolitical',this)" style="padding:4px 10px;font-size:9px;background:#FFFFFF;color:#CCCCCC;border:1px solid #C8D0DC;border-radius:4px;cursor:pointer;font-family:'Courier New',monospace">GEO-POL</button>
+    <button onclick="filterRisk('market',this)" style="padding:4px 10px;font-size:9px;background:#FFFFFF;color:#CCCCCC;border:1px solid #C8D0DC;border-radius:4px;cursor:pointer;font-family:'Courier New',monospace">MARKET</button>
   </div>
 
   <!-- Risk Events List -->
   <div class="stitle">Live Risk Events</div>
-  <div id="risk-list" style="font-size:11px;color:#8A8FA8;text-align:center;padding:20px">
+  <div id="risk-list" style="font-size:11px;color:#6B7A8D;text-align:center;padding:20px">
     Fetching live risk data...
   </div>
 
@@ -544,45 +544,45 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
   <div class="stitle">Live Markets</div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:14px">
     <div class="card" style="border-color:#E0555544;padding:10px 11px">
-      <div style="font-size:8px;color:#8A8FA8;letter-spacing:1px;text-transform:uppercase">Brent Crude</div>
-      <div style="font-size:20px;font-weight:700;color:#E8EAF0" id="brent-val">--</div>
+      <div style="font-size:8px;color:#6B7A8D;letter-spacing:1px;text-transform:uppercase">Brent Crude</div>
+      <div style="font-size:20px;font-weight:700;color:#1A2035" id="brent-val">--</div>
       <div style="font-size:10px;margin-top:2px" id="brent-chg">--</div>
-      <div style="font-size:9px;color:#8A8FA8;margin-top:2px" id="brent-sig">--</div>
+      <div style="font-size:9px;color:#6B7A8D;margin-top:2px" id="brent-sig">--</div>
     </div>
     <div class="card" style="border-color:#FB923C44;padding:10px 11px">
-      <div style="font-size:8px;color:#8A8FA8;letter-spacing:1px;text-transform:uppercase">WTI Crude</div>
-      <div style="font-size:20px;font-weight:700;color:#E8EAF0" id="wti-val">--</div>
+      <div style="font-size:8px;color:#6B7A8D;letter-spacing:1px;text-transform:uppercase">WTI Crude</div>
+      <div style="font-size:20px;font-weight:700;color:#1A2035" id="wti-val">--</div>
       <div style="font-size:10px;margin-top:2px" id="wti-chg">--</div>
-      <div style="font-size:9px;color:#8A8FA8;margin-top:2px" id="wti-sig">--</div>
+      <div style="font-size:9px;color:#6B7A8D;margin-top:2px" id="wti-sig">--</div>
     </div>
     <div class="card" style="border-color:#38BDF844;padding:10px 11px">
-      <div style="font-size:8px;color:#8A8FA8;letter-spacing:1px;text-transform:uppercase">USD Index (DXY)</div>
-      <div style="font-size:20px;font-weight:700;color:#E8EAF0" id="dxy-val">--</div>
+      <div style="font-size:8px;color:#6B7A8D;letter-spacing:1px;text-transform:uppercase">USD Index (DXY)</div>
+      <div style="font-size:20px;font-weight:700;color:#1A2035" id="dxy-val">--</div>
       <div style="font-size:10px;margin-top:2px" id="dxy-chg">--</div>
-      <div style="font-size:9px;color:#8A8FA8;margin-top:2px" id="dxy-sig">--</div>
+      <div style="font-size:9px;color:#6B7A8D;margin-top:2px" id="dxy-sig">--</div>
     </div>
     <div class="card" style="border-color:#D4AF3744;padding:10px 11px">
-      <div style="font-size:8px;color:#8A8FA8;letter-spacing:1px;text-transform:uppercase">US 10yr Yield</div>
-      <div style="font-size:20px;font-weight:700;color:#E8EAF0" id="ust-val">--</div>
+      <div style="font-size:8px;color:#6B7A8D;letter-spacing:1px;text-transform:uppercase">US 10yr Yield</div>
+      <div style="font-size:20px;font-weight:700;color:#1A2035" id="ust-val">--</div>
       <div style="font-size:10px;margin-top:2px" id="ust-chg">--</div>
-      <div style="font-size:9px;color:#8A8FA8;margin-top:2px" id="ust-sig">--</div>
+      <div style="font-size:9px;color:#6B7A8D;margin-top:2px" id="ust-sig">--</div>
     </div>
     <div class="card" style="border-color:#818CF844;padding:10px 11px">
-      <div style="font-size:8px;color:#8A8FA8;letter-spacing:1px;text-transform:uppercase">Baltic Dry Index</div>
-      <div style="font-size:20px;font-weight:700;color:#E8EAF0" id="bdi-val">--</div>
+      <div style="font-size:8px;color:#6B7A8D;letter-spacing:1px;text-transform:uppercase">Baltic Dry Index</div>
+      <div style="font-size:20px;font-weight:700;color:#1A2035" id="bdi-val">--</div>
       <div style="font-size:10px;margin-top:2px" id="bdi-chg">--</div>
-      <div style="font-size:9px;color:#8A8FA8;margin-top:2px" id="bdi-sig">--</div>
+      <div style="font-size:9px;color:#6B7A8D;margin-top:2px" id="bdi-sig">--</div>
     </div>
     <div class="card" style="border-color:#3DBA7A44;padding:10px 11px">
-      <div style="font-size:8px;color:#8A8FA8;letter-spacing:1px;text-transform:uppercase">Gold/Silver Ratio</div>
+      <div style="font-size:8px;color:#6B7A8D;letter-spacing:1px;text-transform:uppercase">Gold/Silver Ratio</div>
       <div style="font-size:20px;font-weight:700;color:#D4AF37" id="gsr-live-val">--</div>
-      <div style="font-size:10px;color:#8A8FA8;margin-top:2px">XAU/XAG ratio</div>
+      <div style="font-size:10px;color:#6B7A8D;margin-top:2px">XAU/XAG ratio</div>
       <div style="font-size:9px;margin-top:2px" id="gsr-live-sig">--</div>
     </div>
   </div>
 
   <!-- Silver Impact Signal -->
-  <div class="card" style="border-color:#D4AF3744;background:#0D0B04;margin-bottom:14px" id="macro-signal-card">
+  <div class="card" style="border-color:#D4AF3744;background:#F5F7EA;margin-bottom:14px" id="macro-signal-card">
     <div style="font-size:9px;color:#D4AF37;letter-spacing:3px;text-transform:uppercase;margin-bottom:6px">Combined Macro Signal for Silver</div>
     <div style="font-size:24px;font-weight:700;margin-bottom:4px" id="macro-signal-val">Loading...</div>
     <div style="font-size:11px;color:#CCCCCC;line-height:1.6" id="macro-signal-txt">Fetching macro data...</div>
@@ -622,20 +622,20 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
   <div class="stitle">CFTC Silver Positioning (COT)</div>
   <div class="card" style="margin-bottom:14px">
     <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px">
-      <div style="background:#161820;border-radius:6px;padding:8px;text-align:center">
-        <div style="font-size:8px;color:#8A8FA8;text-transform:uppercase">Spec Net Long</div>
+      <div style="background:#F0F2F5;border-radius:6px;padding:8px;text-align:center">
+        <div style="font-size:8px;color:#6B7A8D;text-transform:uppercase">Spec Net Long</div>
         <div style="font-size:15px;font-weight:700;color:#3DBA7A;margin-top:3px" id="cot-spec">111M oz</div>
-        <div style="font-size:9px;color:#8A8FA8;margin-top:2px">vs 123M prior wk</div>
+        <div style="font-size:9px;color:#6B7A8D;margin-top:2px">vs 123M prior wk</div>
       </div>
-      <div style="background:#161820;border-radius:6px;padding:8px;text-align:center">
-        <div style="font-size:8px;color:#8A8FA8;text-transform:uppercase">Commercial</div>
+      <div style="background:#F0F2F5;border-radius:6px;padding:8px;text-align:center">
+        <div style="font-size:8px;color:#6B7A8D;text-transform:uppercase">Commercial</div>
         <div style="font-size:15px;font-weight:700;color:#E05555;margin-top:3px" id="cot-comm">-287M oz</div>
-        <div style="font-size:9px;color:#8A8FA8;margin-top:2px">Net short hedgers</div>
+        <div style="font-size:9px;color:#6B7A8D;margin-top:2px">Net short hedgers</div>
       </div>
-      <div style="background:#161820;border-radius:6px;padding:8px;text-align:center">
-        <div style="font-size:8px;color:#8A8FA8;text-transform:uppercase">COT Signal</div>
+      <div style="background:#F0F2F5;border-radius:6px;padding:8px;text-align:center">
+        <div style="font-size:8px;color:#6B7A8D;text-transform:uppercase">COT Signal</div>
         <div style="font-size:13px;font-weight:700;color:#D4AF37;margin-top:3px" id="cot-signal">NEUTRAL</div>
-        <div style="font-size:9px;color:#8A8FA8;margin-top:2px">Updated Fridays</div>
+        <div style="font-size:9px;color:#6B7A8D;margin-top:2px">Updated Fridays</div>
       </div>
     </div>
     <div style="font-size:10px;color:#CCCCCC;line-height:1.6" id="cot-detail">
@@ -652,7 +652,7 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
   <!-- PMI Manufacturing -->
   <div class="stitle">Manufacturing PMI (Silver Demand Indicator)</div>
   <div class="card" style="margin-bottom:8px">
-    <div style="font-size:9px;color:#8A8FA8;margin-bottom:10px;line-height:1.5">PMI above 50 = expansion = silver demand growing. Below 50 = contraction = demand risk.</div>
+    <div style="font-size:9px;color:#6B7A8D;margin-bottom:10px;line-height:1.5">PMI above 50 = expansion = silver demand growing. Below 50 = contraction = demand risk.</div>
     <div id="pmi-list"></div>
   </div>
 
@@ -685,7 +685,7 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
 <div class="sec">
 
   <!-- Signal Strength Meter -->
-  <div class="card" style="border-color:#D4AF3744;background:#0D0B04;margin-bottom:12px" id="ta-signal-card">
+  <div class="card" style="border-color:#D4AF3744;background:#F5F7EA;margin-bottom:12px" id="ta-signal-card">
     <div style="font-size:9px;color:#D4AF37;letter-spacing:3px;text-transform:uppercase;margin-bottom:6px">Technical Signal Strength</div>
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
       <div>
@@ -693,8 +693,8 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
         <div style="font-size:10px;margin-top:2px" id="ta-overall-sub">Calculating...</div>
       </div>
       <div style="text-align:right">
-        <div style="font-size:11px;color:#E8EAF0" id="ta-score-text">--</div>
-        <div style="font-size:9px;color:#8A8FA8;margin-top:3px" id="ta-updated">--</div>
+        <div style="font-size:11px;color:#1A2035" id="ta-score-text">--</div>
+        <div style="font-size:9px;color:#6B7A8D;margin-top:3px" id="ta-updated">--</div>
       </div>
     </div>
     <!-- Signal bars -->
@@ -703,11 +703,11 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
 
   <!-- EMA Chart -->
   <div class="stitle">Price + EMA 20/50/200</div>
-  <div style="background:#161820;border-radius:8px;padding:4px;margin-bottom:10px">
+  <div style="background:#F0F2F5;border-radius:8px;padding:4px;margin-bottom:10px">
     <canvas id="ta-ema" height="180" style="width:100%"></canvas>
   </div>
   <div style="display:flex;gap:12px;margin-bottom:14px;flex-wrap:wrap">
-    <span style="font-size:9px"><span style="color:#E8EAF0">━</span> Price</span>
+    <span style="font-size:9px"><span style="color:#1A2035">━</span> Price</span>
     <span style="font-size:9px"><span style="color:#3DBA7A">━</span> EMA20</span>
     <span style="font-size:9px"><span style="color:#D4AF37">━</span> EMA50</span>
     <span style="font-size:9px"><span style="color:#E05555">━</span> EMA200</span>
@@ -716,24 +716,24 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
 
   <!-- RSI Panel -->
   <div class="stitle">RSI (14) — Relative Strength Index</div>
-  <div style="background:#161820;border-radius:8px;padding:4px;margin-bottom:6px">
+  <div style="background:#F0F2F5;border-radius:8px;padding:4px;margin-bottom:6px">
     <canvas id="ta-rsi" height="100" style="width:100%"></canvas>
   </div>
   <div style="display:flex;justify-content:space-between;margin-bottom:14px">
     <span style="font-size:9px;color:#E05555">Below 30 = Oversold = BUY zone</span>
-    <span style="font-size:9px;color:#E8EAF0;font-weight:700">RSI: <span id="ta-rsi-val">--</span></span>
+    <span style="font-size:9px;color:#1A2035;font-weight:700">RSI: <span id="ta-rsi-val">--</span></span>
     <span style="font-size:9px;color:#3DBA7A">Above 70 = Overbought = SELL zone</span>
   </div>
 
   <!-- MACD Panel -->
   <div class="stitle">MACD (12,26,9) — Momentum</div>
-  <div style="background:#161820;border-radius:8px;padding:4px;margin-bottom:6px">
+  <div style="background:#F0F2F5;border-radius:8px;padding:4px;margin-bottom:6px">
     <canvas id="ta-macd" height="100" style="width:100%"></canvas>
   </div>
   <div style="display:flex;justify-content:space-between;margin-bottom:14px">
     <span style="font-size:9px;color:#3DBA7A">━ MACD line</span>
     <span style="font-size:9px;color:#E05555">━ Signal line</span>
-    <span style="font-size:9px;color:#8A8FA8">█ Histogram</span>
+    <span style="font-size:9px;color:#6B7A8D">█ Histogram</span>
   </div>
 
   <!-- Key Levels -->
@@ -744,14 +744,14 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
   <div class="stitle">VIX Fear Index + Market Context</div>
   <div class="card" style="margin-bottom:12px">
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
-      <div style="background:#161820;border-radius:6px;padding:8px">
-        <div style="font-size:8px;color:#8A8FA8;text-transform:uppercase">VIX (Fear Index)</div>
-        <div style="font-size:20px;font-weight:700;color:#E8EAF0;margin-top:3px" id="ta-vix">--</div>
+      <div style="background:#F0F2F5;border-radius:6px;padding:8px">
+        <div style="font-size:8px;color:#6B7A8D;text-transform:uppercase">VIX (Fear Index)</div>
+        <div style="font-size:20px;font-weight:700;color:#1A2035;margin-top:3px" id="ta-vix">--</div>
         <div style="font-size:9px;margin-top:2px" id="ta-vix-sig">--</div>
       </div>
-      <div style="background:#161820;border-radius:6px;padding:8px">
-        <div style="font-size:8px;color:#8A8FA8;text-transform:uppercase">Silver vs SPY</div>
-        <div style="font-size:20px;font-weight:700;color:#E8EAF0;margin-top:3px" id="ta-spy">--</div>
+      <div style="background:#F0F2F5;border-radius:6px;padding:8px">
+        <div style="font-size:8px;color:#6B7A8D;text-transform:uppercase">Silver vs SPY</div>
+        <div style="font-size:20px;font-weight:700;color:#1A2035;margin-top:3px" id="ta-spy">--</div>
         <div style="font-size:9px;margin-top:2px" id="ta-spy-sig">--</div>
       </div>
     </div>
@@ -772,19 +772,19 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
 <div class="sec">
   <div class="stitle">Signal & Prediction Tracker</div>
 
-  <div class="card" style="border-color:#D4AF3744;background:#0D0B04;margin-bottom:14px">
+  <div class="card" style="border-color:#D4AF3744;background:#F5F7EA;margin-bottom:14px">
     <div style="font-size:9px;color:#D4AF37;letter-spacing:3px;text-transform:uppercase;margin-bottom:8px">Track Record</div>
     <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:8px">
-      <div style="background:#161820;border-radius:6px;padding:8px;text-align:center">
-        <div style="font-size:8px;color:#8A8FA8;text-transform:uppercase">Correct</div>
+      <div style="background:#F0F2F5;border-radius:6px;padding:8px;text-align:center">
+        <div style="font-size:8px;color:#6B7A8D;text-transform:uppercase">Correct</div>
         <div id="sig-correct" style="font-size:22px;font-weight:700;color:#3DBA7A;margin-top:3px">0</div>
       </div>
-      <div style="background:#161820;border-radius:6px;padding:8px;text-align:center">
-        <div style="font-size:8px;color:#8A8FA8;text-transform:uppercase">Incorrect</div>
+      <div style="background:#F0F2F5;border-radius:6px;padding:8px;text-align:center">
+        <div style="font-size:8px;color:#6B7A8D;text-transform:uppercase">Incorrect</div>
         <div id="sig-wrong" style="font-size:22px;font-weight:700;color:#E05555;margin-top:3px">0</div>
       </div>
-      <div style="background:#161820;border-radius:6px;padding:8px;text-align:center">
-        <div style="font-size:8px;color:#8A8FA8;text-transform:uppercase">Accuracy</div>
+      <div style="background:#F0F2F5;border-radius:6px;padding:8px;text-align:center">
+        <div style="font-size:8px;color:#6B7A8D;text-transform:uppercase">Accuracy</div>
         <div id="sig-pct" style="font-size:22px;font-weight:700;color:#D4AF37;margin-top:3px">--%</div>
       </div>
     </div>
@@ -797,38 +797,38 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
     <div style="font-size:9px;color:#818CF8;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px">Log Today's Signal</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
       <div>
-        <div style="font-size:9px;color:#8A8FA8;margin-bottom:4px;text-transform:uppercase;letter-spacing:1px">Signal Date</div>
-        <input id="sig-date" type="date" style="width:100%;background:#161820;border:1px solid #2E3148;border-radius:6px;padding:8px;color:#E8EAF0;font-family:'Courier New',monospace;font-size:11px;outline:none">
+        <div style="font-size:9px;color:#6B7A8D;margin-bottom:4px;text-transform:uppercase;letter-spacing:1px">Signal Date</div>
+        <input id="sig-date" type="date" style="width:100%;background:#F0F2F5;border:1px solid #C8D0DC;border-radius:6px;padding:8px;color:#1A2035;font-family:'Courier New',monospace;font-size:11px;outline:none">
       </div>
       <div>
-        <div style="font-size:9px;color:#8A8FA8;margin-bottom:4px;text-transform:uppercase;letter-spacing:1px">Price at Signal $</div>
-        <input id="sig-entry" type="number" step="0.01" placeholder="e.g. 74.50" style="width:100%;background:#161820;border:1px solid #2E3148;border-radius:6px;padding:8px;color:#E8EAF0;font-family:'Courier New',monospace;font-size:13px;outline:none">
+        <div style="font-size:9px;color:#6B7A8D;margin-bottom:4px;text-transform:uppercase;letter-spacing:1px">Price at Signal $</div>
+        <input id="sig-entry" type="number" step="0.01" placeholder="e.g. 74.50" style="width:100%;background:#F0F2F5;border:1px solid #C8D0DC;border-radius:6px;padding:8px;color:#1A2035;font-family:'Courier New',monospace;font-size:13px;outline:none">
       </div>
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
       <div>
-        <div style="font-size:9px;color:#8A8FA8;margin-bottom:4px;text-transform:uppercase;letter-spacing:1px">Direction</div>
-        <select id="sig-dir" style="width:100%;background:#161820;border:1px solid #2E3148;border-radius:6px;padding:8px;color:#E8EAF0;font-family:'Courier New',monospace;font-size:13px;outline:none">
+        <div style="font-size:9px;color:#6B7A8D;margin-bottom:4px;text-transform:uppercase;letter-spacing:1px">Direction</div>
+        <select id="sig-dir" style="width:100%;background:#F0F2F5;border:1px solid #C8D0DC;border-radius:6px;padding:8px;color:#1A2035;font-family:'Courier New',monospace;font-size:13px;outline:none">
           <option value="BULLISH">BULLISH</option>
           <option value="BEARISH">BEARISH</option>
           <option value="NEUTRAL">NEUTRAL</option>
         </select>
       </div>
       <div>
-        <div style="font-size:9px;color:#8A8FA8;margin-bottom:4px;text-transform:uppercase;letter-spacing:1px">Target $ (optional)</div>
-        <input id="sig-target" type="number" step="0.01" placeholder="e.g. 79.00" style="width:100%;background:#161820;border:1px solid #2E3148;border-radius:6px;padding:8px;color:#E8EAF0;font-family:'Courier New',monospace;font-size:13px;outline:none">
+        <div style="font-size:9px;color:#6B7A8D;margin-bottom:4px;text-transform:uppercase;letter-spacing:1px">Target $ (optional)</div>
+        <input id="sig-target" type="number" step="0.01" placeholder="e.g. 79.00" style="width:100%;background:#F0F2F5;border:1px solid #C8D0DC;border-radius:6px;padding:8px;color:#1A2035;font-family:'Courier New',monospace;font-size:13px;outline:none">
       </div>
     </div>
     <div style="margin-bottom:8px">
-      <div style="font-size:9px;color:#8A8FA8;margin-bottom:4px;text-transform:uppercase;letter-spacing:1px">Key Reason</div>
-      <input id="sig-reason" type="text" placeholder="e.g. COMEX stress 16.6%, SHFE premium elevated" style="width:100%;background:#161820;border:1px solid #2E3148;border-radius:6px;padding:8px;color:#E8EAF0;font-family:'Courier New',monospace;font-size:11px;outline:none">
+      <div style="font-size:9px;color:#6B7A8D;margin-bottom:4px;text-transform:uppercase;letter-spacing:1px">Key Reason</div>
+      <input id="sig-reason" type="text" placeholder="e.g. COMEX stress 16.6%, SHFE premium elevated" style="width:100%;background:#F0F2F5;border:1px solid #C8D0DC;border-radius:6px;padding:8px;color:#1A2035;font-family:'Courier New',monospace;font-size:11px;outline:none">
     </div>
     <button onclick="logSignal()" style="width:100%;padding:10px;background:#818CF8;color:#000;border:none;border-radius:6px;font-family:'Courier New',monospace;font-size:12px;font-weight:700;cursor:pointer;letter-spacing:1px">LOG SIGNAL</button>
     <div id="sig-status" style="font-size:10px;color:#888;text-align:center;margin-top:6px"></div>
   </div>
 
   <div class="stitle">Signal History</div>
-  <div id="sig-list" style="font-size:11px;color:#8A8FA8;text-align:center;padding:20px">No signals logged yet.</div>
+  <div id="sig-list" style="font-size:11px;color:#6B7A8D;text-align:center;padding:20px">No signals logged yet.</div>
 </div>
 </div>
 
@@ -837,24 +837,24 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
 <div class="sec">
   <div class="stitle">Analyst Consensus 2026</div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px">
-    <div class="card" style="text-align:center"><div style="font-size:8px;color:#8A8FA8;text-transform:uppercase">JP Morgan</div><div style="font-size:20px;font-weight:700;color:#D4AF37;margin-top:4px">$81/oz</div><div style="font-size:9px;color:#3DBA7A">2026 avg</div></div>
-    <div class="card" style="text-align:center"><div style="font-size:8px;color:#8A8FA8;text-transform:uppercase">Commerzbank</div><div style="font-size:20px;font-weight:700;color:#3DBA7A;margin-top:4px">$90/oz</div><div style="font-size:9px;color:#3DBA7A">Year-end</div></div>
-    <div class="card" style="text-align:center"><div style="font-size:8px;color:#8A8FA8;text-transform:uppercase">Citigroup</div><div style="font-size:20px;font-weight:700;color:#3DBA7A;margin-top:4px">$110/oz</div><div style="font-size:9px;color:#3DBA7A">H2 bull case</div></div>
-    <div class="card" style="text-align:center"><div style="font-size:8px;color:#8A8FA8;text-transform:uppercase">UBS</div><div style="font-size:20px;font-weight:700;color:#3DBA7A;margin-top:4px">$100+</div><div style="font-size:9px;color:#3DBA7A">Year-end</div></div>
-    <div class="card" style="text-align:center"><div style="font-size:8px;color:#8A8FA8;text-transform:uppercase">CoinCodex</div><div style="font-size:20px;font-weight:700;color:#E05555;margin-top:4px">$61.66</div><div style="font-size:9px;color:#E05555">Jun 15 low</div></div>
-    <div class="card" style="text-align:center"><div style="font-size:8px;color:#8A8FA8;text-transform:uppercase">Reuters</div><div style="font-size:20px;font-weight:700;color:#D4AF37;margin-top:4px">$79.50</div><div style="font-size:9px;color:#3DBA7A">2026 avg</div></div>
+    <div class="card" style="text-align:center"><div style="font-size:8px;color:#6B7A8D;text-transform:uppercase">JP Morgan</div><div style="font-size:20px;font-weight:700;color:#D4AF37;margin-top:4px">$81/oz</div><div style="font-size:9px;color:#3DBA7A">2026 avg</div></div>
+    <div class="card" style="text-align:center"><div style="font-size:8px;color:#6B7A8D;text-transform:uppercase">Commerzbank</div><div style="font-size:20px;font-weight:700;color:#3DBA7A;margin-top:4px">$90/oz</div><div style="font-size:9px;color:#3DBA7A">Year-end</div></div>
+    <div class="card" style="text-align:center"><div style="font-size:8px;color:#6B7A8D;text-transform:uppercase">Citigroup</div><div style="font-size:20px;font-weight:700;color:#3DBA7A;margin-top:4px">$110/oz</div><div style="font-size:9px;color:#3DBA7A">H2 bull case</div></div>
+    <div class="card" style="text-align:center"><div style="font-size:8px;color:#6B7A8D;text-transform:uppercase">UBS</div><div style="font-size:20px;font-weight:700;color:#3DBA7A;margin-top:4px">$100+</div><div style="font-size:9px;color:#3DBA7A">Year-end</div></div>
+    <div class="card" style="text-align:center"><div style="font-size:8px;color:#6B7A8D;text-transform:uppercase">CoinCodex</div><div style="font-size:20px;font-weight:700;color:#E05555;margin-top:4px">$61.66</div><div style="font-size:9px;color:#E05555">Jun 15 low</div></div>
+    <div class="card" style="text-align:center"><div style="font-size:8px;color:#6B7A8D;text-transform:uppercase">Reuters</div><div style="font-size:20px;font-weight:700;color:#D4AF37;margin-top:4px">$79.50</div><div style="font-size:9px;color:#3DBA7A">2026 avg</div></div>
   </div>
   <div class="card" style="border:1px solid #3DBA7A44;margin-bottom:8px">
     <div style="font-size:9px;color:#3DBA7A;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">Bull Case Long-Term</div>
-    <div style="font-size:11px;color:#C8CCE0;line-height:1.7">Solar/EV demand 59% of total growing 15%/yr. 6th consecutive 46Moz+ deficit. SHFE premium +$9/oz Asian accumulation. Gold/Silver ratio historically signals silver outperformance.</div>
+    <div style="font-size:11px;color:#2A3550;line-height:1.7">Solar/EV demand 59% of total growing 15%/yr. 6th consecutive 46Moz+ deficit. SHFE premium +$9/oz Asian accumulation. Gold/Silver ratio historically signals silver outperformance.</div>
   </div>
   <div class="card" style="border:1px solid #E0555544;margin-bottom:8px">
     <div style="font-size:9px;color:#E05555;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">Bear Case Now</div>
-    <div style="font-size:11px;color:#C8CCE0;line-height:1.7">Hot CPI 4.2%+ confirmed Jun 10. 200-day MA $67.92 broken. Fed rate hike 72% probability Dec 2026. USD strengthening. Wait for $62-63 base before re-entry.</div>
+    <div style="font-size:11px;color:#2A3550;line-height:1.7">Hot CPI 4.2%+ confirmed Jun 10. 200-day MA $67.92 broken. Fed rate hike 72% probability Dec 2026. USD strengthening. Wait for $62-63 base before re-entry.</div>
   </div>
   <div class="card" style="border:1px solid #D4AF3744">
     <div style="font-size:9px;color:#D4AF37;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">Rocky Silver View</div>
-    <div style="font-size:11px;color:#C8CCE0;line-height:1.7">SHORT: Do not buy yet. Wait $62-63 base. MED: Jul recovery likely. LONG: $85-93 YE target intact. Jackson Hole Aug 17 is THE re-entry signal. 2024 precedent: +25% in 6 weeks after Jackson Hole.</div>
+    <div style="font-size:11px;color:#2A3550;line-height:1.7">SHORT: Do not buy yet. Wait $62-63 base. MED: Jul recovery likely. LONG: $85-93 YE target intact. Jackson Hole Aug 17 is THE re-entry signal. 2024 precedent: +25% in 6 weeks after Jackson Hole.</div>
   </div>
 </div>
 </div>
@@ -864,33 +864,33 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
 <div class="sec">
   <div class="stitle">Full Year Intelligence 2025-2026</div>
   <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:10px">
-    <div class="card" style="text-align:center"><div style="font-size:8px;color:#8A8FA8;text-transform:uppercase">Jan 2025</div><div style="font-size:16px;font-weight:700;color:#3DBA7A;margin-top:4px">$29.80</div></div>
-    <div class="card" style="text-align:center"><div style="font-size:8px;color:#8A8FA8;text-transform:uppercase">Now</div><div style="font-size:16px;font-weight:700;color:#E05555;margin-top:4px">$67.44</div></div>
-    <div class="card" style="text-align:center"><div style="font-size:8px;color:#8A8FA8;text-transform:uppercase">YE Target</div><div style="font-size:16px;font-weight:700;color:#3DBA7A;margin-top:4px">$85-93</div></div>
+    <div class="card" style="text-align:center"><div style="font-size:8px;color:#6B7A8D;text-transform:uppercase">Jan 2025</div><div style="font-size:16px;font-weight:700;color:#3DBA7A;margin-top:4px">$29.80</div></div>
+    <div class="card" style="text-align:center"><div style="font-size:8px;color:#6B7A8D;text-transform:uppercase">Now</div><div style="font-size:16px;font-weight:700;color:#E05555;margin-top:4px">$67.44</div></div>
+    <div class="card" style="text-align:center"><div style="font-size:8px;color:#6B7A8D;text-transform:uppercase">YE Target</div><div style="font-size:16px;font-weight:700;color:#3DBA7A;margin-top:4px">$85-93</div></div>
   </div>
   <div class="card" style="margin-bottom:8px">
     <div style="font-size:9px;color:#D4AF37;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">2025 Journey</div>
     <div style="font-size:10px">
-      <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #2E3148"><span style="color:#C8CCE0">Q1 2025</span><span style="color:#3DBA7A">$29-34</span><span style="color:#3DBA7A">Accumulation</span></div>
-      <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #2E3148"><span style="color:#C8CCE0">Q2 2025</span><span style="color:#3DBA7A">$32-38</span><span style="color:#3DBA7A">Breakout</span></div>
-      <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #2E3148"><span style="color:#C8CCE0">Q3 2025</span><span style="color:#D4AF37">$36-42</span><span style="color:#D4AF37">Consolidation</span></div>
-      <div style="display:flex;justify-content:space-between;padding:5px 0"><span style="color:#C8CCE0">Q4 2025</span><span style="color:#3DBA7A">$40-46</span><span style="color:#3DBA7A">Base building</span></div>
+      <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #D8DDE5"><span style="color:#2A3550">Q1 2025</span><span style="color:#3DBA7A">$29-34</span><span style="color:#3DBA7A">Accumulation</span></div>
+      <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #D8DDE5"><span style="color:#2A3550">Q2 2025</span><span style="color:#3DBA7A">$32-38</span><span style="color:#3DBA7A">Breakout</span></div>
+      <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #D8DDE5"><span style="color:#2A3550">Q3 2025</span><span style="color:#D4AF37">$36-42</span><span style="color:#D4AF37">Consolidation</span></div>
+      <div style="display:flex;justify-content:space-between;padding:5px 0"><span style="color:#2A3550">Q4 2025</span><span style="color:#3DBA7A">$40-46</span><span style="color:#3DBA7A">Base building</span></div>
     </div>
   </div>
   <div class="card" style="margin-bottom:8px">
     <div style="font-size:9px;color:#D4AF37;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">2026 Monthly Forecast</div>
     <div style="font-size:10px">
-      <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #2E3148"><span style="color:#C8CCE0">Jun 2026</span><span style="color:#E05555">$61-67</span><span style="color:#E05555">BEARISH</span></div>
-      <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #2E3148"><span style="color:#C8CCE0">Jul 2026</span><span style="color:#3DBA7A">$70-76</span><span style="color:#3DBA7A">RECOVERY</span></div>
-      <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #2E3148"><span style="color:#C8CCE0">Aug 2026</span><span style="color:#D4AF37">$72-80</span><span style="color:#D4AF37">Jackson Hole</span></div>
-      <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #2E3148"><span style="color:#C8CCE0">Sep 2026</span><span style="color:#3DBA7A">$76-84</span><span style="color:#3DBA7A">BULLISH</span></div>
-      <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #2E3148"><span style="color:#C8CCE0">Oct 2026</span><span style="color:#3DBA7A">$80-88</span><span style="color:#3DBA7A">Fed pivot</span></div>
-      <div style="display:flex;justify-content:space-between;padding:5px 0"><span style="color:#C8CCE0">Nov-Dec 2026</span><span style="color:#3DBA7A">$85-93</span><span style="color:#3DBA7A">STRONG BUY</span></div>
+      <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #D8DDE5"><span style="color:#2A3550">Jun 2026</span><span style="color:#E05555">$61-67</span><span style="color:#E05555">BEARISH</span></div>
+      <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #D8DDE5"><span style="color:#2A3550">Jul 2026</span><span style="color:#3DBA7A">$70-76</span><span style="color:#3DBA7A">RECOVERY</span></div>
+      <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #D8DDE5"><span style="color:#2A3550">Aug 2026</span><span style="color:#D4AF37">$72-80</span><span style="color:#D4AF37">Jackson Hole</span></div>
+      <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #D8DDE5"><span style="color:#2A3550">Sep 2026</span><span style="color:#3DBA7A">$76-84</span><span style="color:#3DBA7A">BULLISH</span></div>
+      <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #D8DDE5"><span style="color:#2A3550">Oct 2026</span><span style="color:#3DBA7A">$80-88</span><span style="color:#3DBA7A">Fed pivot</span></div>
+      <div style="display:flex;justify-content:space-between;padding:5px 0"><span style="color:#2A3550">Nov-Dec 2026</span><span style="color:#3DBA7A">$85-93</span><span style="color:#3DBA7A">STRONG BUY</span></div>
     </div>
   </div>
   <div class="card" style="border:1px solid #3DBA7A44">
     <div style="font-size:9px;color:#3DBA7A;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">Jackson Hole Aug 17 Catalyst</div>
-    <div style="font-size:11px;color:#C8CCE0;line-height:1.7">Wait for $62-63 base Jun/Jul. Position ahead of Jackson Hole for Aug-Dec rally. Year-end $85-93 intact despite CPI shock. 2024: silver +25% in 6 weeks after Jackson Hole.</div>
+    <div style="font-size:11px;color:#2A3550;line-height:1.7">Wait for $62-63 base Jun/Jul. Position ahead of Jackson Hole for Aug-Dec rally. Year-end $85-93 intact despite CPI shock. 2024: silver +25% in 6 weeks after Jackson Hole.</div>
   </div>
 </div>
 </div>
@@ -901,10 +901,10 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
   <div class="stitle">IG Spread Bet Tools</div>
   <div class="card" style="margin-bottom:8px">
     <div style="font-size:9px;color:#3DBA7A;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">XAG/USD to IG DFB Pence Converter</div>
-    <div style="font-size:9px;color:#8A8FA8;margin-bottom:8px">Formula: IG pence = round(USD / GBP_USD x 100) + 937</div>
+    <div style="font-size:9px;color:#6B7A8D;margin-bottom:8px">Formula: IG pence = round(USD / GBP_USD x 100) + 937</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
-      <div><div style="font-size:8px;color:#8A8FA8;text-transform:uppercase;margin-bottom:3px">XAG/USD</div><input id="convUSD" type="number" value="67.44" step="0.01" oninput="convertIGPrice()" style="width:100%;background:#161820;border:1px solid #2E3148;color:#E8EAF0;padding:6px;font-family:inherit;font-size:11px;border-radius:4px"></div>
-      <div><div style="font-size:8px;color:#8A8FA8;text-transform:uppercase;margin-bottom:3px">GBP/USD</div><input id="convGBP" type="number" value="1.2750" step="0.0001" oninput="convertIGPrice()" style="width:100%;background:#161820;border:1px solid #2E3148;color:#E8EAF0;padding:6px;font-family:inherit;font-size:11px;border-radius:4px"></div>
+      <div><div style="font-size:8px;color:#6B7A8D;text-transform:uppercase;margin-bottom:3px">XAG/USD</div><input id="convUSD" type="number" value="67.44" step="0.01" oninput="convertIGPrice()" style="width:100%;background:#F8F9FA;border:1px solid #C8D0DC;color:#1A2035;padding:6px;font-family:inherit;font-size:11px;border-radius:4px"></div>
+      <div><div style="font-size:8px;color:#6B7A8D;text-transform:uppercase;margin-bottom:3px">GBP/USD</div><input id="convGBP" type="number" value="1.2750" step="0.0001" oninput="convertIGPrice()" style="width:100%;background:#F8F9FA;border:1px solid #C8D0DC;color:#1A2035;padding:6px;font-family:inherit;font-size:11px;border-radius:4px"></div>
     </div>
     <div style="background:#D4AF3715;border:1px solid #D4AF3744;border-radius:6px;padding:10px;text-align:center">
       <div style="font-size:9px;color:#D4AF37;text-transform:uppercase;margin-bottom:3px">IG DFB Pence</div>
@@ -914,26 +914,26 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
   <div class="card" style="margin-bottom:8px">
     <div style="font-size:9px;color:#D4AF37;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">P&L Calculator</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
-      <div><div style="font-size:8px;color:#8A8FA8;text-transform:uppercase;margin-bottom:3px">Open (pence)</div><input id="plOpen" type="number" value="6950" style="width:100%;background:#161820;border:1px solid #2E3148;color:#E8EAF0;padding:6px;font-family:inherit;font-size:11px;border-radius:4px"></div>
-      <div><div style="font-size:8px;color:#8A8FA8;text-transform:uppercase;margin-bottom:3px">Current (pence)</div><input id="plCurrent" type="number" value="6226" style="width:100%;background:#161820;border:1px solid #2E3148;color:#E8EAF0;padding:6px;font-family:inherit;font-size:11px;border-radius:4px"></div>
-      <div><div style="font-size:8px;color:#8A8FA8;text-transform:uppercase;margin-bottom:3px">Per Point (GBP)</div><input id="plSize" type="number" value="0.50" step="0.10" style="width:100%;background:#161820;border:1px solid #2E3148;color:#E8EAF0;padding:6px;font-family:inherit;font-size:11px;border-radius:4px"></div>
-      <div><div style="font-size:8px;color:#8A8FA8;text-transform:uppercase;margin-bottom:3px">Direction</div><select id="plDir" style="width:100%;background:#161820;border:1px solid #2E3148;color:#E8EAF0;padding:6px;font-family:inherit;font-size:11px;border-radius:4px"><option value="long">LONG</option><option value="short">SHORT</option></select></div>
+      <div><div style="font-size:8px;color:#6B7A8D;text-transform:uppercase;margin-bottom:3px">Open (pence)</div><input id="plOpen" type="number" value="6950" style="width:100%;background:#F8F9FA;border:1px solid #C8D0DC;color:#1A2035;padding:6px;font-family:inherit;font-size:11px;border-radius:4px"></div>
+      <div><div style="font-size:8px;color:#6B7A8D;text-transform:uppercase;margin-bottom:3px">Current (pence)</div><input id="plCurrent" type="number" value="6226" style="width:100%;background:#F8F9FA;border:1px solid #C8D0DC;color:#1A2035;padding:6px;font-family:inherit;font-size:11px;border-radius:4px"></div>
+      <div><div style="font-size:8px;color:#6B7A8D;text-transform:uppercase;margin-bottom:3px">Per Point (GBP)</div><input id="plSize" type="number" value="0.50" step="0.10" style="width:100%;background:#F8F9FA;border:1px solid #C8D0DC;color:#1A2035;padding:6px;font-family:inherit;font-size:11px;border-radius:4px"></div>
+      <div><div style="font-size:8px;color:#6B7A8D;text-transform:uppercase;margin-bottom:3px">Direction</div><select id="plDir" style="width:100%;background:#F8F9FA;border:1px solid #C8D0DC;color:#1A2035;padding:6px;font-family:inherit;font-size:11px;border-radius:4px"><option value="long">LONG</option><option value="short">SHORT</option></select></div>
     </div>
     <button onclick="calcIGPL()" style="width:100%;padding:8px;background:#3DBA7A20;color:#3DBA7A;border:1px solid #3DBA7A44;border-radius:4px;font-family:inherit;font-size:10px;cursor:pointer;letter-spacing:1px">CALCULATE P&L</button>
     <div id="plResult" style="margin-top:10px;display:none;grid-template-columns:1fr 1fr 1fr;gap:6px">
-      <div style="background:#161820;border-radius:6px;padding:8px;text-align:center"><div style="font-size:8px;color:#8A8FA8">Points</div><div id="plPts" style="font-size:18px;font-weight:700;margin-top:3px">-</div></div>
-      <div style="background:#161820;border-radius:6px;padding:8px;text-align:center"><div style="font-size:8px;color:#8A8FA8">P&L</div><div id="plVal" style="font-size:18px;font-weight:700;margin-top:3px">-</div></div>
-      <div style="background:#161820;border-radius:6px;padding:8px;text-align:center"><div style="font-size:8px;color:#8A8FA8">Move %</div><div id="plPct" style="font-size:18px;font-weight:700;margin-top:3px">-</div></div>
+      <div style="background:#F0F2F5;border-radius:6px;padding:8px;text-align:center"><div style="font-size:8px;color:#6B7A8D">Points</div><div id="plPts" style="font-size:18px;font-weight:700;margin-top:3px">-</div></div>
+      <div style="background:#F0F2F5;border-radius:6px;padding:8px;text-align:center"><div style="font-size:8px;color:#6B7A8D">P&L</div><div id="plVal" style="font-size:18px;font-weight:700;margin-top:3px">-</div></div>
+      <div style="background:#F0F2F5;border-radius:6px;padding:8px;text-align:center"><div style="font-size:8px;color:#6B7A8D">Move %</div><div id="plPct" style="font-size:18px;font-weight:700;margin-top:3px">-</div></div>
     </div>
   </div>
   <div class="card">
     <div style="font-size:9px;color:#D4AF37;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">Quick Reference Levels</div>
     <div style="font-size:10px">
-      <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #2E3148"><span style="color:#C8CCE0">$90 YE Bull</span><span style="color:#3DBA7A">~8,351p</span></div>
-      <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #2E3148"><span style="color:#C8CCE0">$80 Target</span><span style="color:#3DBA7A">~7,330p</span></div>
-      <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #2E3148"><span style="color:#C8CCE0">$67.92 200MA</span><span style="color:#E05555">~6,284p BROKEN</span></div>
-      <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #2E3148"><span style="color:#C8CCE0">$65 Floor</span><span style="color:#D4AF37">~6,062p Watch</span></div>
-      <div style="display:flex;justify-content:space-between;padding:4px 0"><span style="color:#C8CCE0">$62 Base</span><span style="color:#3DBA7A">~5,791p Buy zone</span></div>
+      <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #D8DDE5"><span style="color:#2A3550">$90 YE Bull</span><span style="color:#3DBA7A">~8,351p</span></div>
+      <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #D8DDE5"><span style="color:#2A3550">$80 Target</span><span style="color:#3DBA7A">~7,330p</span></div>
+      <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #D8DDE5"><span style="color:#2A3550">$67.92 200MA</span><span style="color:#E05555">~6,284p BROKEN</span></div>
+      <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #D8DDE5"><span style="color:#2A3550">$65 Floor</span><span style="color:#D4AF37">~6,062p Watch</span></div>
+      <div style="display:flex;justify-content:space-between;padding:4px 0"><span style="color:#2A3550">$62 Base</span><span style="color:#3DBA7A">~5,791p Buy zone</span></div>
     </div>
   </div>
 </div>
@@ -946,21 +946,21 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
   <div class="card" style="border:1px solid #E0555544;margin-bottom:8px">
     <div style="font-size:9px;color:#E05555;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">CPI by Country - Jun 2026</div>
     <div style="font-size:10px">
-      <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #2E3148"><span style="color:#E8EAF0;font-weight:700">USA</span><span style="color:#E05555;font-weight:700">4.2%</span><span style="color:#E05555">HOT - Bearish</span></div>
-      <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #2E3148"><span style="color:#E8EAF0">UK</span><span style="color:#D4AF37">2.8%</span><span style="color:#D4AF37">Above target</span></div>
-      <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #2E3148"><span style="color:#E8EAF0">Eurozone</span><span style="color:#D4AF37">3.2%</span><span style="color:#D4AF37">Elevated</span></div>
-      <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #2E3148"><span style="color:#E8EAF0">Canada</span><span style="color:#D4AF37">2.9%</span><span style="color:#D4AF37">Moderating</span></div>
-      <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #2E3148"><span style="color:#E8EAF0">China</span><span style="color:#3DBA7A">1.2%</span><span style="color:#3DBA7A">Low - buying</span></div>
-      <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #2E3148"><span style="color:#E8EAF0">India</span><span style="color:#D4AF37">4.8%</span><span style="color:#3DBA7A">Physical demand</span></div>
-      <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #2E3148"><span style="color:#E8EAF0">Japan</span><span style="color:#D4AF37">2.1%</span><span style="color:#D4AF37">Rising</span></div>
-      <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #2E3148"><span style="color:#E8EAF0">Brazil</span><span style="color:#E05555">5.8%</span><span style="color:#3DBA7A">Silver hedge</span></div>
-      <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #2E3148"><span style="color:#E8EAF0">South Africa</span><span style="color:#E05555">5.2%</span><span style="color:#3DBA7A">Top producer</span></div>
-      <div style="display:flex;justify-content:space-between;padding:6px 0"><span style="color:#E8EAF0">Turkey</span><span style="color:#E05555">68.0%</span><span style="color:#3DBA7A">Silver as hedge</span></div>
+      <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #D8DDE5"><span style="color:#1A2035;font-weight:700">USA</span><span style="color:#E05555;font-weight:700">4.2%</span><span style="color:#E05555">HOT - Bearish</span></div>
+      <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #D8DDE5"><span style="color:#1A2035">UK</span><span style="color:#D4AF37">2.8%</span><span style="color:#D4AF37">Above target</span></div>
+      <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #D8DDE5"><span style="color:#1A2035">Eurozone</span><span style="color:#D4AF37">3.2%</span><span style="color:#D4AF37">Elevated</span></div>
+      <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #D8DDE5"><span style="color:#1A2035">Canada</span><span style="color:#D4AF37">2.9%</span><span style="color:#D4AF37">Moderating</span></div>
+      <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #D8DDE5"><span style="color:#1A2035">China</span><span style="color:#3DBA7A">1.2%</span><span style="color:#3DBA7A">Low - buying</span></div>
+      <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #D8DDE5"><span style="color:#1A2035">India</span><span style="color:#D4AF37">4.8%</span><span style="color:#3DBA7A">Physical demand</span></div>
+      <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #D8DDE5"><span style="color:#1A2035">Japan</span><span style="color:#D4AF37">2.1%</span><span style="color:#D4AF37">Rising</span></div>
+      <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #D8DDE5"><span style="color:#1A2035">Brazil</span><span style="color:#E05555">5.8%</span><span style="color:#3DBA7A">Silver hedge</span></div>
+      <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #D8DDE5"><span style="color:#1A2035">South Africa</span><span style="color:#E05555">5.2%</span><span style="color:#3DBA7A">Top producer</span></div>
+      <div style="display:flex;justify-content:space-between;padding:6px 0"><span style="color:#1A2035">Turkey</span><span style="color:#E05555">68.0%</span><span style="color:#3DBA7A">Silver as hedge</span></div>
     </div>
   </div>
   <div class="card">
     <div style="font-size:9px;color:#D4AF37;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">Silver Impact</div>
-    <div style="font-size:11px;color:#C8CCE0;line-height:1.7">US hot CPI (4.2%+) delays Fed cuts and strengthens USD - primary headwind for silver. However global physical demand from inflation-hedge buyers (India, Turkey, Brazil) provides structural floor. Watch for CPI rolling below 3% as the re-entry signal.</div>
+    <div style="font-size:11px;color:#2A3550;line-height:1.7">US hot CPI (4.2%+) delays Fed cuts and strengthens USD - primary headwind for silver. However global physical demand from inflation-hedge buyers (India, Turkey, Brazil) provides structural floor. Watch for CPI rolling below 3% as the re-entry signal.</div>
   </div>
 </div>
 </div>
@@ -971,33 +971,33 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
   <div style="text-align:center;padding:30px 0 15px">
     <div style="font-size:32px;margin-bottom:10px">🔒</div>
     <div style="font-size:9px;letter-spacing:3px;color:#D4AF37;text-transform:uppercase;margin-bottom:4px">MarketOracle</div>
-    <div style="font-size:11px;color:#8A8FA8">Admin Access - Rocky Silver MI v3</div>
+    <div style="font-size:11px;color:#6B7A8D">Admin Access - Rocky Silver MI v3</div>
   </div>
   <div class="card" style="border:1px solid #D4AF3744;margin-bottom:10px">
     <div style="font-size:9px;color:#D4AF37;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px">Sign In</div>
     <div style="margin-bottom:8px">
-      <div style="font-size:8px;color:#8A8FA8;text-transform:uppercase;margin-bottom:4px">Username or Email</div>
-      <input id="admin-user" type="text" placeholder="123Rocky@trade" style="width:100%;background:#161820;border:1px solid #2E3148;border-radius:6px;padding:8px;color:#E8EAF0;font-family:inherit;font-size:11px;outline:none">
+      <div style="font-size:8px;color:#6B7A8D;text-transform:uppercase;margin-bottom:4px">Username or Email</div>
+      <input id="admin-user" type="text" placeholder="123Rocky@trade" style="width:100%;background:#F0F2F5;border:1px solid #C8D0DC;border-radius:6px;padding:8px;color:#1A2035;font-family:inherit;font-size:11px;outline:none">
     </div>
     <div style="margin-bottom:12px">
-      <div style="font-size:8px;color:#8A8FA8;text-transform:uppercase;margin-bottom:4px">Password</div>
-      <input id="admin-pass" type="password" placeholder="..." style="width:100%;background:#161820;border:1px solid #2E3148;border-radius:6px;padding:8px;color:#E8EAF0;font-family:inherit;font-size:11px;outline:none">
+      <div style="font-size:8px;color:#6B7A8D;text-transform:uppercase;margin-bottom:4px">Password</div>
+      <input id="admin-pass" type="password" placeholder="..." style="width:100%;background:#F0F2F5;border:1px solid #C8D0DC;border-radius:6px;padding:8px;color:#1A2035;font-family:inherit;font-size:11px;outline:none">
     </div>
     <button onclick="adminLogin()" style="width:100%;padding:10px;background:#D4AF37;color:#000;border:none;border-radius:6px;font-family:inherit;font-size:11px;font-weight:700;cursor:pointer;letter-spacing:1px">SIGN IN</button>
     <div id="admin-error" style="display:none;margin-top:8px;text-align:center;font-size:10px;color:#E05555">Invalid credentials. Try again.</div>
   </div>
   <div style="text-align:center">
-    <button onclick="showAdminForgot()" style="background:none;border:none;color:#8A8FA8;font-size:10px;font-family:inherit;cursor:pointer;text-decoration:underline">Forgot password?</button>
+    <button onclick="showAdminForgot()" style="background:none;border:none;color:#6B7A8D;font-size:10px;font-family:inherit;cursor:pointer;text-decoration:underline">Forgot password?</button>
   </div>
 </div>
 <div id="admin-forgot" class="sec" style="display:none">
   <div style="text-align:center;padding:20px 0 10px"><div style="font-size:28px">🔑</div><div style="font-size:9px;letter-spacing:3px;color:#D4AF37;text-transform:uppercase;margin-top:6px">Reset Password</div></div>
   <div class="card" style="margin-bottom:8px">
-    <input id="forgot-email" type="email" placeholder="portosantozezo@yahoo.co.uk" style="width:100%;background:#161820;border:1px solid #2E3148;border-radius:6px;padding:8px;color:#E8EAF0;font-family:inherit;font-size:11px;outline:none;margin-bottom:10px">
+    <input id="forgot-email" type="email" placeholder="portosantozezo@yahoo.co.uk" style="width:100%;background:#F0F2F5;border:1px solid #C8D0DC;border-radius:6px;padding:8px;color:#1A2035;font-family:inherit;font-size:11px;outline:none;margin-bottom:10px">
     <button onclick="adminForgot()" style="width:100%;padding:10px;background:#818CF8;color:#000;border:none;border-radius:6px;font-family:inherit;font-size:11px;font-weight:700;cursor:pointer">SEND RESET LINK</button>
     <div id="forgot-msg" style="display:none;margin-top:8px;text-align:center;font-size:10px"></div>
   </div>
-  <div style="text-align:center"><button onclick="showAdminLogin()" style="background:none;border:none;color:#8A8FA8;font-size:10px;font-family:inherit;cursor:pointer;text-decoration:underline">Back to login</button></div>
+  <div style="text-align:center"><button onclick="showAdminLogin()" style="background:none;border:none;color:#6B7A8D;font-size:10px;font-family:inherit;cursor:pointer;text-decoration:underline">Back to login</button></div>
 </div>
 <div id="admin-panel" class="sec" style="display:none">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
@@ -1006,9 +1006,9 @@ body{background:#12131A;color:#E8EAF0;font-family:'Courier New',monospace;max-wi
   </div>
   <div class="card" style="border:1px solid #D4AF3744;margin-bottom:8px">
     <div style="font-size:9px;color:#D4AF37;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px">AI Function Controls</div>
-    <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #2E3148"><div><div style="font-size:11px;color:#E8EAF0">Live Price Feed</div><div style="font-size:9px;color:#8A8FA8">Swissquote</div></div><button onclick="toggleAI('price')" id="btn-price" style="padding:4px 12px;border-radius:4px;font-family:inherit;font-size:9px;font-weight:700;cursor:pointer;border:none;background:#3DBA7A;color:#000">ON</button></div>
-    <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #2E3148"><div><div style="font-size:11px;color:#E8EAF0">News Feed</div><div style="font-size:9px;color:#8A8FA8">Live silver news</div></div><button onclick="toggleAI('news')" id="btn-news" style="padding:4px 12px;border-radius:4px;font-family:inherit;font-size:9px;font-weight:700;cursor:pointer;border:none;background:#3DBA7A;color:#000">ON</button></div>
-    <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0"><div><div style="font-size:11px;color:#E8EAF0">Polymarket Feed</div><div style="font-size:9px;color:#8A8FA8">Crowd odds</div></div><button onclick="toggleAI('poly')" id="btn-poly" style="padding:4px 12px;border-radius:4px;font-family:inherit;font-size:9px;font-weight:700;cursor:pointer;border:none;background:#3DBA7A;color:#000">ON</button></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #D8DDE5"><div><div style="font-size:11px;color:#1A2035">Live Price Feed</div><div style="font-size:9px;color:#6B7A8D">Swissquote</div></div><button onclick="toggleAI('price')" id="btn-price" style="padding:4px 12px;border-radius:4px;font-family:inherit;font-size:9px;font-weight:700;cursor:pointer;border:none;background:#3DBA7A;color:#000">ON</button></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #D8DDE5"><div><div style="font-size:11px;color:#1A2035">News Feed</div><div style="font-size:9px;color:#6B7A8D">Live silver news</div></div><button onclick="toggleAI('news')" id="btn-news" style="padding:4px 12px;border-radius:4px;font-family:inherit;font-size:9px;font-weight:700;cursor:pointer;border:none;background:#3DBA7A;color:#000">ON</button></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0"><div><div style="font-size:11px;color:#1A2035">Polymarket Feed</div><div style="font-size:9px;color:#6B7A8D">Crowd odds</div></div><button onclick="toggleAI('poly')" id="btn-poly" style="padding:4px 12px;border-radius:4px;font-family:inherit;font-size:9px;font-weight:700;cursor:pointer;border:none;background:#3DBA7A;color:#000">ON</button></div>
     <button onclick="killAllAI()" style="width:100%;margin-top:10px;padding:8px;background:#E0555520;color:#E05555;border:1px solid #E0555544;border-radius:6px;font-family:inherit;font-size:10px;font-weight:700;cursor:pointer">EMERGENCY STOP - KILL ALL AI</button>
     <button onclick="restoreAllAI()" style="width:100%;margin-top:6px;padding:8px;background:#3DBA7A20;color:#3DBA7A;border:1px solid #3DBA7A44;border-radius:6px;font-family:inherit;font-size:10px;font-weight:700;cursor:pointer">RESTORE ALL AI</button>
   </div>
@@ -1387,7 +1387,7 @@ function drawChart() {
   var candleW = Math.max(2, Math.floor(cW/data.length * 0.7));
 
   // \u2500\u2500 Background \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
-  ctx.fillStyle = "#161820";
+  ctx.fillStyle = "#F8F9FB";
   ctx.fillRect(0, 0, W, H);
 
   // \u2500\u2500 Grid lines + Y-axis labels (WHITE) \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
@@ -1724,8 +1724,9 @@ function setupChartTouch() {
 
   function onTouchEnd(e) {
     if (e.touches.length < 2) { pinching = false; lastTouchDist = null; }
-    // Tooltip stays visible \u2014 tap elsewhere to dismiss
+    // Keep tooltip visible after lifting finger - only hide crosshair line
     if (e.touches.length === 0) { hideCrosshair(); }
+    // Tooltip stays - tap outside chart to dismiss
   }
 
   function showZoomHint(txt) {
@@ -1733,7 +1734,7 @@ function setupChartTouch() {
     if (!hint) {
       hint = document.createElement("div");
       hint.id = "zoom-hint";
-      hint.style.cssText = "position:absolute;top:4px;right:8px;background:#1C1E2Acc;color:#D4AF37;font-size:10px;padding:2px 8px;border-radius:4px;pointer-events:none;font-family:'Courier New',monospace;border:1px solid #D4AF3744;";
+      hint.style.cssText = "position:absolute;top:4px;right:8px;background:#FFFFFFcc;color:#D4AF37;font-size:10px;padding:2px 8px;border-radius:4px;pointer-events:none;font-family:'Courier New',monospace;border:1px solid #D4AF3744;";
       document.querySelector(".cbwrap").appendChild(hint);
     }
     hint.textContent = txt;
@@ -1883,10 +1884,30 @@ function setupChartTouch() {
 
   canvas.addEventListener("touchstart", onTouchStart, {passive:false});
   canvas.addEventListener("touchmove",  onTouchMove,  {passive:false});
+  // Click outside chart dismisses tooltip
+  document.addEventListener("click", function(e){
+    var wrap = document.querySelector(".cbwrap");
+    if(wrap && !wrap.contains(e.target)){
+      var tip = document.getElementById("ctip");
+      if(tip) tip.style.display="none";
+      hideCrosshair();
+    }
+  });
+
   canvas.addEventListener("touchend",   onTouchEnd,   {passive:false});
   canvas.addEventListener("mousemove",  onMouseMove);
   canvas.addEventListener("dblclick", function(){ if(tip) tip.style.display="none"; hideCrosshair(); });
-  canvas.addEventListener("mouseleave", function(){ tip.style.display = "none"; });
+  // Tooltip stays on mouseleave - click outside to dismiss
+  canvas.addEventListener("mouseleave", function(){ hideCrosshair(); });
+  // PC mouse wheel zoom
+  canvas.addEventListener("wheel", function(e){
+    e.preventDefault();
+    var zoomIn = e.deltaY < 0;
+    var ranges = ["1M","3M","6M","FULL"];
+    var idx = ranges.indexOf(chartRange);
+    if(zoomIn && idx > 0) setR(ranges[idx-1], null);
+    else if(!zoomIn && idx < ranges.length-1) setR(ranges[idx+1], null);
+  }, {passive:false});
 }
 
 function setR(r, btn) {
@@ -2155,7 +2176,7 @@ function renderPoly() {
     var w = Math.min(100, o.prob/50*100);
     outHtml += '<div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #161820">' +
       '<div style="width:8px;height:8px;border-radius:50%;background:' + o.color + ';flex-shrink:0"></div>' +
-      '<div style="flex:1;font-size:12px;color:#E8EAF0;font-weight:' + (i===0?700:400) + '">' + o.label + '</div>' +
+      '<div style="flex:1;font-size:12px;color:#1A2035;font-weight:' + (i===0?700:400) + '">' + o.label + '</div>' +
       '<div style="font-size:14px;font-weight:700;color:' + o.color + '">' + o.prob.toFixed(1) + '%</div>' +
       '<div style="width:80px;height:6px;background:#111120;border-radius:3px;overflow:hidden;flex-shrink:0">' +
         '<div style="width:' + w + '%;height:100%;background:' + o.color + ';border-radius:3px"></div>' +
@@ -2166,7 +2187,7 @@ function renderPoly() {
   var divCol = "#D4AF37", divMsg = "Polymarket top bet (" + top.prob.toFixed(0) + "%) = " + top.label + " - broadly ALIGNED with our model forecast of $72-74.";
   if (top.label.indexOf("60")>=0||top.label.indexOf("50")>=0) { divCol="#E05555"; divMsg="Polymarket top bet ("+top.prob.toFixed(0)+"%) = "+top.label+" - BELOW our model forecast of $72-74. Crowd sees more downside risk."; }
   else if (top.label.indexOf("80")>=0||top.label.indexOf("90")>=0) { divCol="#3DBA7A"; divMsg="Polymarket top bet ("+top.prob.toFixed(0)+"%) = "+top.label+" - ABOVE our model forecast of $72-74. Crowd more bullish."; }
-  document.getElementById("pdiv").innerHTML = '<div class="card" style="border-color:' + divCol + '44;background:' + divCol + '08"><div style="font-size:9px;color:' + divCol + ';letter-spacing:2px;text-transform:uppercase;margin-bottom:6px">Model vs Crowd Divergence</div><div style="display:flex;gap:10px;margin-bottom:10px"><div style="flex:1;background:#161820;border-radius:6px;padding:8px 10px"><div style="font-size:8px;color:#444;letter-spacing:1px">OUR MODEL Jun 30</div><div style="font-size:14px;font-weight:700;color:#D4AF37;margin-top:3px">$72-$74</div></div><div style="flex:1;background:#161820;border-radius:6px;padding:8px 10px"><div style="font-size:8px;color:#444;letter-spacing:1px">POLY TOP BET</div><div style="font-size:14px;font-weight:700;color:' + top.color + ';margin-top:3px">' + top.label + ' (' + top.prob.toFixed(0) + '%)</div></div></div><div style="font-size:11px;color:#AAA;line-height:1.6">' + divMsg + '</div></div>';
+  document.getElementById("pdiv").innerHTML = '<div class="card" style="border-color:' + divCol + '44;background:' + divCol + '08"><div style="font-size:9px;color:' + divCol + ';letter-spacing:2px;text-transform:uppercase;margin-bottom:6px">Model vs Crowd Divergence</div><div style="display:flex;gap:10px;margin-bottom:10px"><div style="flex:1;background:#F0F2F5;border-radius:6px;padding:8px 10px"><div style="font-size:8px;color:#444;letter-spacing:1px">OUR MODEL Jun 30</div><div style="font-size:14px;font-weight:700;color:#D4AF37;margin-top:3px">$72-$74</div></div><div style="flex:1;background:#F0F2F5;border-radius:6px;padding:8px 10px"><div style="font-size:8px;color:#444;letter-spacing:1px">POLY TOP BET</div><div style="font-size:14px;font-weight:700;color:' + top.color + ';margin-top:3px">' + top.label + ' (' + top.prob.toFixed(0) + '%)</div></div></div><div style="font-size:11px;color:#AAA;line-height:1.6">' + divMsg + '</div></div>';
   document.getElementById("psig").innerHTML = '<div class="card" style="border-color:' + divCol + '44;background:' + divCol + '08"><div style="font-size:9px;color:' + divCol + ';letter-spacing:2px;text-transform:uppercase;margin-bottom:5px">Polymarket Signal</div><div style="font-size:11px;color:#CCC;line-height:1.5">' + divMsg + '</div></div>';
 }
 
@@ -2229,7 +2250,7 @@ function renderNews(isLive) {
     var impactTxt = n.impact==="bull"?"UP Bullish":n.impact==="bear"?"DN Bearish":"-- Neutral";
     html += '<div class="nc" style="border:1px solid '+col+'22;background:'+bg+';animation:fadeUp .3s '+(i*.04)+'s both" onclick="if(this.dataset.link&&this.dataset.link!==\'#\')window.open(this.dataset.link,\'_blank\')" data-link="'+(n.link||'#')+'">';
     html += '<div style="font-size:8px;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:'+col+'">'+impactTxt+'</div>';
-    html += '<div style="font-size:12px;color:#E8EAF0;line-height:1.4;margin:4px 0">'+n.title+'</div>';
+    html += '<div style="font-size:12px;color:#1A2035;line-height:1.4;margin:4px 0">'+n.title+'</div>';
     html += '<div style="font-size:10px;color:#444">'+n.source+' - '+n.time+'</div></div>';
   });
   document.getElementById("nlist").innerHTML = html;
@@ -2248,7 +2269,7 @@ function renderDemand() {
     html += '<div class="card exp" onclick="this.classList.toggle(\'open\')" style="animation:fadeUp .3s '+(i*.04)+'s both">';
     html += '<div style="display:flex;align-items:center;gap:10px">';
     html += '<div style="width:20px;height:20px;border-radius:50%;background:'+s.color+';flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:8px;color:#000;font-weight:700">'+s.icon.slice(0,2)+'</div>';
-    html += '<div style="flex:1"><div style="display:flex;justify-content:space-between"><span style="font-size:12px;color:#E8EAF0;font-weight:600">'+s.name+'</span><span style="font-size:13px;font-weight:700;color:'+s.color+'">'+s.moz+'M oz</span></div>';
+    html += '<div style="flex:1"><div style="display:flex;justify-content:space-between"><span style="font-size:12px;color:#1A2035;font-weight:600">'+s.name+'</span><span style="font-size:13px;font-weight:700;color:'+s.color+'">'+s.moz+'M oz</span></div>';
     html += '<div class="pwrap"><div class="pfill" style="width:'+pct+'%;background:'+s.color+'"></div></div>';
     html += '<div style="display:flex;justify-content:space-between"><span style="font-size:9px;color:#BBBBBB">'+s.note+'</span><span style="font-size:9px;color:'+s.color+'">'+pct+'%</span></div></div></div>';
     html += '<div class="ebody">'+s.detail+'</div></div>';
@@ -2276,7 +2297,7 @@ function renderMacro() {
     html += '<div class="card exp" onclick="this.classList.toggle(\'open\')" style="animation:fadeUp .3s '+(i*.05)+'s both">';
     html += '<div style="display:flex;gap:10px;align-items:center">';
     html += '<div style="width:32px;height:32px;border-radius:6px;background:'+col+'22;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:8px;color:'+col+';font-weight:700">'+f.icon+'</div>';
-    html += '<div style="flex:1"><div style="display:flex;justify-content:space-between"><span style="font-size:11px;color:#E8EAF0;font-weight:600">'+f.label+'</span><span style="font-size:12px;font-weight:700;color:'+col+'">'+f.value+'</span></div>';
+    html += '<div style="flex:1"><div style="display:flex;justify-content:space-between"><span style="font-size:11px;color:#1A2035;font-weight:600">'+f.label+'</span><span style="font-size:12px;font-weight:700;color:'+col+'">'+f.value+'</span></div>';
     html += '<div style="font-size:9px;color:'+col+';margin-top:3px">'+(f.dir==="bull"?"UP Bullish":f.dir==="bear"?"DN Headwind":"-- Neutral")+' - '+f.sub+'</div></div></div>';
     html += '<div class="ebody">'+f.detail+'</div></div>';
   });
@@ -2344,7 +2365,7 @@ function renderCOMEX() {
   scenarios.forEach(function(x,i) {
     scHtml += '<div style="background:'+x.col+'08;border:1px solid '+x.col+'22;border-radius:8px;padding:11px 13px;margin-bottom:8px;animation:fadeUp .3s '+(i*.07)+'s both">';
     scHtml += '<div style="font-size:12px;font-weight:700;color:'+x.col+';margin-bottom:6px">'+x.icon+' '+x.title+'</div>';
-    scHtml += '<div style="font-size:11px;color:#C8CCE0;line-height:1.6">'+x.body+'</div></div>';
+    scHtml += '<div style="font-size:11px;color:#2A3550;line-height:1.6">'+x.body+'</div></div>';
   });
   document.getElementById("cscen").innerHTML = scHtml;
 
@@ -2391,7 +2412,7 @@ function renderForecast() {
 
     html += '<div class="trow" style="align-items:center">';
     // Day + Date
-    html += '<div style="width:28px;flex-shrink:0"><div style="font-size:9px;color:#8A8FA8">'+row.weekday+'</div></div>';
+    html += '<div style="width:28px;flex-shrink:0"><div style="font-size:9px;color:#6B7A8D">'+row.weekday+'</div></div>';
     html += '<div style="width:46px;flex-shrink:0"><div style="font-size:9px;color:#CCCCCC">'+row.label+'</div></div>';
     // Open - stacked
     html += '<div style="width:46px;flex-shrink:0;text-align:right">';
@@ -2961,7 +2982,7 @@ function updateRiskDisplay() {
       critical.forEach(function(e) {
         bHtml += '<div style="background:#E0555520;border:1px solid #E05555;border-radius:6px;padding:8px 10px;margin-bottom:6px">';
         bHtml += '<div style="font-size:9px;color:#E05555;font-weight:700;letter-spacing:2px">CRITICAL ALERT - ' + e.icon + '</div>';
-        bHtml += '<div style="font-size:12px;color:#E8EAF0;margin-top:3px">' + e.title + '</div>';
+        bHtml += '<div style="font-size:12px;color:#1A2035;margin-top:3px">' + e.title + '</div>';
         if (e.impact) bHtml += '<div style="font-size:10px;color:#3DBA7A;margin-top:3px">Silver impact: +' + e.impact.minPct + '% to +' + e.impact.maxPct + '%</div>';
         bHtml += '</div>';
       });
@@ -2990,7 +3011,7 @@ function updateRiskDisplay() {
       var dirTxt = e.impact.direction==="bull"?"UP":"DN";
       impHtml = '<div style="display:flex;gap:8px;margin-top:6px;flex-wrap:wrap">' +
         '<span style="font-size:9px;color:'+dirCol+';background:'+dirCol+'22;padding:1px 7px;border-radius:3px;font-weight:700">'+dirTxt+' '+e.impact.minPct+'%-'+e.impact.maxPct+'%</span>' +
-        '<span style="font-size:9px;color:#8A8FA8">'+e.impact.desc+'</span>';
+        '<span style="font-size:9px;color:#6B7A8D">'+e.impact.desc+'</span>';
       if (e.silverRegion) impHtml += '<span style="font-size:9px;color:#E05555;background:#E0555522;padding:1px 7px;border-radius:3px">SILVER REGION</span>';
       impHtml += '</div>';
     }
@@ -3001,7 +3022,7 @@ function updateRiskDisplay() {
     html += '<span style="font-size:8px;color:'+e.color+';background:'+e.color+'22;padding:1px 6px;border-radius:3px;font-weight:700;letter-spacing:1px">'+e.icon+'</span>';
     html += '<span style="font-size:8px;color:#555">'+e.source+' - '+e.time+'</span>';
     html += '</div>';
-    html += '<div style="font-size:12px;color:#E8EAF0;line-height:1.4">'+e.title+'</div>';
+    html += '<div style="font-size:12px;color:#1A2035;line-height:1.4">'+e.title+'</div>';
     html += impHtml;
     html += '</div>';
     html += '<div style="flex-shrink:0;text-align:center;margin-left:10px">';
@@ -3613,11 +3634,11 @@ function loadCentralBankRates() {
     var arrowCol = r.trend==="down"?"#3DBA7A":r.trend==="up"?"#E05555":"#888";
     html += '<div style="display:flex;gap:10px;padding:8px 0;border-bottom:1px solid #161820;animation:fadeUp .3s ' + (i*.05) + 's both">';
     html += '<div style="flex:1">';
-    html += '<div style="font-size:11px;color:#E8EAF0;font-weight:600">' + r.bank + '</div>';
-    html += '<div style="font-size:10px;color:#8A8FA8;margin-top:2px">Next: ' + r.next + ' - ' + r.detail + '</div>';
+    html += '<div style="font-size:11px;color:#1A2035;font-weight:600">' + r.bank + '</div>';
+    html += '<div style="font-size:10px;color:#6B7A8D;margin-top:2px">Next: ' + r.next + ' - ' + r.detail + '</div>';
     html += '</div>';
     html += '<div style="text-align:right;flex-shrink:0">';
-    html += '<div style="font-size:14px;font-weight:700;color:#E8EAF0">' + r.rate + '</div>';
+    html += '<div style="font-size:14px;font-weight:700;color:#1A2035">' + r.rate + '</div>';
     html += '<div style="font-size:9px;color:' + arrowCol + '">' + arrow + ' trend</div>';
     html += '<div style="font-size:8px;color:' + col + ';margin-top:2px">Silver: ' + r.silverImpact.toUpperCase() + '</div>';
     html += '</div></div>';
@@ -3648,7 +3669,7 @@ function loadInflationData() {
     var targetPct = Math.min(100, (d.target / 10) * 100);
     html += '<div style="padding:8px 0;border-bottom:1px solid #161820;animation:fadeUp .3s ' + (i*.04) + 's both">';
     html += '<div style="display:flex;justify-content:space-between;margin-bottom:5px">';
-    html += '<div><span style="font-size:11px;color:#E8EAF0;font-weight:600">' + d.country + '</span>';
+    html += '<div><span style="font-size:11px;color:#1A2035;font-weight:600">' + d.country + '</span>';
     html += ' <span style="font-size:9px;color:' + trendCol + '">' + d.trend.toUpperCase() + '</span></div>';
     html += '<div style="text-align:right"><span style="font-size:14px;font-weight:700;color:' + (aboveTarget?"#E05555":"#3DBA7A") + '">' + d.cpi + '%</span>';
     html += ' <span style="font-size:9px;color:#555">target ' + d.target + '%</span></div></div>';
@@ -3683,14 +3704,14 @@ function loadEmploymentData() {
     html += '<div style="display:flex;gap:10px;padding:8px 0;border-bottom:1px solid #161820;animation:fadeUp .3s ' + (i*.04) + 's both">';
     html += '<div style="flex:1">';
     html += '<div style="display:flex;gap:6px;align-items:center;margin-bottom:3px">';
-    html += '<span style="font-size:10px;color:#E8EAF0;font-weight:600">' + d.country + '</span>';
-    html += '<span style="font-size:8px;color:#8A8FA8">' + d.metric + '</span>';
+    html += '<span style="font-size:10px;color:#1A2035;font-weight:600">' + d.country + '</span>';
+    html += '<span style="font-size:8px;color:#6B7A8D">' + d.metric + '</span>';
     html += '<span style="font-size:8px;color:' + beatCol + ';background:' + beatCol + '22;padding:1px 5px;border-radius:2px">' + beatTxt + '</span>';
     html += '</div>';
     html += '<div style="font-size:9px;color:#888">' + d.vs + ' - ' + d.date + '</div>';
     html += '<div style="font-size:9px;color:' + col + ';margin-top:2px">' + d.note + '</div>';
     html += '</div>';
-    html += '<div style="font-size:18px;font-weight:700;color:#E8EAF0;flex-shrink:0">' + d.value + '</div>';
+    html += '<div style="font-size:18px;font-weight:700;color:#1A2035;flex-shrink:0">' + d.value + '</div>';
     html += '</div>';
   });
 
@@ -3720,9 +3741,9 @@ function loadEconCalendar() {
     for (var s=0;s<e.importance;s++) stars += "*";
     var col = e.importance === 5 ? "#E05555" : e.importance >= 4 ? "#FB923C" : "#D4AF37";
     html += '<div style="display:flex;gap:10px;padding:7px 0;border-bottom:1px solid #161820;animation:fadeUp .3s ' + (i*.03) + 's both">';
-    html += '<div style="width:70px;font-size:9px;color:#8A8FA8;flex-shrink:0;padding-top:2px">' + e.date + '</div>';
+    html += '<div style="width:70px;font-size:9px;color:#6B7A8D;flex-shrink:0;padding-top:2px">' + e.date + '</div>';
     html += '<div style="flex:1">';
-    html += '<div style="font-size:11px;color:#E8EAF0;font-weight:600">' + e.event;
+    html += '<div style="font-size:11px;color:#1A2035;font-weight:600">' + e.event;
     html += ' <span style="color:' + col + ';font-size:9px">' + stars + '</span></div>';
     html += '<div style="font-size:9px;color:#888;margin-top:2px;line-height:1.4">' + e.impact + '</div>';
     html += '</div></div>';
@@ -3754,7 +3775,7 @@ function loadPMIData() {
     var barW = Math.min(100, Math.max(0, (d.pmi - 40) / 30 * 100));
     html += '<div style="padding:7px 0;border-bottom:1px solid #161820;animation:fadeUp .3s ' + (i*.04) + 's both">';
     html += '<div style="display:flex;justify-content:space-between;margin-bottom:4px">';
-    html += '<div><span style="font-size:11px;color:#E8EAF0;font-weight:600">' + d.country + '</span>';
+    html += '<div><span style="font-size:11px;color:#1A2035;font-weight:600">' + d.country + '</span>';
     html += ' <span style="font-size:9px;color:' + arrowCol + '">' + arrow + ' from ' + d.prev + '</span></div>';
     html += '<div><span style="font-size:16px;font-weight:700;color:' + col + '">' + d.pmi + '</span>';
     html += ' <span style="font-size:9px;color:' + col + '">' + (expanding?"EXPANDING":"CONTRACTION") + '</span></div></div>';
@@ -3956,7 +3977,7 @@ function loadCOMEXMonitor() {
   purities.forEach(function(p, i) {
     pHtml += '<div style="padding:8px 0;border-bottom:1px solid #161820;animation:fadeUp .3s '+(i*.05)+'s both">';
     pHtml += '<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5px">';
-    pHtml += '<div style="font-size:11px;color:#E8EAF0;font-weight:600;flex:1">'+p.title+'</div>';
+    pHtml += '<div style="font-size:11px;color:#1A2035;font-weight:600;flex:1">'+p.title+'</div>';
     pHtml += '<div style="display:flex;gap:6px;flex-shrink:0">';
     pHtml += '<span style="font-size:8px;color:'+p.col+';background:'+p.col+'22;padding:1px 6px;border-radius:3px;font-weight:700">'+p.status+'</span>';
     pHtml += '<span style="font-size:8px;color:#555">Since '+p.since+'</span>';
@@ -3981,12 +4002,12 @@ function loadCOMEXMonitor() {
   geos.forEach(function(g, i) {
     gHtml += '<div style="padding:8px 0;border-bottom:1px solid #161820;animation:fadeUp .3s '+(i*.05)+'s both">';
     gHtml += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">';
-    gHtml += '<div style="font-size:11px;color:#E8EAF0;font-weight:600">'+g.source+'</div>';
+    gHtml += '<div style="font-size:11px;color:#1A2035;font-weight:600">'+g.source+'</div>';
     gHtml += '<span style="font-size:8px;color:'+g.col+';background:'+g.col+'22;padding:1px 6px;border-radius:3px;font-weight:700">'+g.status+'</span>';
     gHtml += '</div>';
     gHtml += '<div style="display:flex;gap:10px;margin-bottom:4px">';
-    gHtml += '<span style="font-size:9px;color:#8A8FA8">Purity: <b style="color:#E8EAF0">'+g.purity+'</b></span>';
-    gHtml += '<span style="font-size:9px;color:#8A8FA8">Volume: <b style="color:'+g.col+'">'+g.vol+'</b></span>';
+    gHtml += '<span style="font-size:9px;color:#6B7A8D">Purity: <b style="color:#1A2035">'+g.purity+'</b></span>';
+    gHtml += '<span style="font-size:9px;color:#6B7A8D">Volume: <b style="color:'+g.col+'">'+g.vol+'</b></span>';
     gHtml += '</div>';
     gHtml += '<div style="font-size:9px;color:#888;line-height:1.5">'+g.note+'</div>';
     gHtml += '</div>';
@@ -4012,7 +4033,7 @@ function loadCOMEXMonitor() {
                  imp.severity === "HIGH BULLISH" ? "#3DBA7A" : imp.severity === "BULLISH SIGNAL" ? "#3DBA7A" : "#D4AF37";
     iHtml += '<div style="padding:8px 0;border-bottom:1px solid #161820">';
     iHtml += '<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px">';
-    iHtml += '<div style="font-size:10px;color:#E8EAF0;font-weight:600;flex:1">'+imp.mechanism+'</div>';
+    iHtml += '<div style="font-size:10px;color:#1A2035;font-weight:600;flex:1">'+imp.mechanism+'</div>';
     iHtml += '<span style="font-size:8px;color:'+sevCol+';background:'+sevCol+'22;padding:1px 5px;border-radius:3px;margin-left:6px;flex-shrink:0">'+imp.severity+'</span>';
     iHtml += '</div>';
     iHtml += '<div style="font-size:10px;color:#CCCCCC;line-height:1.5;margin-bottom:3px">'+imp.effect+'</div>';
@@ -4037,7 +4058,7 @@ function loadCOMEXMonitor() {
     wHtml += '<div style="display:flex;gap:8px;padding:6px 0;border-bottom:1px solid #161820">';
     wHtml += '<div style="width:8px;height:8px;border-radius:50%;background:'+w.col+';flex-shrink:0;margin-top:3px"></div>';
     wHtml += '<div>';
-    wHtml += '<div style="font-size:10px;color:#E8EAF0;font-weight:600">'+w.label+'</div>';
+    wHtml += '<div style="font-size:10px;color:#1A2035;font-weight:600">'+w.label+'</div>';
     wHtml += '<div style="font-size:9px;color:'+w.col+';font-weight:600;margin-top:1px">'+w.status+'</div>';
     wHtml += '<div style="font-size:9px;color:#888;margin-top:2px;line-height:1.4">'+w.desc+'</div>';
     wHtml += '</div></div>';
@@ -4430,8 +4451,8 @@ function updateSignalMeter(prices, ema20, ema50, rsi, macdData) {
   if(bars){
     var html="";
     signals.forEach(function(s){
-      html+='<div style="background:#161820;border-radius:6px;padding:7px;text-align:center;border:1px solid '+s.col+'33">';
-      html+='<div style="font-size:8px;color:#8A8FA8;text-transform:uppercase">'+s.name+'</div>';
+      html+='<div style="background:#F0F2F5;border-radius:6px;padding:7px;text-align:center;border:1px solid '+s.col+'33">';
+      html+='<div style="font-size:8px;color:#6B7A8D;text-transform:uppercase">'+s.name+'</div>';
       html+='<div style="font-size:12px;font-weight:700;color:'+s.col+';margin-top:3px">'+s.val+'</div>';
       html+='<div style="font-size:8px;color:#888;margin-top:2px">'+s.detail+'</div></div>';
     });
@@ -4489,7 +4510,7 @@ function updateTAReadings(prices, ema20, ema50, ema200, rsi, macdData, boll) {
   var html="";
   readings.forEach(function(r){
     html+='<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #161820">';
-    html+='<div><div style="font-size:11px;color:#E8EAF0;font-weight:600">'+r.name+'</div>';
+    html+='<div><div style="font-size:11px;color:#1A2035;font-weight:600">'+r.name+'</div>';
     html+='<div style="font-size:9px;color:'+r.col+';margin-top:2px">'+r.sig+'</div></div>';
     html+='<div style="font-size:14px;font-weight:700;color:'+r.col+'">'+r.val+'</div></div>';
   });
@@ -4608,12 +4629,12 @@ function showTATooltip(idx, td, x, canvas) {
   tip.style.border="1px solid #D4AF3744";
   tip.innerHTML=
     '<div style="display:flex;justify-content:space-between;margin-bottom:6px">' +
-      '<span style="font-size:11px;color:#E8EAF0;font-weight:700">'+row.label+' '+row.weekday+'</span>' +
+      '<span style="font-size:11px;color:#1A2035;font-weight:700">'+row.label+' '+row.weekday+'</span>' +
       '<span style="font-size:8px;color:'+(row.real?"#3DBA7A":"#D4AF37")+';background:'+(row.real?"#3DBA7A":"#D4AF37")+'22;padding:1px 6px;border-radius:3px">'+(row.real?"REAL":"FORECAST")+'</span>' +
     '</div>' +
     '<div style="display:grid;grid-template-columns:1fr 1fr;gap:5px 10px;margin-bottom:8px">' +
       '<div><div style="font-size:8px;color:#888">Close</div><div style="font-size:14px;font-weight:700;color:'+(closeUp?"#3DBA7A":"#E05555")+'">'+(closeUp?"UP":"DN")+' $'+row.price.toFixed(2)+'</div><div style="font-size:9px;color:#818CF8">'+igClose+'p</div></div>' +
-      '<div><div style="font-size:8px;color:#888">Range</div><div style="font-size:12px;color:#E8EAF0">$'+row.lo.toFixed(2)+'-$'+row.hi.toFixed(2)+'</div></div>' +
+      '<div><div style="font-size:8px;color:#888">Range</div><div style="font-size:12px;color:#1A2035">$'+row.lo.toFixed(2)+'-$'+row.hi.toFixed(2)+'</div></div>' +
     '</div>' +
     '<div style="background:#1E2530;border-radius:6px;padding:6px;font-size:9px">' +
       '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px">' +
@@ -4774,7 +4795,7 @@ function updateNextEventBanner() {
   var nb = document.getElementById("next-event-banner");
   if (nb) {
     nb.innerHTML = '<div style="font-size:22px;font-weight:800;color:'+next.col+'">'+countdown+'</div>' +
-      '<div style="font-size:11px;font-weight:700;color:#E8EAF0;margin-top:4px">'+next.title+'</div>' +
+      '<div style="font-size:11px;font-weight:700;color:#1A2035;margin-top:4px">'+next.title+'</div>' +
       '<div style="font-size:9px;color:'+next.col+';margin-top:3px">'+next.silverImpact+'</div>';
   }
 }
@@ -4956,7 +4977,7 @@ function renderSignals() {
     html += '<div style="border:1px solid ' + dirCol + '33;border-radius:8px;padding:10px 12px;margin-bottom:8px;background:' + dirCol + '06">';
     html += '<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px">';
     html += '<div><div style="font-size:11px;font-weight:700;color:' + dirCol + '">' + s.dir + ' — $' + s.entry.toFixed(2) + (s.target ? ' → $' + s.target.toFixed(2) : '') + '</div>';
-    html += '<div style="font-size:9px;color:#8A8FA8;margin-top:2px">' + s.date + (s.closeDate ? ' → ' + s.closeDate : '') + '</div></div>';
+    html += '<div style="font-size:9px;color:#6B7A8D;margin-top:2px">' + s.date + (s.closeDate ? ' → ' + s.closeDate : '') + '</div></div>';
     html += '<div style="font-size:10px;font-weight:700;color:' + resCol + '">' + resTxt + '</div></div>';
     if (s.reason) html += '<div style="font-size:10px;color:#CCCCCC;margin-bottom:6px">' + s.reason + '</div>';
     if (pnl !== null) html += '<div style="font-size:10px;color:' + (pnl >= 0 ? "#3DBA7A" : "#E05555") + ';margin-bottom:6px">Close: $' + s.closePrice.toFixed(2) + ' — Move: ' + (pnl >= 0 ? '+' : '') + '$' + pnl.toFixed(2) + '/oz</div>';
@@ -4964,7 +4985,7 @@ function renderSignals() {
       html += '<div style="display:flex;gap:6px">';
       html += '<button onclick="resolveSignal(' + s.id + ',\'correct\')" style="flex:1;padding:5px;background:#3DBA7A22;color:#3DBA7A;border:1px solid #3DBA7A44;border-radius:4px;cursor:pointer;font-family:\'Courier New\',monospace;font-size:9px">CORRECT</button>';
       html += '<button onclick="resolveSignal(' + s.id + ',\'wrong\')" style="flex:1;padding:5px;background:#E0555522;color:#E05555;border:1px solid #E0555544;border-radius:4px;cursor:pointer;font-family:\'Courier New\',monospace;font-size:9px">WRONG</button>';
-      html += '<button onclick="deleteSignal(' + s.id + ')" style="padding:5px 8px;background:#2E3148;color:#555;border:1px solid #2E3148;border-radius:4px;cursor:pointer;font-family:\'Courier New\',monospace;font-size:9px">DEL</button>';
+      html += '<button onclick="deleteSignal(' + s.id + ')" style="padding:5px 8px;background:#2E3148;color:#555;border:1px solid #C8D0DC;border-radius:4px;cursor:pointer;font-family:\'Courier New\',monospace;font-size:9px">DEL</button>';
       html += '</div>';
     }
     html += '</div>';
