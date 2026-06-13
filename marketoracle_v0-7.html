@@ -69,6 +69,7 @@ body{background:#F0F2F5;color:#1A2035;font-family:'Courier New',monospace;max-wi
         <button id="msw-XAG" onclick="switchMetal('XAG')" style="padding:4px 14px;font-size:10px;letter-spacing:2px;font-weight:700;background:#D4AF37;color:#000;border:1px solid #D4AF37;border-radius:14px;cursor:pointer;font-family:'Courier New',monospace">SILVER</button>
         <button id="msw-XAU" onclick="switchMetal('XAU')" style="padding:4px 14px;font-size:10px;letter-spacing:2px;font-weight:400;background:transparent;color:#A0AABB;border:1px solid #5A6A7D;border-radius:14px;cursor:pointer;font-family:'Courier New',monospace">GOLD</button>
         <button id="msw-XPT" onclick="switchMetal('XPT')" style="padding:4px 14px;font-size:10px;letter-spacing:2px;font-weight:400;background:transparent;color:#A0AABB;border:1px solid #5A6A7D;border-radius:14px;cursor:pointer;font-family:'Courier New',monospace">PLATINUM</button>
+        <button id="msw-XPD" onclick="switchMetal('XPD')" style="padding:4px 14px;font-size:10px;letter-spacing:2px;font-weight:400;background:transparent;color:#A0AABB;border:1px solid #5A6A7D;border-radius:14px;cursor:pointer;font-family:'Courier New',monospace">PALLADIUM</button>
       </div>
       <div class="fsrc"><span id="fbadge" style="color:#D4AF37">connecting...</span> <span id="fsrc" style="color:#6B7A8D"></span></div>
       <div style="display:flex;align-items:center;gap:8px;margin-top:4px">
@@ -118,6 +119,7 @@ body{background:#F0F2F5;color:#1A2035;font-family:'Courier New',monospace;max-wi
   <button class="tbtn" onclick="showTab('globalinfl')">GLOBAL INFL</button>
   <button class="tbtn" onclick="showTab('admin')">ADMIN</button>
   <button class="tbtn" onclick="showTab('platinum')">PLATINUM</button>
+  <button class="tbtn" onclick="showTab('palladium')">PALLADIUM</button>
 </div>
 
 <!-- SUMMARY -->
@@ -1204,6 +1206,229 @@ body{background:#F0F2F5;color:#1A2035;font-family:'Courier New',monospace;max-wi
 </div>
 </div>
 
+</div>
+</div>
+
+<!-- PALLADIUM INTELLIGENCE -->
+<div id="tc-palladium" class="tc">
+<div class="sec">
+
+  <!-- Price Summary -->
+  <div class="card" style="border-color:#38BDF844;background:#050D14;margin-bottom:14px">
+    <div style="font-size:9px;color:#38BDF8;letter-spacing:3px;text-transform:uppercase;margin-bottom:6px">Palladium Market Intelligence</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:10px">
+      <div style="background:#1C2438;border-radius:6px;padding:8px;text-align:center">
+        <div style="font-size:8px;color:#AAAAAA;text-transform:uppercase">Supply</div>
+        <div style="font-size:14px;font-weight:700;color:#38BDF8;margin-top:3px">~6.8Moz</div>
+        <div style="font-size:8px;color:#AAAAAA;margin-top:2px">2026 est.</div>
+      </div>
+      <div style="background:#1C2438;border-radius:6px;padding:8px;text-align:center">
+        <div style="font-size:8px;color:#AAAAAA;text-transform:uppercase">Balance</div>
+        <div style="font-size:14px;font-weight:700;color:#FB923C;margin-top:3px">~300koz</div>
+        <div style="font-size:8px;color:#AAAAAA;margin-top:2px">surplus 2026</div>
+      </div>
+      <div style="background:#1C2438;border-radius:6px;padding:8px;text-align:center">
+        <div style="font-size:8px;color:#AAAAAA;text-transform:uppercase">Yr-End</div>
+        <div style="font-size:14px;font-weight:700;color:#D4AF37;margin-top:3px">$950-1,150</div>
+        <div style="font-size:8px;color:#AAAAAA;margin-top:2px">consensus</div>
+      </div>
+    </div>
+    <div style="font-size:11px;color:#B8C2D0;line-height:1.7">Palladium peaked at $3,440/oz in 2022 — now trading near $1,020, down 70%. Structural headwind from EV adoption reducing gasoline autocatalyst demand. However Russia supply sanctions remain the single biggest wildcard — any escalation could spike price 50%+ overnight.</div>
+  </div>
+
+  <!-- Russia Supply Risk — THE KEY STORY -->
+  <div class="stitle" style="color:#E05555">Russia Supply Risk — CRITICAL</div>
+  <div class="card" style="border-color:#E0555588;background:#1A0505;margin-bottom:10px">
+    <div style="font-size:9px;color:#E05555;letter-spacing:3px;text-transform:uppercase;margin-bottom:10px">Norilsk Nickel — World's Largest Palladium Producer</div>
+
+    <!-- Supply concentration bars -->
+    <div style="margin-bottom:10px">
+      <div style="display:flex;justify-content:space-between;margin-bottom:4px">
+        <span style="font-size:10px;color:#D8DEE9;font-weight:600">Russia (Norilsk Nickel)</span>
+        <span style="font-size:11px;font-weight:700;color:#E05555">40%</span>
+      </div>
+      <div style="height:10px;background:#2E3148;border-radius:5px;overflow:hidden">
+        <div style="width:40%;height:100%;background:#E05555;border-radius:5px"></div>
+      </div>
+      <div style="font-size:9px;color:#A0AABB;margin-top:3px">Single company (MMC Norilsk) controls ~40% of ALL world palladium supply. No other commodity has this concentration risk.</div>
+    </div>
+    <div style="margin-bottom:10px">
+      <div style="display:flex;justify-content:space-between;margin-bottom:4px">
+        <span style="font-size:10px;color:#D8DEE9;font-weight:600">South Africa</span>
+        <span style="font-size:11px;font-weight:700;color:#FB923C">38%</span>
+      </div>
+      <div style="height:10px;background:#2E3148;border-radius:5px;overflow:hidden">
+        <div style="width:38%;height:100%;background:#FB923C;border-radius:5px"></div>
+      </div>
+      <div style="font-size:9px;color:#A0AABB;margin-top:3px">Anglo American Platinum + Sibanye-Stillwater. Same power crisis + labour risk as platinum supply.</div>
+    </div>
+    <div>
+      <div style="display:flex;justify-content:space-between;margin-bottom:4px">
+        <span style="font-size:10px;color:#D8DEE9;font-weight:600">Canada + Zimbabwe + Other</span>
+        <span style="font-size:11px;font-weight:700;color:#D4AF37">22%</span>
+      </div>
+      <div style="height:10px;background:#2E3148;border-radius:5px;overflow:hidden">
+        <div style="width:22%;height:100%;background:#D4AF37;border-radius:5px"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Russia Sanctions Scenarios -->
+  <div class="card" style="border-color:#E0555544;background:#120505;margin-bottom:14px">
+    <div style="font-size:9px;color:#E05555;letter-spacing:3px;text-transform:uppercase;margin-bottom:10px">Russia Sanctions — Price Impact Scenarios</div>
+
+    <div style="border-left:3px solid #E05555;padding-left:10px;margin-bottom:12px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+        <div style="font-size:10px;color:#E05555;font-weight:700;letter-spacing:1px">FULL SANCTIONS</div>
+        <div style="font-size:12px;font-weight:700;color:#E05555">+150-300%</div>
+      </div>
+      <div style="font-size:10px;color:#D8DEE9;line-height:1.6">Complete Russian palladium embargo. Western automakers cannot substitute fast enough — 3-6 month lag. Price spike to $2,500-3,000/oz likely. This scenario happened partially in 2022 after Ukraine invasion.</div>
+    </div>
+
+    <div style="border-left:3px solid #FB923C;padding-left:10px;margin-bottom:12px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+        <div style="font-size:10px;color:#FB923C;font-weight:700;letter-spacing:1px">PARTIAL SANCTIONS / PAYMENT DISRUPTION</div>
+        <div style="font-size:12px;font-weight:700;color:#FB923C">+50-80%</div>
+      </div>
+      <div style="font-size:10px;color:#D8DEE9;line-height:1.6">Secondary sanctions hitting Norilsk banking channels. Supply reaches market but with delays + premium. Price to $1,500-1,800/oz. Most likely escalation scenario given current geopolitical trajectory.</div>
+    </div>
+
+    <div style="border-left:3px solid #D4AF37;padding-left:10px;margin-bottom:12px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+        <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:1px">RUSSIA-UKRAINE PEACE DEAL</div>
+        <div style="font-size:12px;font-weight:700;color:#3DBA7A">+20-40%</div>
+      </div>
+      <div style="font-size:10px;color:#D8DEE9;line-height:1.6">Sanctions relief + supply certainty restored. Paradoxically bullish short-term as manufacturers restock depleted palladium inventories aggressively before any policy reversal.</div>
+    </div>
+
+    <div style="border-left:3px solid #3DBA7A;padding-left:10px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+        <div style="font-size:10px;color:#3DBA7A;font-weight:700;letter-spacing:1px">STATUS QUO CONTINUES</div>
+        <div style="font-size:12px;font-weight:700;color:#6B7A8D">-10-20%</div>
+      </div>
+      <div style="font-size:10px;color:#D8DEE9;line-height:1.6">No change in sanctions. EV adoption continues eroding autocatalyst demand. Surplus builds. Slow drift lower toward $850-950/oz over 12-18 months.</div>
+    </div>
+  </div>
+
+  <!-- Norilsk Nickel Deep Dive -->
+  <div class="stitle">Norilsk Nickel — Company Risk Profile</div>
+  <div class="card" style="border-color:#38BDF844;margin-bottom:14px">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
+      <div style="background:#1C2438;border-radius:6px;padding:8px">
+        <div style="font-size:8px;color:#AAAAAA;text-transform:uppercase">Annual Output</div>
+        <div style="font-size:16px;font-weight:700;color:#38BDF8;margin-top:3px">2.8Moz</div>
+        <div style="font-size:9px;color:#AAAAAA;margin-top:2px">palladium/yr</div>
+      </div>
+      <div style="background:#1C2438;border-radius:6px;padding:8px">
+        <div style="font-size:8px;color:#AAAAAA;text-transform:uppercase">Location</div>
+        <div style="font-size:16px;font-weight:700;color:#E05555;margin-top:3px">Siberia</div>
+        <div style="font-size:9px;color:#AAAAAA;margin-top:2px">Norilsk + Kola peninsula</div>
+      </div>
+      <div style="background:#1C2438;border-radius:6px;padding:8px">
+        <div style="font-size:8px;color:#AAAAAA;text-transform:uppercase">Sanctions Status</div>
+        <div style="font-size:13px;font-weight:700;color:#FB923C;margin-top:3px">WATCH</div>
+        <div style="font-size:9px;color:#AAAAAA;margin-top:2px">Metal exempt — banking restricted</div>
+      </div>
+      <div style="background:#1C2438;border-radius:6px;padding:8px">
+        <div style="font-size:8px;color:#AAAAAA;text-transform:uppercase">Western Stockpile</div>
+        <div style="font-size:13px;font-weight:700;color:#D4AF37;margin-top:3px">~3-6 months</div>
+        <div style="font-size:9px;color:#AAAAAA;margin-top:2px">Industry buffer if supply cut</div>
+      </div>
+    </div>
+    <div style="font-size:10px;color:#B8C2D0;line-height:1.7;border-top:1px solid #2E3148;padding-top:8px">Norilsk Nickel (GMKN) is 35% owned by Vladimir Potanin (sanctioned by UK/EU/Canada). Metal itself is NOT directly sanctioned — but payment routing, insurance, and shipping have been disrupted. This grey-market status creates constant supply uncertainty premium in the price.</div>
+  </div>
+
+  <!-- Demand Breakdown -->
+  <div class="stitle">2026 Demand Breakdown</div>
+  <div class="card" style="margin-bottom:14px">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+      <div style="background:#1C2438;border-radius:6px;padding:10px">
+        <div style="font-size:8px;color:#FB923C;letter-spacing:1px;text-transform:uppercase">Gasoline Autocatalyst</div>
+        <div style="font-size:20px;font-weight:700;color:#FB923C;margin-top:3px">85%</div>
+        <div style="font-size:9px;color:#A0AABB;margin-top:2px">Primary demand driver. Declining as EVs grow. Long-term structural bear.</div>
+      </div>
+      <div style="background:#1C2438;border-radius:6px;padding:10px">
+        <div style="font-size:8px;color:#38BDF8;letter-spacing:1px;text-transform:uppercase">Electronics</div>
+        <div style="font-size:20px;font-weight:700;color:#38BDF8;margin-top:3px">8%</div>
+        <div style="font-size:9px;color:#A0AABB;margin-top:2px">Hard disk drives, multilayer capacitors. Declining with cloud storage shift.</div>
+      </div>
+      <div style="background:#1C2438;border-radius:6px;padding:10px">
+        <div style="font-size:8px;color:#D4AF37;letter-spacing:1px;text-transform:uppercase">Dentistry</div>
+        <div style="font-size:20px;font-weight:700;color:#D4AF37;margin-top:3px">4%</div>
+        <div style="font-size:9px;color:#A0AABB;margin-top:2px">Dental alloys. Steady slow decline.</div>
+      </div>
+      <div style="background:#1C2438;border-radius:6px;padding:10px">
+        <div style="font-size:8px;color:#3DBA7A;letter-spacing:1px;text-transform:uppercase">Chemical + Other</div>
+        <div style="font-size:20px;font-weight:700;color:#3DBA7A;margin-top:3px">3%</div>
+        <div style="font-size:9px;color:#A0AABB;margin-top:2px">Nitric acid production, hydrogen purification.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Platinum Substitution -->
+  <div class="stitle">Platinum/Palladium Substitution</div>
+  <div class="card" style="border-color:#E5E4E244;margin-bottom:14px">
+    <div style="font-size:9px;color:#E5E4E2;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">The Switching Story — Direct Link Between Metals</div>
+    <div style="font-size:10px;color:#B8C2D0;line-height:1.7;margin-bottom:10px">When palladium was $3,000+/oz and platinum was $900/oz automakers had a massive financial incentive to switch catalysts. Substitution takes 2-3 years of R&D + retooling. BMW, Toyota, and Ford have all announced partial switches.</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+      <div style="background:#1C2438;border-radius:6px;padding:8px;text-align:center">
+        <div style="font-size:8px;color:#AAAAAA;text-transform:uppercase">Each 10% switch</div>
+        <div style="font-size:13px;font-weight:700;color:#E05555;margin-top:3px">-680koz</div>
+        <div style="font-size:9px;color:#AAAAAA;margin-top:2px">palladium demand lost</div>
+      </div>
+      <div style="background:#1C2438;border-radius:6px;padding:10px;text-align:center">
+        <div style="font-size:8px;color:#AAAAAA;text-transform:uppercase">Each 10% switch</div>
+        <div style="font-size:13px;font-weight:700;color:#3DBA7A;margin-top:3px">+400koz</div>
+        <div style="font-size:9px;color:#AAAAAA;margin-top:2px">platinum demand gained</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Analyst Targets -->
+  <div class="stitle">Analyst Price Targets 2026</div>
+  <div class="card" style="margin-bottom:14px">
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid #2E3148">
+      <span style="font-size:10px;color:#D8DEE9">UBS (sanctions escalation scenario)</span>
+      <span style="font-size:11px;font-weight:700;color:#E05555">$1,800-2,200</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid #2E3148">
+      <span style="font-size:10px;color:#D8DEE9">Standard Chartered</span>
+      <span style="font-size:11px;font-weight:700;color:#D4AF37">$1,050-1,200</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid #2E3148">
+      <span style="font-size:10px;color:#D8DEE9">Metals Focus (base case)</span>
+      <span style="font-size:11px;font-weight:700;color:#D4AF37">$950-1,100</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0">
+      <span style="font-size:10px;color:#D8DEE9">Goldman Sachs (EV bear case)</span>
+      <span style="font-size:11px;font-weight:700;color:#6B7A8D">$700-850</span>
+    </div>
+  </div>
+
+  <!-- Early Warning Signals -->
+  <div class="stitle">Early Warning Signals to Watch</div>
+  <div class="card" style="margin-bottom:14px">
+    <div style="border-left:3px solid #E05555;padding-left:10px;margin-bottom:10px">
+      <div style="font-size:10px;color:#E05555;font-weight:700">Norilsk shipping disruptions</div>
+      <div style="font-size:10px;color:#B8C2D0;margin-top:3px;line-height:1.5">Watch Baltic shipping routes + P&I insurance club announcements. Any refusal to insure Russian metal = immediate supply shock signal.</div>
+    </div>
+    <div style="border-left:3px solid #FB923C;padding-left:10px;margin-bottom:10px">
+      <div style="font-size:10px;color:#FB923C;font-weight:700">Automaker inventory reports</div>
+      <div style="font-size:10px;color:#B8C2D0;margin-top:3px;line-height:1.5">Toyota, BMW, Ford quarterly reports mentioning PGM stockpile changes. Restocking = bullish demand signal.</div>
+    </div>
+    <div style="border-left:3px solid #D4AF37;padding-left:10px;margin-bottom:10px">
+      <div style="font-size:10px;color:#D4AF37;font-weight:700">Lease rates spike</div>
+      <div style="font-size:10px;color:#B8C2D0;margin-top:3px;line-height:1.5">Palladium lease rates above 5%/yr = physical scarcity emerging. Above 10% = supply crisis imminent. Currently near historic lows.</div>
+    </div>
+    <div style="border-left:3px solid #818CF8;padding-left:10px">
+      <div style="font-size:10px;color:#818CF8;font-weight:700">US/EU sanctions escalation news</div>
+      <div style="font-size:10px;color:#B8C2D0;margin-top:3px;line-height:1.5">Any OFAC or EU Council announcement targeting Russian mining or metal exports = buy signal. Monitor Reuters Commodities + OFAC update feed.</div>
+    </div>
+  </div>
+
+</div>
+</div>
+
 <!-- COMEX CONTRACT MANIPULATION MONITOR — floats below all tabs -->
 <div style="margin-top:0px">
   <div style="padding:14px 14px 0">
@@ -1286,7 +1511,10 @@ var METALS = {
          deficit:"CB buy ~1,050t", yrend:"$4.6-5.2k", supply:"4,950t" },
   XPT: { sym:"XPT", label:"PLATINUM", pair:"XPT/USD", lo:600, hi:3000, dec:1, seed:1050, dayOpen:1048,
          igMode:"usd", igOffset:0, gpKey:"xptPrice",
-         deficit:"~200koz deficit", yrend:"$1,100-1,300", supply:"~7.8Moz" }
+         deficit:"~200koz deficit", yrend:"$1,100-1,300", supply:"~7.8Moz" },
+  XPD: { sym:"XPD", label:"PALLADIUM", pair:"XPD/USD", lo:400, hi:4000, dec:1, seed:1020, dayOpen:1015,
+         igMode:"usd", igOffset:0, gpKey:"xpdPrice",
+         deficit:"~300koz surplus", yrend:"$950-1,150", supply:"~6.8Moz" }
 };
 var curMetal = METALS.XAG;
 
@@ -1328,7 +1556,7 @@ function switchMetal(sym) {
   var ids = {"pair-label":curMetal.pair, "stat-deficit":curMetal.deficit,
              "stat-yrend":curMetal.yrend, "stat-supply":curMetal.supply};
   for (var k in ids) { var el=document.getElementById(k); if(el) el.textContent = ids[k]; }
-  ["XAG","XAU","XPT"].forEach(function(s){
+  ["XAG","XAU","XPT","XPD"].forEach(function(s){
     var b = document.getElementById("msw-"+s); if(!b) return;
     var on = (s===sym);
     b.style.background = on ? "#D4AF37" : "transparent";
