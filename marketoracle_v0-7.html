@@ -70,6 +70,7 @@ body{background:#F0F2F5;color:#1A2035;font-family:'Courier New',monospace;max-wi
         <button id="msw-XAU" onclick="switchMetal('XAU')" style="padding:4px 14px;font-size:10px;letter-spacing:2px;font-weight:400;background:transparent;color:#A0AABB;border:1px solid #5A6A7D;border-radius:14px;cursor:pointer;font-family:'Courier New',monospace">GOLD</button>
         <button id="msw-XPT" onclick="switchMetal('XPT')" style="padding:4px 14px;font-size:10px;letter-spacing:2px;font-weight:400;background:transparent;color:#A0AABB;border:1px solid #5A6A7D;border-radius:14px;cursor:pointer;font-family:'Courier New',monospace">PLATINUM</button>
         <button id="msw-XPD" onclick="switchMetal('XPD')" style="padding:4px 14px;font-size:10px;letter-spacing:2px;font-weight:400;background:transparent;color:#A0AABB;border:1px solid #5A6A7D;border-radius:14px;cursor:pointer;font-family:'Courier New',monospace">PALLADIUM</button>
+        <button id="msw-HG" onclick="switchMetal('HG')" style="padding:4px 14px;font-size:10px;letter-spacing:2px;font-weight:400;background:transparent;color:#A0AABB;border:1px solid #5A6A7D;border-radius:14px;cursor:pointer;font-family:'Courier New',monospace">COPPER</button>
       </div>
       <div class="fsrc"><span id="fbadge" style="color:#D4AF37">connecting...</span> <span id="fsrc" style="color:#6B7A8D"></span></div>
       <div style="display:flex;align-items:center;gap:8px;margin-top:4px">
@@ -120,6 +121,7 @@ body{background:#F0F2F5;color:#1A2035;font-family:'Courier New',monospace;max-wi
   <button class="tbtn" onclick="showTab('admin')">ADMIN</button>
   <button class="tbtn" onclick="showTab('platinum')">PLATINUM</button>
   <button class="tbtn" onclick="showTab('palladium')">PALLADIUM</button>
+  <button class="tbtn" onclick="showTab('copper')">COPPER</button>
 </div>
 
 <!-- SUMMARY -->
@@ -1429,6 +1431,255 @@ body{background:#F0F2F5;color:#1A2035;font-family:'Courier New',monospace;max-wi
 </div>
 </div>
 
+<!-- COPPER INTELLIGENCE -->
+<div id="tc-copper" class="tc">
+<div class="sec">
+
+  <!-- Price Summary -->
+  <div class="card" style="border-color:#FB923C44;background:#120A00;margin-bottom:14px">
+    <div style="font-size:9px;color:#FB923C;letter-spacing:3px;text-transform:uppercase;margin-bottom:6px">Copper Market Intelligence — Dr. Copper</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:10px">
+      <div style="background:#1C2438;border-radius:6px;padding:8px;text-align:center">
+        <div style="font-size:8px;color:#AAAAAA;text-transform:uppercase">Supply</div>
+        <div style="font-size:14px;font-weight:700;color:#FB923C;margin-top:3px">~22Mt</div>
+        <div style="font-size:8px;color:#AAAAAA;margin-top:2px">2026 est.</div>
+      </div>
+      <div style="background:#1C2438;border-radius:6px;padding:8px;text-align:center">
+        <div style="font-size:8px;color:#AAAAAA;text-transform:uppercase">Balance</div>
+        <div style="font-size:14px;font-weight:700;color:#E05555;margin-top:3px">~150kt</div>
+        <div style="font-size:8px;color:#AAAAAA;margin-top:2px">deficit 2026</div>
+      </div>
+      <div style="background:#1C2438;border-radius:6px;padding:8px;text-align:center">
+        <div style="font-size:8px;color:#AAAAAA;text-transform:uppercase">Yr-End</div>
+        <div style="font-size:14px;font-weight:700;color:#3DBA7A;margin-top:3px">$4.80-5.50</div>
+        <div style="font-size:8px;color:#AAAAAA;margin-top:2px">per lb consensus</div>
+      </div>
+    </div>
+    <div style="font-size:11px;color:#B8C2D0;line-height:1.7">Copper is called "Dr. Copper" — its price predicts global economic health better than any economist. Used in everything: EVs (4x more copper than ICE cars), AI data centres, renewable energy grids, construction. The green energy transition is a copper supercycle story. But Chile + Peru supply concentration, China demand dominance, and mine depletion create structural supply crisis risk.</div>
+  </div>
+
+  <!-- Supply Concentration Risk -->
+  <div class="stitle" style="color:#E05555">Supply Concentration Risk — CRITICAL</div>
+  <div class="card" style="border-color:#E0555544;background:#120505;margin-bottom:14px">
+    <div style="font-size:9px;color:#E05555;letter-spacing:3px;text-transform:uppercase;margin-bottom:10px">Top Producing Nations — Combined 60% of World Supply</div>
+
+    <div style="margin-bottom:10px">
+      <div style="display:flex;justify-content:space-between;margin-bottom:4px">
+        <span style="font-size:10px;color:#D8DEE9;font-weight:600">Chile</span>
+        <span style="font-size:11px;font-weight:700;color:#E05555">27%</span>
+      </div>
+      <div style="height:10px;background:#2E3148;border-radius:5px;overflow:hidden">
+        <div style="width:27%;height:100%;background:#E05555;border-radius:5px"></div>
+      </div>
+      <div style="font-size:9px;color:#A0AABB;margin-top:3px">Codelco (state-owned) world's largest copper miner. Grade declining — ore quality dropping 30% over 20 years. Water scarcity in Atacama desert threatening operations. Boric government pushing higher mining royalties.</div>
+    </div>
+    <div style="margin-bottom:10px">
+      <div style="display:flex;justify-content:space-between;margin-bottom:4px">
+        <span style="font-size:10px;color:#D8DEE9;font-weight:600">Peru</span>
+        <span style="font-size:11px;font-weight:700;color:#FB923C">10%</span>
+      </div>
+      <div style="height:10px;background:#2E3148;border-radius:5px;overflow:hidden">
+        <div style="width:10%;height:100%;background:#FB923C;border-radius:5px"></div>
+      </div>
+      <div style="font-size:9px;color:#A0AABB;margin-top:3px">Las Bambas, Antamina — chronic community blockades disrupting supply. Political instability under Boluarte government. Lost 200kt+ to protests in 2023-24.</div>
+    </div>
+    <div style="margin-bottom:10px">
+      <div style="display:flex;justify-content:space-between;margin-bottom:4px">
+        <span style="font-size:10px;color:#D8DEE9;font-weight:600">Congo DRC</span>
+        <span style="font-size:11px;font-weight:700;color:#FB923C">8%</span>
+      </div>
+      <div style="height:10px;background:#2E3148;border-radius:5px;overflow:hidden">
+        <div style="width:8%;height:100%;background:#FB923C;border-radius:5px"></div>
+      </div>
+      <div style="font-size:9px;color:#A0AABB;margin-top:3px">Fastest growing copper region. Chinese-owned mines (CMOC, MMG). M23 rebel conflict in eastern DRC creates ongoing disruption risk. Infrastructure severely limited.</div>
+    </div>
+    <div>
+      <div style="display:flex;justify-content:space-between;margin-bottom:4px">
+        <span style="font-size:10px;color:#D8DEE9;font-weight:600">China + Russia + Other</span>
+        <span style="font-size:11px;font-weight:700;color:#D4AF37">55%</span>
+      </div>
+      <div style="height:10px;background:#2E3148;border-radius:5px;overflow:hidden">
+        <div style="width:55%;height:100%;background:#D4AF37;border-radius:5px"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- China Demand Risk -->
+  <div class="stitle" style="color:#E05555">China Demand — The Elephant in the Room</div>
+  <div class="card" style="border-color:#38BDF844;background:#050D14;margin-bottom:14px">
+    <div style="font-size:9px;color:#38BDF8;letter-spacing:3px;text-transform:uppercase;margin-bottom:10px">China Consumes 55% of All World Copper</div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
+      <div style="background:#1C2438;border-radius:6px;padding:8px;text-align:center">
+        <div style="font-size:8px;color:#AAAAAA;text-transform:uppercase">China share</div>
+        <div style="font-size:22px;font-weight:700;color:#38BDF8;margin-top:3px">55%</div>
+        <div style="font-size:9px;color:#AAAAAA;margin-top:2px">of global demand</div>
+      </div>
+      <div style="background:#1C2438;border-radius:6px;padding:8px;text-align:center">
+        <div style="font-size:8px;color:#AAAAAA;text-transform:uppercase">Strategic Reserve</div>
+        <div style="font-size:22px;font-weight:700;color:#FB923C;margin-top:3px">~2Mt</div>
+        <div style="font-size:9px;color:#AAAAAA;margin-top:2px">state buffer stock</div>
+      </div>
+    </div>
+
+    <div style="border-left:3px solid #E05555;padding-left:10px;margin-bottom:10px">
+      <div style="font-size:10px;color:#E05555;font-weight:700">Property Crisis Headwind</div>
+      <div style="font-size:10px;color:#D8DEE9;margin-top:3px;line-height:1.6">Evergrande + Country Garden collapse wiped out ~25% of Chinese copper demand from construction. Property sector still contracting in 2026. Each 5% Chinese GDP slowdown = ~550kt demand destruction = price -$0.40-0.60/lb.</div>
+    </div>
+    <div style="border-left:3px solid #3DBA7A;padding-left:10px;margin-bottom:10px">
+      <div style="font-size:10px;color:#3DBA7A;font-weight:700">Grid + EV Demand Offset</div>
+      <div style="font-size:10px;color:#D8DEE9;margin-top:3px;line-height:1.6">China installing 200GW+ solar + wind annually — each GW needs ~5,000t copper for grid connections. EV production 9M+ units in 2026. Partially replacing property demand with green infrastructure demand.</div>
+    </div>
+    <div style="border-left:3px solid #D4AF37;padding-left:10px">
+      <div style="font-size:10px;color:#D4AF37;font-weight:700">Strategic Stockpiling</div>
+      <div style="font-size:10px;color:#D8DEE9;margin-top:3px;line-height:1.6">China National Reserve Bureau buys copper aggressively during price dips. Acts as a price floor. Any price below $4.00/lb triggers Chinese state buying. Also stockpiles ahead of any Taiwan conflict scenario.</div>
+    </div>
+  </div>
+
+  <!-- Geopolitical Scenarios -->
+  <div class="stitle" style="color:#E05555">Geopolitical Risk Scenarios</div>
+  <div class="card" style="border-color:#E0555544;background:#120505;margin-bottom:14px">
+
+    <div style="border-left:3px solid #E05555;padding-left:10px;margin-bottom:12px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+        <div style="font-size:10px;color:#E05555;font-weight:700;letter-spacing:1px">TAIWAN CONFLICT</div>
+        <div style="font-size:12px;font-weight:700;color:#E05555">+80-150%</div>
+      </div>
+      <div style="font-size:10px;color:#D8DEE9;line-height:1.6">Taiwan Strait blockade cuts China off from Chilean/Peruvian copper imports (shipped via Pacific). Simultaneously China hoards strategic reserves. Western economies scramble for alternative supply. Price spike to $8-12/lb scenario. Black swan but non-zero probability.</div>
+    </div>
+
+    <div style="border-left:3px solid #FB923C;padding-left:10px;margin-bottom:12px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+        <div style="font-size:10px;color:#FB923C;font-weight:700;letter-spacing:1px">CHILE NATIONALISATION</div>
+        <div style="font-size:12px;font-weight:700;color:#FB923C">+40-70%</div>
+      </div>
+      <div style="font-size:10px;color:#D8DEE9;line-height:1.6">Boric government pushing to increase state Codelco control + higher royalties on private mines (BHP Escondida, Anglo American). Full nationalisation precedent set by Zambia in 2023. If Chile follows, 27% of world supply becomes politically controlled.</div>
+    </div>
+
+    <div style="border-left:3px solid #D4AF37;padding-left:10px;margin-bottom:12px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+        <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:1px">US TARIFFS ON COPPER IMPORTS</div>
+        <div style="font-size:12px;font-weight:700;color:#D4AF37">+15-30%</div>
+      </div>
+      <div style="font-size:10px;color:#D8DEE9;line-height:1.6">Trump administration copper tariffs already proposed in 2025. Section 232 national security investigation ongoing. 25% tariff on copper imports creates US-specific price premium above LME. US manufacturers face cost squeeze. Domestic miners (Freeport-McMoRan) major beneficiary.</div>
+    </div>
+
+    <div style="border-left:3px solid #818CF8;padding-left:10px;margin-bottom:12px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+        <div style="font-size:10px;color:#818CF8;font-weight:700;letter-spacing:1px">GREEN ENERGY SUPERCYCLE</div>
+        <div style="font-size:12px;font-weight:700;color:#818CF8">+50-100% by 2030</div>
+      </div>
+      <div style="font-size:10px;color:#D8DEE9;line-height:1.6">IEA estimates net-zero by 2050 requires 3x current copper production. No new major mine takes less than 10-15 years from discovery to production. Supply cannot respond fast enough to green demand surge. Structural deficit of 8-10Mt/yr by 2035 — Goldman Sachs $15,000/t target.</div>
+    </div>
+
+    <div style="border-left:3px solid #3DBA7A;padding-left:10px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+        <div style="font-size:10px;color:#3DBA7A;font-weight:700;letter-spacing:1px">CHINA HARD LANDING</div>
+        <div style="font-size:12px;font-weight:700;color:#E05555">-25-40%</div>
+      </div>
+      <div style="font-size:10px;color:#D8DEE9;line-height:1.6">Chinese GDP growth below 3% — property + manufacturing contraction. 55% demand share means any Chinese slowdown devastates copper price. 2015-16 scenario saw copper fall from $3.00 to $2.00/lb. Deflationary spiral bear case.</div>
+    </div>
+  </div>
+
+  <!-- AI + Data Centre Demand -->
+  <div class="stitle">AI Data Centres — New Demand Driver</div>
+  <div class="card" style="border-color:#818CF844;margin-bottom:14px">
+    <div style="font-size:9px;color:#818CF8;letter-spacing:3px;text-transform:uppercase;margin-bottom:8px">The AI Copper Story Nobody Is Talking About</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
+      <div style="background:#1C2438;border-radius:6px;padding:8px;text-align:center">
+        <div style="font-size:8px;color:#AAAAAA;text-transform:uppercase">Per Data Centre</div>
+        <div style="font-size:16px;font-weight:700;color:#818CF8;margin-top:3px">~40,000t</div>
+        <div style="font-size:9px;color:#AAAAAA;margin-top:2px">copper per hyperscale facility</div>
+      </div>
+      <div style="background:#1C2438;border-radius:6px;padding:8px;text-align:center">
+        <div style="font-size:8px;color:#AAAAAA;text-transform:uppercase">Planned 2024-28</div>
+        <div style="font-size:16px;font-weight:700;color:#3DBA7A;margin-top:3px">500+</div>
+        <div style="font-size:9px;color:#AAAAAA;margin-top:2px">new hyperscale data centres</div>
+      </div>
+    </div>
+    <div style="font-size:10px;color:#B8C2D0;line-height:1.7">Microsoft, Google, Amazon, Meta each committing $50-100B to AI data centre buildout. Each hyperscale facility needs ~40,000t copper for power distribution, cooling systems, and server interconnects. 500 new facilities = 20Mt additional copper demand — nearly equal to one full year of world production. This demand was not in any copper forecast model 3 years ago.</div>
+  </div>
+
+  <!-- Demand Breakdown -->
+  <div class="stitle">2026 Demand Breakdown</div>
+  <div class="card" style="margin-bottom:14px">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+      <div style="background:#1C2438;border-radius:6px;padding:10px">
+        <div style="font-size:8px;color:#FB923C;letter-spacing:1px;text-transform:uppercase">Construction</div>
+        <div style="font-size:20px;font-weight:700;color:#FB923C;margin-top:3px">28%</div>
+        <div style="font-size:9px;color:#A0AABB;margin-top:2px">Wiring, plumbing, HVAC. China property headwind.</div>
+      </div>
+      <div style="background:#1C2438;border-radius:6px;padding:10px">
+        <div style="font-size:8px;color:#3DBA7A;letter-spacing:1px;text-transform:uppercase">Green Energy</div>
+        <div style="font-size:20px;font-weight:700;color:#3DBA7A;margin-top:3px">24%</div>
+        <div style="font-size:9px;color:#A0AABB;margin-top:2px">Solar, wind, grid. Fastest growing. Structural bull.</div>
+      </div>
+      <div style="background:#1C2438;border-radius:6px;padding:10px">
+        <div style="font-size:8px;color:#818CF8;letter-spacing:1px;text-transform:uppercase">Electronics + AI</div>
+        <div style="font-size:20px;font-weight:700;color:#818CF8;margin-top:3px">19%</div>
+        <div style="font-size:9px;color:#A0AABB;margin-top:2px">Data centres, EVs, consumer electronics.</div>
+      </div>
+      <div style="background:#1C2438;border-radius:6px;padding:10px">
+        <div style="font-size:8px;color:#D4AF37;letter-spacing:1px;text-transform:uppercase">Industrial</div>
+        <div style="font-size:20px;font-weight:700;color:#D4AF37;margin-top:3px">29%</div>
+        <div style="font-size:9px;color:#A0AABB;margin-top:2px">Machinery, transport, industrial equipment.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Analyst Targets -->
+  <div class="stitle">Analyst Price Targets 2026</div>
+  <div class="card" style="margin-bottom:14px">
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid #2E3148">
+      <span style="font-size:10px;color:#D8DEE9">Goldman Sachs (supercycle)</span>
+      <span style="font-size:11px;font-weight:700;color:#3DBA7A">$5.50-6.00/lb</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid #2E3148">
+      <span style="font-size:10px;color:#D8DEE9">Bank of America</span>
+      <span style="font-size:11px;font-weight:700;color:#3DBA7A">$5.00-5.50/lb</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid #2E3148">
+      <span style="font-size:10px;color:#D8DEE9">Citigroup (base case)</span>
+      <span style="font-size:11px;font-weight:700;color:#D4AF37">$4.80-5.20/lb</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid #2E3148">
+      <span style="font-size:10px;color:#D8DEE9">Freeport-McMoRan guidance</span>
+      <span style="font-size:11px;font-weight:700;color:#D4AF37">$4.50-5.00/lb</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0">
+      <span style="font-size:10px;color:#D8DEE9">Macquarie (China bear case)</span>
+      <span style="font-size:11px;font-weight:700;color:#6B7A8D">$3.50-4.00/lb</span>
+    </div>
+  </div>
+
+  <!-- Early Warning Signals -->
+  <div class="stitle">Early Warning Signals to Watch</div>
+  <div class="card" style="margin-bottom:14px">
+    <div style="border-left:3px solid #E05555;padding-left:10px;margin-bottom:10px">
+      <div style="font-size:10px;color:#E05555;font-weight:700">LME Warehouse Stocks</div>
+      <div style="font-size:10px;color:#B8C2D0;margin-top:3px;line-height:1.5">LME copper stocks below 100,000t = tightening market, bullish. Above 300,000t = oversupply signal. Currently ~180,000t — neutral. Watch for rapid drawdowns as key bull trigger.</div>
+    </div>
+    <div style="border-left:3px solid #FB923C;padding-left:10px;margin-bottom:10px">
+      <div style="font-size:10px;color:#FB923C;font-weight:700">China PMI Manufacturing</div>
+      <div style="font-size:10px;color:#B8C2D0;margin-top:3px;line-height:1.5">Above 52 = copper demand expanding. Below 48 = demand contraction. Most sensitive leading indicator for copper price direction. Released monthly — first business day.</div>
+    </div>
+    <div style="border-left:3px solid #D4AF37;padding-left:10px;margin-bottom:10px">
+      <div style="font-size:10px;color:#D4AF37;font-weight:700">Codelco Production Reports</div>
+      <div style="font-size:10px;color:#B8C2D0;margin-top:3px;line-height:1.5">Any quarterly miss from Codelco (world's largest miner) = immediate supply shock signal. Grade decline + Atacama water issues already causing chronic underperformance vs targets.</div>
+    </div>
+    <div style="border-left:3px solid #818CF8;padding-left:10px;margin-bottom:10px">
+      <div style="font-size:10px;color:#818CF8;font-weight:700">Chile/Peru Political News</div>
+      <div style="font-size:10px;color:#B8C2D0;margin-top:3px;line-height:1.5">Mining royalty legislation, community protest blockades, environmental permit decisions. Any supply disruption in the Andes = immediate copper spike. Watch Reuters Latin America.</div>
+    </div>
+    <div style="border-left:3px solid #3DBA7A;padding-left:10px">
+      <div style="font-size:10px;color:#3DBA7A;font-weight:700">SHFE vs LME Arbitrage</div>
+      <div style="font-size:10px;color:#B8C2D0;margin-top:3px;line-height:1.5">Shanghai copper premium above $200/t vs LME = China restocking aggressively. Premium above $400/t = supply crisis emerging in China. Currently watch for widening spread as green buildout accelerates.</div>
+    </div>
+  </div>
+
+</div>
+</div>
+
 <!-- COMEX CONTRACT MANIPULATION MONITOR — floats below all tabs -->
 <div style="margin-top:0px">
   <div style="padding:14px 14px 0">
@@ -1514,7 +1765,10 @@ var METALS = {
          deficit:"~200koz deficit", yrend:"$1,100-1,300", supply:"~7.8Moz" },
   XPD: { sym:"XPD", label:"PALLADIUM", pair:"XPD/USD", lo:400, hi:4000, dec:1, seed:1020, dayOpen:1015,
          igMode:"usd", igOffset:0, gpKey:"xpdPrice",
-         deficit:"~300koz surplus", yrend:"$950-1,150", supply:"~6.8Moz" }
+         deficit:"~300koz surplus", yrend:"$950-1,150", supply:"~6.8Moz" },
+  HG:  { sym:"HG",  label:"COPPER",    pair:"HG/USD",   lo:2, hi:20, dec:4, seed:4.8520, dayOpen:4.8400,
+         igMode:"usd", igOffset:0, gpKey:"hgPrice",
+         deficit:"~150kt deficit", yrend:"$4.80-5.50", supply:"~22Mt" }
 };
 var curMetal = METALS.XAG;
 
@@ -1556,7 +1810,7 @@ function switchMetal(sym) {
   var ids = {"pair-label":curMetal.pair, "stat-deficit":curMetal.deficit,
              "stat-yrend":curMetal.yrend, "stat-supply":curMetal.supply};
   for (var k in ids) { var el=document.getElementById(k); if(el) el.textContent = ids[k]; }
-  ["XAG","XAU","XPT","XPD"].forEach(function(s){
+  ["XAG","XAU","XPT","XPD","HG"].forEach(function(s){
     var b = document.getElementById("msw-"+s); if(!b) return;
     var on = (s===sym);
     b.style.background = on ? "#D4AF37" : "transparent";
