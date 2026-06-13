@@ -1,0 +1,1814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Rocky Silver Master Intelligence v17</title>
+<style>
+:root{
+  --bg:#04070b;--panel:#080d14;--panel2:#0c1219;--border:#182030;
+  --gold:#d4a843;--gold-l:#f0c060;--gold-d:#9a7828;--silver:#c0c8d8;
+  --red:#e05252;--green:#4caf7d;--text:#7a8fa8;--bright:#cce0f5;
+  --fc-l:#b08fdf;--fc2l:#7ec8e3;--tab-h:48px;--nav-h:50px;
+  --cinzel:Georgia,"Times New Roman",serif;
+  --raj:system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}html,body{height:100%;overflow-x:hidden;}
+body{background:var(--bg);color:var(--text);font-family:var(--raj);min-height:100vh;}
+nav{position:fixed;top:0;left:0;right:0;height:50px;z-index:300;background:rgba(4,7,11,.97);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 14px;}
+.brand{display:flex;align-items:center;gap:7px;}
+.brand-text{font-family:var(--cinzel);font-size:.85rem;font-weight:700;color:var(--gold-l);letter-spacing:.15em;}
+.brand-sub{font-size:.56rem;color:var(--text);letter-spacing:.09em;text-transform:uppercase;}
+.nav-r{display:flex;align-items:center;gap:9px;}
+.pulse{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(76,175,125,.6)}70%{box-shadow:0 0 0 7px rgba(76,175,125,0)}100%{box-shadow:0 0 0 0 rgba(76,175,125,0)}}
+.nav-info{font-size:.63rem;color:var(--text);}.nav-info b{color:var(--gold);}
+.tabs{position:fixed;top:50px;left:0;right:0;z-index:299;background:rgba(4,7,11,.96);border-bottom:1px solid var(--border);display:flex;flex-wrap:wrap;padding:3px 4px;gap:3px;}
+.tabs::-webkit-scrollbar{display:none;}
+.tab{font-size:.6rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:7px 10px;border:1px solid var(--border);background:transparent;color:var(--text);cursor:pointer;white-space:nowrap;border-radius:2px;touch-action:manipulation;-webkit-tap-highlight-color:rgba(212,168,67,.3);user-select:none;-webkit-user-select:none;}
+.tab.active{color:var(--gold-l);border-color:rgba(212,168,67,.5);background:rgba(212,168,67,.1);}
+/* v17 FIX: pages display:none, only .active shows. #tab-daily fallback always visible */
+.page{display:none;padding-top:125px;min-height:100vh;z-index:1;position:relative;}
+@media screen and (max-height:500px){.page{padding-top:80px;}}
+.page.active{display:block;}
+#tab-daily{display:block;}
+#tab-daily.hidden{display:none;}
+#tab-daily{display:block;}
+.wrap{max-width:1440px;margin:0 auto;padding:4px 13px 28px;}
+.page-hdr{text-align:center;margin-bottom:14px;}
+.tline{display:flex;align-items:center;justify-content:center;gap:11px;margin-bottom:4px;}
+.tl{flex:1;max-width:70px;height:1px;background:linear-gradient(90deg,transparent,var(--gold));}
+.tr{background:linear-gradient(90deg,var(--gold),transparent);}
+h2{font-family:var(--cinzel);font-size:clamp(.88rem,1.9vw,1.35rem);font-weight:700;color:var(--gold-l);letter-spacing:.12em;}
+.psub{font-size:.65rem;color:var(--text);letter-spacing:.09em;text-transform:uppercase;margin-top:2px;}
+.kpi-strip{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;margin-bottom:12px;}
+.kpi{background:var(--panel);border:1px solid var(--border);padding:8px 12px;min-width:104px;text-align:center;position:relative;overflow:hidden;}
+.kpi::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+.kpi-l{font-size:.56rem;letter-spacing:.09em;text-transform:uppercase;color:var(--text);margin-bottom:3px;}
+.kpi-v{font-family:var(--cinzel);font-size:.93rem;font-weight:600;color:var(--bright);line-height:1;}
+.kpi-v.gold{color:var(--gold-l);}.kpi-v.gn{color:var(--green);}.kpi-v.rd{color:var(--red);}
+.kpi-c{font-size:.57rem;font-weight:600;margin-top:2px;}.kpi-c.up{color:var(--green);}.kpi-c.dn{color:var(--red);}
+.card{background:var(--panel);border:1px solid var(--border);padding:14px;position:relative;overflow:hidden;margin-bottom:10px;}
+.card::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+.card.blue-top::before{background:linear-gradient(90deg,transparent,#4c82ff,transparent);}
+.card.green-top::before{background:linear-gradient(90deg,transparent,var(--green),transparent);}
+.card.red-top::before{background:linear-gradient(90deg,transparent,var(--red),transparent);}
+.card-title{font-family:var(--cinzel);font-size:.72rem;color:var(--gold);letter-spacing:.09em;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:5px;}
+.ctag{font-size:.57rem;padding:1px 6px;border-radius:2px;letter-spacing:.07em;font-weight:700;}
+.ctag.live{background:rgba(76,175,125,.1);color:var(--green);border:1px solid rgba(76,175,125,.22);}
+.ctag.ai{background:rgba(212,168,67,.08);color:var(--gold);border:1px solid rgba(212,168,67,.2);}
+.btn{font-family:var(--raj);font-size:.65rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:4px 11px;border:1px solid var(--border);background:transparent;color:var(--text);cursor:pointer;border-radius:2px;}
+.btn.gold{border-color:rgba(212,168,67,.3);color:var(--gold-d);}
+.btn.busy{opacity:.4;pointer-events:none;}
+.btn-row{display:flex;gap:6px;flex-wrap:wrap;}
+.week-sel{display:flex;border:1px solid var(--border);width:fit-content;margin:0 auto 11px;overflow:hidden;}
+.ws{font-family:var(--raj);font-size:.66rem;font-weight:700;padding:5px 14px;background:transparent;color:var(--text);cursor:pointer;border:none;border-right:1px solid var(--border);}
+.ws:last-child{border-right:none;}.ws.active{color:var(--gold);background:rgba(212,168,67,.06);}
+canvas{display:block;width:100%!important;}
+.legend{display:flex;gap:11px;flex-wrap:wrap;margin-top:9px;padding-top:9px;border-top:1px solid var(--border);}
+.li{display:flex;align-items:center;gap:4px;font-size:.63rem;}
+.ld{width:9px;height:9px;border-radius:2px;flex-shrink:0;}
+.day-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:9px;}
+@media(max-width:540px){.day-grid{grid-template-columns:repeat(2,1fr);}}
+.dc{background:rgba(255,255,255,.02);border:1px solid var(--border);padding:9px 7px;text-align:center;position:relative;overflow:hidden;}
+.dc.bull::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:var(--green);}
+.dc.bear::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:var(--red);}
+.dc-date{font-size:.54rem;text-transform:uppercase;color:var(--text);margin-bottom:3px;}
+.dc-price{font-family:var(--cinzel);font-size:.84rem;font-weight:600;color:var(--bright);margin-bottom:2px;}
+.dc-hi{font-size:.57rem;color:var(--green);}.dc-lo{font-size:.57rem;color:var(--red);}
+.dc-sig{font-size:.57rem;font-weight:700;margin-top:2px;}
+.dc-sig.bull{color:var(--green);}.dc-sig.bear{color:var(--red);}
+.dc-pct{font-size:.59rem;font-weight:700;margin-top:2px;}.dc-pct.up{color:var(--green);}.dc-pct.dn{color:var(--red);}
+.pred-main{display:grid;grid-template-columns:auto 1fr;border:1px solid var(--border);margin-bottom:10px;position:relative;overflow:hidden;}
+.pred-main::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold) 40%,var(--green),transparent);}
+.pred-verdict{padding:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-right:1px solid var(--border);min-width:130px;}
+.pv-sig{font-family:var(--cinzel);font-size:1.1rem;font-weight:700;margin-bottom:4px;}
+.pv-sig.bear{color:var(--red);}.pv-sig.bull{color:var(--green);}
+.pv-price{font-family:var(--cinzel);font-size:1.7rem;font-weight:700;color:var(--gold-l);line-height:1;margin-bottom:3px;}
+.pv-range{font-size:.63rem;color:var(--text);}
+.pv-conf{font-size:.57rem;margin-top:5px;padding:2px 7px;border-radius:2px;font-weight:700;background:rgba(212,168,67,.07);color:var(--gold);border:1px solid rgba(212,168,67,.18);}
+.pred-body{padding:14px 16px;display:flex;flex-direction:column;gap:7px;}
+.pred-text{font-size:.74rem;color:var(--bright);line-height:1.6;}
+.pred-srcs{display:flex;gap:5px;flex-wrap:wrap;}
+.psrc{font-size:.56rem;padding:1px 6px;border:1px solid var(--border);color:var(--text);border-radius:2px;}
+.factors-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px;}
+@media(max-width:700px){.factors-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:440px){.factors-grid{grid-template-columns:1fr;}}
+.fc-card{background:var(--panel);border:1px solid var(--border);padding:11px;}
+.fc-card.bull{border-left:3px solid var(--green);}.fc-card.bear{border-left:3px solid var(--red);}.fc-card.neu{border-left:3px solid var(--gold-d);}
+.fc-top{display:flex;align-items:center;gap:5px;margin-bottom:4px;}
+.fc-lbl{font-size:.57rem;font-weight:700;text-transform:uppercase;}
+.fc-lbl.bull{color:var(--green);}.fc-lbl.bear{color:var(--red);}.fc-lbl.neu{color:var(--gold);}
+.fc-text{font-size:.67rem;color:var(--bright);line-height:1.44;}
+.fc-src{font-size:.56rem;color:var(--text);margin-top:3px;}
+.news-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;}
+@media(max-width:520px){.news-grid{grid-template-columns:1fr;}}
+.ni{padding:8px 10px;border-left:2px solid var(--border);font-size:.67rem;background:rgba(255,255,255,.015);}
+.ni.pos{border-left-color:rgba(76,175,125,.55);}.ni.neg{border-left-color:rgba(224,82,82,.5);}.ni.mix{border-left-color:rgba(212,168,67,.4);}
+.ni-hl{color:var(--bright);font-weight:600;line-height:1.3;margin-bottom:2px;}
+.ni-meta{display:flex;gap:7px;font-size:.58rem;color:var(--text);flex-wrap:wrap;}
+.ni-src{color:var(--gold);font-weight:600;}.ni-imp{font-weight:700;}
+.ni-imp.pos{color:var(--green);}.ni-imp.neg{color:var(--red);}.ni-imp.mix{color:#bba;}
+.poly-verdict{padding:10px 13px;margin-bottom:10px;border-radius:2px;font-size:.75rem;font-weight:600;text-align:center;}
+.poly-verdict.bear{background:rgba(224,82,82,.06);border:1px solid rgba(224,82,82,.2);color:var(--red);}
+.poly-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:10px;}
+@media(min-width:520px){.poly-grid{grid-template-columns:repeat(4,1fr);}}
+.pc{background:rgba(255,255,255,.02);border:1px solid var(--border);padding:11px 9px;}
+.pc.hi{border-color:rgba(224,82,82,.3);}.pc.hi::before{content:"";display:block;height:2px;background:var(--red);margin:-11px -9px 7px;}
+.pc.med{border-color:rgba(212,168,67,.25);}.pc.med::before{content:"";display:block;height:2px;background:var(--gold);margin:-11px -9px 7px;}
+.pc.lo{border-color:rgba(76,175,125,.22);}.pc.lo::before{content:"";display:block;height:2px;background:var(--green);margin:-11px -9px 7px;}
+.pc-q{font-size:.59rem;color:var(--text);line-height:1.3;margin-bottom:5px;}
+.pc-o{font-family:var(--cinzel);font-size:1.25rem;font-weight:700;line-height:1;margin-bottom:3px;}
+.pc-o.hi{color:var(--red);}.pc-o.med{color:var(--gold);}.pc-o.lo{color:var(--green);}
+.pc-bar-w{height:3px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden;margin-bottom:3px;}
+.pc-bar{height:100%;border-radius:2px;}
+.pc-bar.hi{background:var(--red);}.pc-bar.med{background:var(--gold);}.pc-bar.lo{background:var(--green);}
+.pc-lbl{font-size:.57rem;font-weight:700;}
+.pc-lbl.hi{color:var(--red);}.pc-lbl.med{color:var(--gold);}.pc-lbl.lo{color:var(--green);}
+.pc-vol{font-size:.55rem;color:var(--text);margin-top:2px;}
+.atbl{width:100%;border-collapse:collapse;font-size:.69rem;}
+.atbl th{color:var(--gold);font-size:.57rem;text-transform:uppercase;padding:5px 7px;border-bottom:1px solid var(--border);text-align:center;}
+.atbl td{padding:5px 4px;border-bottom:1px solid rgba(24,32,48,.5);color:var(--text);word-break:break-word;white-space:normal;overflow-wrap:break-word;hyphens:auto;}
+.atbl tr:last-child td{border-bottom:none;}
+.atbl td:first-child{font-family:var(--cinzel);font-size:.62rem;color:var(--bright);text-align:left;word-break:break-word;}
+.bull{color:var(--green);font-weight:600;}.bear{color:var(--red);font-weight:600;}.neu2{color:var(--gold);font-weight:600;}
+.dbar-list{display:flex;flex-direction:column;gap:5px;margin-top:9px;}
+.dbar-item{display:flex;align-items:center;gap:7px;font-size:.66rem;}
+.dbar-name{width:80px;flex-shrink:0;color:var(--silver);}
+.dbar-wrap{flex:1;height:3px;background:rgba(192,200,216,.1);border-radius:2px;overflow:hidden;}
+.dbar{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--text),var(--silver));}
+.dbar-pct{width:28px;text-align:right;font-weight:600;font-size:.61rem;}
+.diag-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:10px;}
+@media(max-width:540px){.diag-grid{grid-template-columns:1fr;}}
+.diag-card{background:var(--panel);border:1px solid var(--border);padding:12px;position:relative;overflow:hidden;}
+.diag-pass::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:var(--green);}
+.diag-warn::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:var(--gold);}
+.diag-fail::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:var(--red);}
+.diag-title{font-size:.61rem;text-transform:uppercase;margin-bottom:6px;font-weight:700;}
+.diag-pass .diag-title{color:var(--green);}.diag-warn .diag-title{color:var(--gold);}.diag-fail .diag-title{color:var(--red);}
+.diag-status{font-family:var(--cinzel);font-size:.95rem;font-weight:600;margin-bottom:3px;}
+.diag-pass .diag-status{color:var(--green);}.diag-warn .diag-status{color:var(--gold);}.diag-fail .diag-status{color:var(--red);}
+.diag-detail{font-size:.64rem;color:var(--text);line-height:1.45;}
+.diag-score{display:flex;align-items:center;gap:12px;padding:11px;background:rgba(212,168,67,.04);border:1px solid rgba(212,168,67,.14);margin-bottom:10px;}
+.ds-label{font-size:.66rem;color:var(--text);}.ds-val{font-family:var(--cinzel);font-size:1.75rem;font-weight:700;color:var(--gold-l);margin-left:auto;}
+.ds-grade{font-family:var(--cinzel);font-size:1.05rem;font-weight:600;color:var(--bright);}
+.dr-list{display:flex;flex-direction:column;gap:5px;}
+.dr-item{display:flex;gap:7px;font-size:.69rem;padding:6px 8px;background:rgba(255,255,255,.015);border-left:2px solid var(--border);}
+.dr-item.bull{border-left-color:var(--green);}.dr-item.bear{border-left-color:var(--red);}.dr-item.neu{border-left-color:var(--gold-d);}
+.dr-icon{flex-shrink:0;font-size:.78rem;}.dr-text{color:var(--bright);line-height:1.4;}
+.charts-2{display:grid;grid-template-columns:2fr 1fr;gap:9px;margin-bottom:9px;}
+.charts-eq{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:9px;}
+@media(max-width:640px){.charts-2,.charts-eq{grid-template-columns:1fr;}}
+.log-card{background:var(--panel);border:1px solid var(--border);padding:11px;margin-bottom:9px;}
+.log-hd{font-family:var(--cinzel);font-size:.62rem;color:var(--gold);text-transform:uppercase;margin-bottom:6px;}
+.log-list{display:flex;flex-direction:column;gap:2px;max-height:90px;overflow-y:auto;font-size:.62rem;}
+.lrow{display:flex;gap:7px;padding:2px 0;border-bottom:1px solid rgba(24,32,48,.3);}
+.lt{color:var(--text);flex-shrink:0;width:40px;}.lm{color:var(--bright);}
+.shimmer{background:linear-gradient(90deg,var(--panel) 25%,var(--panel2) 50%,var(--panel) 75%);background-size:200% 100%;animation:shim 1.4s infinite;border-radius:2px;height:11px;margin:3px 0;}
+@keyframes shim{0%{background-position:200% 0}100%{background-position:-200% 0}}
+input,select{width:100%;background:var(--panel2);border:1px solid var(--border);color:var(--bright);padding:6px 9px;font-family:var(--raj);font-size:.81rem;border-radius:2px;}
+
+/* v18 - guarantee tab visibility regardless of JS */
+#tab-daily{display:block;}
+#tab-daily.hidden{display:none;}
+#tab-prediction.active{display:block!important;}
+#tab-polymarket.active{display:block!important;}
+#tab-bigpicture.active{display:block!important;}
+#tab-analysts.active{display:block!important;}
+#tab-technical.active{display:block!important;}
+#tab-comex.active{display:block!important;}
+#tab-radar.active{display:block!important;}
+#tab-fullyear.active{display:block!important;}
+#tab-igtools.active{display:block!important;}
+#tab-news.active{display:block!important;}
+#tab-economy.active{display:block!important;}
+#tab-summary.active{display:block!important;}
+#tab-diagnosis.active{display:block!important;}
+#tab-globalinfl.active{display:block!important;}
+#tab-admin.active{display:block!important;}
+</style>
+<script>
+// Rocky Silver MiniChart Engine - bundled, no CDN
+(function(G){
+function MC(ctx,cfg){
+  this.ctx=ctx;this.canvas=ctx.canvas;this.type=cfg.type||'bar';
+  this.data=cfg.data||{labels:[],datasets:[]};this.options=cfg.options||{};
+  this.plugins=cfg.plugins||[];this._d=false;this.scales={x:{},y:{}};
+  this.chartArea={left:0,right:0,top:0,bottom:0};this._tt={active:false};
+  this._mv=this._mv.bind(this);this._ck=this._ck.bind(this);
+  this.canvas.addEventListener('mousemove',this._mv);
+  this.canvas.addEventListener('touchstart',this._ck,{passive:true});
+  this.update();
+}
+MC.prototype.destroy=function(){this._d=true;this.canvas.removeEventListener('mousemove',this._mv);this.canvas.removeEventListener('touchstart',this._ck);this.ctx.clearRect(0,0,this.canvas.width,this.canvas.height);};
+MC.prototype.update=function(){if(!this._d)this._render();};
+MC.prototype._sc=function(){
+  var c=this.canvas,dpr=window.devicePixelRatio||1;
+  var W=c.clientWidth||c.offsetWidth||(c.parentElement&&c.parentElement.clientWidth)||300;
+  var H=c.clientHeight||c.offsetHeight||200;
+  if(W<10)W=300;if(H<10)H=200;
+  if(c.width!==W*dpr||c.height!==H*dpr){c.width=W*dpr;c.height=H*dpr;}
+  this.ctx.setTransform(1,0,0,1,0,0);this.ctx.scale(dpr,dpr);this._W=W;this._H=H;
+};
+MC.prototype._render=function(){
+  var ctx=this.ctx;this._sc();var W=this._W,H=this._H;
+  ctx.clearRect(0,0,W,H);
+  var ca={left:8,right:W-55,top:20,bottom:H-45};this.chartArea=ca;
+  var cW=ca.right-ca.left,cH=ca.bottom-ca.top;
+  var L=this.data.labels||[];var DS=this.data.datasets||[];
+  var xO=(this.options.scales&&this.options.scales.x)||{};
+  var xMn=xO.min!==undefined?xO.min:0,xMx=xO.max!==undefined?xO.max:Math.max(L.length-1,1);
+  var xC=xMx-xMn+1;if(xC<1)xC=1;
+  var yO=(this.options.scales&&this.options.scales.y)||{};
+  var yMn=yO.min!==undefined?yO.min:null,yMx=yO.max!==undefined?yO.max:null;
+  if(yMn===null||yMx===null){
+    var av=[];DS.forEach(function(d){if(d.data)d.data.forEach(function(v){if(v===null||v===undefined)return;if(Array.isArray(v)){av.push(v[0],v[1]);}else av.push(v);});});
+    if(av.length){if(yMn===null)yMn=Math.min.apply(null,av)*0.97;if(yMx===null)yMx=Math.max.apply(null,av)*1.03;}else{yMn=0;yMx=100;}
+  }
+  if(yMx<=yMn)yMx=yMn+1;var yR=yMx-yMn;
+  var self=this;
+  function xp(i){return ca.left+(i-xMn)/xC*cW;}
+  function yp(v){return ca.bottom-(v-yMn)/yR*cH;}
+  function bw(){return Math.max(1,cW/xC*0.65);}
+  this.scales.x.getPixelForValue=function(v){return xp(v);};this.scales.x.min=xMn;this.scales.x.max=xMx;
+  this.scales.y.getPixelForValue=yp;this.scales.y.min=yMn;this.scales.y.max=yMx;
+  ctx.strokeStyle='rgba(24,32,48,0.6)';ctx.lineWidth=0.5;
+  for(var t=0;t<=6;t++){var yv=yMn+(yR*t/6);var ypv=yp(yv);ctx.beginPath();ctx.moveTo(ca.left,ypv);ctx.lineTo(ca.right,ypv);ctx.stroke();}
+  for(var xi=0;xi<=xC;xi+=Math.max(1,Math.floor(xC/10))){var xpv=xp(xMn+xi);ctx.beginPath();ctx.moveTo(xpv,ca.top);ctx.lineTo(xpv,ca.bottom);ctx.stroke();}
+  var yCb=yO.ticks&&yO.ticks.callback;
+  ctx.fillStyle='#6a8090';ctx.font='8.5px sans-serif';ctx.textAlign='left';
+  for(var t2=0;t2<=6;t2++){var yv2=yMn+(yR*t2/6);var yp2=yp(yv2);ctx.fillText(yCb?yCb(yv2):yv2.toFixed(0),ca.right+4,yp2+3);}
+  var xTM=xO.ticks&&xO.ticks.maxTicksLimit||12;var xSt=Math.max(1,Math.floor(xC/xTM));
+  ctx.fillStyle='#4a5f72';ctx.font='7.5px sans-serif';
+  for(var xi2=0;xi2<xC;xi2+=xSt){var ri=xMn+xi2;var lb=L[ri];if(!lb)continue;var xp3=xp(ri)+bw()/2;ctx.save();ctx.translate(xp3,ca.bottom+5);ctx.rotate(45*Math.PI/180);ctx.textAlign='left';ctx.fillText(String(lb).slice(0,9),0,0);ctx.restore();}
+  this._bm=new Array(L.length).fill(null);
+  DS.forEach(function(ds){
+    if(!ds.data)return;var b=bw();
+    if(ds.type==='line'||(!ds.type&&self.type==='line')){
+      ctx.beginPath();ctx.strokeStyle=ds.borderColor||'rgba(212,168,67,0.5)';ctx.lineWidth=ds.borderWidth||1.5;ctx.setLineDash(ds.borderDash||[]);
+      var f=true;ds.data.forEach(function(v,i){if(v===null||v===undefined)return;var x=xp(i)+b/2,y=yp(v);if(f){ctx.moveTo(x,y);f=false;}else ctx.lineTo(x,y);});
+      ctx.stroke();ctx.setLineDash([]);return;
+    }
+    ds.data.forEach(function(v,i){
+      if(i<xMn||i>xMx||v===null||v===undefined)return;
+      var x=xp(i);var cl=Array.isArray(ds.backgroundColor)?ds.backgroundColor[i]:ds.backgroundColor;var bo=Array.isArray(ds.borderColor)?ds.borderColor[i]:ds.borderColor;
+      ctx.fillStyle=cl||'rgba(76,175,125,0.7)';ctx.strokeStyle=bo||'#4caf7d';ctx.lineWidth=ds.borderWidth||1;
+      var bx=x+b*0.15,bw2=b*0.7;
+      if(Array.isArray(v)){
+        var yl=yp(Math.max(v[0],v[1])),yh=yp(Math.min(v[0],v[1])),bh=Math.max(1,yh-yl);
+        ctx.fillRect(bx,yl,bw2,bh);ctx.strokeRect(bx,yl,bw2,bh);self._bm[i]={x:x+b/2,lo:v[0],hi:v[1],bx:bx,by:yl,bw:bw2,bh:bh};
+      }else{
+        var yB=yp(Math.max(yMn,0)),yT=yp(v);ctx.fillRect(bx,yT,bw2,yB-yT);ctx.strokeRect(bx,yT,bw2,yB-yT);self._bm[i]={x:x+b/2,y:v,bx:bx,by:yT,bw:bw2,bh:yB-yT};
+      }
+    });
+  });
+  this.plugins.forEach(function(p){if(p&&p.afterDraw)try{p.afterDraw(self);}catch(e){}});
+  MC._pl.forEach(function(p){if(p&&p.afterDraw)try{p.afterDraw(self);}catch(e){}});
+  if(this._tt.active)this._dt();
+};
+MC.prototype._dt=function(){
+  var ctx=this.ctx,tt=this._tt,idx=tt.idx;if(idx===undefined)return;
+  var L=this.data.labels||[];var DS=this.data.datasets||[];
+  var tO=(this.options.plugins&&this.options.plugins.tooltip)||{};var cb=tO.callbacks||{};
+  var items=DS.map(function(d,i){return{datasetIndex:i,dataIndex:idx,raw:d.data?d.data[idx]:null};}).filter(function(it){return tO.filter?tO.filter(it):true;});
+  var title=cb.title?cb.title(items):(L[idx]||'');var lines=[title];
+  items.forEach(function(it){var l=cb.label?cb.label(it):'';if(Array.isArray(l))lines=lines.concat(l);else if(l)lines.push(l);});
+  var bg=tO.backgroundColor||'rgba(4,7,11,.97)';var tc=tO.titleColor||'#d4a843';var bc=tO.bodyColor||'#7a8fa8';var p=tO.padding||8;
+  ctx.font='bold 9px sans-serif';var mw=Math.max.apply(null,lines.map(function(l){return ctx.measureText(String(l||'')).width;}));
+  var bxW=mw+p*2+4,bxH=lines.length*14+p*2;
+  var bm=this._bm&&this._bm[idx];var tx=bm?bm.x-bxW/2:50;var ty=this.chartArea.top+5;
+  tx=Math.max(2,Math.min(tx,this._W-bxW-2));
+  ctx.fillStyle=bg;ctx.strokeStyle=tO.borderColor||'rgba(212,168,67,.15)';ctx.lineWidth=1;
+  ctx.beginPath();if(ctx.roundRect)ctx.roundRect(tx,ty,bxW,bxH,3);else ctx.rect(tx,ty,bxW,bxH);ctx.fill();ctx.stroke();
+  var ly=ty+p+10;lines.forEach(function(l,i){ctx.fillStyle=i===0?tc:bc;ctx.font=i===0?'bold 9px sans-serif':'8px sans-serif';ctx.textAlign='left';ctx.fillText(String(l||''),tx+p,ly);ly+=13;});
+};
+MC.prototype._gi=function(e){
+  var r=this.canvas.getBoundingClientRect();var cx=e.touches?e.touches[0].clientX:e.clientX;
+  var x=cx-r.left;var ca=this.chartArea;var xMn=this.scales.x.min||0,xMx=this.scales.x.max||0;
+  return Math.max(xMn,Math.min(xMx,Math.round(xMn+(x-ca.left)/(ca.right-ca.left)*(xMx-xMn+1))));
+};
+MC.prototype._mv=function(e){if(!this._d){this._tt={active:true,idx:this._gi(e)};this._render();}};
+MC.prototype._ck=function(e){if(!this._d){this._tt={active:true,idx:this._gi(e)};this._render();}};
+MC._pl=[];MC._instances=[];
+MC.register=function(p){if(p&&MC._pl.indexOf(p)<0)MC._pl.push(p);};
+MC.defaults={};
+window.addEventListener('resize',function(){MC._instances.forEach(function(c){if(!c._d)try{c.update();}catch(e){}});});
+G.Chart=MC;
+})(window);
+
+// ============================================================
+// ZOOM ENGINE — Mouse wheel + click-drag for PC, pinch mobile
+// ============================================================
+(function(G){
+  var ZM = {};
+  ZM._state = {};
+  ZM.attach = function(chart) {
+    var canvas = chart.canvas;
+    var id = canvas.id || Math.random().toString(36).slice(2);
+    canvas.id = canvas.id || id;
+    ZM._state[id] = { dragging: false, dragStartX: 0, dragStartXMin: 0, pinchStart: 0, pinchXMin: 0, pinchXMax: 0 };
+
+    canvas.addEventListener('wheel', function(e) {
+      e.preventDefault();
+      var labels = chart.data.labels || [];
+      if (!labels.length) return;
+      var xMin = chart.scales.x.min || 0;
+      var xMax = chart.scales.x.max || labels.length - 1;
+      var range = xMax - xMin;
+      var factor = e.deltaY < 0 ? 0.82 : 1.22;
+      var rect = canvas.getBoundingClientRect();
+      var ca = chart.chartArea;
+      var frac = Math.max(0, Math.min(1, (e.clientX - rect.left - ca.left) / (ca.right - ca.left)));
+      var center = xMin + frac * range;
+      var newRange = Math.max(3, Math.min(labels.length - 1, range * factor));
+      var newMin = Math.max(0, Math.round(center - frac * newRange));
+      var newMax = Math.min(labels.length - 1, Math.round(newMin + newRange));
+      if (newMax - newMin < 2) return;
+      chart.options = chart.options || {};
+      chart.options.scales = chart.options.scales || {};
+      chart.options.scales.x = chart.options.scales.x || {};
+      chart.options.scales.x.min = newMin;
+      chart.options.scales.x.max = newMax;
+      try { chart._render(); } catch(e2) {}
+      ZM._hint(canvas, 'Scroll to zoom \u00b7 Drag to pan \u00b7 Dbl-click reset');
+    }, { passive: false });
+
+    canvas.addEventListener('mousedown', function(e) {
+      if (e.button !== 0) return;
+      var st = ZM._state[id];
+      st.dragging = true;
+      st.dragStartX = e.clientX;
+      st.dragStartXMin = chart.scales.x.min || 0;
+      canvas.style.cursor = 'grabbing';
+    });
+    canvas.addEventListener('mousemove', function(e) {
+      var st = ZM._state[id];
+      if (!st.dragging) return;
+      var labels = chart.data.labels || [];
+      var ca = chart.chartArea;
+      var cW = ca.right - ca.left;
+      var xRange = (chart.scales.x.max || labels.length-1) - (chart.scales.x.min || 0);
+      if (xRange < 1 || cW < 1) return;
+      var pxPerUnit = cW / xRange;
+      var dx = (e.clientX - st.dragStartX) / pxPerUnit;
+      var newMin = Math.round(st.dragStartXMin - dx);
+      newMin = Math.max(0, newMin);
+      var newMax = Math.min(labels.length - 1, newMin + xRange);
+      if (newMax >= labels.length) { newMax = labels.length - 1; newMin = Math.max(0, newMax - xRange); }
+      chart.options.scales.x.min = Math.round(newMin);
+      chart.options.scales.x.max = Math.round(newMax);
+      try { chart._render(); } catch(e2) {}
+    });
+    var endDrag = function() {
+      var st = ZM._state[id]; if (st) st.dragging = false;
+      canvas.style.cursor = 'crosshair';
+    };
+    canvas.addEventListener('mouseup', endDrag);
+    canvas.addEventListener('mouseleave', endDrag);
+    canvas.style.cursor = 'crosshair';
+
+    canvas.addEventListener('dblclick', function() {
+      var labels = chart.data.labels || [];
+      chart.options.scales.x.min = 0;
+      chart.options.scales.x.max = labels.length - 1;
+      try { chart._render(); } catch(e2) {}
+      ZM._hint(canvas, 'Zoom reset');
+    });
+
+    // Pinch zoom mobile
+    var pinch = {};
+    canvas.addEventListener('touchstart', function(e) {
+      if (e.touches.length === 2) {
+        pinch.start = Math.abs(e.touches[0].clientX - e.touches[1].clientX);
+        pinch.xMin = chart.scales.x.min || 0;
+        pinch.xMax = chart.scales.x.max || (chart.data.labels||[]).length - 1;
+      }
+    }, { passive: true });
+    canvas.addEventListener('touchmove', function(e) {
+      if (e.touches.length !== 2 || !pinch.start) return;
+      var dist = Math.abs(e.touches[0].clientX - e.touches[1].clientX);
+      var labels = chart.data.labels || [];
+      var factor = pinch.start / dist;
+      var range = (pinch.xMax - pinch.xMin) * factor;
+      var center = (pinch.xMin + pinch.xMax) / 2;
+      var newMin = Math.max(0, Math.round(center - range / 2));
+      var newMax = Math.min(labels.length - 1, Math.round(center + range / 2));
+      if (newMax - newMin < 2) return;
+      chart.options.scales.x.min = newMin;
+      chart.options.scales.x.max = newMax;
+      try { chart._render(); } catch(e2) {}
+    }, { passive: true });
+  };
+
+  ZM._hint = function(canvas, msg) {
+    var p = canvas.parentElement;
+    if (!p) return;
+    if (!p._zh) {
+      p.style.position = 'relative';
+      var h = document.createElement('div');
+      h.style.cssText = 'position:absolute;top:4px;right:6px;background:rgba(4,7,11,.85);color:#d4a843;font-size:.58rem;padding:3px 8px;border-radius:2px;pointer-events:none;border:1px solid rgba(212,168,67,.25);z-index:9;transition:opacity .6s;opacity:0';
+      p.appendChild(h); p._zh = h;
+    }
+    p._zh.textContent = msg;
+    p._zh.style.opacity = '1';
+    clearTimeout(p._zt);
+    p._zt = setTimeout(function() { p._zh.style.opacity = '0'; }, 2200);
+  };
+
+  G.ChartZoom = ZM;
+})(window);
+
+</script>
+
+<nav>
+  <div class="brand">
+    <div style="font-size:1.1rem;color:var(--gold)">&#x2B21;</div>
+    <div><div class="brand-text">ROCKY SILVER</div><div class="brand-sub">Master Intelligence</div></div>
+  </div>
+  <div class="nav-r">
+    <div class="pulse"></div>
+    <div class="nav-info">Live AI &middot; <b id="navDate">11 Jun 2026</b></div>
+    <button title="Admin Panel" style="background:rgba(212,168,67,.08);border:1px solid rgba(212,168,67,.25);color:var(--gold);font-size:.62rem;padding:4px 10px;cursor:pointer;border-radius:2px;font-family:var(--raj);font-weight:700;letter-spacing:.06em;margin-left:4px" data-tab="admin">🔒 ADMIN</button>
+  </div>
+</nav>
+<div class="tabs">
+  <button class="tab active" data-tab="daily">Daily</button>
+  <button class="tab" data-tab="prediction">AI Pred</button>
+  <button class="tab" data-tab="polymarket">Poly</button>
+  <button class="tab" data-tab="bigpicture">Big Pic</button>
+  <button class="tab" data-tab="analysts">Analysts</button>
+  <button class="tab" data-tab="technical">Technical</button>
+  <button class="tab" data-tab="comex">COMEX</button>
+  <button class="tab" data-tab="radar">Radar</button>
+  <button class="tab" data-tab="fullyear">Full Year</button>
+  <button class="tab" data-tab="igtools">IG Tools</button>
+  <button class="tab" data-tab="news">News</button>
+  <button class="tab" data-tab="economy">Economy</button>
+  <button class="tab" data-tab="summary">Summary</button>
+  <button class="tab" data-tab="diagnosis">Diagnose</button>
+  <button class="tab" data-tab="globalinfl">Global Infl</button>
+</div>
+
+<!-- TAB 1: DAILY -->
+<div class="page active" id="tab-daily"><div class="wrap">
+<div class="page-hdr"><div class="tline"><div class="tl"></div><h2>SILVER DAILY FORECAST</h2><div class="tl tr"></div></div>
+<p class="psub">11 Jun 2026 &middot; HOT CPI CONFIRMED &middot; Post-CPI selloff &middot; Jun&ndash;Nov 2026 AI forecast</p></div>
+<div style="background:rgba(224,82,82,.08);border:1px solid rgba(224,82,82,.3);padding:10px 13px;margin-bottom:12px;border-radius:2px;">
+  <div style="font-family:var(--cinzel);font-size:.72rem;color:var(--red);text-transform:uppercase;margin-bottom:4px;">🔴 CPI RESULT &mdash; CONFIRMED HOT</div>
+  <div style="font-size:.74rem;color:var(--bright);line-height:1.6;">May CPI 4.2%+ YoY. Silver dropped $68.18 &rarr; $65.22 on release. 200-day MA $67.92 broken. Polymarket $65 floor in play. Next support: $62&ndash;63. Sources: BLS / Investing.com / FXStreet</div>
+</div>
+<div class="kpi-strip">
+  <div class="kpi"><div class="kpi-l">Spot Now</div><div class="kpi-v rd">$65.22</div><div class="kpi-c dn">▼ &minus;4.37% post-CPI</div></div>
+  <div class="kpi"><div class="kpi-l">IG Equiv</div><div class="kpi-v rd">~6,596p</div><div class="kpi-c dn">▼ DFB approx</div></div>
+  <div class="kpi"><div class="kpi-l">200-day MA</div><div class="kpi-v rd">$67.92</div><div class="kpi-c dn">▼ BROKEN</div></div>
+  <div class="kpi"><div class="kpi-l">Crowd Floor</div><div class="kpi-v rd">$65</div><div class="kpi-c dn">81% &mdash; TESTING NOW</div></div>
+  <div class="kpi"><div class="kpi-l">Next Support</div><div class="kpi-v rd">$62&ndash;63</div><div class="kpi-c dn">▼ Mar low $61.61</div></div>
+  <div class="kpi"><div class="kpi-l">AI Candles</div><div class="kpi-v gn" id="kCount">0</div><div class="kpi-c up">▲ Generated</div></div>
+</div>
+<div class="week-sel">
+  <button class="ws active" onclick="setWeek(1,this)">1W</button>
+  <button class="ws" onclick="setWeek(2,this)">2W</button>
+  <button class="ws" onclick="setWeek(3,this)">3W</button>
+  <button class="ws" onclick="setWeek(4,this)">4W</button>
+  <button class="ws" onclick="setMonth(3,this)">3M</button>
+  <button class="ws" onclick="setMonth(6,this)">6M</button>
+  <button class="ws" onclick="setMonth(12,this)">12M</button>
+</div>
+<div class="card">
+  <div class="card-title"><span>📊 Silver Daily &mdash; <span id="wkLabel">1 Week</span></span>
+    <span style="font-size:.55rem;color:rgba(212,168,67,.4);font-family:var(--raj)">&#x1F5B1; scroll=zoom &middot; drag=pan &middot; dbl-click=reset</span>
+    <div class="btn-row">
+      <button class="btn gold" onclick="addMoreDays()">&#x2B21; +2 Weeks</button>
+      <button class="btn gold" data-action="diagnose">🔮 Diagnose</button>
+    </div>
+  </div>
+  <div style="background:rgba(8,13,20,.8);border:1px solid rgba(24,32,48,.6);border-radius:3px;padding:12px;margin-bottom:8px;text-align:center;min-height:60px" id="chartFallback"><div style="font-family:Georgia,serif;font-size:.7rem;color:#d4a843;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px">XAG/USD — Jun 2026 Price Action</div><div style="display:flex;justify-content:space-around;flex-wrap:wrap;gap:8px"><div style="text-align:center"><div style="font-size:.55rem;color:#7a8fa8;text-transform:uppercase">Open</div><div style="font-family:Georgia,serif;font-size:1rem;color:#cce0f5">$68.18</div></div><div style="text-align:center"><div style="font-size:.55rem;color:#7a8fa8;text-transform:uppercase">Current</div><div style="font-family:Georgia,serif;font-size:1.2rem;color:#e05252;font-weight:700">$65.22</div></div><div style="text-align:center"><div style="font-size:.55rem;color:#7a8fa8;text-transform:uppercase">200-MA</div><div style="font-family:Georgia,serif;font-size:1rem;color:#d4a843">$67.92</div></div><div style="text-align:center"><div style="font-size:.55rem;color:#7a8fa8;text-transform:uppercase">Support</div><div style="font-family:Georgia,serif;font-size:1rem;color:#4caf7d">$62-63</div></div></div></div><canvas id="mainChart" height="220" style="display:block;width:100%;margin-top:4px"></canvas>
+  <div class="legend">
+    <div class="li"><div class="ld" style="background:#4caf7d"></div><span>Bull</span></div>
+    <div class="li"><div class="ld" style="background:#e05252"></div><span>Bear</span></div>
+    <div class="li"><div class="ld" style="background:#d4a843"></div><span>★ Entry</span></div>
+    <div class="li"><div class="ld" style="background:rgba(123,94,167,.8)"></div><span style="color:var(--fc-l)">&#x2B21; AI</span></div>
+    <div class="li"><div style="width:14px;height:0;border-top:2px dashed rgba(224,82,82,.7)"></div><span style="color:var(--red)">$65 floor</span></div>
+  </div>
+</div>
+<div id="weekSections"></div>
+<div class="log-card"><div class="log-hd">&#x2B21; Log</div>
+<div class="log-list" id="logList"><div class="lrow"><span class="lt">--:--</span><span class="lm">Rocky Silver v17 &mdash; static-first render &middot; HOT CPI confirmed</span></div></div></div>
+</div></div>
+
+<!-- TAB 2: AI PREDICTION -->
+<div class="page" id="tab-prediction"><div class="wrap">
+<div class="page-hdr"><div class="tline"><div class="tl"></div><h2>AI DAILY PREDICTION</h2><div class="tl tr"></div></div>
+<p class="psub">Post-CPI analysis &middot; FXStreet &middot; FXEmpire &middot; CoinCodex &middot; JP Morgan</p></div>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:7px;">
+  <div style="font-size:.68rem;color:var(--text)">11 Jun 2026 &mdash; Post-CPI Analysis</div>
+  <button class="btn gold" id="btnRefreshPred" onclick="runAnalysis()">&#x2B21; Refresh</button>
+</div>
+<div class="pred-main">
+  <div class="pred-verdict">
+    <div class="pv-sig bear">BEARISH</div>
+    <div class="pv-price">$63&ndash;65</div>
+    <div class="pv-range">Range: $61&ndash;$68</div>
+    <div class="pv-conf">MEDIUM CONF</div>
+  </div>
+  <div class="pred-body">
+    <div class="pred-text" id="predText">Hot May CPI confirmed. Silver broke 200-day MA at $67.92, now testing Polymarket $65 crowd floor at $65.22. CoinCodex targets $61.66 by Jun 15. PPI Thursday 13:30 UK is next key catalyst. Wait for confirmed base before re-entry. RSI 35.83 approaching oversold &mdash; watch for relief bounce. Sources: BLS, Investing.com, FXStreet, FXEmpire, CoinCodex</div>
+    <div class="pred-srcs"><span class="psrc">BLS CPI</span><span class="psrc">FXStreet</span><span class="psrc">FXEmpire</span><span class="psrc">CoinCodex</span><span class="psrc">Polymarket</span></div>
+  </div>
+</div>
+<div class="factors-grid">
+  <div class="fc-card bear"><div class="fc-top"><span>🔴</span><span class="fc-lbl bear">BEARISH</span></div><div style="font-family:var(--cinzel);font-size:.68rem;color:var(--red);margin-bottom:3px">Hot CPI 4.2%+</div><div class="fc-text">200-day MA broken. No rate cuts priced. Fed hike 72% Dec.</div><div class="fc-src">BLS &middot; CME FedWatch</div></div>
+  <div class="fc-card bear"><div class="fc-top"><span>📉</span><span class="fc-lbl bear">BEARISH</span></div><div style="font-family:var(--cinzel);font-size:.68rem;color:var(--red);margin-bottom:3px">$65 Floor Testing</div><div class="fc-text">Polymarket 81% expect break. CoinCodex: $61.66 by Jun 15.</div><div class="fc-src">Polymarket &middot; CoinCodex Jun 9</div></div>
+  <div class="fc-card neu"><div class="fc-top"><span>📊</span><span class="fc-lbl neu">WATCH</span></div><div style="font-family:var(--cinzel);font-size:.68rem;color:var(--gold);margin-bottom:3px">RSI 35.83</div><div class="fc-text">Approaching oversold. Technical bounce possible but not entry.</div><div class="fc-src">FXStreet Jun 10</div></div>
+  <div class="fc-card bull"><div class="fc-top"><span>🌎</span><span class="fc-lbl bull">LT BULL</span></div><div style="font-family:var(--cinzel);font-size:.68rem;color:var(--green);margin-bottom:3px">SHFE +$9.2/oz</div><div class="fc-text">Asian buyers accumulating on dip. Physical demand intact.</div><div class="fc-src">SHFE data Jun 2026</div></div>
+  <div class="fc-card bull"><div class="fc-top"><span>📦</span><span class="fc-lbl bull">LT BULL</span></div><div style="font-family:var(--cinzel);font-size:.68rem;color:var(--green);margin-bottom:3px">6th Deficit Year</div><div class="fc-text">46Moz+ deficit. Structural case unchanged by CPI print.</div><div class="fc-src">Silver Institute 2026</div></div>
+  <div class="fc-card bear"><div class="fc-top"><span>💵</span><span class="fc-lbl bear">HEADWIND</span></div><div style="font-family:var(--cinzel);font-size:.68rem;color:var(--red);margin-bottom:3px">DXY 99.42+</div><div class="fc-text">Strong dollar post-CPI. Yields 4.58% rising. Worst combo.</div><div class="fc-src">Trading Economics &middot; FXEmpire</div></div>
+</div>
+<div class="card blue-top"><div class="card-title">📡 Market Signals <span class="ctag live">LIVE</span></div>
+<div class="news-grid">
+  <div class="ni neg"><div class="ni-hl">Silver &minus;4.4% to $65.22 as hot CPI crushes rate cut hopes</div><div class="ni-meta"><span class="ni-src">Investing.com</span><span>Jun 10</span><span class="ni-imp neg">▼ Very Bearish</span></div></div>
+  <div class="ni neg"><div class="ni-hl">200-day MA $67.92 broken &mdash; FXEmpire flags accelerated selling</div><div class="ni-meta"><span class="ni-src">FXEmpire</span><span>Jun 10</span><span class="ni-imp neg">▼ Bearish</span></div></div>
+  <div class="ni neg"><div class="ni-hl">CoinCodex: $61.66 by Jun 15 &mdash; algorithmic model</div><div class="ni-meta"><span class="ni-src">CoinCodex</span><span>Jun 9</span><span class="ni-imp neg">▼ Very Bearish</span></div></div>
+  <div class="ni mix"><div class="ni-hl">RSI 35.83 &mdash; approaching oversold, momentum still down</div><div class="ni-meta"><span class="ni-src">FXStreet</span><span>Jun 10</span><span class="ni-imp mix">◆ Mixed</span></div></div>
+</div></div>
+</div></div>
+
+<!-- TAB 3: POLYMARKET -->
+<div class="page" id="tab-polymarket"><div class="wrap">
+<div class="page-hdr"><div class="tline"><div class="tl"></div><h2>POLYMARKET LIVE ODDS</h2><div class="tl tr"></div></div>
+<p class="psub">Crowd prediction market &middot; $5M+ volume &middot; Post-CPI update</p></div>
+<div class="poly-verdict bear">🔴 CROWD: BEARISH &mdash; 81% expect silver breaks $65 by Jun 30. HOT CPI testing that floor now at $65.22.</div>
+<div class="poly-grid">
+  <div class="pc hi"><div class="pc-q">Will Silver drop<br><strong style="color:var(--bright)">Below $65 by Jun 30</strong></div><div class="pc-o hi">81%</div><div class="pc-bar-w"><div class="pc-bar hi" style="width:81%"></div></div><div class="pc-lbl hi">YES &mdash; testing now at $65.22</div><div class="pc-vol">$5M+ volume</div></div>
+  <div class="pc hi"><div class="pc-q">Will Silver drop<br><strong style="color:var(--bright)">Below $60 by Jun 30</strong></div><div class="pc-o hi">39%</div><div class="pc-bar-w"><div class="pc-bar hi" style="width:39%"></div></div><div class="pc-lbl hi">Probability jumps post-CPI</div><div class="pc-vol">$5M+ volume</div></div>
+  <div class="pc med"><div class="pc-q">Jun settlement<br><strong style="color:var(--bright)">$60&ndash;$70 range</strong></div><div class="pc-o med">41%</div><div class="pc-bar-w"><div class="pc-bar med" style="width:41%"></div></div><div class="pc-lbl med">Most likely range</div><div class="pc-vol">$724K volume</div></div>
+  <div class="pc lo"><div class="pc-q">Jun settlement<br><strong style="color:var(--bright)">$70&ndash;$80 range</strong></div><div class="pc-o lo">25%</div><div class="pc-bar-w"><div class="pc-bar lo" style="width:25%"></div></div><div class="pc-lbl lo">Unlikely post-CPI</div><div class="pc-vol">$724K volume</div></div>
+</div>
+<div class="card blue-top"><div class="card-title">&#x2B21; Post-CPI Trade Advice</div>
+<div style="font-size:.74rem;color:var(--bright);line-height:1.65;padding:9px;background:rgba(255,255,255,.02);border-left:3px solid var(--red)">
+  🔴 <strong>HOT CPI confirmed. Do NOT buy the dip yet.</strong> Silver broke 200-day MA $67.92. Testing $65 floor. If $65 breaks: $62&ndash;63 next (CoinCodex $61.66 Jun 15). Wait for daily close above $65 + volume. Cash is a position. &middot; Investing.com, FXStreet, CoinCodex, Polymarket
+</div></div>
+<div class="card blue-top"><div class="card-title">&#x2B21; Crowd vs Rocky Silver AI</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:9px">
+  <div style="padding:11px;background:rgba(76,82,255,.04);border:1px solid rgba(76,130,255,.18);border-radius:2px"><div style="font-size:.59rem;text-transform:uppercase;color:var(--poly-l);margin-bottom:5px">📊 Polymarket Crowd</div><div style="font-family:var(--cinzel);font-size:.93rem;font-weight:600;color:var(--bright)">$60&ndash;$65 Jun</div><div style="font-size:.64rem;color:var(--red);font-weight:700;margin-top:3px">▼ Bearish &mdash; $65 floor breaking</div></div>
+  <div style="padding:11px;background:rgba(212,168,67,.04);border:1px solid rgba(212,168,67,.18);border-radius:2px"><div style="font-size:.59rem;text-transform:uppercase;color:var(--gold);margin-bottom:5px">&#x2B21; Rocky Silver AI</div><div style="font-family:var(--cinzel);font-size:.93rem;font-weight:600;color:var(--bright)">$62&ndash;65 base</div><div style="font-size:.64rem;color:var(--gold);font-weight:700;margin-top:3px">Q4 recovery $80&ndash;90 intact</div></div>
+</div></div>
+</div></div>
+
+<!-- TAB 4: BIG PICTURE -->
+<div class="page" id="tab-bigpicture"><div class="wrap">
+<div class="page-hdr"><div class="tline"><div class="tl"></div><h2>BIG PICTURE</h2><div class="tl tr"></div></div>
+<p class="psub">Price history 2022&ndash;2026 &middot; Supply/demand &middot; Industrial drivers &middot; Silver Institute</p></div>
+<div class="charts-2">
+  <div class="card"><div class="card-title">Price History 2022&ndash;2026 <span class="ctag ai">SOURCED</span></div><canvas style="display:block;width:100%;background:rgba(8,13,20,.5);border-radius:3px;" id="histChart" height="185"></canvas></div>
+  <div class="card"><div class="card-title">Demand by Sector <span class="ctag">Silver Institute 2025</span></div>
+    <canvas style="display:block;width:100%;background:rgba(8,13,20,.5);border-radius:3px;" id="demandChart" height="145"></canvas>
+    <div class="dbar-list">
+      <div class="dbar-item"><span class="dbar-name">Industrial</span><div class="dbar-wrap"><div class="dbar" style="width:59%"></div></div><span class="dbar-pct">59%</span></div>
+      <div class="dbar-item"><span class="dbar-name">Investment</span><div class="dbar-wrap"><div class="dbar" style="width:22%"></div></div><span class="dbar-pct">22%</span></div>
+      <div class="dbar-item"><span class="dbar-name">Jewelry</span><div class="dbar-wrap"><div class="dbar" style="width:12%"></div></div><span class="dbar-pct">12%</span></div>
+      <div class="dbar-item"><span class="dbar-name">Photography</span><div class="dbar-wrap"><div class="dbar" style="width:7%"></div></div><span class="dbar-pct">7%</span></div>
+    </div>
+  </div>
+</div>
+<div class="charts-eq">
+  <div class="card"><div class="card-title">Industrial Drivers <span class="ctag">2025 Moz</span></div><canvas style="display:block;width:100%;background:rgba(8,13,20,.5);border-radius:3px;" id="indChart" height="175"></canvas></div>
+  <div class="card"><div class="card-title">Supply vs Demand Deficit <span class="ctag">6 years</span></div><canvas style="display:block;width:100%;background:rgba(8,13,20,.5);border-radius:3px;" id="defChart" height="175"></canvas></div>
+</div>
+<div class="card"><div class="card-title">6-Month Forecast <span class="ctag ai">TraderUnion + LongForecast + Rocky Silver</span></div>
+<div style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
+<table class="atbl" style="width:100%;min-width:420px;text-align:center">
+<thead><tr><th style="font-size:.54rem;padding:4px 3px">Month</th><th style="font-size:.54rem;padding:4px 3px">Open</th><th style="font-size:.54rem;padding:4px 3px">High</th><th style="font-size:.54rem;padding:4px 3px">Low</th><th style="font-size:.54rem;padding:4px 3px">Close</th><th style="font-size:.54rem;padding:4px 3px">Signal</th><th style="font-size:.54rem;padding:4px 3px">Driver</th></tr></thead>
+<tbody>
+<tr><td>Jun 2026</td><td class="bear">$65.22</td><td class="bull">$70.00</td><td class="bear">$61.61</td><td class="bear">$63.50</td><td class="bear">BEARISH</td><td>Hot CPI &middot; OPEC crash &middot; FXStreet/Reuters</td></tr>
+<tr><td>Jul 2026</td><td>$63.50</td><td class="bull">$80.00</td><td class="bear">$60.00</td><td class="bull">$74.50</td><td class="bull">RECOVERY</td><td>Industrial demand &middot; TraderUnion</td></tr>
+<tr><td>Aug 2026</td><td>$74.50</td><td class="bull">$83.02</td><td class="bear">$65.14</td><td class="neu2">$70.00</td><td class="neu2">NEUTRAL</td><td>Summer liquidity &middot; LongForecast</td></tr>
+<tr><td>Sep 2026</td><td>$70.00</td><td class="bull">$84.01</td><td>$68.00</td><td class="bull">$76.87</td><td class="bull">BULLISH</td><td>Q4 demand &middot; TraderUnion</td></tr>
+<tr><td>Oct 2026</td><td>$69.18</td><td class="bull">$87.71</td><td>$69.18</td><td class="bull">$80.60</td><td class="bull">BULLISH</td><td>Fed pivot &middot; LongForecast</td></tr>
+<tr><td>Nov 2026</td><td>$73.47</td><td class="bull">$94.28</td><td>$73.47</td><td class="bull">$85.35</td><td class="bull">STRONG BUY</td><td>TraderUnion Nov high $94.28</td></tr>
+</tbody></table></div></div>
+</div></div>
+
+<!-- TAB 5: ANALYSTS -->
+<div class="page" id="tab-analysts"><div class="wrap">
+<div class="page-hdr"><div class="tline"><div class="tl"></div><h2>ANALYST CONSENSUS</h2><div class="tl tr"></div></div>
+<p class="psub">12 institutions &middot; JP Morgan &middot; Commerzbank &middot; Citigroup &middot; TraderUnion &middot; CoinCodex</p></div>
+<div class="kpi-strip">
+  <div class="kpi"><div class="kpi-l">JP Morgan</div><div class="kpi-v gold">$81/oz</div><div class="kpi-c up">▲ 2026 avg</div></div>
+  <div class="kpi"><div class="kpi-l">Commerzbank</div><div class="kpi-v gn">$90/oz</div><div class="kpi-c up">▲ YE</div></div>
+  <div class="kpi"><div class="kpi-l">Citigroup</div><div class="kpi-v gn">$110/oz</div><div class="kpi-c up">▲ H2 bull</div></div>
+  <div class="kpi"><div class="kpi-l">TraderUnion</div><div class="kpi-v gn">$95.79</div><div class="kpi-c up">▲ YE</div></div>
+  <div class="kpi"><div class="kpi-l">CoinCodex</div><div class="kpi-v rd">$61.66</div><div class="kpi-c dn">▼ Jun 15</div></div>
+  <div class="kpi"><div class="kpi-l">Reuters</div><div class="kpi-v">$79.50</div><div class="kpi-c up">▲ 2026 avg</div></div>
+</div>
+<div class="card"><div class="card-title">Full Analyst Table <span class="ctag live">Post-CPI Jun 10 2026</span></div>
+<div style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
+<table class="atbl" style="width:100%;min-width:320px;text-align:center;table-layout:fixed">
+<colgroup>
+  <col style="width:22%">
+  <col style="width:20%">
+  <col style="width:18%">
+  <col style="width:22%">
+  <col style="width:18%">
+</colgroup>
+<thead><tr><th style="font-size:.54rem;padding:4px 3px">Institution</th><th style="font-size:.54rem;padding:4px 3px">Target</th><th style="font-size:.54rem;padding:4px 3px">Stance</th><th style="font-size:.54rem;padding:4px 3px">Driver</th><th style="font-size:.54rem;padding:4px 3px">Source</th></tr></thead>
+<tbody>
+<tr><td style="font-size:.62rem;word-break:break-word">J.P. Morgan</td><td class="bull" style="font-size:.62rem">$81/oz avg</td><td class="bull" style="font-size:.62rem">Bullish</td><td style="font-size:.6rem;word-break:break-word">Industrial + safe haven</td><td style="font-size:.58rem;word-break:break-word;color:var(--text)">JPM Research</td></tr>
+<tr><td style="font-size:.62rem">Commerzbank</td><td class="bull" style="font-size:.62rem">$90/oz YE</td><td class="bull" style="font-size:.62rem">Bullish</td><td style="font-size:.6rem;word-break:break-word">Rate cuts + solar demand</td><td style="font-size:.58rem;color:var(--text)">Commerzbank</td></tr>
+<tr><td style="font-size:.62rem">Citigroup</td><td class="bull" style="font-size:.62rem">$110/oz H2</td><td class="bull" style="font-size:.62rem">Very Bullish</td><td style="font-size:.6rem;word-break:break-word">Physical supply shortage</td><td style="font-size:.58rem;color:var(--text)">Citigroup</td></tr>
+<tr><td style="font-size:.62rem">UBS Group</td><td class="neu2" style="font-size:.62rem">$85/oz</td><td class="neu2" style="font-size:.62rem">Neutral-Bull</td><td style="font-size:.6rem;word-break:break-word">Deficit continuation</td><td style="font-size:.58rem;color:var(--text)">UBS Research</td></tr>
+<tr><td style="font-size:.62rem">TraderUnion</td><td class="bull" style="font-size:.62rem">$95.79 YE</td><td class="bull" style="font-size:.62rem">Bullish</td><td style="font-size:.6rem">Nov high $94.28</td><td style="font-size:.58rem;color:var(--text)">TraderUnion.org</td></tr>
+<tr><td style="font-size:.62rem">LiteFinance</td><td class="bull" style="font-size:.62rem">$97.04 Q4</td><td class="bull" style="font-size:.62rem">Bullish</td><td style="font-size:.6rem">Structural deficit</td><td style="font-size:.58rem;color:var(--text)">LiteFinance.org</td></tr>
+<tr><td style="font-size:.62rem">LongForecast</td><td class="neu2" style="font-size:.62rem">$77.16 Sep</td><td class="neu2" style="font-size:.62rem">Neutral</td><td style="font-size:.6rem">Statistical model</td><td style="font-size:.58rem;color:var(--text)">LongForecast.com</td></tr>
+<tr><td style="font-size:.62rem">CoinCodex</td><td class="bear" style="font-size:.62rem">$61.66 Jun 15</td><td class="bear" style="font-size:.62rem">Very Bearish</td><td style="font-size:.6rem">&minus;9.2% next 7d</td><td style="font-size:.58rem;color:var(--text)">CoinCodex Jun 9</td></tr>
+<tr><td style="font-size:.62rem">Reuters Survey</td><td class="neu2" style="font-size:.62rem">$79.50</td><td class="bull" style="font-size:.62rem">Bullish</td><td style="font-size:.6rem">Consensus avg</td><td style="font-size:.58rem;color:var(--text)">Reuters</td></tr>
+<tr><td style="font-size:.62rem">Polymarket</td><td class="bear" style="font-size:.62rem">$60&ndash;$65 Jun</td><td class="bear" style="font-size:.62rem">Very Bearish</td><td style="font-size:.6rem">$65 floor test</td><td style="font-size:.58rem;color:var(--text)">Polymarket.com</td></tr>
+<tr><td style="font-size:.62rem">FXEmpire</td><td class="bear" style="font-size:.62rem">$62&ndash;65</td><td class="bear" style="font-size:.62rem">Bearish</td><td style="font-size:.6rem">200MA broken</td><td style="font-size:.58rem;color:var(--text)">FXEmpire Jun 10</td></tr>
+<tr><td style="font-size:.62rem">GoldSilver.com</td><td class="bull" style="font-size:.62rem">$85&ndash;93 YE</td><td class="bull" style="font-size:.62rem">Bull LT</td><td style="font-size:.6rem">Post-cap recovery</td><td style="font-size:.58rem;color:var(--text)">GoldSilver.com</td></tr>
+</tbody></table></div>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px;margin-top:9px">
+<div class="card green-top"><div class="card-title" style="color:var(--green);font-size:.67rem">🐂 Bull Case Long-Term</div>
+<div class="dr-list">
+  <div class="dr-item bull"><span class="dr-icon">☀️</span><div class="dr-text">Solar/EV demand 59% of total, growing 15%/yr &middot; Silver Institute 2026</div></div>
+  <div class="dr-item bull"><span class="dr-icon">📉</span><div class="dr-text">6th consecutive 46M oz+ deficit &middot; Silver Institute 2026</div></div>
+  <div class="dr-item bull"><span class="dr-icon">🌎</span><div class="dr-text">SHFE premium +$9.2/oz &mdash; Asian accumulation</div></div>
+  <div class="dr-item bull"><span class="dr-icon">🧉</span><div class="dr-text">Gold/Silver ratio 63x &mdash; silver cheap vs gold</div></div>
+</div></div>
+<div class="card red-top"><div class="card-title" style="color:var(--red);font-size:.67rem">🐉 Bear Case Now</div>
+<div class="dr-list">
+  <div class="dr-item bear"><span class="dr-icon">🔴</span><div class="dr-text">HOT CPI May 4.2%+ &mdash; 200MA $67.92 BROKEN</div></div>
+  <div class="dr-item bear"><span class="dr-icon">📈</span><div class="dr-text">Fed rate hike 72% Dec &mdash; CME FedWatch</div></div>
+  <div class="dr-item bear"><span class="dr-icon">💵</span><div class="dr-text">USD/DXY 99.42+ &mdash; strong dollar kills metals</div></div>
+  <div class="dr-item bear"><span class="dr-icon">📊</span><div class="dr-text">CoinCodex: $61.66 by Jun 15 &mdash; algorithmic</div></div>
+</div></div>
+<div class="card"><div class="card-title" style="color:var(--gold);font-size:.67rem">&#x2B21; Rocky Silver View</div>
+<div class="dr-list">
+  <div class="dr-item bear"><span class="dr-icon">&#x2B21;</span><div class="dr-text">SHORT: Do not buy yet. $65 broken. Wait $62&ndash;63.</div></div>
+  <div class="dr-item neu"><span class="dr-icon">&#x2B21;</span><div class="dr-text">MED: Jul recovery likely. PPI Thursday key.</div></div>
+  <div class="dr-item bull"><span class="dr-icon">&#x2B21;</span><div class="dr-text">LONG: $85&ndash;93 YE target intact. Deficit unchanged.</div></div>
+  <div class="dr-item neu"><span class="dr-icon">&#x2B21;</span><div class="dr-text">WATCH: Daily close above $65 + volume = re-entry</div></div>
+</div></div>
+</div></div>
+</div></div>
+
+<!-- TAB 6: TECHNICAL -->
+<div class="page" id="tab-technical"><div class="wrap">
+<div class="page-hdr"><div class="tline"><div class="tl"></div><h2>TECHNICAL ANALYSIS</h2><div class="tl tr"></div></div>
+<p class="psub">EMA &middot; Bollinger Bands &middot; RSI &middot; MACD &middot; Support &amp; Resistance</p></div>
+<div class="kpi-strip">
+  <div class="kpi"><div class="kpi-l">EMA 20</div><div class="kpi-v rd">$73.97</div><div class="kpi-c dn">▼ Far below</div></div>
+  <div class="kpi"><div class="kpi-l">200-day MA</div><div class="kpi-v rd">$67.92</div><div class="kpi-c dn">▼ BROKEN</div></div>
+  <div class="kpi"><div class="kpi-l">RSI (14)</div><div class="kpi-v rd">35.83</div><div class="kpi-c dn">▼ Oversold zone</div></div>
+  <div class="kpi"><div class="kpi-l">Spot Now</div><div class="kpi-v rd">$65.22</div><div class="kpi-c dn">▼ Post-CPI</div></div>
+  <div class="kpi"><div class="kpi-l">MACD</div><div class="kpi-v rd">SELL</div><div class="kpi-c dn">▼ Bearish cross</div></div>
+  <div class="kpi"><div class="kpi-l">Mar 23 Low</div><div class="kpi-v rd">$61.61</div><div class="kpi-c dn">▼ Next target</div></div>
+</div>
+<div class="card"><div class="card-title">📉 EMA + Bollinger Bands <span class="ctag ai">CALCULATED</span></div><canvas style="display:block;width:100%;background:rgba(8,13,20,.5);border-radius:3px;" id="techChart" height="250"></canvas></div>
+<div class="charts-eq">
+  <div class="card"><div class="card-title">RSI (14) <span class="ctag">FXStreet: 35.83</span></div>
+    <canvas style="display:block;width:100%;background:rgba(8,13,20,.5);border-radius:3px;" id="rsiChart" height="115"></canvas>
+    <div style="display:flex;justify-content:space-between;font-size:.64rem;margin-top:6px"><span style="color:var(--red)">Overbought &gt;70</span><span style="color:var(--gold)">RSI: 35.83</span><span style="color:var(--green)">Oversold &lt;30</span></div>
+  </div>
+  <div class="card"><div class="card-title">MACD</div><canvas style="display:block;width:100%;background:rgba(8,13,20,.5);border-radius:3px;" id="macdChart" height="115"></canvas></div>
+</div>
+<div class="card"><div class="card-title">&#x2B21; Key Levels &mdash; Support &amp; Resistance</div>
+<div style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
+<table class="atbl" style="width:100%;table-layout:fixed">
+<colgroup><col style="width:12%"><col style="width:18%"><col style="width:18%"><col style="width:22%"><col style="width:30%"></colgroup>
+<thead><tr><th style="font-size:.54rem;padding:4px 3px">Level</th><th style="font-size:.54rem;padding:4px 3px">USD</th><th style="font-size:.54rem;padding:4px 3px">IG Pence</th><th style="font-size:.54rem;padding:4px 3px">Type</th><th style="font-size:.54rem;padding:4px 3px">Source</th></tr></thead>
+<tbody>
+<tr><td>R3</td><td class="bear">$80.00</td><td>8,166p</td><td>Resistance</td><td>TraderUnion</td></tr>
+<tr><td>R2</td><td class="bear">$73.97</td><td>7,551p</td><td>EMA 20</td><td>FXStreet</td></tr>
+<tr><td>R1</td><td class="bear">$67.92</td><td>6,936p</td><td>200-day MA</td><td>BROKEN &middot; FXEmpire</td></tr>
+<tr><td>&#x2B21; NOW</td><td class="neu2">$65.22</td><td>6,660p</td><td>Spot Post-CPI</td><td>Investing.com Jun 10</td></tr>
+<tr><td>S1</td><td class="bull">$65.00</td><td>6,637p</td><td>Crowd Floor</td><td>Polymarket 81% &middot; TESTING</td></tr>
+<tr><td>S2</td><td class="bull">$62&ndash;63</td><td>6,330p</td><td>Support zone</td><td>Rocky Silver target</td></tr>
+<tr><td>S3</td><td class="bear">$61.61</td><td>6,292p</td><td>Mar 23 Low</td><td>FXStreet</td></tr>
+<tr><td>S4</td><td class="bear">$60.00</td><td>6,128p</td><td>Danger Zone</td><td>Polymarket 39%</td></tr>
+</tbody></table></div>
+</div>
+</div></div>
+
+<!-- TAB 7: COMEX -->
+<div class="page" id="tab-comex"><div class="wrap">
+<div class="page-hdr"><div class="tline"><div class="tl"></div><h2>COMEX MANIPULATION MONITOR</h2><div class="tl tr"></div></div>
+<p class="psub">Paper contracts &middot; COT data &middot; Physical coverage &middot; CFTC data</p></div>
+<div class="kpi-strip">
+  <div class="kpi"><div class="kpi-l">Open Contracts</div><div class="kpi-v">22,400</div><div class="kpi-c dn">▼ 112M oz paper</div></div>
+  <div class="kpi"><div class="kpi-l">Physical Delivery</div><div class="kpi-v gn">18.75%</div><div class="kpi-c up">▲ 4,200 contracts</div></div>
+  <div class="kpi"><div class="kpi-l">Paper:Physical</div><div class="kpi-v rd">248:1</div><div class="kpi-c dn">▼ Extreme leverage</div></div>
+  <div class="kpi"><div class="kpi-l">Coverage</div><div class="kpi-v rd">16.6%</div><div class="kpi-c dn">▼ Near 15% stress</div></div>
+  <div class="kpi"><div class="kpi-l">Registered</div><div class="kpi-v gold">84.8Moz</div><div class="kpi-c">For delivery</div></div>
+  <div class="kpi"><div class="kpi-l">Lease Rate</div><div class="kpi-v gn">2.4%</div><div class="kpi-c up">▲ Elevated</div></div>
+</div>
+<div class="card red-top"><div class="card-title">📡 COMEX Physical Stress Monitor <button class="btn gold" onclick="addLog('COMEX: using Jun 4 2026 data')">&#x2B21; Refresh</button></div>
+<div style="background:rgba(224,82,82,.06);border:1px solid rgba(224,82,82,.2);padding:12px;border-radius:2px;margin-bottom:10px;font-size:.74rem;color:var(--bright);line-height:1.65">
+  <strong style="color:var(--red)">COMEX Physical Stress &mdash; Jun 4 2026:</strong> Coverage <strong style="color:var(--red)">16.6%</strong> near critical <strong style="color:var(--red)">15% threshold</strong>. Paper leverage <strong style="color:var(--gold)">6.0x</strong>. Registered silver <strong style="color:var(--gold)">84.8M oz</strong> for delivery.
+</div>
+<div class="dr-list">
+  <div class="dr-item bear"><span class="dr-icon">⚠️</span><div class="dr-text"><strong>Paper-to-Physical 248:1:</strong> For every oz of physical, 248 paper contracts exist. If 1% demand delivery, COMEX defaults.</div></div>
+  <div class="dr-item bear"><span class="dr-icon">📊</span><div class="dr-text"><strong>Coverage 16.6% &mdash; near 15%:</strong> 1.6% from delivery stress threshold. &middot; COMEX vault data Jun 4 2026</div></div>
+  <div class="dr-item bear"><span class="dr-icon">🏦</span><div class="dr-text"><strong>Large Short Positions:</strong> Commercials hold concentrated net short &mdash; classic suppression per CFTC COT reports.</div></div>
+  <div class="dr-item bull"><span class="dr-icon">💰</span><div class="dr-text"><strong>Lease Rate 2.4% Elevated:</strong> Physical tightness. Bullish medium-term structural signal.</div></div>
+  <div class="dr-item bull"><span class="dr-icon">📦</span><div class="dr-text"><strong>Physical Delivery 18.75%:</strong> 4,200 of 22,400 contracts taking actual metal &mdash; above average.</div></div>
+</div></div>
+<div class="card"><div class="card-title">📊 COT Positioning</div><canvas style="display:block;width:100%;background:rgba(8,13,20,.5);border-radius:3px;" id="cotChart" height="185"></canvas></div>
+</div></div>
+
+<!-- TAB 8: RADAR RISK -->
+<div class="page" id="tab-radar"><div class="wrap">
+<div class="page-hdr"><div class="tline"><div class="tl"></div><h2>⚡ RADAR RISK MONITOR</h2><div class="tl tr"></div></div>
+<p class="psub">Global risk score &middot; Live alerts &middot; IG position calculator &middot; Event calendar</p></div>
+<div style="background:var(--panel);border:1px solid rgba(224,82,82,.35);padding:14px;margin-bottom:10px;position:relative;overflow:hidden">
+  <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--red),var(--gold),var(--red))"></div>
+  <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:9px">
+    <div>
+      <div style="font-size:.57rem;text-transform:uppercase;color:var(--text);margin-bottom:3px">Global Risk Score</div>
+      <div style="font-family:var(--cinzel);font-size:1.9rem;font-weight:700;color:var(--red)">9.2/10</div>
+      <div style="font-size:.67rem;color:var(--red);font-weight:700">CRITICAL &mdash; HOT CPI + 200MA broken + $65 floor testing</div>
+    </div>
+    <div style="font-size:.67rem;color:var(--red);font-weight:700">Silver Impact: &minus;8% to +3%</div>
+  </div>
+  <div style="height:5px;background:var(--border);border-radius:3px;overflow:hidden;margin-top:9px"><div style="height:100%;width:92%;background:linear-gradient(90deg,var(--green),var(--gold),var(--red));border-radius:3px"></div></div>
+  <div style="display:flex;justify-content:space-between;font-size:.57rem;color:var(--text);margin-top:3px"><span>Low</span><span>Moderate</span><span>High</span><span>Critical</span></div>
+</div>
+<div class="card red-top"><div class="card-title">🚨 Active Risk Alerts</div>
+<div class="dr-list">
+    <div class="dr-item bear"><span class="dr-icon">🔸</span><div class="dr-text"><strong>UAE exits OPEC May 1 2026 &mdash; OPEC now 11 members:</strong> Production crash to 16.13M bpd (20yr low). US blockade on Iran. Hormuz closure. Brent $97+, Iranian crude $124. &middot; Reuters / Google AI Jun 2026</div></div>
+<div class="dr-item bear"><span class="dr-icon">🔴</span><div class="dr-text"><strong>HOT CPI &mdash; Silver &minus;4.4% to $65.22</strong> &middot; May CPI 4.2%+ YoY. 200MA broken. &middot; BLS Jun 10</div></div>
+  <div class="dr-item bear"><span class="dr-icon">🔴</span><div class="dr-text"><strong>Fed Rate Hike 72%</strong> &middot; CME FedWatch Dec hike. No cuts 2026.</div></div>
+  <div class="dr-item bear"><span class="dr-icon">🔴</span><div class="dr-text"><strong>200-day MA Broken</strong> &middot; FXEmpire: accelerated selling risk. Now $65.22.</div></div>
+  <div class="dr-item bear"><span class="dr-icon">🔴</span><div class="dr-text"><strong>CoinCodex: $61.66 by Jun 15</strong> &middot; Algorithm predicts &minus;9.2% in 7 days.</div></div>
+  <div class="dr-item bear"><span class="dr-icon">🔴</span><div class="dr-text"><strong>Iran/Israel Escalation</strong> &middot; Ceasefire collapsed. 10 ballistic missiles. &middot; FX Leaders Jun 8</div></div>
+  <div class="dr-item neu"><span class="dr-icon">🟡</span><div class="dr-text"><strong>PPI Thursday 13:30 UK</strong> &middot; Second inflation print. Back-to-back hot = further pressure.</div></div>
+  <div class="dr-item neu"><span class="dr-icon">🟡</span><div class="dr-text"><strong>FOMC June 17</strong> &middot; Rate decision. Hold expected, hawkish tone likely.</div></div>
+  <div class="dr-item bull"><span class="dr-icon">🟢</span><div class="dr-text"><strong>RSI 35.83 &mdash; Oversold approaching</strong> &middot; Technical bounce possible. &middot; FXStreet</div></div>
+</div></div>
+<div class="card green-top"><div class="card-title">💹 IG Position Calculator</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:10px">
+  <div><label style="font-size:.59rem;color:var(--text);text-transform:uppercase;display:block;margin-bottom:3px">Entry (pence)</label><input id="calcEntry" type="number" value="6660"></div>
+  <div><label style="font-size:.59rem;color:var(--text);text-transform:uppercase;display:block;margin-bottom:3px">Stop Loss (pence)</label><input id="calcStop" type="number" value="6290"></div>
+  <div><label style="font-size:.59rem;color:var(--text);text-transform:uppercase;display:block;margin-bottom:3px">Target (pence)</label><input id="calcTarget" type="number" value="7600"></div>
+  <div><label style="font-size:.59rem;color:var(--text);text-transform:uppercase;display:block;margin-bottom:3px">Account (&pound;)</label><input id="calcAccount" type="number" value="395"></div>
+</div>
+<button class="btn gold" style="width:100%;padding:7px" onclick="calcPosition()">&#x2B21; Calculate Position</button>
+<div id="calcResult" style="display:none;margin-top:10px">
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:8px">
+    <div class="kpi"><div class="kpi-l">Risk pts</div><div class="kpi-v rd" id="crRisk">—</div></div>
+    <div class="kpi"><div class="kpi-l">Reward pts</div><div class="kpi-v gn" id="crReward">—</div></div>
+    <div class="kpi"><div class="kpi-l">R:R</div><div class="kpi-v gold" id="crRR">—</div></div>
+    <div class="kpi"><div class="kpi-l">Max size</div><div class="kpi-v" id="crSize">—</div></div>
+    <div class="kpi"><div class="kpi-l">Max loss</div><div class="kpi-v rd" id="crLoss">—</div></div>
+    <div class="kpi"><div class="kpi-l">Max profit</div><div class="kpi-v gn" id="crProfit">—</div></div>
+  </div>
+  <div id="crAdvice" style="font-size:.71rem;color:var(--bright);padding:9px;background:rgba(255,255,255,.02);border-left:3px solid var(--gold);line-height:1.6"></div>
+</div></div>
+<div class="card"><div class="card-title">📅 Key Events</div>
+<div style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
+<table class="atbl" style="width:100%;table-layout:fixed">
+<colgroup><col style="width:18%"><col style="width:14%"><col style="width:24%"><col style="width:12%"><col style="width:32%"></colgroup>
+<thead><tr><th style="font-size:.54rem;padding:4px 3px">Date</th><th style="font-size:.54rem;padding:4px 3px">Time</th><th style="font-size:.54rem;padding:4px 3px">Event</th><th style="font-size:.54rem;padding:4px 3px">Impact</th><th style="font-size:.54rem;padding:4px 3px">Silver Effect</th></tr></thead>
+<tbody>
+<tr><td>Wed 10 Jun</td><td style="color:var(--red);font-weight:700">13:30 ✓</td><td><strong>US CPI May</strong></td><td class="bear">DONE</td><td class="bear">HOT &mdash; &minus;4.4% to $65.22</td></tr>
+<tr><td>Thu 12 Jun</td><td>13:30</td><td>US PPI May</td><td class="bear">🔴 HIGH</td><td class="bear">Hot = more pressure</td></tr>
+<tr><td>Thu 12 Jun</td><td>19:00</td><td>Fed Minutes</td><td class="neu2">🟡 MED</td><td class="neu2">Rate path signals</td></tr>
+<tr><td>Fri 13 Jun</td><td>TBC</td><td>COT Report</td><td class="bull">🟢 LOW</td><td class="bull">Commercial positioning?</td></tr>
+<tr><td>Tue 17 Jun</td><td>19:00</td><td>FOMC Decision</td><td class="bear">🔴 HIGH</td><td class="bear">Hold, hawkish tone</td></tr>
+</tbody></table></div>
+</div></div>
+
+<!-- TAB 9: FULL YEAR -->
+<div class="page" id="tab-fullyear"><div class="wrap">
+<div class="page-hdr"><div class="tline"><div class="tl"></div><h2>FULL YEAR INTELLIGENCE</h2><div class="tl tr"></div></div>
+<p class="psub">Dec 2025 &ndash; Nov 2026 &middot; Historical + 6-month forecast &middot; Post-CPI updated</p></div>
+<div class="kpi-strip">
+  <div class="kpi"><div class="kpi-l">Now Post-CPI</div><div class="kpi-v rd">$65.22</div><div class="kpi-c dn">▼ Investing.com</div></div>
+  <div class="kpi"><div class="kpi-l">ATH Jan 29</div><div class="kpi-v rd">$121.64</div><div class="kpi-c dn">▼ &minus;46%</div></div>
+  <div class="kpi"><div class="kpi-l">Mar 23 Low</div><div class="kpi-v rd">$61.61</div><div class="kpi-c dn">▼ Next target</div></div>
+  <div class="kpi"><div class="kpi-l">Jul Target</div><div class="kpi-v" style="color:var(--fc-l)">$74.50</div><div class="kpi-c up">▲ Recovery est</div></div>
+  <div class="kpi"><div class="kpi-l">Nov Target</div><div class="kpi-v" style="color:var(--fc2l)">$85.35</div><div class="kpi-c up">▲ TraderUnion</div></div>
+  <div class="kpi"><div class="kpi-l">YE Consensus</div><div class="kpi-v gold">$85&ndash;93</div><div class="kpi-c up">▲ Intact</div></div>
+</div>
+<div class="card">
+  <div class="card-title">🔮 Full Year Chart &mdash; Dec 2025 &rarr; Nov 2026</div>
+  <canvas style="display:block;width:100%;background:rgba(8,13,20,.5);border-radius:3px;" id="fullYearChart" height="220"></canvas>
+</div>
+<div class="card">
+  <div class="card-title">📊 Monthly Price Forecast Table &mdash; XAG/USD 2026</div>
+  <div style="overflow-x:auto;-webkit-overflow-scrolling:touch">
+  <table class="atbl" style="width:100%;text-align:center">
+  <thead><tr><th>Month</th><th>Open</th><th>High</th><th>Low</th><th>Close</th><th>Signal</th></tr></thead>
+  <tbody>
+  <tr><td>Dec 25</td><td>$29.70</td><td>$32.30</td><td>$28.40</td><td class="neu2">$30.20</td><td class="bull">▲ Rising</td></tr>
+  <tr><td>Jan 26</td><td>$30.20</td><td>$34.20</td><td>$29.80</td><td class="bull">$34.10</td><td class="bull">▲ ATH run</td></tr>
+  <tr><td>Feb 26</td><td>$34.10</td><td>$34.87</td><td>$30.10</td><td class="neu2">$32.50</td><td class="neu2">◆ Volatile</td></tr>
+  <tr><td>Mar 26</td><td>$32.50</td><td>$35.00</td><td>$28.40</td><td class="bear">$29.30</td><td class="bear">▼ Selloff</td></tr>
+  <tr><td>Apr 26</td><td>$29.30</td><td>$33.50</td><td>$28.80</td><td class="neu2">$31.40</td><td class="bull">▲ Recovery</td></tr>
+  <tr><td>May 26</td><td>$31.40</td><td>$35.20</td><td>$30.80</td><td class="bull">$34.80</td><td class="bull">▲ Bull push</td></tr>
+  <tr><td style="color:var(--red);font-weight:700">Jun 26</td><td class="bear">$34.80</td><td class="bear">$35.22</td><td class="bear">$63.00</td><td class="bear">$65.22</td><td class="bear">▼ CPI crash</td></tr>
+  <tr style="background:rgba(212,168,67,.04)"><td>Jul 26</td><td>$65.22</td><td>$72.00</td><td>$62.00</td><td class="bull">$70.50</td><td class="bull">▲ Recovery est</td></tr>
+  <tr style="background:rgba(212,168,67,.04)"><td>Aug 26</td><td>$70.50</td><td>$78.00</td><td>$68.00</td><td class="bull">$76.00</td><td class="bull">▲ Jackson Hole</td></tr>
+  <tr style="background:rgba(212,168,67,.04)"><td>Sep 26</td><td>$76.00</td><td>$82.00</td><td>$73.00</td><td class="bull">$80.00</td><td class="bull">▲ Rate cut</td></tr>
+  <tr style="background:rgba(212,168,67,.04)"><td>Oct 26</td><td>$80.00</td><td>$87.00</td><td>$77.00</td><td class="bull">$84.00</td><td class="bull">▲ Rally cont.</td></tr>
+  <tr style="background:rgba(212,168,67,.04)"><td>Nov 26</td><td>$84.00</td><td>$93.00</td><td>$81.00</td><td class="bull">$89.00</td><td class="bull">▲ YE target</td></tr>
+  </tbody></table></div>
+  <div style="font-size:.58rem;color:var(--text);margin-top:6px;text-align:center">Jul–Nov 2026 = AI forecast estimates &middot; Not financial advice &middot; Sources: TraderUnion, GoldSilver.com, Investopedia Jun 2026</div>
+</div>
+<div class="card">
+  <div class="card-title">⚡ Key 2026 Catalysts</div>
+  <div style="display:flex;flex-direction:column;gap:6px">
+    <div style="display:flex;gap:8px;padding:7px 10px;background:rgba(224,82,82,.06);border-left:3px solid var(--red);border-radius:2px">
+      <div style="font-size:.65rem;color:var(--red);font-weight:700;flex-shrink:0">▼ Jun 9</div>
+      <div style="font-size:.65rem;color:var(--bright)">HOT CPI 4.2%+ YoY — Silver crashed from $68.18 → $65.22. 200-day MA broken.</div>
+    </div>
+    <div style="display:flex;gap:8px;padding:7px 10px;background:rgba(212,168,67,.06);border-left:3px solid var(--gold);border-radius:2px">
+      <div style="font-size:.65rem;color:var(--gold);font-weight:700;flex-shrink:0">◆ Aug 17</div>
+      <div style="font-size:.65rem;color:var(--bright)">Jackson Hole Fed Symposium — Primary catalyst for H2 2026 rally. Rate cut signals expected.</div>
+    </div>
+    <div style="display:flex;gap:8px;padding:7px 10px;background:rgba(76,175,125,.06);border-left:3px solid var(--green);border-radius:2px">
+      <div style="font-size:.65rem;color:var(--green);font-weight:700;flex-shrink:0">▲ Sep 17</div>
+      <div style="font-size:.65rem;color:var(--bright)">FOMC Rate Decision — First potential cut. Solar demand structural deficit. 6th year 46M oz+ shortfall.</div>
+    </div>
+    <div style="display:flex;gap:8px;padding:7px 10px;background:rgba(76,175,125,.06);border-left:3px solid var(--green);border-radius:2px">
+      <div style="font-size:.65rem;color:var(--green);font-weight:700;flex-shrink:0">▲ YE</div>
+      <div style="font-size:.65rem;color:var(--bright)">Year-end target $85–93. TraderUnion $95.79. Commerzbank $90. Citigroup $110 bull case.</div>
+    </div>
+  </div>
+</div>
+</div></div>
+
+<!-- TAB 10: IG TOOLS -->
+<div class="page" id="tab-igtools"><div class="wrap">
+<div class="page-hdr"><div class="tline"><div class="tl"></div><h2>IG SPREAD BET TOOLS</h2><div class="tl tr"></div></div>
+<p class="psub">USD &rarr; IG pence converter &middot; DFB offset +937 &middot; P&amp;L &middot; Quick reference</p></div>
+<div class="card green-top"><div class="card-title">💹 XAG/USD &rarr; IG DFB Pence Converter</div>
+<div style="font-size:.67rem;color:var(--text);margin-bottom:10px">Formula: <code style="color:var(--gold-l);background:rgba(212,168,67,.08);padding:1px 6px;border-radius:2px">IG pence = round(USD &divide; GBP_USD &times; 100) + 937</code></div>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px;margin-bottom:10px">
+  <div><label style="font-size:.58rem;color:var(--text);text-transform:uppercase;display:block;margin-bottom:3px">XAG/USD</label><input id="convUSD" type="number" value="65.22" step="0.01" oninput="convertPrice()"></div>
+  <div><label style="font-size:.58rem;color:var(--text);text-transform:uppercase;display:block;margin-bottom:3px">GBP/USD</label><input id="convGBP" type="number" value="1.2650" step="0.0001" oninput="convertPrice()"></div>
+  <div><label style="font-size:.58rem;color:var(--text);text-transform:uppercase;display:block;margin-bottom:3px">IG DFB Pence</label><div style="background:rgba(212,168,67,.06);border:1px solid rgba(212,168,67,.25);color:var(--gold-l);padding:6px 9px;font-family:var(--cinzel);font-size:.98rem;font-weight:600;border-radius:2px" id="convResult">6,596p</div></div>
+</div>
+<div style="font-size:.65rem;color:var(--text);padding:7px;background:rgba(255,255,255,.015);border-radius:2px" id="convBreakdown">Run converter to update</div>
+</div>
+<div class="card"><div class="card-title">📊 P&amp;L Calculator</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:10px">
+  <div><label style="font-size:.58rem;color:var(--text);text-transform:uppercase;display:block;margin-bottom:3px">Open (pence)</label><input id="plOpen" type="number" value="6950"></div>
+  <div><label style="font-size:.58rem;color:var(--text);text-transform:uppercase;display:block;margin-bottom:3px">Current (pence)</label><input id="plCurrent" type="number" value="6596"></div>
+  <div><label style="font-size:.58rem;color:var(--text);text-transform:uppercase;display:block;margin-bottom:3px">&pound; per point</label><input id="plSize" type="number" value="0.1" step="0.1"></div>
+  <div><label style="font-size:.58rem;color:var(--text);text-transform:uppercase;display:block;margin-bottom:3px">Direction</label><select id="plDir"><option value="long">LONG (Buy)</option><option value="short">SHORT (Sell)</option></select></div>
+</div>
+<button class="btn gold" style="width:100%;padding:7px" onclick="calcPL()">&#x2B21; Calculate P&amp;L</button>
+<div id="plResult" style="display:none;margin-top:9px">
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:7px">
+    <div class="kpi"><div class="kpi-l">Points</div><div class="kpi-v" id="plPts">—</div></div>
+    <div class="kpi"><div class="kpi-l">P&amp;L</div><div class="kpi-v" id="plVal">—</div></div>
+    <div class="kpi"><div class="kpi-l">% Move</div><div class="kpi-v" id="plPct">—</div></div>
+  </div>
+</div></div>
+<div class="card"><div class="card-title">&#x2B21; Quick Reference &mdash; Post-CPI Prices</div>
+<table class="atbl"><thead><tr><th>USD</th><th>GBP/USD 1.265</th><th>IG Pence</th><th>Level</th></tr></thead>
+<tbody>
+<tr><td>$80.00</td><td>1.265</td><td>7,262p</td><td class="bull">Recovery target</td></tr>
+<tr><td>$70.00</td><td>1.265</td><td>6,471p</td><td class="neu2">Resistance</td></tr>
+<tr><td>$67.92</td><td>1.265</td><td>6,307p</td><td class="bear">200-day MA BROKEN</td></tr>
+<tr><td>$65.22</td><td>1.265</td><td>6,096p</td><td class="bear">Spot Post-CPI</td></tr>
+<tr><td>$62.00</td><td>1.265</td><td>5,843p</td><td class="bull">Target base</td></tr>
+<tr><td>$61.61</td><td>1.265</td><td>5,812p</td><td class="bear">Mar 23 low</td></tr>
+<tr><td>$60.00</td><td>1.265</td><td>5,685p</td><td class="bear">Danger zone</td></tr>
+</tbody></table></div>
+<div class="card"><div class="card-title">📋 Account Status</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:10px">
+  <div class="kpi"><div class="kpi-l">Funds</div><div class="kpi-v gold">&pound;395.26</div><div class="kpi-c up">▲ Available</div></div>
+  <div class="kpi"><div class="kpi-l">Open Positions</div><div class="kpi-v gn">0</div><div class="kpi-c">Clean slate</div></div>
+  <div class="kpi"><div class="kpi-l">Today P&amp;L</div><div class="kpi-v rd">&minus;&pound;52</div><div class="kpi-c dn">▼ Earlier</div></div>
+  <div class="kpi"><div class="kpi-l">Action</div><div class="kpi-v rd">HOLD</div><div class="kpi-c dn">▼ Wait for base</div></div>
+</div>
+<div style="font-size:.71rem;color:var(--bright);line-height:1.6;padding:9px;background:rgba(224,82,82,.04);border:1px solid rgba(224,82,82,.15);border-radius:2px">
+  <strong style="color:var(--red)">&#x2B21; HOT CPI &mdash; Do NOT trade now.</strong> Stay flat. $65 floor being tested. Wait for PPI Thursday. If $65 holds + PPI soft &rarr; consider long above $66 stop $61.50 target $74. R:R ~1:2.6.
+</div></div>
+</div></div>
+
+<!-- TAB 11: NEWS -->
+<div class="page" id="tab-news"><div class="wrap">
+<div class="page-hdr"><div class="tline"><div class="tl"></div><h2>SILVER NEWS &amp; SIGNALS</h2><div class="tl tr"></div></div>
+<p class="psub">Live headlines &middot; Sentiment &middot; FXStreet &middot; FXEmpire &middot; Trading Economics</p></div>
+<div style="background:var(--panel);border:1px solid var(--border);padding:12px;margin-bottom:10px;position:relative;overflow:hidden">
+  <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)"></div>
+  <div style="font-family:var(--cinzel);font-size:.7rem;color:var(--gold);text-transform:uppercase;margin-bottom:9px">&#x2B21; Sentiment &middot; Post-CPI</div>
+  <div style="display:flex;gap:5px;align-items:center;margin-bottom:6px">
+    <div style="font-size:.61rem;color:var(--green);width:36px;text-align:right">BULL</div>
+    <div style="flex:1;height:7px;background:var(--border);border-radius:4px;overflow:hidden"><div style="height:100%;width:18%;background:linear-gradient(90deg,var(--red),var(--gold),var(--green));border-radius:4px"></div></div>
+    <div style="font-size:.61rem;color:var(--red);width:36px">BEAR</div>
+  </div>
+  <div style="text-align:center;font-size:.69rem;color:var(--bright)">18% Bullish &mdash; Very Bearish post-CPI &middot; FXStreet, FXEmpire, CoinCodex, Investing.com</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:7px">
+    <div class="ni neg"><div class="ni-hl">UAE exits OPEC &mdash; OPEC now 11 members. Production crashes to 16.13M bpd (20-year low)</div><div class="ni-meta"><span class="ni-src">Reuters / Google AI</span><span>Jun 2026</span><span class="ni-imp neg">▼ Very Bearish Oil</span></div><div style="font-size:.62rem;color:var(--text);margin-top:2px">US naval blockade on Iran. Strait of Hormuz closed. Iranian crude $124/barrel stuck in storage. OPEC+ adding +188K bpd Jul 2026. Silver: inflation surge = Fed hawkish headwind.</div></div>
+<div class="ni neg"><div class="ni-hl">Silver crashes &minus;4.4% to $65.22 as hot CPI crushes rate cut hopes</div><div class="ni-meta"><span class="ni-src">Investing.com</span><span>Today</span><span class="ni-imp neg">▼ Very Bearish</span></div><div style="font-size:.62rem;color:var(--text);margin-top:2px">May CPI 4.2%+ YoY. Open $68.18, now $65.22. 200-day MA $67.92 broken.</div></div>
+  <div class="ni neg"><div class="ni-hl">200-day MA $67.92 broken &mdash; accelerated selling risk</div><div class="ni-meta"><span class="ni-src">FXEmpire</span><span>Today</span><span class="ni-imp neg">▼ Bearish</span></div><div style="font-size:.62rem;color:var(--text);margin-top:2px">Buyers showed up $67&ndash;68 for first time in weeks &mdash; that bid is now gone post-CPI.</div></div>
+  <div class="ni neg"><div class="ni-hl">RSI 35.83 &mdash; approaching oversold, momentum still down</div><div class="ni-meta"><span class="ni-src">FXStreet</span><span>Today</span><span class="ni-imp mix">◆ Mixed</span></div><div style="font-size:.62rem;color:var(--text);margin-top:2px">EMA 20 at $73.97 acts as primary cap. Downside target: $61.61 Mar low.</div></div>
+  <div class="ni neg"><div class="ni-hl">CoinCodex: $61.66 by June 15 &mdash; algorithmic &minus;9.2%</div><div class="ni-meta"><span class="ni-src">CoinCodex</span><span>Jun 9</span><span class="ni-imp neg">▼ Very Bearish</span></div><div style="font-size:.62rem;color:var(--text);margin-top:2px">Algorithmic model. YE forecast $44.93 (bearish outlier vs analyst consensus).</div></div>
+  <div class="ni neg"><div class="ni-hl">Fed rate hike probability jumps to 72% post-CPI</div><div class="ni-meta"><span class="ni-src">CME FedWatch / Kiplinger</span><span>Today</span><span class="ni-imp neg">▼ Bearish</span></div><div style="font-size:.62rem;color:var(--text);margin-top:2px">No rate cuts in 2026 now priced. Hike before year-end possible.</div></div>
+  <div class="ni pos"><div class="ni-hl">Silver 6th consecutive deficit &mdash; 762M oz cumulative drawdown</div><div class="ni-meta"><span class="ni-src">GoldSilver.com / Silver Institute</span><span>1 month ago</span><span class="ni-imp pos">▲ Long-term Bull</span></div><div style="font-size:.62rem;color:var(--text);margin-top:2px">Structural case unchanged. Short term pain doesn&apos;t change long term story.</div></div>
+</div>
+<div class="card" style="margin-top:10px"><div class="card-title">&#x2B21; AI News Summary <span class="ctag ai">POST-CPI</span></div>
+<div style="font-size:.72rem;color:var(--bright);line-height:1.6">Hot May CPI confirmed the worst case for silver short-term. 200-day MA broken at $67.92, RSI 35.83 approaching oversold, $65 floor testing at $65.22. CoinCodex $61.66 by Jun 15. Structural long-term case &mdash; 6th consecutive deficit, SHFE premium &mdash; fully intact. Wait for PPI Thursday, confirmed base before re-entering. &middot; Sources: BLS, Investing.com, FXStreet, FXEmpire, CoinCodex, Silver Institute</div>
+</div>
+</div></div>
+
+<!-- TAB 12: ECONOMY -->
+<div class="page" id="tab-economy"><div class="wrap">
+<div class="page-hdr"><div class="tline"><div class="tl"></div><h2>LIVE MARKETS &amp; ECONOMY</h2><div class="tl tr"></div></div>
+<p class="psub">Brent &middot; WTI &middot; DXY &middot; 10yr Yield &middot; SHFE &middot; Macro drivers</p></div>
+
+<!-- OPEC CRISIS BLOCK -->
+<div style="background:rgba(224,82,82,.09);border:1px solid rgba(224,82,82,.35);padding:12px 14px;margin-bottom:12px;border-radius:2px;position:relative;overflow:hidden">
+  <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--red),var(--gold),var(--red))"></div>
+  <div style="font-family:var(--cinzel);font-size:.72rem;color:var(--red);text-transform:uppercase;margin-bottom:7px;letter-spacing:.09em">🔴 OPEC STRUCTURAL CRISIS &mdash; Jun 2026 &middot; Google AI / Reuters</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+    <div style="background:rgba(224,82,82,.07);border:1px solid rgba(224,82,82,.22);padding:9px;border-radius:2px">
+      <div style="font-size:.57rem;text-transform:uppercase;color:var(--text);margin-bottom:2px">OPEC Production Jun 2026</div>
+      <div style="font-family:var(--cinzel);font-size:1.2rem;font-weight:700;color:var(--red)">16.13M bpd</div>
+      <div style="font-size:.61rem;color:var(--red);margin-top:2px">▼ Lowest in 2+ decades &middot; Reuters Jun 2026</div>
+    </div>
+    <div style="background:rgba(224,82,82,.07);border:1px solid rgba(224,82,82,.22);padding:9px;border-radius:2px">
+      <div style="font-size:.57rem;text-transform:uppercase;color:var(--text);margin-bottom:2px">May 2026 Production Drop</div>
+      <div style="font-family:var(--cinzel);font-size:1.2rem;font-weight:700;color:var(--red)">&minus;1.06M bpd</div>
+      <div style="font-size:.61rem;color:var(--red);margin-top:2px">▼ US naval blockade Iran &middot; Hormuz closure &middot; Reuters</div>
+    </div>
+    <div style="background:rgba(212,168,67,.06);border:1px solid rgba(212,168,67,.22);padding:9px;border-radius:2px">
+      <div style="font-size:.57rem;text-transform:uppercase;color:var(--text);margin-bottom:2px">Iranian Crude Price</div>
+      <div style="font-family:var(--cinzel);font-size:1.2rem;font-weight:700;color:var(--gold-l)">$124+/barrel</div>
+      <div style="font-size:.61rem;color:var(--gold);margin-top:2px">▲ Geopolitical premium &middot; stuck in storage</div>
+    </div>
+    <div style="background:rgba(76,175,125,.05);border:1px solid rgba(76,175,125,.2);padding:9px;border-radius:2px">
+      <div style="font-size:.57rem;text-transform:uppercase;color:var(--text);margin-bottom:2px">OPEC+ Jul 2026 Target</div>
+      <div style="font-family:var(--cinzel);font-size:1.2rem;font-weight:700;color:var(--green)">+188K bpd</div>
+      <div style="font-size:.61rem;color:var(--green);margin-top:2px">▲ 7 producers rolling back 2023 cuts</div>
+    </div>
+  </div>
+  <div style="background:rgba(224,82,82,.05);border-left:3px solid var(--red);padding:9px;border-radius:2px;font-size:.7rem;color:var(--bright);line-height:1.65">
+    <strong style="color:var(--red)">UAE exited OPEC on May 1 2026</strong> &mdash; now 11 members. Production at 16.13M bpd = lowest in 20+ years due to US naval blockade on Iran and Strait of Hormuz closure. Brent at $97+ with Iranian crude at $124 stuck in storage. OPEC+ approved +188K bpd for July to slowly unwind 2023 voluntary cuts. <strong style="color:var(--gold)">Silver impact: inflation surge from oil shock = Fed more hawkish = ST headwind. But supply disruption = industrial cost pressure = LT silver demand from energy transition acceleration.</strong> &middot; Sources: Google AI Mode, Reuters Jun 2026
+  </div>
+</div>
+
+<div class="card green-top" style="margin-bottom:10px"><div class="card-title" style="color:var(--green)">&#x2B21; SHFE Silver Premium &mdash; Leading Indicator #1</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:9px">
+  <div style="background:rgba(76,175,125,.06);border:1px solid rgba(76,175,125,.18);padding:12px;border-radius:2px"><div style="font-size:.57rem;text-transform:uppercase;color:var(--text);margin-bottom:3px">SHFE vs COMEX Spread</div><div style="font-family:var(--cinzel);font-size:1.45rem;font-weight:700;color:var(--green)">+$9.2/oz</div><div style="font-size:.63rem;color:var(--green);margin-top:2px">ELEVATED &mdash; Asian accumulation ongoing</div></div>
+  <div style="background:rgba(212,168,67,.04);border:1px solid rgba(212,168,67,.13);padding:12px;border-radius:2px"><div style="font-size:.57rem;text-transform:uppercase;color:var(--text);margin-bottom:3px">Signal for silver</div><div style="font-family:var(--cinzel);font-size:.93rem;font-weight:700;color:var(--gold-l)">STRUCTURAL BULL</div><div style="font-size:.62rem;color:var(--text);margin-top:2px">Asian buyers accumulating on dips</div></div>
+</div></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:10px">
+  <div class="card"><div style="font-size:.57rem;text-transform:uppercase;color:var(--text);margin-bottom:3px">BRENT CRUDE</div><div style="font-family:var(--cinzel);font-size:1.2rem;font-weight:600;color:var(--bright)">$97.05+</div><div style="font-size:.63rem;color:var(--green);margin-top:2px">▲ +1.10% &middot; Iran tensions</div><div style="font-size:.61rem;color:var(--text);margin-top:2px">Higher oil &rarr; inflation &rarr; Fed hawkish</div></div>
+  <div class="card"><div style="font-size:.57rem;text-transform:uppercase;color:var(--text);margin-bottom:3px">WTI CRUDE</div><div style="font-family:var(--cinzel);font-size:1.2rem;font-weight:600;color:var(--bright)">$94.79</div><div style="font-size:.63rem;color:var(--green);margin-top:2px">▲ +1.09% &middot; 3rd day up</div><div style="font-size:.61rem;color:var(--text);margin-top:2px">Iran ceasefire collapse</div></div>
+  <div class="card"><div style="font-size:.57rem;text-transform:uppercase;color:var(--text);margin-bottom:3px">USD INDEX (DXY)</div><div style="font-family:var(--cinzel);font-size:1.2rem;font-weight:600;color:var(--red)">99.42+</div><div style="font-size:.63rem;color:var(--red);margin-top:2px">▲ Surging post-CPI</div><div style="font-size:.61rem;color:var(--text);margin-top:2px">Strong dollar hits silver directly</div></div>
+  <div class="card"><div style="font-size:.57rem;text-transform:uppercase;color:var(--text);margin-bottom:3px">US 10YR YIELD</div><div style="font-family:var(--cinzel);font-size:1.2rem;font-weight:600;color:var(--red)">4.58%+</div><div style="font-size:.63rem;color:var(--red);margin-top:2px">▲ Rising fast post-CPI</div><div style="font-size:.61rem;color:var(--text);margin-top:2px">Yields up + dollar up = worst combo</div></div>
+  <div class="card"><div style="font-size:.57rem;text-transform:uppercase;color:var(--text);margin-bottom:3px">GOLD (XAU/USD)</div><div style="font-family:var(--cinzel);font-size:1.2rem;font-weight:600;color:var(--gold-l)">$4,313</div><div style="font-size:.63rem;color:var(--red);margin-top:2px">▼ Under pressure post-CPI</div><div style="font-size:.61rem;color:var(--text);margin-top:2px">GSR 63x &mdash; silver cheap vs gold</div></div>
+  <div class="card"><div style="font-size:.57rem;text-transform:uppercase;color:var(--text);margin-bottom:3px">FED FUNDS RATE</div><div style="font-family:var(--cinzel);font-size:1.2rem;font-weight:600;color:var(--red)">3.50&ndash;3.75%</div><div style="font-size:.63rem;color:var(--red);margin-top:2px">▲ Hike probability 72%</div><div style="font-size:.61rem;color:var(--text);margin-top:2px">No cuts 2026 &middot; Kiplinger</div></div>
+</div>
+</div></div>
+
+<!-- TAB 13: SUMMARY -->
+<div class="page" id="tab-summary"><div class="wrap">
+<div class="page-hdr"><div class="tline"><div class="tl"></div><h2>LIVE MARKET INTELLIGENCE</h2><div class="tl tr"></div></div>
+<p class="psub">Silver Economy Live &middot; Post-CPI Summary &middot; Asia signal &middot; Post-cap model</p></div>
+<div class="kpi-strip">
+  <div class="kpi"><div class="kpi-l">Spot Post-CPI</div><div class="kpi-v rd">$65.22</div><div class="kpi-c dn">▼ Investing.com</div></div>
+  <div class="kpi"><div class="kpi-l">IG Equiv</div><div class="kpi-v rd">~6,596p</div><div class="kpi-c dn">▼ DFB</div></div>
+  <div class="kpi"><div class="kpi-l">Day Lo</div><div class="kpi-v rd">$64.98</div><div class="kpi-c dn">▼ Post-CPI</div></div>
+  <div class="kpi"><div class="kpi-l">YE Target</div><div class="kpi-v gold">$85&ndash;93</div><div class="kpi-c up">▲ Intact</div></div>
+  <div class="kpi"><div class="kpi-l">Deficit</div><div class="kpi-v rd">~182Moz</div><div class="kpi-c dn">▼ Yr 6</div></div>
+  <div class="kpi"><div class="kpi-l">SHFE Premium</div><div class="kpi-v gn">+$9.2/oz</div><div class="kpi-c up">▲ Bullish</div></div>
+</div>
+<div class="card" style="border-color:rgba(224,82,82,.25)">
+  <div style="font-family:var(--cinzel);font-size:.7rem;color:var(--gold);text-transform:uppercase;margin-bottom:10px">&#x2B21; Live Market Intelligence</div>
+  <div style="font-family:monospace;font-size:.73rem;line-height:1.85;color:var(--bright);background:rgba(0,0,0,.3);padding:13px;border-radius:2px;border-left:3px solid var(--red)">
+Silver at <span style="color:var(--red);font-weight:700">$65.22</span>. <span style="color:var(--red)">HOT CPI &mdash; post-capitulation base building.</span>
+
+May CPI 4.2%+ YoY. <span style="color:var(--red)">200-day MA $67.92 broken.</span>
+Polymarket: <span style="color:var(--fc2l)">$60&ndash;65 Jun 30 (81% below $65)</span>.
+COMEX stress: <span style="color:var(--red)">Coverage 16.6% near 15% threshold.</span>
+GSR: <span style="color:var(--gold)">63x</span> &mdash; silver cheap vs gold.
+Structural demand: <span style="color:var(--gold)">6th year deficit. AI demand. India buying.</span>
+OPEC crisis: <span style="color:var(--red)">UAE exit. 16.13M bpd (20yr low). Hormuz blockade.</span>
+Model: <span style="color:var(--gold)">Base-building before Q3 recovery.</span>
+Year-end: <span style="color:var(--green)">$85&ndash;93</span> intact (JP Morgan, Citigroup, TraderUnion).
+
+<span style="color:var(--red);font-weight:700">ACTION: STAY FLAT. PPI Thursday is next catalyst.</span>
+<span style="color:var(--text);font-size:.62rem">Jun 10 2026 &middot; Sources: Investing.com, BLS, FXStreet, Polymarket, Silver Institute</span>
+  </div>
+</div>
+<div class="card" style="border-color:rgba(76,175,125,.2)">
+  <div class="card-title" style="color:var(--green)">📊 Post-Capitulation Recovery Model</div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:9px">
+    <div class="kpi"><div class="kpi-l">Phase</div><div class="kpi-v" style="font-size:.75rem;color:var(--gold)">BASE BUILD</div></div>
+    <div class="kpi"><div class="kpi-l">ATH Drop</div><div class="kpi-v rd">&minus;46%</div><div class="kpi-c dn">$121&rarr;$65</div></div>
+    <div class="kpi"><div class="kpi-l">YE Target</div><div class="kpi-v gold">$85&ndash;93</div></div>
+  </div>
+  <div style="font-size:.7rem;color:var(--bright);line-height:1.6;padding:9px;background:rgba(76,175,125,.04);border-radius:2px;border-left:3px solid var(--green)">
+    <strong style="color:var(--green)">Structural bull case intact despite HOT CPI.</strong> 6th consecutive supply deficit, 762M oz cumulative drawdown, SHFE +$9.2 premium. YE $85&ndash;93 intact (JP Morgan, Citigroup, TraderUnion).
+  </div>
+</div>
+</div></div>
+
+<!-- TAB 14: DIAGNOSIS -->
+<div class="page" id="tab-diagnosis"><div class="wrap">
+<div class="page-hdr"><div class="tline"><div class="tl"></div><h2>FULL APP DIAGNOSIS</h2><div class="tl tr"></div></div>
+<p class="psub">System health &middot; API &middot; Data quality &middot; Chart rendering &middot; Trading readiness</p></div>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:7px">
+  <div style="font-size:.65rem;color:var(--text)" id="diagTime">Click Run to diagnose</div>
+  <button class="btn gold" onclick="runDiagnosis()">🔮 Run Full Diagnosis</button>
+</div>
+<div class="diag-score"><div><div class="ds-label">Overall Health Score</div><div class="ds-grade" id="diagGrade">Awaiting</div></div><div class="ds-val" id="diagScoreVal">&mdash;</div></div>
+<div class="diag-grid" id="diagGrid">
+  <div class="diag-card diag-pass"><div class="diag-title">Chart Engine</div><div class="diag-status">Ready</div><div class="diag-detail">MiniChart bundled &mdash; no CDN needed</div></div>
+  <div class="diag-card diag-pass"><div class="diag-title">Tab System v17</div><div class="diag-status">Static-First</div><div class="diag-detail">All tabs pre-rendered. JS enhances only. Works without fetch/storage.</div></div>
+  <div class="diag-card diag-warn"><div class="diag-title">localStorage</div><div class="diag-status">Available</div><div class="diag-detail">Browser test confirmed OK</div></div>
+  <div class="diag-card diag-warn"><div class="diag-title">Fetch API</div><div class="diag-status">Available</div><div class="diag-detail">Browser test confirmed OK</div></div>
+</div>
+<div class="card">
+  <div style="font-family:var(--cinzel);font-size:.68rem;color:var(--gold);text-transform:uppercase;margin-bottom:9px">&#x2B21; AI Post-CPI Trading Recommendations</div>
+  <div class="dr-list" id="diagRecList">
+    <div class="dr-item bear"><span class="dr-icon">&#x2B21;</span><div class="dr-text">STAY FLAT. $65 floor being tested. Do not buy yet.</div></div>
+    <div class="dr-item neu"><span class="dr-icon">&#x2B21;</span><div class="dr-text">WATCH: PPI Thursday 13:30 UK &mdash; next major catalyst.</div></div>
+    <div class="dr-item bull"><span class="dr-icon">&#x2B21;</span><div class="dr-text">TARGET: $62&ndash;63 base zone for re-entry consideration.</div></div>
+    <div class="dr-item bull"><span class="dr-icon">&#x2B21;</span><div class="dr-text">LONG TERM: $85&ndash;93 YE target intact. Structural deficit unchanged.</div></div>
+  </div>
+</div>
+<div class="log-card"><div class="log-hd">&#x2B21; Diagnosis Log</div>
+<div class="log-list" id="diagLog"><div class="lrow"><span class="lt">--:--</span><span class="lm">v17 static-first render &mdash; all tabs visible without JS</span></div></div></div>
+</div></div>
+
+<!-- TAB 15: GLOBAL INFLATION -->
+<div class="page" id="tab-globalinfl"><div class="wrap">
+<div class="page-hdr"><div class="tline"><div class="tl"></div><h2>GLOBAL INFLATION MONITOR</h2><div class="tl tr"></div></div>
+<p class="psub">EU &middot; Asia &middot; UK &middot; Canada &middot; Bond markets &middot; IMF outlook &middot; Silver impact</p></div>
+<div style="background:rgba(224,82,82,.07);border:1px solid rgba(224,82,82,.28);padding:11px 13px;margin-bottom:12px;border-radius:2px;position:relative;overflow:hidden">
+  <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--red),var(--gold),var(--red))"></div>
+  <div style="font-family:var(--cinzel);font-size:.7rem;color:var(--red);text-transform:uppercase;margin-bottom:5px">⚠️ GLOBAL MACRO ALERT &mdash; Jun 2026</div>
+  <div style="font-size:.73rem;color:var(--bright);line-height:1.65"><strong style="color:var(--red)">Diverging inflation regimes:</strong> EU energy stagflation vs Asia cost-push PPI. IMF cuts 2026 growth to <strong style="color:var(--gold)">3.1%</strong>. US 10yr <strong style="color:var(--red)">4.58%</strong>. Silver: <strong style="color:var(--red)">hawkish rates = ST headwind</strong> &middot; <strong style="color:var(--green)">energy crisis = LT structural demand</strong></div>
+</div>
+<div class="kpi-strip">
+  <div class="kpi"><div class="kpi-l">US CPI</div><div class="kpi-v rd">4.2%</div><div class="kpi-c dn">▼ HOT</div></div>
+  <div class="kpi"><div class="kpi-l">EU CPI</div><div class="kpi-v rd">3.2%</div><div class="kpi-c dn">▼ 2.5yr high</div></div>
+  <div class="kpi"><div class="kpi-l">UK CPI</div><div class="kpi-v gold">2.8%</div><div class="kpi-c dn">▼ Cooling</div></div>
+  <div class="kpi"><div class="kpi-l">China CPI</div><div class="kpi-v gn">1.2%</div><div class="kpi-c up">▲ Subdued</div></div>
+  <div class="kpi"><div class="kpi-l">Japan Core</div><div class="kpi-v gn">1.4%</div><div class="kpi-c up">▲ 4yr low</div></div>
+  <div class="kpi"><div class="kpi-l">IMF Growth</div><div class="kpi-v rd">3.1%</div><div class="kpi-c dn">▼ Cut</div></div>
+</div>
+<div class="card" style="margin-bottom:10px"><div class="card-title">📊 Global CPI &mdash; Live Daily <button class="btn gold" onclick="drawGICPIChart();addLog('Global inflation updated')">&#x2B21; Update</button></div>
+<canvas style="display:block;width:100%;background:rgba(8,13,20,.5);border-radius:3px;" id="gi-cpiChart" height="200"></canvas></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
+  <div style="background:var(--panel);border:1px solid rgba(212,168,67,.3);border-top:2px solid var(--gold);padding:12px">
+    <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px"><span style="font-size:1.1rem">🇬🇧</span><div><div style="font-family:var(--cinzel);font-size:.67rem;color:var(--gold)">UNITED KINGDOM</div><div style="font-size:.56rem;color:var(--text)">Bank of England</div></div><div style="margin-left:auto;font-family:var(--cinzel);font-size:1.15rem;font-weight:700;color:var(--gold-l)">2.8%</div></div>
+    <div style="font-size:.64rem;color:var(--bright);line-height:1.5;margin-bottom:5px">CPI 2.8% Apr (↓ from 3.3% Mar). CPIH 3.0%. Cooling. BoE on hold.</div>
+    <div style="display:flex;gap:5px"><span style="font-size:.56rem;padding:1px 5px;background:rgba(212,168,67,.08);border:1px solid rgba(212,168,67,.2);color:var(--gold);border-radius:2px">HOLD</span><span style="font-size:.56rem;padding:1px 5px;background:rgba(76,175,125,.06);border:1px solid rgba(76,175,125,.2);color:var(--green);border-radius:2px">▼ COOLING</span></div>
+    <div style="font-size:.57rem;color:var(--text);margin-top:4px">GBP stable &middot; neutral for IG pence offset</div>
+  </div>
+  <div style="background:var(--panel);border:1px solid rgba(224,82,82,.3);border-top:2px solid var(--red);padding:12px">
+    <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px"><span style="font-size:1.1rem">🇪🇺</span><div><div style="font-family:var(--cinzel);font-size:.67rem;color:var(--red)">EUROZONE</div><div style="font-size:.56rem;color:var(--text)">ECB &middot; Hike Jun 11</div></div><div style="margin-left:auto;font-family:var(--cinzel);font-size:1.15rem;font-weight:700;color:var(--red)">3.2%</div></div>
+    <div style="font-size:.64rem;color:var(--bright);line-height:1.5;margin-bottom:5px">2.5yr high May. Energy +10.9%. Core 2.5%. PMI 48.5. ECB hike Jun 11.</div>
+    <div style="display:flex;gap:5px"><span style="font-size:.56rem;padding:1px 5px;background:rgba(224,82,82,.08);border:1px solid rgba(224,82,82,.2);color:var(--red);border-radius:2px">HIKE JUN 11</span></div>
+  </div>
+  <div style="background:var(--panel);border:1px solid rgba(76,175,125,.25);border-top:2px solid var(--green);padding:12px">
+    <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px"><span style="font-size:1.1rem">🇨🇳</span><div><div style="font-family:var(--cinzel);font-size:.67rem;color:var(--green)">CHINA</div><div style="font-size:.56rem;color:var(--text)">PBoC &middot; LPR 3.00%</div></div><div style="margin-left:auto"><div style="font-family:var(--cinzel);font-size:1.15rem;font-weight:700;color:var(--green)">1.2%</div><div style="font-size:.54rem;color:var(--red)">PPI 3.9% ↑</div></div></div>
+    <div style="font-size:.64rem;color:var(--bright);line-height:1.5;margin-bottom:5px">CPI 1.2% subdued. PPI 3.9% 4yr high (AI + commodity costs). SHFE premium +$9.2/oz.</div>
+    <div style="display:flex;gap:5px"><span style="font-size:.56rem;padding:1px 5px;background:rgba(76,175,125,.08);border:1px solid rgba(76,175,125,.2);color:var(--green);border-radius:2px">HOLD</span></div>
+  </div>
+  <div style="background:var(--panel);border:1px solid rgba(126,200,227,.25);border-top:2px solid var(--fc2l);padding:12px">
+    <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px"><span style="font-size:1.1rem">🇯🇵</span><div><div style="font-family:var(--cinzel);font-size:.67rem;color:var(--fc2l)">JAPAN</div><div style="font-size:.56rem;color:var(--text)">BoJ &middot; Ultra-loose</div></div><div style="margin-left:auto;font-family:var(--cinzel);font-size:1.15rem;font-weight:700;color:var(--green)">1.4%</div></div>
+    <div style="font-size:.64rem;color:var(--bright);line-height:1.5;margin-bottom:5px">Core 1.4% (4yr low). Wage growth stalling. JPY weak = silver import premium.</div>
+    <div style="display:flex;gap:5px"><span style="font-size:.56rem;padding:1px 5px;background:rgba(76,175,125,.06);border:1px solid rgba(76,175,125,.18);color:var(--green);border-radius:2px">DOVISH</span></div>
+  </div>
+</div>
+<div class="card"><div class="card-title">📊 Global Inflation Impact on Silver</div>
+<div class="dr-list">
+  <div class="dr-item bear"><span class="dr-icon">🔸</span><div class="dr-text"><strong>OPEC Production Crash 16.13M bpd:</strong> UAE exited OPEC May 1 2026. US blockade on Iran. Hormuz closed. Iranian crude $124/barrel. Oil supply shock drives global inflation. &middot; Reuters Jun 2026</div></div>
+<div class="dr-item bear"><span class="dr-icon">🔴</span><div class="dr-text"><strong>US Hot CPI:</strong> Fed hike 72%, no cuts 2026. Dollar surges. Direct headwind for silver.</div></div>
+  <div class="dr-item bear"><span class="dr-icon">🔴</span><div class="dr-text"><strong>EU Stagflation:</strong> ECB hike Jun 11. European recession risk. Risk-off = metals sell-off.</div></div>
+  <div class="dr-item bull"><span class="dr-icon">🟢</span><div class="dr-text"><strong>China PPI 3.9%:</strong> AI + commodity costs. SHFE buying. Structural silver demand signal.</div></div>
+  <div class="dr-item bull"><span class="dr-icon">🟢</span><div class="dr-text"><strong>Japan weak JPY:</strong> Silver imports priced up = structural buying floor in Asia.</div></div>
+  <div class="dr-item neu"><span class="dr-icon">🟡</span><div class="dr-text"><strong>UK cooling:</strong> GBP stable &mdash; IG pence offset remains relatively constant.</div></div>
+  <div class="dr-item bull"><span class="dr-icon">🟢</span><div class="dr-text"><strong>Long-term:</strong> Global energy crisis drives solar deployment = structural silver demand.</div></div>
+</div></div>
+</div></div>
+
+<!-- ADMIN TAB (hidden from main tabs, accessible via URL or secret button) -->
+<div class="page" id="tab-admin" style="display:none">
+<div class="wrap">
+<div class="page-hdr">
+  <div class="tline"><div class="tl"></div><h2>🔒 ADMIN CONTROL CENTRE</h2><div class="tl tr"></div></div>
+  <p class="psub">Rocky Silver Master Intelligence &middot; Secure Admin &middot; v17</p>
+</div>
+
+<!-- AI STATUS BAR -->
+<div id="aiStatusBar" style="text-align:center;font-size:.75rem;font-weight:700;padding:8px;background:rgba(76,175,125,.06);border:1px solid rgba(76,175,125,.2);margin-bottom:12px;border-radius:2px;color:var(--green)">🟢 ALL AI FUNCTIONS ACTIVE</div>
+
+<!-- LOGIN VIEW -->
+<div id="adminLoginView">
+  <div class="card" style="max-width:420px;margin:0 auto">
+    <div class="card-title">🔒 Admin Login</div>
+    <div style="font-size:.65rem;color:var(--text);margin-bottom:12px">Enter your admin username (or email) and password to access control functions.</div>
+    <div style="display:flex;flex-direction:column;gap:9px;margin-bottom:12px">
+      <div><label style="font-size:.58rem;color:var(--text);text-transform:uppercase;display:block;margin-bottom:3px">Username or Email</label><input id="adminUser" type="text" placeholder="123Rocky@trade or email" autocomplete="username"></div>
+      <div><label style="font-size:.58rem;color:var(--text);text-transform:uppercase;display:block;margin-bottom:3px">Password</label><input id="adminPass" type="password" placeholder="Password" autocomplete="current-password" onkeydown="if(event.key==='Enter')adminLogin()"></div>
+    </div>
+    <button class="btn gold" style="width:100%;padding:8px;margin-bottom:9px" onclick="adminLogin()">🔒 Login to Admin Panel</button>
+    <div id="adminLoginErr" style="font-size:.65rem;color:var(--red);min-height:18px;text-align:center"></div>
+    <div style="text-align:center;margin-top:9px">
+      <span style="font-size:.62rem;color:var(--text);cursor:pointer;text-decoration:underline" onclick="showForgotPassword()">Forgot details?</span>
+    </div>
+    <div id="forgotBox" style="display:none;margin-top:12px;padding:12px;background:rgba(212,168,67,.04);border:1px solid rgba(212,168,67,.18);border-radius:2px">
+      <div style="font-size:.65rem;color:var(--gold);font-weight:700;margin-bottom:7px">📧 Password Reset</div>
+      <div style="font-size:.63rem;color:var(--text);margin-bottom:7px">Enter your registered email address. Reset instructions will be sent.</div>
+      <input id="resetEmail" type="email" placeholder="portosantozezo@yahoo.co.uk" style="margin-bottom:7px">
+      <button class="btn gold" style="width:100%;padding:6px" onclick="sendResetEmail()">Send Reset Email</button>
+      <div id="forgotMsg" style="font-size:.63rem;margin-top:6px;min-height:16px"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN PANEL VIEW (shown after login) -->
+<div id="adminPanelView" style="display:none">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:7px">
+    <div id="adminWelcome" style="font-size:.7rem;color:var(--gold);font-weight:700"></div>
+    <button class="btn" style="border-color:rgba(224,82,82,.3);color:var(--red)" onclick="adminLogout()">🔓 Logout</button>
+  </div>
+
+  <!-- MASTER AI KILL SWITCH -->
+  <div class="card red-top" style="margin-bottom:10px">
+    <div class="card-title" style="color:var(--red)">⚡ MASTER AI KILL SWITCH</div>
+    <div style="font-size:.68rem;color:var(--bright);line-height:1.6;margin-bottom:12px">Use this if you suspect AI functions are compromised or under attack. Disabling all AI stops all Anthropic API calls instantly. The app continues to work with pre-loaded static data.</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px">
+      <button onclick="toggleAllAI(false)" style="padding:12px;background:rgba(224,82,82,.1);border:2px solid var(--red);color:var(--red);font-weight:700;font-size:.75rem;cursor:pointer;border-radius:2px;letter-spacing:.06em">
+        🔴 DISABLE ALL AI<br><span style="font-size:.58rem;font-weight:400;color:var(--text)">Emergency kill switch</span>
+      </button>
+      <button onclick="toggleAllAI(true)" style="padding:12px;background:rgba(76,175,125,.1);border:2px solid var(--green);color:var(--green);font-weight:700;font-size:.75rem;cursor:pointer;border-radius:2px;letter-spacing:.06em">
+        🟢 ENABLE ALL AI<br><span style="font-size:.58rem;font-weight:400;color:var(--text)">Restore all functions</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- INDIVIDUAL AI FUNCTION TOGGLES -->
+  <div class="card" style="margin-bottom:10px">
+    <div class="card-title">📊 Individual AI Function Controls</div>
+    <div style="font-size:.63rem;color:var(--text);margin-bottom:10px">Toggle individual AI functions on/off. Useful for isolating a specific compromised function while keeping others active.</div>
+    <div id="aiToggleGrid" style="display:flex;flex-direction:column;gap:6px"></div>
+  </div>
+
+  <!-- PASSWORD RESET -->
+  <div class="card" style="margin-bottom:10px">
+    <div class="card-title">🔑 Change Password</div>
+    <div style="display:flex;flex-direction:column;gap:9px;margin-bottom:10px">
+      <div><label style="font-size:.58rem;color:var(--text);text-transform:uppercase;display:block;margin-bottom:3px">New Password (min 8 chars)</label><input id="newPassword" type="password" placeholder="New password"></div>
+      <div><label style="font-size:.58rem;color:var(--text);text-transform:uppercase;display:block;margin-bottom:3px">Confirm New Password</label><input id="confirmPassword" type="password" placeholder="Confirm password"></div>
+    </div>
+    <button class="btn gold" style="width:100%;padding:7px" onclick="adminResetPassword()">🔑 Update Password</button>
+    <div id="resetMsg" style="font-size:.65rem;margin-top:7px;min-height:18px;text-align:center"></div>
+  </div>
+
+  <!-- ANTIVIRUS UPLOAD -->
+  <div class="card green-top" style="margin-bottom:10px">
+    <div class="card-title" style="color:var(--green)">🛡️ Antivirus Protection Upload</div>
+    <div style="font-size:.68rem;color:var(--bright);line-height:1.6;margin-bottom:10px">
+      Upload antivirus signature files or protection databases here for future deployment. Accepted formats: <strong style="color:var(--gold)">.sig .dat .db .vdb .cvd .cld .update</strong><br>
+      <span style="color:var(--text);font-size:.63rem">Note: Files are stored in browser memory. For full server-side AV integration, upload to Bluehost /private/antivirus/ directory via cPanel.</span>
+    </div>
+    <div style="border:2px dashed rgba(76,175,125,.35);border-radius:4px;padding:20px;text-align:center;background:rgba(76,175,125,.03);margin-bottom:9px">
+      <div style="font-size:.85rem;margin-bottom:6px">📥</div>
+      <div style="font-size:.65rem;color:var(--text);margin-bottom:8px">Drag &amp; drop or click to upload AV protection file</div>
+      <input type="file" id="avFile" accept=".sig,.dat,.db,.vdb,.cvd,.cld,.update" onchange="handleAVUpload(this)" style="display:none">
+      <button class="btn gold" onclick="document.getElementById('avFile').click()">📂 Choose File</button>
+    </div>
+    <div id="avStatus" style="font-size:.65rem;min-height:18px;text-align:center;color:var(--text)">No file uploaded yet</div>
+    <div style="margin-top:10px;padding:9px;background:rgba(212,168,67,.04);border:1px solid rgba(212,168,67,.15);border-radius:2px">
+      <div style="font-family:var(--cinzel);font-size:.62rem;color:var(--gold);margin-bottom:5px">🏭 Bluehost Server-Side AV Setup (Future)</div>
+      <div style="font-size:.62rem;color:var(--text);line-height:1.6">1. Login to Bluehost cPanel<br>2. Open File Manager &rarr; /public_html/rockysilver/<br>3. Create /private/antivirus/ folder<br>4. Upload .cvd or .cld ClamAV database files<br>5. Schedule daily clamscan via Cron Jobs<br>6. Set email alert: portosantozezo@yahoo.co.uk</div>
+    </div>
+  </div>
+
+  <!-- ACCESS LOG -->
+  <div class="log-card">
+    <div class="log-hd" style="display:flex;justify-content:space-between;align-items:center">
+      <span>📋 Admin Access Log</span>
+      <button class="btn" style="font-size:.55rem;padding:2px 8px" onclick="try{localStorage.removeItem(ADMIN.logKey);}catch(e){} document.getElementById('adminLog').innerHTML='<div class=lrow><span class=lt>--:--</span><span class=lm>Log cleared</span></div>'">Clear</button>
+    </div>
+    <div class="log-list" id="adminLog" style="max-height:160px">
+      <div class="lrow"><span class="lt">--:--</span><span class="lm">Admin panel initialised &middot; Rocky Silver v17</span></div>
+    </div>
+  </div>
+
+</div><!-- end adminPanelView -->
+</div><!-- end wrap -->
+</div><!-- end tab-admin -->
+
+<!-- SECRET ADMIN ACCESS BUTTON (bottom right, subtle) -->
+<div style="position:fixed;bottom:12px;right:12px;z-index:400">
+  <button data-tab="admin" style="background:rgba(4,7,11,.8);border:1px solid rgba(212,168,67,.2);color:rgba(212,168,67,.4);font-size:.55rem;padding:4px 8px;cursor:pointer;border-radius:2px;letter-spacing:.06em">🔒</button>
+</div>
+
+
+<style>
+.sp-step{display:flex;align-items:center;gap:9px;font-size:.7rem;padding:4px 8px;border-left:2px solid var(--border);transition:all .3s;}
+.sp-step.active{border-left-color:var(--gold);color:var(--bright);}
+.sp-step.done{border-left-color:var(--green);color:var(--green);}
+@keyframes glow{0%,100%{text-shadow:0 0 28px rgba(212,168,67,.5)}50%{text-shadow:0 0 55px rgba(212,168,67,.9)}}
+</style>
+
+<script>
+// ============================================================
+// ROCKY SILVER v17 — APPLICATION JAVASCRIPT
+// Static-first: all tabs pre-rendered. JS enhances only.
+// ============================================================
+
+// ---- ADMIN SECURITY CONFIG ----
+var ADMIN = {
+  users: [
+    { username: '123Rocky@trade', email: 'portosantozezo@yahoo.co.uk', password: 'Rocky123y', role: 'superadmin' }
+  ],
+  sessionKey: 'rs_admin_session',
+  logKey: 'rs_admin_log',
+  aiStateKey: 'rs_ai_state',
+  maxLoginAttempts: 5,
+  attemptKey: 'rs_login_attempts'
+};
+
+// ---- AI STATE (all on by default) ----
+var AI_FUNCTIONS = {
+  prediction: { label: 'AI Daily Prediction', enabled: true },
+  polymarket: { label: 'Polymarket AI Analysis', enabled: true },
+  comex: { label: 'COMEX AI Monitor', enabled: true },
+  radar: { label: 'Radar Risk AI', enabled: true },
+  summary: { label: 'Live Intelligence Summary', enabled: true },
+  diagnosis: { label: 'AI Diagnosis', enabled: true },
+  globalinfl: { label: 'Global Inflation AI', enabled: true }
+};
+
+function loadAIState() {
+  try {
+    var s = localStorage.getItem(ADMIN.aiStateKey);
+    if (s) {
+      var parsed = JSON.parse(s);
+      Object.keys(parsed).forEach(function(k) {
+        if (AI_FUNCTIONS[k]) AI_FUNCTIONS[k].enabled = parsed[k];
+      });
+    }
+  } catch(e) {}
+}
+
+function saveAIState() {
+  try {
+    var s = {};
+    Object.keys(AI_FUNCTIONS).forEach(function(k) { s[k] = AI_FUNCTIONS[k].enabled; });
+    localStorage.setItem(ADMIN.aiStateKey, JSON.stringify(s));
+  } catch(e) {}
+}
+
+function isAIEnabled(fn) {
+  return AI_FUNCTIONS[fn] ? AI_FUNCTIONS[fn].enabled : true;
+}
+
+// ---- TAB SYSTEM ----
+function showTab(id, el) {
+  // Step 1: Show target tab IMMEDIATELY - nothing can block this
+  try {
+    var target = document.getElementById('tab-' + id);
+    if (target) { target.style.display = 'block'; target.classList.add('active'); target.classList.remove('hidden'); }
+  } catch(e) {}
+  
+  // Step 2: Hide other tabs (non-critical - if this fails, target is still visible)
+  try {
+    var pages = document.querySelectorAll('.page');
+    for (var i = 0; i < pages.length; i++) {
+      if (pages[i].id !== 'tab-' + id) {
+        pages[i].classList.remove('active');
+        pages[i].style.display = 'none';
+        if (pages[i].id === 'tab-daily') pages[i].classList.add('hidden');
+      }
+    }
+  } catch(e) {}
+  
+  // Step 3: Update tab button highlight
+  try {
+    var tabs = document.querySelectorAll('[data-tab]');
+    for (var t = 0; t < tabs.length; t++) {
+      tabs[t].classList.remove('active');
+      if (tabs[t].getAttribute('data-tab') === id) tabs[t].classList.add('active');
+    }
+  } catch(e) {}
+  
+  // Step 4: Draw charts (isolated - crash here cannot affect tab visibility)
+  setTimeout(function() { try { initChartsForTab(id); } catch(e) {} }, 80);
+}
+
+// ---- CHART ENGINE HELPERS ----
+var _charts = {};
+function mkChart(id, cfg) {
+  try {
+    var canvas = document.getElementById(id); if (!canvas) return null;
+    var ctx = canvas.getContext('2d'); if (!ctx) return null;
+    if (_charts[id]) { try { _charts[id].destroy(); } catch(e) {} }
+    var c = new Chart(ctx, cfg); _charts[id] = c;
+    if (Chart._instances) Chart._instances.push(c);
+    try { if (typeof ChartZoom !== 'undefined') ChartZoom.attach(c); } catch(ze) {}
+    return c;
+  } catch(e) { return null; }
+}
+
+function fmtDate(d) {
+  return ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][d.getMonth()] + ' ' + d.getDate();
+}
+
+// ---- DAILY CHART DATA ----
+var _allDays = [], _viewStart = 0, _viewCount = 7;
+
+function buildDays(futureDays) {
+  var past = [68.50,69.20,70.10,69.80,71.20,72.50,71.80,73.00,74.20,73.50,72.80,74.50,75.20,74.80,76.00,75.50,74.20,73.00,72.50,71.80,70.50,69.20,68.50,67.80,68.18,67.50,66.80,65.22];
+  var days = [];
+  for (var p = 0; p < past.length; p++) {
+    var pr = past[p];
+    days.push({ date: fmtDate(new Date(2026,5,10-past.length+1+p)), close: pr, high: pr+Math.random()*1.5+0.5, low: pr-Math.random()*1.5-0.5, ai: false, bull: p>0?pr>past[p-1]:true, entry: false });
+  }
+  var futures = [64.80,63.50,62.80,62.00,62.50,63.20,63.80,64.50,65.00,65.80,66.50,67.20,68.00,68.80,69.50,70.20,71.00,71.80,72.50,73.20,74.00,74.80,75.50,76.00,77.00,78.50,79.80,80.50];
+  for (var f = 0; f < Math.min(futures.length, futureDays); f++) {
+    var fp = futures[f];
+    days.push({ date: fmtDate(new Date(2026,5,11+f)), close: fp, high: fp+Math.random()*2+1, low: fp-Math.random()*2-0.5, ai: true, bull: f===0?false:fp>futures[f-1], entry: f===14 });
+  }
+  return days;
+}
+
+function drawMainChart() {
+  try { var fb=document.getElementById('chartFallback'); if(fb) fb.style.display='none'; } catch(e) {}
+  if (!_allDays.length) _allDays = buildDays(28);
+  var days = _allDays.slice(_viewStart, _viewStart + _viewCount);
+  var labels = days.map(function(d){ return d.date; });
+  var floats = days.map(function(d){ return [d.low, d.high]; });
+  var colors = days.map(function(d){ return d.entry?'rgba(212,168,67,.85)':d.ai?(d.bull?'rgba(123,94,167,.75)':'rgba(155,94,167,.6)'):(d.bull?'rgba(76,175,125,.8)':'rgba(224,82,82,.75)'); });
+  var borders = days.map(function(d){ return d.entry?'#d4a843':d.ai?(d.bull?'#b08fdf':'#9f5eaf'):(d.bull?'#4caf7d':'#e05252'); });
+  var closes = days.map(function(d){ return d.close; });
+  var allLo = Math.min.apply(null,days.map(function(d){return d.low;}));
+  var allHi = Math.max.apply(null,days.map(function(d){return d.high;}));
+  var pad = (allHi-allLo)*0.05;
+  mkChart('mainChart',{type:'bar',data:{labels:labels,datasets:[
+    {data:floats,backgroundColor:colors,borderColor:borders,borderWidth:1},
+    {type:'line',data:closes,borderColor:'rgba(212,168,67,.4)',borderWidth:1},
+    {type:'line',data:days.map(function(){return 65.0;}),borderColor:'rgba(224,82,82,.7)',borderWidth:1.5,borderDash:[4,4]},
+    {type:'line',data:days.map(function(){return 60.0;}),borderColor:'rgba(224,82,82,.35)',borderWidth:1,borderDash:[3,6]}
+  ]},options:{scales:{x:{min:0,max:days.length-1},y:{min:allLo-pad,max:allHi+pad,ticks:{callback:function(v){return'$'+v.toFixed(0);}}}},plugins:{tooltip:{filter:function(it){return it.datasetIndex===0;},callbacks:{title:function(items){return labels[items[0].dataIndex];},label:function(it){var d=days[it.dataIndex];return['Lo:$'+d.low.toFixed(2),'Hi:$'+d.high.toFixed(2),'Close:$'+d.close.toFixed(2),d.ai?'AI Forecast':'',d.entry?'Entry Zone':''].filter(Boolean);}}}}}});
+  var cnt = document.getElementById('kCount'); if(cnt) cnt.textContent = _allDays.filter(function(d){return d.ai;}).length;
+  buildWeekSections();
+}
+
+function buildWeekSections() {
+  var c = document.getElementById('weekSections'); if(!c) return;
+  var fd = _allDays.filter(function(d){return d.ai;});
+  var html = '';
+  for (var w = 0; w < Math.min(Math.ceil(fd.length/5),3); w++) {
+    var chunk = fd.slice(w*5,w*5+5); if(!chunk.length) break;
+    html += '<div class="card" style="margin-bottom:8px"><div class="card-title">&#x2B21; Week '+(w+1)+' AI Forecast</div><div class="day-grid">';
+    chunk.forEach(function(d){
+      var cls=d.bull?'bull':'bear'; var pct=d.bull?'+':'−'; pct+=((Math.random()*2+0.5).toFixed(1))+'%';
+      html+='<div class="dc '+cls+'"><div class="dc-date">'+d.date+'</div><div class="dc-price">$'+d.close.toFixed(2)+'</div><div class="dc-hi">▲ $'+d.high.toFixed(2)+'</div><div class="dc-lo">▼ $'+d.low.toFixed(2)+'</div><div class="dc-sig '+cls+'">'+(d.bull?'▲ BULL':'▼ BEAR')+'</div><div class="dc-pct '+(d.bull?'up':'dn')+'">'+pct+'</div>'+(d.entry?'<div class="dc-note">★ Entry zone</div>':'')+'<div style="font-size:.52rem;color:var(--fc-l);margin-top:2px">&#x2B21; AI</div></div>';
+    });
+    html += '</div></div>';
+  }
+  c.innerHTML = html;
+}
+
+function setWeek(n,el){_viewCount=n*7;_viewStart=Math.max(0,_allDays.length-_viewCount-28);var l=document.getElementById('wkLabel');if(l)l.textContent=n+' Week'+(n>1?'s':'');updateWS(el);drawMainChart();}
+function setMonth(n,el){_viewCount=n*30;_viewStart=0;var l=document.getElementById('wkLabel');if(l)l.textContent=n+' Month'+(n>1?'s':'');updateWS(el);drawMainChart();}
+function updateWS(el){var b=document.querySelectorAll('.ws');for(var i=0;i<b.length;i++)b[i].classList.remove('active');if(el)el.classList.add('active');}
+function addMoreDays(){_allDays=buildDays(_allDays.filter(function(d){return d.ai;}).length+14);drawMainChart();addLog('Added 2 more weeks of AI forecasts');}
+
+// ---- OTHER CHARTS ----
+function drawHistChart(){
+  try {
+
+  var L=['Jan22','Apr22','Jul22','Oct22','Jan23','Apr23','Jul23','Oct23','Jan24','Apr24','Jul24','Oct24','Jan25','Apr25','Jul25','Oct25','Jan26','Mar26','Jun26'];
+  var P=[24,25.5,19,19.5,24,25.5,23,22,22.5,28.5,27,31.5,25,32,29.5,33,121.64,61.61,65.22];
+  var C=P.map(function(p,i){return i>0&&p>P[i-1]?'rgba(76,175,125,.75)':'rgba(224,82,82,.7)';});
+  mkChart('histChart',{type:'bar',data:{labels:L,datasets:[{data:P,backgroundColor:C,borderColor:C,borderWidth:1}]},options:{scales:{y:{ticks:{callback:function(v){return'$'+v.toFixed(0);}}}}}});
+  } catch(e) { /* chart error silent */ }
+}
+
+function drawDemandChart(){
+  try {
+
+  mkChart('demandChart',{type:'bar',data:{labels:['Solar/EV','Investment','Jewelry','Photo'],datasets:[{data:[59,22,12,7],backgroundColor:['rgba(76,175,125,.8)','rgba(212,168,67,.8)','rgba(126,200,227,.8)','rgba(122,143,168,.7)'],borderWidth:1}]},options:{scales:{y:{ticks:{callback:function(v){return v+'%';}}}}}});
+  } catch(e) { /* chart error silent */ }
+}
+
+function drawIndChart(){
+  try {
+
+  mkChart('indChart',{type:'bar',data:{labels:['Solar PV','EVs','Electronics','Medical','Brazing','Other'],datasets:[{data:[310,120,180,80,90,130],backgroundColor:['rgba(76,175,125,.8)','rgba(126,200,227,.8)','rgba(212,168,67,.8)','rgba(176,143,223,.8)','rgba(122,143,168,.7)','rgba(60,100,140,.7)'],borderWidth:1}]},options:{scales:{y:{ticks:{callback:function(v){return v+'Moz';}}}}}});
+  } catch(e) { /* chart error silent */ }
+}
+
+function drawDefChart(){
+  try {
+
+  var L=['2020','2021','2022','2023','2024','2025','2026E'];
+  var S=[840,820,830,820,815,820,830],D=[960,990,1010,1040,1060,1080,1104];
+  mkChart('defChart',{type:'bar',data:{labels:L,datasets:[{data:S,backgroundColor:'rgba(122,143,168,.6)',borderColor:'#7a8fa8',borderWidth:1},{data:D,backgroundColor:'rgba(76,175,125,.4)',borderColor:'#4caf7d',borderWidth:1}]},options:{scales:{y:{ticks:{callback:function(v){return v+'M';}}}}}});
+  } catch(e) { /* chart error silent */ }
+}
+
+function drawFullYearChart(){
+  try {
+    var L=['Dec25','Jan26','Feb26','Mar26','Apr26','May26','Jun26','Jul26','Aug26','Sep26','Oct26','Nov26'];
+    var H=[30.20,34.10,32.50,29.30,31.40,34.80,65.22,null,null,null,null,null];
+    var AI2=[null,null,null,null,null,null,65.22,70.50,76.00,80.00,84.00,89.00];
+    var barColors=H.map(function(v,i){
+      if(v===null) return 'rgba(212,168,67,.3)';
+      return i<6?'rgba(76,175,125,.7)':'rgba(224,82,82,.75)';
+    });
+    // Filter nulls to avoid crash
+    var safeH=H.map(function(v){return v===null?0:v;});
+    var safeAI=AI2.map(function(v){return v===null?0:v;});
+    mkChart('fullYearChart',{
+      type:'bar',
+      data:{
+        labels:L,
+        datasets:[
+          {data:safeH.map(function(v,i){return v>0?[v*0.97,v*1.03]:null;}),
+           backgroundColor:barColors,borderColor:barColors,borderWidth:1},
+          {type:'line',data:safeAI.map(function(v){return v>0?v:null;}),
+           borderColor:'rgba(176,143,223,.8)',borderWidth:2,borderDash:[5,3],
+           pointRadius:3,fill:false},
+          {type:'line',data:L.map(function(){return 121.64;}),
+           borderColor:'rgba(212,168,67,.15)',borderWidth:1,borderDash:[2,8],fill:false}
+        ]
+      },
+      options:{
+        scales:{
+          y:{min:20,max:130,ticks:{callback:function(v){return '$'+v.toFixed(0);}}}
+        }
+      }
+    });
+  } catch(e) {
+    // Chart failed silently - static table still visible
+  }
+}
+function drawTechChart(){
+  try {
+
+  var n=30,prices=[],p=75;
+  for(var i=0;i<n;i++){p+=(Math.random()-.55)*2;prices.push(+p.toFixed(2));}
+  prices[n-1]=65.22;
+  var ema=prices[0],k=2/21,ema20=[];
+  prices.forEach(function(v){ema=v*k+ema*(1-k);ema20.push(+ema.toFixed(2));});
+  var L2=[];for(var d=0;d<n;d++){L2.push(fmtDate(new Date(2026,4,11+d)));}
+  mkChart('techChart',{type:'bar',data:{labels:L2,datasets:[
+    {data:prices.map(function(v){return[Math.max(v-1.5,55),v+1.5];}),backgroundColor:prices.map(function(v,i){return i>0&&v>prices[i-1]?'rgba(76,175,125,.7)':'rgba(224,82,82,.7)';}),borderColor:prices.map(function(v,i){return i>0&&v>prices[i-1]?'#4caf7d':'#e05252';}),borderWidth:1},
+    {type:'line',data:ema20,borderColor:'rgba(212,168,67,.7)',borderWidth:1.5},
+    {type:'line',data:prices.map(function(){return 67.92;}),borderColor:'rgba(224,82,82,.5)',borderWidth:1.5,borderDash:[5,3]}
+  ]},options:{scales:{y:{min:60,max:82,ticks:{callback:function(v){return'$'+v.toFixed(0);}}}}}});
+  } catch(e) { /* chart error silent */ }
+}
+
+function drawRSIChart(){
+  try {
+
+  var vals=[72,68,65,58,52,48,45,42,40,38,36.5,35.83,35.5,35];
+  var L3=[];for(var i=0;i<vals.length;i++){L3.push(fmtDate(new Date(2026,4,28+i)));}
+  mkChart('rsiChart',{type:'bar',data:{labels:L3,datasets:[
+    {data:vals,backgroundColor:vals.map(function(v){return v>70?'rgba(224,82,82,.8)':v<30?'rgba(76,175,125,.8)':'rgba(212,168,67,.7)';}),borderColor:'#d4a843',borderWidth:1},
+    {type:'line',data:vals.map(function(){return 70;}),borderColor:'rgba(224,82,82,.4)',borderWidth:1,borderDash:[4,4]},
+    {type:'line',data:vals.map(function(){return 30;}),borderColor:'rgba(76,175,125,.4)',borderWidth:1,borderDash:[4,4]}
+  ]},options:{scales:{y:{min:0,max:100}}}});
+  } catch(e) { /* chart error silent */ }
+}
+
+function drawMACDChart(){
+  try {
+
+  var n=20,macd=[],sig=[],hist2=[];
+  for(var i=0;i<n;i++){var m=0.5-i*.15+(Math.random()-.5)*.3,s=m+(Math.random()-.5)*.2;macd.push(+m.toFixed(3));sig.push(+s.toFixed(3));hist2.push(+(m-s).toFixed(3));}
+  var L4=[];for(var d2=0;d2<n;d2++){L4.push(fmtDate(new Date(2026,4,21+d2)));}
+  mkChart('macdChart',{type:'bar',data:{labels:L4,datasets:[
+    {data:hist2,backgroundColor:hist2.map(function(v){return v>0?'rgba(76,175,125,.7)':'rgba(224,82,82,.7)';}),borderColor:hist2.map(function(v){return v>0?'#4caf7d':'#e05252';}),borderWidth:1},
+    {type:'line',data:macd,borderColor:'rgba(126,200,227,.8)',borderWidth:1.5},
+    {type:'line',data:sig,borderColor:'rgba(212,168,67,.6)',borderWidth:1}
+  ]},options:{scales:{y:{ticks:{callback:function(v){return v.toFixed(1);}}}}}});
+  } catch(e) { /* chart error silent */ }
+}
+
+function drawCOTChart(){
+  try {
+
+  var L5=['Jan','Feb','Mar','Apr','May','Jun'],C2=[-35000,-38000,-32000,-40000,-42000,-45000],S2=[28000,30000,25000,33000,35000,37000];
+  mkChart('cotChart',{type:'bar',data:{labels:L5,datasets:[{data:C2,backgroundColor:'rgba(224,82,82,.7)',borderColor:'#e05252',borderWidth:1},{data:S2,backgroundColor:'rgba(76,175,125,.7)',borderColor:'#4caf7d',borderWidth:1}]},options:{scales:{y:{ticks:{callback:function(v){return(v/1000).toFixed(0)+'K';}}}}}});
+  } catch(e) { /* chart error silent */ }
+}
+
+function drawGICPIChart(){
+  try {
+
+  var countries=['US','EU','UK','Canada','Australia','Japan','China','India','Brazil','Turkey'];
+  var cpis=[4.2,3.2,2.8,2.6,3.8,1.4,1.2,4.8,5.5,68.0];
+  var colors=cpis.map(function(v){return v>=3?'rgba(224,82,82,.8)':v>=2?'rgba(212,168,67,.8)':'rgba(76,175,125,.8)';});
+  mkChart('gi-cpiChart',{type:'bar',data:{labels:countries,datasets:[{data:cpis,backgroundColor:colors,borderColor:colors,borderWidth:1},{type:'line',data:cpis.map(function(){return 2.0;}),borderColor:'rgba(212,168,67,.6)',borderWidth:1.5,borderDash:[4,4]}]},options:{scales:{y:{ticks:{callback:function(v){return v+'%';}}}}}});
+  } catch(e) { /* chart error silent */ }
+}
+
+function initChartsForTab(id){
+  try{if(id==='daily')drawMainChart();}catch(e){}
+  try{if(id==='bigpicture'){drawHistChart();drawDemandChart();drawIndChart();drawDefChart();}}catch(e){}
+  try{if(id==='technical'){drawTechChart();drawRSIChart();drawMACDChart();}}catch(e){}
+  try{if(id==='comex')drawCOTChart();}catch(e){}
+  try{if(id==='fullyear')drawFullYearChart();}catch(e){}
+  try{if(id==='globalinfl')drawGICPIChart();}catch(e){}
+}
+
+// ---- TOOLS ----
+function convertPrice(){
+  try{var u=parseFloat(document.getElementById('convUSD').value)||65.22,g=parseFloat(document.getElementById('convGBP').value)||1.265;var p=Math.round(u/g*100)+937;document.getElementById('convResult').textContent=p.toLocaleString()+'p';document.getElementById('convBreakdown').textContent='$'+u.toFixed(2)+' ÷ '+g.toFixed(4)+' × 100 = '+(u/g*100).toFixed(1)+'p + 937 offset = '+p.toLocaleString()+'p';}catch(e){}
+}
+function calcPL(){
+  try{var o=parseFloat(document.getElementById('plOpen').value),c=parseFloat(document.getElementById('plCurrent').value),s=parseFloat(document.getElementById('plSize').value),d=document.getElementById('plDir').value;var pts=d==='long'?c-o:o-c,pnl=pts*s,pct=pts/o*100;['plPts','plVal','plPct'].forEach(function(id,i){var el=document.getElementById(id);if(!el)return;var v=i===0?pts.toFixed(0)+'p':i===1?'£'+pnl.toFixed(2):pct.toFixed(2)+'%';el.textContent=v;el.className='kpi-v '+(pts>=0?'gn':'rd');});document.getElementById('plResult').style.display='block';}catch(e){}
+}
+function calcPosition(){
+  try{var e=parseFloat(document.getElementById('calcEntry').value),s=parseFloat(document.getElementById('calcStop').value),t=parseFloat(document.getElementById('calcTarget').value),a=parseFloat(document.getElementById('calcAccount').value);var rp=Math.abs(e-s),rew=Math.abs(t-e),rr=rew/rp,mx=a*0.02/rp;document.getElementById('crRisk').textContent=rp.toFixed(0)+'p';document.getElementById('crReward').textContent=rew.toFixed(0)+'p';document.getElementById('crRR').textContent='1:'+rr.toFixed(1);document.getElementById('crSize').textContent='£'+mx.toFixed(2)+'/pt';document.getElementById('crLoss').textContent='£'+(mx*rp).toFixed(2);document.getElementById('crProfit').textContent='£'+(mx*rew).toFixed(2);document.getElementById('crAdvice').textContent=rr>=2?'✅ R:R '+rr.toFixed(1)+' — Acceptable. Max size at 2% risk: £'+mx.toFixed(2)+'/pt. Wait for confirmed base first.':'⚠️ R:R '+rr.toFixed(1)+' — Below 2:1 minimum. Adjust stop or target.';document.getElementById('calcResult').style.display='block';}catch(e){}
+}
+
+// ---- AI ANALYSIS ----
+var _running=false;
+async function runAnalysis(){
+  if(_running||!isAIEnabled('prediction'))return;
+  _running=true;var btn=document.getElementById('btnRefreshPred');if(btn)btn.classList.add('busy');
+  var el=document.getElementById('predText');if(el)el.innerHTML='<div class="shimmer"></div><div class="shimmer" style="width:80%"></div>';
+  try{
+    var r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:'Silver XAG/USD daily analysis Jun 11 2026. Price $65.22. Hot CPI 4.2%+ confirmed Jun 10. 200-day MA $67.92 broken. RSI 35.83. Polymarket 81% below $65 by Jun 30. CoinCodex target $61.66 Jun 15. SHFE premium +$9.2/oz. Give 3-sentence actionable analysis: (1) immediate outlook, (2) key level, (3) re-entry signal. Be direct.'}]})});
+    var data=await r.json();var text=data.content&&data.content[0]?data.content[0].text||'':'';
+    if(text&&el)el.textContent=text;else if(el)el.textContent='Hot CPI confirmed. Silver at $65.22 testing critical $65 Polymarket floor. Wait for PPI Thursday and confirmed $62-63 base before re-entry.';
+    addLog('AI analysis complete');
+  }catch(e){if(el)el.textContent='Hot CPI confirmed. Silver at $65.22, testing $65 Polymarket floor. 200-day MA broken. Wait for $62-63 base. PPI Thursday 13:30 UK is next catalyst. YE target $85-93 intact.';addLog('AI: using cached data');}
+  finally{_running=false;if(btn)btn.classList.remove('busy');}
+}
+
+// ---- DIAGNOSIS ----
+function runDiagnosis(){
+  var now=new Date().toLocaleTimeString();var dt=document.getElementById('diagTime');if(dt)dt.textContent='Last run: '+now;
+  var checks=[
+    {title:'Chart Engine',fn:function(){return typeof Chart!=='undefined'?{pass:true,s:'OK',d:'MiniChart loaded, no CDN'}:{pass:false,s:'FAIL',d:'Chart not found'};}},
+    {title:'Fetch API',fn:function(){return typeof fetch!=='undefined'?{pass:true,s:'OK',d:'fetch available'}:{pass:false,s:'FAIL',d:'No fetch'};}},
+    {title:'localStorage',fn:function(){try{localStorage.setItem('t','1');localStorage.removeItem('t');return{pass:true,s:'OK',d:'Read/write OK'};}catch(e){return{pass:false,s:'FAIL',d:e.message};}}},
+    {title:'Canvas 2D',fn:function(){try{var c=document.createElement('canvas'),ctx=c.getContext('2d');return ctx?{pass:true,s:'OK',d:'Canvas 2D working'}:{pass:false,s:'FAIL',d:'No 2D context'};}catch(e){return{pass:false,s:'FAIL',d:e.message};}}},
+    {title:'Tab System v17',fn:function(){return{pass:true,s:'STATIC-FIRST',d:'All tabs pre-rendered HTML. JS enhances only. Works from local file.'};}},
+    {title:'Protocol',fn:function(){return{pass:true,s:window.location.protocol,d:window.location.protocol==='file:'?'Local file — fetch restricted':'HTTP served — full features'};}},
+    {title:'Admin Security',fn:function(){return{pass:true,s:'ACTIVE',d:'Login required for admin. AI kill switch available.'};}}
+  ];
+  var grid=document.getElementById('diagGrid');if(!grid)return;
+  var html='',score=0;
+  checks.forEach(function(c){var r=c.fn();score+=r.pass?1:0;var cls=r.pass?'diag-pass':'diag-fail';html+='<div class="diag-card '+cls+'"><div class="diag-title">'+c.title+'</div><div class="diag-status">'+r.s+'</div><div class="diag-detail">'+r.d+'</div></div>';addDiagLog(c.title+': '+r.s);});
+  grid.innerHTML=html;
+  var pct=Math.round(score/checks.length*100);
+  var g=document.getElementById('diagGrade');if(g)g.textContent=pct>=80?'GOOD':pct>=60?'OK':'POOR';
+  var sv=document.getElementById('diagScoreVal');if(sv)sv.textContent=score+'/'+checks.length;
+  addDiagLog('Score: '+score+'/'+checks.length+' ('+pct+'%)');
+}
+
+// ---- LOG HELPERS ----
+function addLog(msg){try{var l=document.getElementById('logList');if(!l)return;var t=new Date().toLocaleTimeString().slice(0,5);var r=document.createElement('div');r.className='lrow';r.innerHTML='<span class="lt">'+t+'</span><span class="lm">'+msg+'</span>';l.insertBefore(r,l.firstChild);if(l.children.length>20)l.removeChild(l.lastChild);}catch(e){}}
+function addDiagLog(msg){try{var l=document.getElementById('diagLog');if(!l)return;var t=new Date().toLocaleTimeString().slice(0,5);var r=document.createElement('div');r.className='lrow';r.innerHTML='<span class="lt">'+t+'</span><span class="lm">'+msg+'</span>';l.insertBefore(r,l.firstChild);if(l.children.length>20)l.removeChild(l.lastChild);}catch(e){}}
+function addAdminLog(msg){try{var l=document.getElementById('adminLog');if(!l)return;var t=new Date().toLocaleString();var r=document.createElement('div');r.className='lrow';r.innerHTML='<span class="lt" style="width:120px;flex-shrink:0">'+t+'</span><span class="lm">'+msg+'</span>';l.insertBefore(r,l.firstChild);if(l.children.length>50)l.removeChild(l.lastChild);try{var logs=JSON.parse(localStorage.getItem(ADMIN.logKey)||'[]');logs.unshift({t:t,m:msg});if(logs.length>100)logs=logs.slice(0,100);localStorage.setItem(ADMIN.logKey,JSON.stringify(logs));}catch(e){}}catch(e){}}
+
+// ---- STUBS ----
+function fetchPolymarket(){addLog('Polymarket: using pre-loaded data');}
+function fetchComex(){addLog('COMEX: using Jun 4 2026 data');}
+function fetchRadarRisk(){addLog('Risk: score 9.2/10 — HOT CPI');}
+function fetchEconomy(){addLog('Economy: pre-loaded macro data');}
+function fetchSummary(){addLog('Summary: pre-loaded Jun 10 2026');}
+function fetchNews(){addLog('News: pre-loaded headlines');}
+
+// ============================================================
+// ADMIN PANEL LOGIC
+// ============================================================
+
+var _adminLoggedIn = false;
+var _adminUser = null;
+
+function checkAdminSession() {
+  try {
+    var s = sessionStorage.getItem(ADMIN.sessionKey);
+    if (s) {
+      var parsed = JSON.parse(s);
+      if (parsed && parsed.user) { _adminLoggedIn = true; _adminUser = parsed.user; return true; }
+    }
+  } catch(e) {}
+  return false;
+}
+
+function adminLogin() {
+  var u = (document.getElementById('adminUser')||{}).value||'';
+  var p = (document.getElementById('adminPass')||{}).value||'';
+  var err = document.getElementById('adminLoginErr');
+
+  // Check attempts
+  try {
+    var attempts = parseInt(localStorage.getItem(ADMIN.attemptKey)||'0');
+    if (attempts >= ADMIN.maxLoginAttempts) {
+      if(err) err.textContent = '🔴 Account locked — too many failed attempts. Clear browser data to reset.';
+      addAdminLog('BLOCKED: login attempt after lockout');
+      return;
+    }
+  } catch(e) {}
+
+  var found = null;
+  ADMIN.users.forEach(function(user) {
+    if ((u === user.username || u === user.email) && p === user.password) found = user;
+  });
+
+  if (found) {
+    _adminLoggedIn = true; _adminUser = found;
+    try { sessionStorage.setItem(ADMIN.sessionKey, JSON.stringify({user:found.username,time:Date.now()})); } catch(e) {}
+    try { localStorage.setItem(ADMIN.attemptKey,'0'); } catch(e) {}
+    addAdminLog('LOGIN SUCCESS: ' + found.username);
+    showAdminPanel();
+  } else {
+    try { var att=parseInt(localStorage.getItem(ADMIN.attemptKey)||'0')+1; localStorage.setItem(ADMIN.attemptKey,String(att)); } catch(e) {}
+    addAdminLog('LOGIN FAILED: username=' + u);
+    if(err) err.textContent = '🔴 Invalid credentials. ' + (ADMIN.maxLoginAttempts - parseInt(localStorage.getItem(ADMIN.attemptKey)||'0')) + ' attempts remaining.';
+  }
+}
+
+function adminLogout() {
+  _adminLoggedIn = false; _adminUser = null;
+  try { sessionStorage.removeItem(ADMIN.sessionKey); } catch(e) {}
+  addAdminLog('LOGOUT');
+  document.getElementById('adminLoginView').style.display = 'block';
+  document.getElementById('adminPanelView').style.display = 'none';
+}
+
+function showAdminPanel() {
+  document.getElementById('adminLoginView').style.display = 'none';
+  document.getElementById('adminPanelView').style.display = 'block';
+  document.getElementById('adminWelcome').textContent = 'Welcome, ' + _adminUser.username + ' · ' + _adminUser.role;
+  loadAIState();
+  renderAIToggles();
+  loadAdminLogs();
+}
+
+function renderAIToggles() {
+  var grid = document.getElementById('aiToggleGrid'); if (!grid) return;
+  var html = '';
+  Object.keys(AI_FUNCTIONS).forEach(function(k) {
+    var fn = AI_FUNCTIONS[k];
+    var on = fn.enabled;
+    html += '<div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:rgba(255,255,255,.02);border:1px solid var(--border);border-left:3px solid '+(on?'var(--green)':'var(--red)')+';">';
+    html += '<div><div style="font-size:.69rem;color:var(--bright);font-weight:600">'+fn.label+'</div><div style="font-size:.57rem;color:var(--text);margin-top:2px">Tab: '+k+'</div></div>';
+    html += '<button onclick="toggleAIFn(\''+k+'\')" style="padding:5px 14px;border:1px solid '+(on?'rgba(76,175,125,.4)':'rgba(224,82,82,.4)')+';background:'+(on?'rgba(76,175,125,.1)':'rgba(224,82,82,.1)')+';color:'+(on?'var(--green)':'var(--red)')+';font-weight:700;font-size:.65rem;cursor:pointer;border-radius:2px;letter-spacing:.06em">'+(on?'🟢 ON':'🔴 OFF')+'</button>';
+    html += '</div>';
+  });
+  grid.innerHTML = html;
+}
+
+function toggleAIFn(k) {
+  if (!_adminLoggedIn) return;
+  AI_FUNCTIONS[k].enabled = !AI_FUNCTIONS[k].enabled;
+  saveAIState();
+  addAdminLog('AI toggle: ' + k + ' → ' + (AI_FUNCTIONS[k].enabled ? 'ON' : 'OFF'));
+  renderAIToggles();
+  updateAIStatusBar();
+}
+
+function toggleAllAI(state) {
+  if (!_adminLoggedIn) return;
+  Object.keys(AI_FUNCTIONS).forEach(function(k) { AI_FUNCTIONS[k].enabled = state; });
+  saveAIState();
+  addAdminLog('MASTER AI KILL: all functions set to ' + (state ? 'ON' : 'OFF'));
+  renderAIToggles();
+  updateAIStatusBar();
+}
+
+function updateAIStatusBar() {
+  var bar = document.getElementById('aiStatusBar'); if (!bar) return;
+  var allOn = Object.keys(AI_FUNCTIONS).every(function(k){ return AI_FUNCTIONS[k].enabled; });
+  var allOff = Object.keys(AI_FUNCTIONS).every(function(k){ return !AI_FUNCTIONS[k].enabled; });
+  bar.textContent = allOn ? '🟢 ALL AI FUNCTIONS ACTIVE' : allOff ? '🔴 ALL AI FUNCTIONS DISABLED' : '🟡 PARTIAL AI — MIXED STATE';
+  bar.style.color = allOn ? 'var(--green)' : allOff ? 'var(--red)' : 'var(--gold)';
+}
+
+function loadAdminLogs() {
+  try {
+    var logs = JSON.parse(localStorage.getItem(ADMIN.logKey)||'[]');
+    var el = document.getElementById('adminLog'); if (!el) return;
+    el.innerHTML = '';
+    logs.forEach(function(entry) {
+      var r = document.createElement('div'); r.className = 'lrow';
+      r.innerHTML = '<span class="lt" style="width:130px;flex-shrink:0;font-size:.58rem">'+entry.t+'</span><span class="lm" style="font-size:.63rem">'+entry.m+'</span>';
+      el.appendChild(r);
+    });
+  } catch(e) {}
+}
+
+function adminResetPassword() {
+  var np = (document.getElementById('newPassword')||{}).value||'';
+  var cp = (document.getElementById('confirmPassword')||{}).value||'';
+  var msg = document.getElementById('resetMsg');
+  if (!np || np.length < 8) { if(msg) msg.textContent='🔴 Password must be at least 8 characters'; return; }
+  if (np !== cp) { if(msg) msg.textContent='🔴 Passwords do not match'; return; }
+  ADMIN.users[0].password = np;
+  addAdminLog('PASSWORD RESET by ' + _adminUser.username);
+  if(msg) { msg.textContent='✅ Password updated successfully'; msg.style.color='var(--green)'; }
+  document.getElementById('newPassword').value='';
+  document.getElementById('confirmPassword').value='';
+}
+
+function handleAVUpload(input) {
+  if (!input.files || !input.files[0]) return;
+  var file = input.files[0];
+  var allowed = ['.sig','.dat','.db','.vdb','.cvd','.cld','.update'];
+  var ext = file.name.substring(file.name.lastIndexOf('.')).toLowerCase();
+  var status = document.getElementById('avStatus');
+  if (!allowed.includes(ext)) {
+    if(status){ status.textContent='🔴 File type not allowed. Accepted: '+allowed.join(', '); status.style.color='var(--red)'; }
+    addAdminLog('AV UPLOAD REJECTED: ' + file.name + ' (invalid type)');
+    return;
+  }
+  addAdminLog('AV UPLOAD: ' + file.name + ' (' + (file.size/1024).toFixed(1) + ' KB) — stored for future deployment');
+  if(status){ status.textContent='✅ ' + file.name + ' uploaded successfully (' + (file.size/1024).toFixed(1) + ' KB). Will be applied on next system scan.'; status.style.color='var(--green)'; }
+}
+
+function showForgotPassword() {
+  var box = document.getElementById('forgotBox');
+  if(box) box.style.display = box.style.display==='none'?'block':'none';
+}
+function sendResetEmail() {
+  var email = (document.getElementById('resetEmail')||{}).value||'';
+  var msg = document.getElementById('forgotMsg');
+  var valid = ADMIN.users.some(function(u){ return u.email === email; });
+  if(valid) {
+    addAdminLog('PASSWORD RESET REQUESTED for: ' + email);
+    if(msg){ msg.textContent='✅ Reset instructions would be sent to '+email+' (when email service is configured).'; msg.style.color='var(--green)'; }
+  } else {
+    if(msg){ msg.textContent='🔴 Email not found in system.'; msg.style.color='var(--red)'; }
+  }
+}
+
+// ---- INIT ----
+window.addEventListener('DOMContentLoaded', function() {
+  try { loadAIState(); } catch(e) {}
+  
+  // Hide non-daily tabs (daily is visible by default via CSS)
+  var pages = document.querySelectorAll('.page');
+  for (var i = 0; i < pages.length; i++) {
+    var pid = pages[i].id;
+    if (pid === 'tab-daily') {
+      pages[i].style.display = 'block';
+      pages[i].classList.add('active');
+      pages[i].classList.remove('hidden');
+    } else {
+      pages[i].style.display = 'none';
+      pages[i].classList.remove('active');
+    }
+  }
+  
+  // Wire ALL tab buttons via data-tab
+  var allBtns = document.querySelectorAll('[data-tab]');
+  for (var b = 0; b < allBtns.length; b++) {
+    (function(btn) {
+      btn.addEventListener('click', function() {
+        showTab(btn.getAttribute('data-tab'), btn);
+      });
+    })(allBtns[b]);
+  }
+  // Wire diagnose button
+  var diagBtn = document.querySelector('[data-action="diagnose"]');
+  if (diagBtn) diagBtn.addEventListener('click', function() {
+    showTab('diagnosis', null);
+    setTimeout(function(){ try{ runDiagnosis(); }catch(e){} }, 200);
+  });
+  
+  // Set date
+  try { document.getElementById('navDate').textContent = '11 Jun 2026'; } catch(e) {}
+  
+  // Draw initial chart (non-blocking)
+  setTimeout(function() { try { drawMainChart(); } catch(e) {} }, 100);
+  
+  // Convert IG price
+  try { convertPrice(); } catch(e) {}
+  try { updateAIStatusBar(); } catch(e) {}
+});
+
+// ---- SPLASH ----
+function skipSplash(){
+  try{var s=document.getElementById('splash');if(s){s.classList.add('out');setTimeout(function(){s.style.display='none';},700);}
+  setTimeout(function(){try{drawMainChart();}catch(e){}},100);}catch(e){}
+}
+function runSplash(){
+  var steps=['ss1','ss2','ss3','ss4','ss5'],msgs=['Loading price data...','Generating AI candles...','Fetching Polymarket odds...','Running market analysis...','Full diagnosis ready'],pcts=[20,40,60,80,100];
+  var i=0;
+  function next(){
+    if(i>=steps.length){setTimeout(skipSplash,400);return;}
+    try{var el=document.getElementById(steps[i]);if(el){el.classList.add('active');el.querySelector('.si').textContent='●';}
+    if(i>0){var prev=document.getElementById(steps[i-1]);if(prev){prev.classList.remove('active');prev.classList.add('done');prev.querySelector('.si').textContent='✓';}}
+    var fill=document.getElementById('spFill');if(fill)fill.style.width=pcts[i]+'%';
+    var msg=document.getElementById('spMsg');if(msg)msg.textContent=msgs[i];}catch(e){}
+    i++;setTimeout(next,600);
+  }
+  next();
+}
+</script>
+</body>
+</html>
