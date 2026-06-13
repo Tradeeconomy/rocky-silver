@@ -1142,7 +1142,7 @@ body{background:#F0F2F5;color:#1A2035;font-family:'Courier New',monospace;max-wi
   </div>
   <div class="card" style="border:1px solid #D4AF3744;margin-bottom:10px">
     <div style="font-size:9px;color:#D4AF37;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px">Sign In</div>
-    <div style="margin-bottom:8px">
+    <div style="margin-bottom:8px;display:none">
       <div style="font-size:8px;color:#6B7A8D;text-transform:uppercase;margin-bottom:4px">Username or Email</div>
       <input id="admin-user" type="text" placeholder="admin or your email" style="width:100%;background:#FFFFFF;border:2px solid #7C3AED;border-radius:6px;padding:10px;color:#000000;font-size:13px;font-family:inherit;outline:none">
     </div>
@@ -8084,7 +8084,17 @@ window.onload = function() {
 // ---- ADMIN & IG TOOLS ----
 var ADMIN_USERS=[{username:'admin',email:'portosantozezo@yahoo.co.uk',password:'Rocky123y'}];
 var aiStates={price:true,news:true,poly:true};
-function adminLogin(){var u=(document.getElementById('admin-user').value||'').trim(),p=(document.getElementById('admin-pass').value||'').trim(),m=ADMIN_USERS.find(function(a){return(a.username===u||a.email===u)&&a.password===p;});if(m){document.getElementById('admin-login').style.display='none';document.getElementById('admin-panel').style.display='block';document.getElementById('admin-error').style.display='none';}else{document.getElementById('admin-error').style.display='block';document.getElementById('admin-pass').value='';}}
+function adminLogin(){
+  var p=(document.getElementById('admin-pass').value||'').trim();
+  if(p==='Rocky123y'){
+    document.getElementById('admin-login').style.display='none';
+    document.getElementById('admin-panel').style.display='block';
+    document.getElementById('admin-error').style.display='none';
+  } else {
+    document.getElementById('admin-error').style.display='block';
+    document.getElementById('admin-pass').value='';
+  }
+}
 function adminLogout(){document.getElementById('admin-panel').style.display='none';document.getElementById('admin-login').style.display='block';document.getElementById('admin-user').value='';document.getElementById('admin-pass').value='';}
 function showAdminForgot(){document.getElementById('admin-login').style.display='none';document.getElementById('admin-forgot').style.display='block';}
 function showAdminLogin(){document.getElementById('admin-forgot').style.display='none';document.getElementById('admin-login').style.display='block';}
