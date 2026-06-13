@@ -23,12 +23,18 @@ body{background:#F0F2F5;color:#1A2035;font-family:'Courier New',monospace;max-wi
 .sv{font-size:11px;font-weight:700;margin-top:2px}
 #sparkwrap{margin-top:8px;display:none}
 .slbl{font-size:8px;color:#888888;letter-spacing:2px;margin-bottom:2px}
-#tabs{display:flex;flex-wrap:wrap;background:#353D4A;border-bottom:1px solid #1A2035;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+#tabs{display:block;background:#353D4A;border-bottom:1px solid #1A2035}
 #tabs::-webkit-scrollbar{display:none}
 .tbtn{flex:0 0 auto;padding:10px 10px;font-size:10px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;font-family:inherit;color:#AEB8C8;background:none;border:none;border-bottom:2px solid transparent;white-space:nowrap;transition:color .15s}
 .tbtn.active{color:#F2C84B;border-bottom:2px solid #F2C84B;font-weight:700;text-shadow:0 0 8px #F2C84B66}
 .tab-divider{width:100%;height:1px;background:#1A2035;margin:0;border:none;flex-basis:100%}
 .tab-section-label{flex-basis:100%;font-size:8px;color:#6B7A8D;letter-spacing:2px;padding:3px 10px 0;text-transform:uppercase}
+.cat-header{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:#2A3040;border-bottom:1px solid #1A2035;cursor:pointer;font-size:10px;letter-spacing:2px;color:#D4AF37;font-family:'Courier New',monospace;font-weight:700;text-transform:uppercase;-webkit-tap-highlight-color:transparent}
+.cat-header:active{background:#353D4A}
+.cat-arrow{font-size:10px;color:#6B7A8D;transition:transform 0.2s}
+.cat-arrow.open{transform:rotate(90deg);color:#D4AF37}
+.cat-body{display:none;background:#1E2530;border-bottom:1px solid #1A2035;padding:4px 0;flex-wrap:wrap}
+.cat-body.open{display:flex !important}
 .sec{padding:14px 14px;animation:fadeUp .3s both}
 .stitle{font-size:10px;letter-spacing:3px;color:#D4AF37;text-transform:uppercase;margin-bottom:10px;font-weight:700}
 .tc{display:none}.tc.active{display:block;background:#F0F2F5}
@@ -115,59 +121,88 @@ body{background:#F0F2F5;color:#1A2035;font-family:'Courier New',monospace;max-wi
   </div>
 </div>
 
-<div id="tabs" ontouchstart="window.scrollTo(0,0);document.body.scrollTop=0;document.documentElement.scrollTop=0;">
+<div id="tabs">
 
-  <div class="tab-section-label">— Silver Intelligence —</div>
-  <button class="tbtn active" onclick="showTab('summary')">DAILY</button>
-  <button class="tbtn" onclick="showTab('chart')">CHART</button>
-  <button class="tbtn" onclick="showTab('poly')">POLY</button>
-  <button class="tbtn" onclick="showTab('comex')">COMEX</button>
-  <button class="tbtn" onclick="showTab('demand')">DEMAND</button>
-  <button class="tbtn" onclick="showTab('macro')">MACRO</button>
-  <button class="tbtn" onclick="showTab('forecast')">FORECAST</button>
-  <button class="tbtn" onclick="showTab('fullyear')">FULL YEAR</button>
-  <button class="tbtn" onclick="showTab('analysts')">ANALYSTS</button>
+  <!-- Category: Silver Intelligence -->
+  <div class="cat-header" onclick="toggleCat('cat-silver')">
+    <span>⬡ SILVER INTELLIGENCE</span><span class="cat-arrow" id="arr-cat-silver">▶</span>
+  </div>
+  <div class="cat-body" id="cat-silver" style="display:none">
+    <button class="tbtn active" onclick="showTab('summary')">DAILY</button>
+    <button class="tbtn" onclick="showTab('chart')">CHART</button>
+    <button class="tbtn" onclick="showTab('poly')">POLY</button>
+    <button class="tbtn" onclick="showTab('comex')">COMEX</button>
+    <button class="tbtn" onclick="showTab('demand')">DEMAND</button>
+    <button class="tbtn" onclick="showTab('macro')">MACRO</button>
+    <button class="tbtn" onclick="showTab('forecast')">FORECAST</button>
+    <button class="tbtn" onclick="showTab('fullyear')">FULL YEAR</button>
+    <button class="tbtn" onclick="showTab('analysts')">ANALYSTS</button>
+  </div>
 
-  <hr class="tab-divider">
-  <div class="tab-section-label">— Market Analysis —</div>
-  <button class="tbtn" onclick="showTab('risk')">RADAR</button>
-  <button class="tbtn" onclick="showTab('economy')">ECONOMY</button>
-  <button class="tbtn" onclick="showTab('ta')">TECHNICAL</button>
-  <button class="tbtn" onclick="showTab('signals')">SIGNALS</button>
-  <button class="tbtn" onclick="showTab('news')">NEWS</button>
-  <button class="tbtn" onclick="showTab('globalinfl')">GLOBAL INFL</button>
+  <!-- Category: Market Analysis -->
+  <div class="cat-header" onclick="toggleCat('cat-market')">
+    <span>📊 MARKET ANALYSIS</span><span class="cat-arrow" id="arr-cat-market">▶</span>
+  </div>
+  <div class="cat-body" id="cat-market" style="display:none">
+    <button class="tbtn" onclick="showTab('risk')">RADAR</button>
+    <button class="tbtn" onclick="showTab('economy')">ECONOMY</button>
+    <button class="tbtn" onclick="showTab('ta')">TECHNICAL</button>
+    <button class="tbtn" onclick="showTab('signals')">SIGNALS</button>
+    <button class="tbtn" onclick="showTab('news')">NEWS</button>
+    <button class="tbtn" onclick="showTab('globalinfl')">GLOBAL INFL</button>
+  </div>
 
-  <hr class="tab-divider">
-  <div class="tab-section-label">— Precious Metals —</div>
-  <button class="tbtn" onclick="showTab('platinum')">PLATINUM</button>
-  <button class="tbtn" onclick="showTab('palladium')">PALLADIUM</button>
-  <button class="tbtn" onclick="showTab('rhodium')">RHODIUM</button>
-  <button class="tbtn" onclick="showTab('iridium')">IRIDIUM</button>
+  <!-- Category: Precious Metals -->
+  <div class="cat-header" onclick="toggleCat('cat-precious')">
+    <span>🥇 PRECIOUS METALS</span><span class="cat-arrow" id="arr-cat-precious">▶</span>
+  </div>
+  <div class="cat-body" id="cat-precious" style="display:none">
+    <button class="tbtn" onclick="showTab('platinum')">PLATINUM</button>
+    <button class="tbtn" onclick="showTab('palladium')">PALLADIUM</button>
+    <button class="tbtn" onclick="showTab('rhodium')">RHODIUM</button>
+    <button class="tbtn" onclick="showTab('iridium')">IRIDIUM</button>
+  </div>
 
-  <hr class="tab-divider">
-  <div class="tab-section-label">— Industrial Metals —</div>
-  <button class="tbtn" onclick="showTab('copper')">COPPER</button>
-  <button class="tbtn" onclick="showTab('nickel')">NICKEL</button>
-  <button class="tbtn" onclick="showTab('cobalt')">COBALT</button>
-  <button class="tbtn" onclick="showTab('lithium')">LITHIUM</button>
-  <button class="tbtn" onclick="showTab('aluminium')">ALUMINIUM</button>
+  <!-- Category: Industrial Metals -->
+  <div class="cat-header" onclick="toggleCat('cat-industrial')">
+    <span>⚙️ INDUSTRIAL METALS</span><span class="cat-arrow" id="arr-cat-industrial">▶</span>
+  </div>
+  <div class="cat-body" id="cat-industrial" style="display:none">
+    <button class="tbtn" onclick="showTab('copper')">COPPER</button>
+    <button class="tbtn" onclick="showTab('nickel')">NICKEL</button>
+    <button class="tbtn" onclick="showTab('cobalt')">COBALT</button>
+    <button class="tbtn" onclick="showTab('lithium')">LITHIUM</button>
+    <button class="tbtn" onclick="showTab('aluminium')">ALUMINIUM</button>
+  </div>
 
-  <hr class="tab-divider">
-  <div class="tab-section-label">— Energy & Resources —</div>
-  <button class="tbtn" onclick="showTab('crudeoil')">CRUDE OIL</button>
-  <button class="tbtn" onclick="showTab('natgas')">NAT GAS</button>
-  <button class="tbtn" onclick="showTab('uranium')">URANIUM</button>
-  <button class="tbtn" onclick="showTab('electricity')">ELECTRICITY</button>
-  <button class="tbtn" onclick="showTab('watergas')">WATER+GAS</button>
+  <!-- Category: Energy & Resources -->
+  <div class="cat-header" onclick="toggleCat('cat-energy')">
+    <span>⚡ ENERGY & RESOURCES</span><span class="cat-arrow" id="arr-cat-energy">▶</span>
+  </div>
+  <div class="cat-body" id="cat-energy" style="display:none">
+    <button class="tbtn" onclick="showTab('crudeoil')">CRUDE OIL</button>
+    <button class="tbtn" onclick="showTab('natgas')">NAT GAS</button>
+    <button class="tbtn" onclick="showTab('uranium')">URANIUM</button>
+    <button class="tbtn" onclick="showTab('electricity')">ELECTRICITY</button>
+    <button class="tbtn" onclick="showTab('watergas')">WATER+GAS</button>
+  </div>
 
-  <hr class="tab-divider">
-  <div class="tab-section-label">— Technology —</div>
-  <button class="tbtn" onclick="showTab('semiconductors')">SEMICON</button>
+  <!-- Category: Technology -->
+  <div class="cat-header" onclick="toggleCat('cat-tech')">
+    <span>💻 TECHNOLOGY</span><span class="cat-arrow" id="arr-cat-tech">▶</span>
+  </div>
+  <div class="cat-body" id="cat-tech" style="display:none">
+    <button class="tbtn" onclick="showTab('semiconductors')">SEMICON</button>
+  </div>
 
-  <hr class="tab-divider">
-  <div class="tab-section-label">— Tools & Admin —</div>
-  <button class="tbtn" onclick="showTab('igtools')">IG TOOLS</button>
-  <button class="tbtn" onclick="showTab('admin')">ADMIN</button>
+  <!-- Category: Tools & Admin -->
+  <div class="cat-header" onclick="toggleCat('cat-tools')">
+    <span>🔧 TOOLS & ADMIN</span><span class="cat-arrow" id="arr-cat-tools">▶</span>
+  </div>
+  <div class="cat-body" id="cat-tools" style="display:none">
+    <button class="tbtn" onclick="showTab('igtools')">IG TOOLS</button>
+    <button class="tbtn" onclick="showTab('admin')">ADMIN</button>
+  </div>
 
 </div>
 
@@ -5390,6 +5425,35 @@ function renderForecast() {
   document.getElementById("ftbl").innerHTML = html;
 }
 
+function toggleCat(id) {
+  var body = document.getElementById(id);
+  var arr = document.getElementById('arr-'+id);
+  if (!body) return;
+  var isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  body.style.display = isOpen ? 'none' : 'flex';
+  if (arr) arr.classList.toggle('open', !isOpen);
+}
+var TAB_CAT = {
+  summary:'cat-silver',chart:'cat-silver',poly:'cat-silver',comex:'cat-silver',demand:'cat-silver',macro:'cat-silver',forecast:'cat-silver',fullyear:'cat-silver',analysts:'cat-silver',
+  risk:'cat-market',economy:'cat-market',ta:'cat-market',signals:'cat-market',news:'cat-market',globalinfl:'cat-market',
+  platinum:'cat-precious',palladium:'cat-precious',rhodium:'cat-precious',iridium:'cat-precious',
+  copper:'cat-industrial',nickel:'cat-industrial',cobalt:'cat-industrial',lithium:'cat-industrial',aluminium:'cat-industrial',
+  crudeoil:'cat-energy',natgas:'cat-energy',uranium:'cat-energy',electricity:'cat-energy',watergas:'cat-energy',
+  semiconductors:'cat-tech',
+  igtools:'cat-tools',admin:'cat-tools'
+};
+function openCatForTab(id) {
+  var cat = TAB_CAT[id];
+  if (!cat) return;
+  var body = document.getElementById(cat);
+  var arr = document.getElementById('arr-'+cat);
+  if (body && !body.classList.contains('open')) {
+    body.classList.add('open'); body.style.display='flex';
+    if (arr) arr.classList.add('open');
+  }
+}
+
 function showTab(id) {
   var tabs = document.querySelectorAll(".tc");
   for (var i=0;i<tabs.length;i++) { tabs[i].classList.remove("active"); tabs[i].style.display="none"; }
@@ -5401,12 +5465,19 @@ function showTab(id) {
   }
   var tc = document.getElementById("tc-"+id);
   if (tc) { tc.classList.add("active"); tc.style.display="block"; }
+  openCatForTab(id);
   // Scroll header into view - most reliable method on Android
   var hdr = document.getElementById("hdr");
   if (hdr) { hdr.scrollIntoView({behavior:"instant",block:"start"}); }
   window.scrollTo(0,0);
   document.body.scrollTop=0;
   document.documentElement.scrollTop=0;
+  if (id==="admin") {
+    setTimeout(function() {
+      var el = document.getElementById("admin-login") || document.getElementById("admin-panel");
+      if (el) el.scrollIntoView({behavior:"smooth", block:"start"});
+    }, 100);
+  }
   if (id==="chart") {
     // Force canvas to get real dimensions after tab is visible
     setTimeout(function() {
@@ -7976,6 +8047,7 @@ window.onload = function() {
   setInterval(fetchGoldGSR, 300000);
   // Risk Radar - load baseline immediately, fetch live data, poll every 120s
   loadGeopoliticalBaseline();
+  openCatForTab('summary');
   loadCOMEXMonitor();
   // Key events \u2014 render and add to risk
   renderKeyEvents();
