@@ -65,9 +65,10 @@ body{background:#F0F2F5;color:#1A2035;font-family:'Courier New',monospace;max-wi
     <div>
       <div class="tag"><span class="dot"></span>MarketOracle</div>
       <div style="font-size:10px;color:#A0AABB;margin-top:3px"><span id="pair-label">XAG/USD</span> . Live AI . Rocky Silver Engine</div>
-      <div id="metal-switch" style="display:flex;gap:6px;margin-top:7px">
+      <div id="metal-switch" style="display:flex;gap:6px;margin-top:7px;flex-wrap:wrap">
         <button id="msw-XAG" onclick="switchMetal('XAG')" style="padding:4px 14px;font-size:10px;letter-spacing:2px;font-weight:700;background:#D4AF37;color:#000;border:1px solid #D4AF37;border-radius:14px;cursor:pointer;font-family:'Courier New',monospace">SILVER</button>
         <button id="msw-XAU" onclick="switchMetal('XAU')" style="padding:4px 14px;font-size:10px;letter-spacing:2px;font-weight:400;background:transparent;color:#A0AABB;border:1px solid #5A6A7D;border-radius:14px;cursor:pointer;font-family:'Courier New',monospace">GOLD</button>
+        <button id="msw-XPT" onclick="switchMetal('XPT')" style="padding:4px 14px;font-size:10px;letter-spacing:2px;font-weight:400;background:transparent;color:#A0AABB;border:1px solid #5A6A7D;border-radius:14px;cursor:pointer;font-family:'Courier New',monospace">PLATINUM</button>
       </div>
       <div class="fsrc"><span id="fbadge" style="color:#D4AF37">connecting...</span> <span id="fsrc" style="color:#6B7A8D"></span></div>
       <div style="display:flex;align-items:center;gap:8px;margin-top:4px">
@@ -116,6 +117,7 @@ body{background:#F0F2F5;color:#1A2035;font-family:'Courier New',monospace;max-wi
   <button class="tbtn" onclick="showTab('igtools')">IG TOOLS</button>
   <button class="tbtn" onclick="showTab('globalinfl')">GLOBAL INFL</button>
   <button class="tbtn" onclick="showTab('admin')">ADMIN</button>
+  <button class="tbtn" onclick="showTab('platinum')">PLATINUM</button>
 </div>
 
 <!-- SUMMARY -->
@@ -1047,6 +1049,161 @@ body{background:#F0F2F5;color:#1A2035;font-family:'Courier New',monospace;max-wi
 </div>
 </div>
 
+<!-- PLATINUM INTELLIGENCE -->
+<div id="tc-platinum" class="tc">
+<div class="sec">
+
+  <!-- Price Summary -->
+  <div class="card" style="border-color:#E5E4E244;background:#0D0D14;margin-bottom:14px">
+    <div style="font-size:9px;color:#E5E4E2;letter-spacing:3px;text-transform:uppercase;margin-bottom:6px">Platinum Market Intelligence</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:10px">
+      <div style="background:#1C2438;border-radius:6px;padding:8px;text-align:center">
+        <div style="font-size:8px;color:#AAAAAA;text-transform:uppercase">Supply</div>
+        <div style="font-size:14px;font-weight:700;color:#E5E4E2;margin-top:3px">~7.8Moz</div>
+        <div style="font-size:8px;color:#AAAAAA;margin-top:2px">2026 est.</div>
+      </div>
+      <div style="background:#1C2438;border-radius:6px;padding:8px;text-align:center">
+        <div style="font-size:8px;color:#AAAAAA;text-transform:uppercase">Deficit</div>
+        <div style="font-size:14px;font-weight:700;color:#E05555;margin-top:3px">~200koz</div>
+        <div style="font-size:8px;color:#AAAAAA;margin-top:2px">4th yr deficit</div>
+      </div>
+      <div style="background:#1C2438;border-radius:6px;padding:8px;text-align:center">
+        <div style="font-size:8px;color:#AAAAAA;text-transform:uppercase">Yr-End</div>
+        <div style="font-size:14px;font-weight:700;color:#3DBA7A;margin-top:3px">$1,100-1,300</div>
+        <div style="font-size:8px;color:#AAAAAA;margin-top:2px">consensus</div>
+      </div>
+    </div>
+    <div style="font-size:11px;color:#B8C2D0;line-height:1.7">Platinum in 4th consecutive supply deficit. South Africa (75% of supply) facing power crisis + labour unrest. Hydrogen economy demand emerging as structural driver alongside autocatalysts.</div>
+  </div>
+
+  <!-- Supply Concentration Risk -->
+  <div class="stitle">Supply Concentration Risk</div>
+  <div class="card" style="margin-bottom:14px">
+    <div style="margin-bottom:10px">
+      <div style="display:flex;justify-content:space-between;margin-bottom:4px">
+        <span style="font-size:10px;color:#D8DEE9;font-weight:600">South Africa</span>
+        <span style="font-size:10px;font-weight:700;color:#E05555">75%</span>
+      </div>
+      <div style="height:8px;background:#2E3148;border-radius:4px;overflow:hidden">
+        <div style="width:75%;height:100%;background:#E05555;border-radius:4px"></div>
+      </div>
+      <div style="font-size:9px;color:#A0AABB;margin-top:3px">Eskom power cuts + ANC mining policy risk. Single biggest supply threat.</div>
+    </div>
+    <div style="margin-bottom:10px">
+      <div style="display:flex;justify-content:space-between;margin-bottom:4px">
+        <span style="font-size:10px;color:#D8DEE9;font-weight:600">Russia (Norilsk)</span>
+        <span style="font-size:10px;font-weight:700;color:#FB923C">13%</span>
+      </div>
+      <div style="height:8px;background:#2E3148;border-radius:4px;overflow:hidden">
+        <div style="width:13%;height:100%;background:#FB923C;border-radius:4px"></div>
+      </div>
+      <div style="font-size:9px;color:#A0AABB;margin-top:3px">Sanctions risk. Supply could be redirected East disrupting Western markets.</div>
+    </div>
+    <div>
+      <div style="display:flex;justify-content:space-between;margin-bottom:4px">
+        <span style="font-size:10px;color:#D8DEE9;font-weight:600">Zimbabwe + Other</span>
+        <span style="font-size:10px;font-weight:700;color:#D4AF37">12%</span>
+      </div>
+      <div style="height:8px;background:#2E3148;border-radius:4px;overflow:hidden">
+        <div style="width:12%;height:100%;background:#D4AF37;border-radius:4px"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Demand Breakdown -->
+  <div class="stitle">2026 Demand Breakdown</div>
+  <div class="card" style="margin-bottom:14px">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+      <div style="background:#1C2438;border-radius:6px;padding:10px">
+        <div style="font-size:8px;color:#FB923C;letter-spacing:1px;text-transform:uppercase">Autocatalyst</div>
+        <div style="font-size:20px;font-weight:700;color:#FB923C;margin-top:3px">40%</div>
+        <div style="font-size:9px;color:#A0AABB;margin-top:2px">Diesel vehicle exhaust systems. Declining LT as EV adoption grows.</div>
+      </div>
+      <div style="background:#1C2438;border-radius:6px;padding:10px">
+        <div style="font-size:8px;color:#818CF8;letter-spacing:1px;text-transform:uppercase">Hydrogen</div>
+        <div style="font-size:20px;font-weight:700;color:#818CF8;margin-top:3px">8%</div>
+        <div style="font-size:9px;color:#A0AABB;margin-top:2px">Fuel cell catalyst. Fastest growing segment — EU hydrogen economy.</div>
+      </div>
+      <div style="background:#1C2438;border-radius:6px;padding:10px">
+        <div style="font-size:8px;color:#D4AF37;letter-spacing:1px;text-transform:uppercase">Jewellery</div>
+        <div style="font-size:20px;font-weight:700;color:#D4AF37;margin-top:3px">28%</div>
+        <div style="font-size:9px;color:#A0AABB;margin-top:2px">Japan + China primary markets. Steady demand floor.</div>
+      </div>
+      <div style="background:#1C2438;border-radius:6px;padding:10px">
+        <div style="font-size:8px;color:#3DBA7A;letter-spacing:1px;text-transform:uppercase">Industrial</div>
+        <div style="font-size:20px;font-weight:700;color:#3DBA7A;margin-top:3px">24%</div>
+        <div style="font-size:9px;color:#A0AABB;margin-top:2px">Glass, electronics, chemical processing. Stable base demand.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Key Catalysts -->
+  <div class="stitle">Key Price Catalysts 2026</div>
+  <div class="card" style="margin-bottom:8px">
+    <div style="border-left:3px solid #E05555;padding-left:10px;margin-bottom:12px">
+      <div style="font-size:10px;color:#E05555;font-weight:700;letter-spacing:1px">CRITICAL — SA POWER CRISIS</div>
+      <div style="font-size:10px;color:#D8DEE9;margin-top:4px;line-height:1.6">Eskom load-shedding at Stage 4-6 disrupting Anglo American Platinum + Sibanye-Stillwater operations. Every 10% SA supply disruption = ~780koz lost = price +$80-120/oz.</div>
+    </div>
+    <div style="border-left:3px solid #818CF8;padding-left:10px;margin-bottom:12px">
+      <div style="font-size:10px;color:#818CF8;font-weight:700;letter-spacing:1px">BULLISH — EU HYDROGEN MANDATE</div>
+      <div style="font-size:10px;color:#D8DEE9;margin-top:4px;line-height:1.6">EU Green Deal hydrogen targets require platinum-based PEM electrolysers. Demand could add 500koz-1Moz/yr by 2028. Structural long-term bull case.</div>
+    </div>
+    <div style="border-left:3px solid #FB923C;padding-left:10px;margin-bottom:12px">
+      <div style="font-size:10px;color:#FB923C;font-weight:700;letter-spacing:1px">WATCH — PALLADIUM SUBSTITUTION</div>
+      <div style="font-size:10px;color:#D8DEE9;margin-top:4px;line-height:1.6">Automakers switching from palladium (gasoline cats) to platinum as palladium trades at premium. Each 10% substitution = +400koz platinum demand.</div>
+    </div>
+    <div style="border-left:3px solid #D4AF37;padding-left:10px">
+      <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:1px">BEARISH — EV HEADWIND</div>
+      <div style="font-size:10px;color:#D8DEE9;margin-top:4px;line-height:1.6">Battery EVs need no autocatalyst. Every 1% rise in EV market share removes ~80koz autocatalyst demand long-term. Partially offset by hydrogen growth.</div>
+    </div>
+  </div>
+
+  <!-- Analyst Targets -->
+  <div class="stitle">Analyst Price Targets 2026</div>
+  <div class="card" style="margin-bottom:14px">
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid #2E3148">
+      <span style="font-size:10px;color:#D8DEE9">World Platinum Investment Council</span>
+      <span style="font-size:11px;font-weight:700;color:#3DBA7A">$1,200-1,400</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid #2E3148">
+      <span style="font-size:10px;color:#D8DEE9">Standard Chartered</span>
+      <span style="font-size:11px;font-weight:700;color:#3DBA7A">$1,150-1,250</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid #2E3148">
+      <span style="font-size:10px;color:#D8DEE9">Anglo American Platinum</span>
+      <span style="font-size:11px;font-weight:700;color:#D4AF37">$1,100-1,300</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0">
+      <span style="font-size:10px;color:#D8DEE9">Metals Focus</span>
+      <span style="font-size:11px;font-weight:700;color:#D4AF37">$1,050-1,200</span>
+    </div>
+  </div>
+
+  <!-- Platinum vs Gold ratio -->
+  <div class="stitle">Platinum/Gold Ratio</div>
+  <div class="card" style="margin-bottom:14px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+      <div>
+        <div style="font-size:22px;font-weight:700;color:#E5E4E2" id="ptgd-ratio">~0.25</div>
+        <div style="font-size:9px;color:#A0AABB;margin-top:2px">Platinum oz per Gold oz (XPT/XAU)</div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:10px;color:#D8DEE9">Historic avg: <span style="color:#D4AF37">0.90-1.10</span></div>
+        <div style="font-size:10px;color:#D8DEE9;margin-top:2px">2008 peak: <span style="color:#3DBA7A">2.20x</span></div>
+      </div>
+    </div>
+    <div style="height:6px;background:#2E3148;border-radius:3px;overflow:hidden;margin-bottom:6px">
+      <div style="width:22%;height:100%;background:#E5E4E2;border-radius:3px"></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;font-size:8px;color:#666">
+      <span>Extremely cheap (now)</span><span>Historic avg</span><span>Premium (2008)</span>
+    </div>
+    <div style="margin-top:10px;font-size:10px;color:#B8C2D0;line-height:1.6">Platinum historically traded AT or ABOVE gold. Currently at record discount — 75% below historic average ratio. Mean reversion to 0.50 alone = platinum at $2,000+ at current gold prices.</div>
+  </div>
+
+</div>
+</div>
+
 <!-- COMEX CONTRACT MANIPULATION MONITOR — floats below all tabs -->
 <div style="margin-top:0px">
   <div style="padding:14px 14px 0">
@@ -1126,7 +1283,10 @@ var METALS = {
          deficit:"~182Moz", yrend:"$98-108", supply:"830Moz" },
   XAU: { sym:"XAU", label:"GOLD", pair:"XAU/USD", lo:1500, hi:9000, dec:1, seed:4217, dayOpen:4212.5,
          igMode:"usd", igOffset:0, gpKey:"xauPrice",
-         deficit:"CB buy ~1,050t", yrend:"$4.6-5.2k", supply:"4,950t" }
+         deficit:"CB buy ~1,050t", yrend:"$4.6-5.2k", supply:"4,950t" },
+  XPT: { sym:"XPT", label:"PLATINUM", pair:"XPT/USD", lo:600, hi:3000, dec:1, seed:1050, dayOpen:1048,
+         igMode:"usd", igOffset:0, gpKey:"xptPrice",
+         deficit:"~200koz deficit", yrend:"$1,100-1,300", supply:"~7.8Moz" }
 };
 var curMetal = METALS.XAG;
 
@@ -1168,7 +1328,7 @@ function switchMetal(sym) {
   var ids = {"pair-label":curMetal.pair, "stat-deficit":curMetal.deficit,
              "stat-yrend":curMetal.yrend, "stat-supply":curMetal.supply};
   for (var k in ids) { var el=document.getElementById(k); if(el) el.textContent = ids[k]; }
-  ["XAG","XAU"].forEach(function(s){
+  ["XAG","XAU","XPT"].forEach(function(s){
     var b = document.getElementById("msw-"+s); if(!b) return;
     var on = (s===sym);
     b.style.background = on ? "#D4AF37" : "transparent";
