@@ -405,14 +405,86 @@ body{background:#F0F2F5;color:#1A2035;font-family:'Courier New',monospace;max-wi
     <div id="cthr"></div>
   </div>
   <div class="stitle" style="margin-top:14px">Delivery Rule Changes (Purity & Standards)</div>
-  <div id="purity-list"></div>
+  <div id="purity-list-inner"></div>
   <div class="stitle" style="margin-top:14px">Geographic Bar Substitution</div>
-  <div id="geo-sub-list"></div>
+  <div id="geo-sub-list-inner"></div>
   <div class="stitle" style="margin-top:14px">Price Manipulation Impact</div>
-  <div id="manip-impact"></div>
+  <div id="manip-impact-inner"></div>
   <div class="stitle" style="margin-top:14px">Warning Signals to Watch</div>
-  <div id="warning-signals"></div>
+  <div id="warning-signals-inner"></div>
 </div>
+</div>
+
+<!-- COMEX CONTRACT MANIPULATION MONITOR — floats across all tabs -->
+<div style="margin-top:0px">
+  <div style="padding:14px 14px 0">
+    <div class="stitle" style="color:#E05555">COMEX Contract Manipulation Monitor</div>
+  </div>
+
+  <!-- Live Contract Status -->
+  <div style="padding:0 14px">
+  <div class="card" style="border-color:#E0555544;background:#1A0505;margin-bottom:10px">
+    <div style="font-size:9px;color:#E05555;letter-spacing:3px;text-transform:uppercase;margin-bottom:8px">Live Contract Status — Updated Daily</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px" id="contract-grid">
+      <div style="background:#0A0A18;border-radius:6px;padding:8px">
+        <div style="font-size:8px;color:#AAAAAA;text-transform:uppercase">Open Contracts</div>
+        <div style="font-size:18px;font-weight:700;color:#FFFFFF;margin-top:3px" id="c-open">~22,400</div>
+        <div style="font-size:9px;color:#AAAAAA;margin-top:2px">x5,000oz = 112M oz paper</div>
+      </div>
+      <div style="background:#0A0A18;border-radius:6px;padding:8px">
+        <div style="font-size:8px;color:#AAAAAA;text-transform:uppercase">Physical Deliveries</div>
+        <div style="font-size:18px;font-weight:700;color:#3DBA7A;margin-top:3px" id="c-deliver">~4,200</div>
+        <div style="font-size:9px;color:#AAAAAA;margin-top:2px">contracts settled in metal</div>
+      </div>
+      <div style="background:#0A0A18;border-radius:6px;padding:8px">
+        <div style="font-size:8px;color:#AAAAAA;text-transform:uppercase">Cash Settled</div>
+        <div style="font-size:18px;font-weight:700;color:#E05555;margin-top:3px" id="c-cash">~18,200</div>
+        <div style="font-size:9px;color:#E05555;margin-top:2px">NO metal delivered</div>
+      </div>
+      <div style="background:#0A0A18;border-radius:6px;padding:8px">
+        <div style="font-size:8px;color:#AAAAAA;text-transform:uppercase">Deferred Delivery</div>
+        <div style="font-size:18px;font-weight:700;color:#FB923C;margin-top:3px" id="c-defer">~890</div>
+        <div style="font-size:9px;color:#FB923C;margin-top:2px">extended past contract date</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;padding:8px;background:#0A0A18;border-radius:6px">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div style="font-size:10px;color:#FFFFFF;font-weight:600">Cash Settlement Premium</div>
+        <div style="font-size:16px;font-weight:700;color:#FB923C" id="c-premium">+$4-6/oz</div>
+      </div>
+      <div style="font-size:9px;color:#AAAAAA;margin-top:4px">vs historical avg $1-2/oz — 3x elevated. Signals physical scarcity forcing cash compensation above spot.</div>
+    </div>
+  </div>
+
+  <!-- Purity Manipulation Alert -->
+  <div class="card" style="border-color:#E0555588;background:#1A0808;margin-bottom:10px">
+    <div style="font-size:9px;color:#E05555;letter-spacing:3px;text-transform:uppercase;margin-bottom:8px">Purity Standard Changes — ACTIVE ALERT</div>
+    <div style="background:#E0555515;border:1px solid #E05555;border-radius:6px;padding:10px;margin-bottom:10px">
+      <div style="font-size:11px;color:#E05555;font-weight:700;margin-bottom:5px">COMEX Rule Change — London Good Delivery Substitution</div>
+      <div style="font-size:11px;color:#FFFFFF;line-height:1.7">COMEX now accepts <b style="color:#E05555">London Good Delivery bars</b> with different quality standards as deliverable metal. Previously only COMEX-stamped bars from approved NY refiners were accepted.</div>
+    </div>
+    <div id="purity-list"></div>
+  </div>
+
+  <!-- Geographic Substitution Tracker -->
+  <div class="card" style="border-color:#FB923C44;background:#120D05;margin-bottom:10px">
+    <div style="font-size:9px;color:#FB923C;letter-spacing:3px;text-transform:uppercase;margin-bottom:8px">Geographic Substitution — Non-Traditional Sources</div>
+    <div style="font-size:10px;color:#CCCCCC;line-height:1.6;margin-bottom:10px">Silver being sourced from non-traditional refiners to meet delivery obligations. Lower purity, different bar markings, non-NY vault locations being approved.</div>
+    <div id="geo-sub-list"></div>
+  </div>
+
+  <!-- Manipulation Impact on Price -->
+  <div class="card" style="border-color:#D4AF3744;background:#0D0B04;margin-bottom:10px">
+    <div style="font-size:9px;color:#D4AF37;letter-spacing:3px;text-transform:uppercase;margin-bottom:8px">Price Manipulation Impact Analysis</div>
+    <div id="manip-impact"></div>
+  </div>
+
+  <!-- Early Warning Signals -->
+  <div class="card" style="border-color:#3DBA7A44;margin-bottom:14px">
+    <div style="font-size:9px;color:#3DBA7A;letter-spacing:3px;text-transform:uppercase;margin-bottom:8px">Early Warning Signals</div>
+    <div id="warning-signals"></div>
+  </div>
+  </div>
 </div>
 
 <!-- DEMAND -->
