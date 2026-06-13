@@ -116,42 +116,59 @@ body{background:#F0F2F5;color:#1A2035;font-family:'Courier New',monospace;max-wi
 </div>
 
 <div id="tabs" ontouchstart="window.scrollTo(0,0);document.body.scrollTop=0;document.documentElement.scrollTop=0;">
+
+  <div class="tab-section-label">— Silver Intelligence —</div>
   <button class="tbtn active" onclick="showTab('summary')">DAILY</button>
   <button class="tbtn" onclick="showTab('chart')">CHART</button>
   <button class="tbtn" onclick="showTab('poly')">POLY</button>
   <button class="tbtn" onclick="showTab('comex')">COMEX</button>
   <button class="tbtn" onclick="showTab('demand')">DEMAND</button>
   <button class="tbtn" onclick="showTab('macro')">MACRO</button>
-  <button class="tbtn" onclick="showTab('news')">NEWS</button>
   <button class="tbtn" onclick="showTab('forecast')">FORECAST</button>
+  <button class="tbtn" onclick="showTab('fullyear')">FULL YEAR</button>
+  <button class="tbtn" onclick="showTab('analysts')">ANALYSTS</button>
+
+  <hr class="tab-divider">
+  <div class="tab-section-label">— Market Analysis —</div>
   <button class="tbtn" onclick="showTab('risk')">RADAR</button>
   <button class="tbtn" onclick="showTab('economy')">ECONOMY</button>
   <button class="tbtn" onclick="showTab('ta')">TECHNICAL</button>
   <button class="tbtn" onclick="showTab('signals')">SIGNALS</button>
-  <button class="tbtn" onclick="showTab('analysts')">ANALYSTS</button>
-  <button class="tbtn" onclick="showTab('fullyear')">FULL YEAR</button>
-  <button class="tbtn" onclick="showTab('igtools')">IG TOOLS</button>
+  <button class="tbtn" onclick="showTab('news')">NEWS</button>
   <button class="tbtn" onclick="showTab('globalinfl')">GLOBAL INFL</button>
-  <button class="tbtn" onclick="showTab('admin')">ADMIN</button>
+
   <hr class="tab-divider">
-  <div class="tab-section-label">— Commodity Intelligence —</div>
+  <div class="tab-section-label">— Precious Metals —</div>
   <button class="tbtn" onclick="showTab('platinum')">PLATINUM</button>
   <button class="tbtn" onclick="showTab('palladium')">PALLADIUM</button>
-  <button class="tbtn" onclick="showTab('copper')">COPPER</button>
   <button class="tbtn" onclick="showTab('rhodium')">RHODIUM</button>
   <button class="tbtn" onclick="showTab('iridium')">IRIDIUM</button>
-  <button class="tbtn" onclick="showTab('crudeoil')">CRUDE OIL</button>
-  <button class="tbtn" onclick="showTab('uranium')">URANIUM</button>
-  <button class="tbtn" onclick="showTab('lithium')">LITHIUM</button>
-  <button class="tbtn" onclick="showTab('cobalt')">COBALT</button>
-  <button class="tbtn" onclick="showTab('nickel')">NICKEL</button>
-  <button class="tbtn" onclick="showTab('natgas')">NAT GAS</button>
-  <button class="tbtn" onclick="showTab('aluminium')">ALUMINIUM</button>
+
   <hr class="tab-divider">
-  <div class="tab-section-label">— Technology & Resources —</div>
-  <button class="tbtn" onclick="showTab('semiconductors')">SEMICON</button>
+  <div class="tab-section-label">— Industrial Metals —</div>
+  <button class="tbtn" onclick="showTab('copper')">COPPER</button>
+  <button class="tbtn" onclick="showTab('nickel')">NICKEL</button>
+  <button class="tbtn" onclick="showTab('cobalt')">COBALT</button>
+  <button class="tbtn" onclick="showTab('lithium')">LITHIUM</button>
+  <button class="tbtn" onclick="showTab('aluminium')">ALUMINIUM</button>
+
+  <hr class="tab-divider">
+  <div class="tab-section-label">— Energy & Resources —</div>
+  <button class="tbtn" onclick="showTab('crudeoil')">CRUDE OIL</button>
+  <button class="tbtn" onclick="showTab('natgas')">NAT GAS</button>
+  <button class="tbtn" onclick="showTab('uranium')">URANIUM</button>
   <button class="tbtn" onclick="showTab('electricity')">ELECTRICITY</button>
   <button class="tbtn" onclick="showTab('watergas')">WATER+GAS</button>
+
+  <hr class="tab-divider">
+  <div class="tab-section-label">— Technology —</div>
+  <button class="tbtn" onclick="showTab('semiconductors')">SEMICON</button>
+
+  <hr class="tab-divider">
+  <div class="tab-section-label">— Tools & Admin —</div>
+  <button class="tbtn" onclick="showTab('igtools')">IG TOOLS</button>
+  <button class="tbtn" onclick="showTab('admin')">ADMIN</button>
+
 </div>
 
 <!-- SUMMARY -->
