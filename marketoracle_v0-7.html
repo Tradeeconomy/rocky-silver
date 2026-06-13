@@ -82,6 +82,7 @@ body{background:#F0F2F5;color:#1A2035;font-family:'Courier New',monospace;max-wi
         <button id="msw-AL" onclick="switchMetal('AL')" style="padding:4px 14px;font-size:10px;letter-spacing:2px;font-weight:400;background:transparent;color:#A0AABB;border:1px solid #5A6A7D;border-radius:14px;cursor:pointer;font-family:'Courier New',monospace">ALUMINIUM</button>
         <button onclick="showTab('semiconductors')" style="padding:4px 14px;font-size:10px;letter-spacing:2px;font-weight:400;background:transparent;color:#7C3AED;border:1px solid #7C3AED;border-radius:14px;cursor:pointer;font-family:'Courier New',monospace">SEMICON</button>
         <button onclick="showTab('electricity')" style="padding:4px 14px;font-size:10px;letter-spacing:2px;font-weight:400;background:transparent;color:#FCD34D;border:1px solid #FCD34D;border-radius:14px;cursor:pointer;font-family:'Courier New',monospace">ELECTRICITY</button>
+        <button onclick="showTab('watergas')" style="padding:4px 14px;font-size:10px;letter-spacing:2px;font-weight:400;background:transparent;color:#38BDF8;border:1px solid #38BDF8;border-radius:14px;cursor:pointer;font-family:'Courier New',monospace">WATER+GAS</button>
       </div>
       <div class="fsrc"><span id="fbadge" style="color:#D4AF37">connecting...</span> <span id="fsrc" style="color:#6B7A8D"></span></div>
       <div style="display:flex;align-items:center;gap:8px;margin-top:4px">
@@ -144,6 +145,7 @@ body{background:#F0F2F5;color:#1A2035;font-family:'Courier New',monospace;max-wi
   <button class="tbtn" onclick="showTab('aluminium')">ALUMINIUM</button>
   <button class="tbtn" onclick="showTab('semiconductors')">SEMICON</button>
   <button class="tbtn" onclick="showTab('electricity')">ELECTRICITY</button>
+  <button class="tbtn" onclick="showTab('watergas')">WATER+GAS</button>
 </div>
 
 <!-- SUMMARY -->
@@ -330,7 +332,7 @@ body{background:#F0F2F5;color:#1A2035;font-family:'Courier New',monospace;max-wi
 <div id="tc-chart" class="tc">
 <div class="sec">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-    <div class="stitle" style="margin:0">Price Forecast Jun 2 to Dec 31</div>
+    <div class="stitle" style="margin:0">Price Forecast Jun 2 to Dec 31 <span id="forecast-end-label">2026</span></div>
     <div style="display:flex;gap:4px">
       <button class="rbtn" onclick="setR('1M',this)">1M</button>
       <button class="rbtn" onclick="setR('3M',this)">3M</button>
@@ -368,6 +370,62 @@ body{background:#F0F2F5;color:#1A2035;font-family:'Courier New',monospace;max-wi
     <div style="display:flex;gap:10px;padding:8px 0">
       <div style="width:80px;font-size:9px;color:#CCCCCC;flex-shrink:0;padding-top:2px">Nov-Dec</div>
       <div><span class="bdg" style="background:rgba(61,186,122,.08);color:#3DBA7A">Rally</span><div style="font-size:11px;color:#2A3550;margin-top:4px;line-height:1.4">Fed cuts + SHFE squeeze + Korean EV demand. Commerzbank $90, UBS $100+. Target $98-108.</div></div>
+    </div>
+  </div>
+
+  <!-- 2027 Phase Catalysts — shown when 2027 enabled in Admin -->
+  <div id="phase-2027" style="display:none">
+    <div class="stitle" style="color:#7C3AED;margin-top:14px">2027 Phase Catalysts</div>
+    <div style="background:#7C3AED15;border:1px solid #7C3AED44;border-radius:6px;padding:8px;margin-bottom:8px">
+      <div style="font-size:9px;color:#7C3AED;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px">Model: Starting from 2026 year-end ~$106</div>
+      <div style="font-size:9px;color:#B8C2D0">Same phase structure as 2026, recalibrated. Admin-unlocked intelligence.</div>
+    </div>
+    <div style="display:flex;gap:10px;padding:8px 0;border-bottom:1px solid #1C1E2A">
+      <div style="width:80px;font-size:9px;color:#CCCCCC;flex-shrink:0;padding-top:2px">Jan-Feb 27</div>
+      <div><span class="bdg" style="background:rgba(212,175,55,.08);color:#D4AF37">Consolidation</span><div style="font-size:11px;color:#2A3550;margin-top:4px;line-height:1.4">Post-2026 rally profit taking. Range $100-106. Fed pausing rate cuts. Physical demand from Asia absorbing supply. Floor expected $98.</div></div>
+    </div>
+    <div style="display:flex;gap:10px;padding:8px 0;border-bottom:1px solid #1C1E2A">
+      <div style="width:80px;font-size:9px;color:#CCCCCC;flex-shrink:0;padding-top:2px">Mar-Apr 27</div>
+      <div><span class="bdg" style="background:rgba(224,85,85,.08);color:#E05555">Correction</span><div style="font-size:11px;color:#2A3550;margin-top:4px;line-height:1.4">Tax-year selling + USD strength. Q1 GDP data disappoints. Dip to $88-95 expected. SHFE premium holds — Chinese demand provides floor. Accumulation opportunity.</div></div>
+    </div>
+    <div style="display:flex;gap:10px;padding:8px 0;border-bottom:1px solid #1C1E2A">
+      <div style="width:80px;font-size:9px;color:#CCCCCC;flex-shrink:0;padding-top:2px">May-Jul 27</div>
+      <div><span class="bdg" style="background:rgba(61,186,122,.08);color:#3DBA7A">Accumulation</span><div style="font-size:11px;color:#2A3550;margin-top:4px;line-height:1.4">Solar panel demand surges — 600GW installation target for 2027. AI data centre silver demand emerging. Physical drain accelerating. Target $115-125.</div></div>
+    </div>
+    <div style="display:flex;gap:10px;padding:8px 0;border-bottom:1px solid #1C1E2A">
+      <div style="width:80px;font-size:9px;color:#CCCCCC;flex-shrink:0;padding-top:2px">Aug-Sep 27</div>
+      <div><span class="bdg" style="background:rgba(212,175,55,.08);color:#D4AF37">Recovery</span><div style="font-size:11px;color:#2A3550;margin-top:4px;line-height:1.4">Jackson Hole 2027 — Fed signals rate normalisation. Industrial demand at record. Goldman 2027 target $120-135. Green energy supercycle fully priced in.</div></div>
+    </div>
+    <div style="display:flex;gap:10px;padding:8px 0">
+      <div style="width:80px;font-size:9px;color:#CCCCCC;flex-shrink:0;padding-top:2px">Oct-Dec 27</div>
+      <div><span class="bdg" style="background:rgba(61,186,122,.08);color:#3DBA7A">Rally</span><div style="font-size:11px;color:#2A3550;margin-top:4px;line-height:1.4">Year-end rally. Institutional rebalancing into silver. COMEX physical stress at extreme levels. UBS $148+ target. Structural deficit 7th consecutive year. Target $140-148.</div></div>
+    </div>
+  </div>
+
+  <!-- Long Range 2028-2035 -->
+  <div id="phase-longrange" style="display:none">
+    <div class="stitle" style="color:#E05555;margin-top:14px">Long Range 2028-2035</div>
+    <div style="background:#E0555515;border:1px solid #E0555544;border-radius:6px;padding:8px;margin-bottom:8px">
+      <div style="font-size:9px;color:#E05555;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px">10-Year Model — Admin Protected Intelligence</div>
+      <div style="font-size:9px;color:#B8C2D0">Based on structural silver deficit, green energy demand trajectory, and historical supercycle patterns.</div>
+    </div>
+    <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #1C1E2A">
+      <span style="font-size:10px;color:#CCCCCC">2028</span><span style="font-size:11px;font-weight:700;color:#D4AF37">$142-165</span><span style="font-size:9px;color:#3DBA7A">Supercycle</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #1C1E2A">
+      <span style="font-size:10px;color:#CCCCCC">2029</span><span style="font-size:11px;font-weight:700;color:#D4AF37">$158-185</span><span style="font-size:9px;color:#3DBA7A">Solar peak</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #1C1E2A">
+      <span style="font-size:10px;color:#CCCCCC">2030</span><span style="font-size:11px;font-weight:700;color:#E05555">$120-145</span><span style="font-size:9px;color:#E05555">Correction</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #1C1E2A">
+      <span style="font-size:10px;color:#CCCCCC">2031-32</span><span style="font-size:11px;font-weight:700;color:#3DBA7A">$165-210</span><span style="font-size:9px;color:#3DBA7A">AI demand surge</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #1C1E2A">
+      <span style="font-size:10px;color:#CCCCCC">2033-34</span><span style="font-size:11px;font-weight:700;color:#3DBA7A">$195-240</span><span style="font-size:9px;color:#3DBA7A">Deficit critical</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;padding:6px 0">
+      <span style="font-size:10px;color:#CCCCCC">2035</span><span style="font-size:11px;font-weight:700;color:#E05555">$180-220</span><span style="font-size:9px;color:#D4AF37">Rebalance</span>
     </div>
   </div>
 </div>
@@ -1065,6 +1123,32 @@ body{background:#F0F2F5;color:#1A2035;font-family:'Courier New',monospace;max-wi
     <input type="file" id="av-upload" accept=".json,.txt,.js,.zip" style="display:none" onchange="handleAVUpload(this)">
     <button onclick="document.getElementById('av-upload').click()" style="width:100%;padding:8px;background:#818CF820;color:#818CF8;border:1px solid #818CF844;border-radius:4px;font-family:inherit;font-size:10px;cursor:pointer">Upload Security File</button>
     <div id="av-status" style="display:none;margin-top:8px;font-size:10px;color:#3DBA7A"></div>
+  </div>
+  <div class="card" style="border:1px solid #7C3AED44;margin-bottom:8px">
+    <div style="font-size:9px;color:#7C3AED;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">🔒 Perpetual Forecast Calendar</div>
+    <div style="font-size:10px;color:#B8C2D0;line-height:1.6;margin-bottom:10px">Extend the price forecast chart beyond Dec 31 2026. Each year uses the same phase model, recalibrated from the live price at year-end. Admin-only — accurate multi-year forecasts are sensitive intelligence.</div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:8px;background:#1C2438;border-radius:6px;margin-bottom:8px">
+      <div>
+        <div style="font-size:11px;color:#D8DEE9;font-weight:700">2027 Forecast</div>
+        <div style="font-size:9px;color:#A0AABB;margin-top:2px">Jan 1 → Dec 31 2027</div>
+      </div>
+      <button id="btn-2027" onclick="toggleForecastYear(2027,this)" style="padding:5px 14px;border-radius:4px;font-family:'Courier New',monospace;font-size:9px;font-weight:700;cursor:pointer;border:none;background:#6B7A8D;color:#FFF">OFF</button>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:8px;background:#1C2438;border-radius:6px;margin-bottom:8px">
+      <div>
+        <div style="font-size:11px;color:#D8DEE9;font-weight:700">2028 Forecast</div>
+        <div style="font-size:9px;color:#A0AABB;margin-top:2px">Jan 1 → Dec 31 2028</div>
+      </div>
+      <button id="btn-2028" onclick="toggleForecastYear(2028,this)" style="padding:5px 14px;border-radius:4px;font-family:'Courier New',monospace;font-size:9px;font-weight:700;cursor:pointer;border:none;background:#6B7A8D;color:#FFF">OFF</button>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:8px;background:#1C2438;border-radius:6px;margin-bottom:10px">
+      <div>
+        <div style="font-size:11px;color:#D8DEE9;font-weight:700">2029-2035 Long Range</div>
+        <div style="font-size:9px;color:#A0AABB;margin-top:2px">10-year full view</div>
+      </div>
+      <button id="btn-longrange" onclick="toggleForecastYear('long',this)" style="padding:5px 14px;border-radius:4px;font-family:'Courier New',monospace;font-size:9px;font-weight:700;cursor:pointer;border:none;background:#6B7A8D;color:#FFF">OFF</button>
+    </div>
+    <div id="forecast-ext-status" style="font-size:9px;color:#3DBA7A;text-align:center;display:none">✓ Extended forecast active — chart updated</div>
   </div>
   <div class="card">
     <div style="font-size:9px;color:#E05555;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">Manual Overrides</div>
@@ -3358,6 +3442,240 @@ body{background:#F0F2F5;color:#1A2035;font-family:'Courier New',monospace;max-wi
 </div>
 </div>
 
+<!-- WATER + GAS + CLIMATE INTELLIGENCE -->
+<div id="tc-watergas" class="tc">
+<div class="sec">
+
+  <div class="card" style="border-color:#38BDF844;background:#00080F;margin-bottom:14px">
+    <div style="font-size:9px;color:#38BDF8;letter-spacing:3px;text-transform:uppercase;margin-bottom:6px">Water + Gas + Climate — The Hidden Economy Killers</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:10px">
+      <div style="background:#1C2438;border-radius:6px;padding:8px;text-align:center">
+        <div style="font-size:8px;color:#AAAAAA;text-transform:uppercase">Water Stressed</div>
+        <div style="font-size:14px;font-weight:700;color:#38BDF8;margin-top:3px">4B people</div>
+        <div style="font-size:8px;color:#AAAAAA;margin-top:2px">at least 1 month/yr</div>
+      </div>
+      <div style="background:#1C2438;border-radius:6px;padding:8px;text-align:center">
+        <div style="font-size:8px;color:#AAAAAA;text-transform:uppercase">EU Gas Storage</div>
+        <div style="font-size:14px;font-weight:700;color:#E05555;margin-top:3px">37%</div>
+        <div style="font-size:8px;color:#AAAAAA;margin-top:2px">Jun 2026 — critical</div>
+      </div>
+      <div style="background:#1C2438;border-radius:6px;padding:8px;text-align:center">
+        <div style="font-size:8px;color:#AAAAAA;text-transform:uppercase">UN Status</div>
+        <div style="font-size:14px;font-weight:700;color:#E05555;margin-top:3px">Bankrupt</div>
+        <div style="font-size:8px;color:#AAAAAA;margin-top:2px">Jan 2026 declaration</div>
+      </div>
+    </div>
+    <div style="font-size:11px;color:#B8C2D0;line-height:1.7">In January 2026, the United Nations formally declared the world has entered an era of "Global Water Bankruptcy" — where human demand permanently exceeds replenishment rates. Simultaneously, European natural gas storage hit its lowest level since the 2022 crisis at just 37%. These are not distant threats — they are active economic disruptors hitting company profits, driving inflation, creating unemployment, and moving commodity prices right now.</div>
+  </div>
+
+  <!-- Canada-US Water War -->
+  <div class="stitle" style="color:#E05555">Canada-US Water War — ACTIVE 2026</div>
+  <div class="card" style="border-color:#E0555588;background:#1A0505;margin-bottom:14px">
+    <div style="font-size:9px;color:#E05555;letter-spacing:3px;text-transform:uppercase;margin-bottom:10px">Trump's Water Agenda — CUSMA Renegotiation June 2026</div>
+    <div style="background:#E0555515;border:1px solid #E05555;border-radius:6px;padding:10px;margin-bottom:12px">
+      <div style="font-size:11px;color:#E05555;font-weight:700;margin-bottom:5px">THE SITUATION RIGHT NOW</div>
+      <div style="font-size:10px;color:#D8DEE9;line-height:1.7">Canada holds 20% of the world's total fresh water supply. The CUSMA trade agreement (successor to NAFTA) is up for renegotiation in June 2026. Trump signed an executive order in January 2025 directing his government to explore Canadian water access. Trump has openly discussed diverting Canadian rivers southward to address US water stress in the Southwest. Canada has so far refused — bulk water exports are banned under Canadian law.</div>
+    </div>
+    <div style="border-left:3px solid #E05555;padding-left:10px;margin-bottom:10px">
+      <div style="font-size:10px;color:#E05555;font-weight:700">Trump Tariff Leverage</div>
+      <div style="font-size:10px;color:#D8DEE9;margin-top:3px;line-height:1.6">Trump has already imposed 25% tariffs on most Canadian goods. The threat is explicit: accept water as a tradable commodity in CUSMA renegotiations or face 35%+ tariffs. Canada faces a choice between a prolonged economic recession or opening its water to US commercial extraction. Alberta Premier Danielle Smith has shown sympathy for a deal — Peace River diversion to US Southwest is being discussed behind closed doors.</div>
+    </div>
+    <div style="border-left:3px solid #FB923C;padding-left:10px;margin-bottom:10px">
+      <div style="font-size:10px;color:#FB923C;font-weight:700">Corporate Impact — Coca-Cola, Nestlé, Anheuser-Busch</div>
+      <div style="font-size:10px;color:#D8DEE9;margin-top:3px;line-height:1.6">US companies that depend on Canadian water for bottling operations face immediate cost increases if water becomes a priced commodity. Coca-Cola, Nestlé Pure Life, Anheuser-Busch all operate Canadian water extraction facilities. Current near-zero extraction fees could become market-rate charges of $0.50-2.00/m³. Nestlé paid C$3.71 per million litres in Ontario. Market pricing would increase that 50,000x.</div>
+    </div>
+    <div style="border-left:3px solid #D4AF37;padding-left:10px">
+      <div style="font-size:10px;color:#D4AF37;font-weight:700">Investment Signal</div>
+      <div style="font-size:10px;color:#D8DEE9;margin-top:3px;line-height:1.6">Water infrastructure companies (Xylem, Veolia, Suez, Pentair) are the direct beneficiaries. Water ETFs (PHO, FIW, CGW) gaining attention. If water becomes a traded commodity, it will eventually have a futures market — making it the next oil. Silver benefits indirectly — water purification membranes and solar-powered desalination both use silver compounds.</div>
+    </div>
+  </div>
+
+  <!-- EU Gas Storage Crisis — LIVE -->
+  <div class="stitle" style="color:#E05555">EU Gas Storage Crisis — LIVE JUNE 2026</div>
+  <div class="card" style="border-color:#FB923C44;background:#120805;margin-bottom:14px">
+    <div style="font-size:9px;color:#FB923C;letter-spacing:3px;text-transform:uppercase;margin-bottom:10px">Storage at 37% — Must Hit 80% by November 1</div>
+    <div style="margin-bottom:12px">
+      <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:10px;color:#D8DEE9;font-weight:600">EU Average Storage (Jun 2026)</span><span style="font-size:11px;font-weight:700;color:#E05555">37%</span></div>
+      <div style="height:10px;background:#2E3148;border-radius:5px;overflow:hidden"><div style="width:37%;height:100%;background:#E05555;border-radius:5px"></div></div>
+      <div style="font-size:9px;color:#A0AABB;margin-top:3px">vs 52% same time last year. Target: 80% by Nov 1. Requires record injection pace April-October.</div>
+    </div>
+    <div style="margin-bottom:10px">
+      <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:10px;color:#D8DEE9;font-weight:600">Germany</span><span style="font-size:11px;font-weight:700;color:#E05555">~30%</span></div>
+      <div style="height:8px;background:#2E3148;border-radius:4px;overflow:hidden"><div style="width:30%;height:100%;background:#E05555;border-radius:4px"></div></div>
+    </div>
+    <div style="margin-bottom:10px">
+      <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:10px;color:#D8DEE9;font-weight:600">France</span><span style="font-size:11px;font-weight:700;color:#FB923C">~29%</span></div>
+      <div style="height:8px;background:#2E3148;border-radius:4px;overflow:hidden"><div style="width:29%;height:100%;background:#FB923C;border-radius:4px"></div></div>
+    </div>
+    <div style="margin-bottom:12px">
+      <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:10px;color:#D8DEE9;font-weight:600">Netherlands</span><span style="font-size:11px;font-weight:700;color:#FB923C">~23%</span></div>
+      <div style="height:8px;background:#2E3148;border-radius:4px;overflow:hidden"><div style="width:23%;height:100%;background:#FB923C;border-radius:4px"></div></div>
+    </div>
+    <div style="background:#E0555515;border:1px solid #E05555;border-radius:6px;padding:10px;margin-bottom:10px">
+      <div style="font-size:10px;color:#E05555;font-weight:700;margin-bottom:4px">WHY THIS MATTERS FOR EVERY MARKET</div>
+      <div style="font-size:10px;color:#D8DEE9;line-height:1.6">EU needs to inject ~+0.25% per day from now through October to reach 80% by Nov 1. If summer is hot (reducing LNG carrier efficiency) or geopolitical events disrupt supply, Europe enters winter 2026/27 critically undersupplied. TTF gas prices have already doubled pre-conflict levels with high forward prices sustained until at least mid-2027. Every spike in gas hits electricity, aluminium, fertiliser, chemicals — and feeds straight into CPI inflation that silver traders must watch.</div>
+    </div>
+    <div style="border-left:3px solid #3DBA7A;padding-left:10px">
+      <div style="font-size:10px;color:#3DBA7A;font-weight:700">Silver Impact</div>
+      <div style="font-size:10px;color:#D8DEE9;margin-top:3px;line-height:1.5">Gas shortage → electricity price spike → industrial silver demand disruption. BUT simultaneously → inflation hedge demand → silver investment demand rises. Net effect historically: energy crises are bullish for silver as an inflation hedge. The 2022 gas crisis drove CPI to 10%+ across Europe — silver responded by holding value while fiat currencies devalued.</div>
+    </div>
+  </div>
+
+  <!-- Global Water Crisis -->
+  <div class="stitle" style="color:#38BDF8">Global Water Bankruptcy — UN January 2026</div>
+  <div class="card" style="border-color:#38BDF844;background:#00080F;margin-bottom:14px">
+    <div style="font-size:9px;color:#38BDF8;letter-spacing:3px;text-transform:uppercase;margin-bottom:10px">Countries in Active Water Crisis 2026</div>
+
+    <div style="border-left:3px solid #E05555;padding-left:10px;margin-bottom:10px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:3px">
+        <div style="font-size:10px;color:#E05555;font-weight:700">Turkey — CRITICAL</div>
+        <div style="font-size:10px;color:#E05555">88% desertification risk</div>
+      </div>
+      <div style="font-size:10px;color:#D8DEE9;line-height:1.5">A severe water shortage is affecting almost all of Turkey in 2025-26, caused by climate change, ongoing droughts, and urban expansion. Rainfall has declined 27% vs the 30-year average. Istanbul — city of 16 million — facing rationing. Agricultural output collapsing. GDP impact: -2-4% annually. Companies with Turkish manufacturing (textiles, automotive) facing operational shutdowns.</div>
+    </div>
+
+    <div style="border-left:3px solid #FB923C;padding-left:10px;margin-bottom:10px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:3px">
+        <div style="font-size:10px;color:#FB923C;font-weight:700">Middle East + North Africa — SEVERE</div>
+        <div style="font-size:10px;color:#FB923C">12 countries critical</div>
+      </div>
+      <div style="font-size:10px;color:#D8DEE9;line-height:1.5">Saudi Arabia, UAE, Kuwait, Jordan, Egypt all importing virtual water via food imports. Yemen water infrastructure destroyed by conflict — 21 million people lack clean water. Iraq's Tigris and Euphrates rivers at historic lows due to Turkish and Iranian upstream dams. Agricultural collapse → food import dependency → inflation → political instability → oil supply risk.</div>
+    </div>
+
+    <div style="border-left:3px solid #D4AF37;padding-left:10px;margin-bottom:10px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:3px">
+        <div style="font-size:10px;color:#D4AF37;font-weight:700">India — SYSTEMIC</div>
+        <div style="font-size:10px;color:#D4AF37">600M affected</div>
+      </div>
+      <div style="font-size:10px;color:#D8DEE9;line-height:1.5">600 million Indians face high-to-extreme water stress. Chennai (city of 7M) ran completely dry in 2019 — precedent for 2026 repeat. Groundwater depletion rate accelerating. Major tech company (Infosys, Wipro, TCS) campuses in Bengaluru and Hyderabad installing water recycling due to municipal shortfalls. Manufacturing slowdown → supply chain disruption for Western companies using Indian production.</div>
+    </div>
+
+    <div style="border-left:3px solid #818CF8;padding-left:10px;margin-bottom:10px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:3px">
+        <div style="font-size:10px;color:#818CF8;font-weight:700">US Southwest — ESCALATING</div>
+        <div style="font-size:10px;color:#818CF8">Colorado River crisis</div>
+      </div>
+      <div style="font-size:10px;color:#D8DEE9;line-height:1.5">Lake Mead (Las Vegas water supply) and Lake Powell at critically low levels. Seven US states (AZ, CA, CO, NV, NM, UT, WY) in Colorado River Compact dispute — first mandated cuts implemented 2023. Phoenix, Las Vegas, Los Angeles all facing water restrictions. Semiconductor fabs in Phoenix (TSMC Arizona, Intel) are water-intensive — potential production constraints if rationing escalates.</div>
+    </div>
+
+    <div style="border-left:3px solid #3DBA7A;padding-left:10px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:3px">
+        <div style="font-size:10px;color:#3DBA7A;font-weight:700">Sub-Saharan Africa — CHRONIC</div>
+        <div style="font-size:10px;color:#3DBA7A">Mining operations at risk</div>
+      </div>
+      <div style="font-size:10px;color:#D8DEE9;line-height:1.5">South Africa's platinum and gold mines (Anglo American, Sibanye) are massive water users — each mine uses millions of litres daily. Cape Town's "Day Zero" near-miss 2018 established precedent. Zambia copper mines face water-power double squeeze (Kariba Dam hydropower failing in drought). Water stress = direct mining output risk = commodity supply disruption.</div>
+    </div>
+  </div>
+
+  <!-- War + Water Infrastructure -->
+  <div class="stitle" style="color:#E05555">War + Water Infrastructure Destruction</div>
+  <div class="card" style="border-color:#E0555544;background:#120505;margin-bottom:14px">
+    <div style="border-left:3px solid #E05555;padding-left:10px;margin-bottom:10px">
+      <div style="font-size:10px;color:#E05555;font-weight:700">Ukraine — Water Plants Deliberately Targeted</div>
+      <div style="font-size:10px;color:#D8DEE9;margin-top:3px;line-height:1.5">Russia has systematically targeted Ukrainian water treatment plants, pumping stations, and reservoirs alongside electricity infrastructure. Kherson, Mykolaiv, and Mariupol water systems destroyed. 15 million Ukrainians lack reliable clean water access. Rebuilding cost estimated at $14 billion — which Western companies will supply, using silver-containing water purification membranes and UV treatment systems.</div>
+    </div>
+    <div style="border-left:3px solid #FB923C;padding-left:10px;margin-bottom:10px">
+      <div style="font-size:10px;color:#FB923C;font-weight:700">Gaza — Total Water Infrastructure Collapse</div>
+      <div style="font-size:10px;color:#D8DEE9;margin-top:3px;line-height:1.5">Gaza's water desalination plants, sewage systems, and distribution networks comprehensively destroyed. WHO reports 95% of water is unfit for human consumption. 2.3 million people dependent on trucked water at enormous cost. Sets precedent for water infrastructure as primary military target in urban warfare — a doctrine now adopted globally.</div>
+    </div>
+    <div style="border-left:3px solid #D4AF37;padding-left:10px">
+      <div style="font-size:10px;color:#D4AF37;font-weight:700">Sudan — Conflict + Drought Double Shock</div>
+      <div style="font-size:10px;color:#D8DEE9;margin-top:3px;line-height:1.5">Civil war destroyed water infrastructure in Khartoum and Darfur simultaneously with worst drought in 40 years. 25 million people facing acute food and water insecurity. Nile River water rights dispute with Ethiopia (Grand Renaissance Dam) adding geopolitical pressure. Gold mining (Sudan is a top African producer) severely disrupted — affecting global supply.</div>
+    </div>
+  </div>
+
+  <!-- Corporate Impact -->
+  <div class="stitle">Corporate Water Dependency — Companies at Risk</div>
+  <div class="card" style="border-color:#38BDF844;margin-bottom:14px">
+    <div style="font-size:9px;color:#38BDF8;letter-spacing:3px;text-transform:uppercase;margin-bottom:8px">Major US/Global Companies With Critical Water Dependency</div>
+    <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #2E3148">
+      <span style="font-size:10px;color:#D8DEE9">Coca-Cola — 2.1 billion servings/day require water</span>
+      <span style="font-size:10px;font-weight:700;color:#E05555">HIGH RISK</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #2E3148">
+      <span style="font-size:10px;color:#D8DEE9">Nestlé — largest water bottler globally</span>
+      <span style="font-size:10px;font-weight:700;color:#E05555">HIGH RISK</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #2E3148">
+      <span style="font-size:10px;color:#D8DEE9">TSMC Arizona — 9.4M gallons/day per fab</span>
+      <span style="font-size:10px;font-weight:700;color:#E05555">CRITICAL</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #2E3148">
+      <span style="font-size:10px;color:#D8DEE9">Intel Ohio — semiconductor fab water intensive</span>
+      <span style="font-size:10px;font-weight:700;color:#FB923C">WATCH</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #2E3148">
+      <span style="font-size:10px;color:#D8DEE9">Anglo American / Sibanye — SA mine operations</span>
+      <span style="font-size:10px;font-weight:700;color:#FB923C">WATCH</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #2E3148">
+      <span style="font-size:10px;color:#D8DEE9">Anheuser-Busch — brewing requires massive water</span>
+      <span style="font-size:10px;font-weight:700;color:#D4AF37">MODERATE</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;padding:5px 0">
+      <span style="font-size:10px;color:#D8DEE9">Data centres — cooling towers use millions litres/day</span>
+      <span style="font-size:10px;font-weight:700;color:#D4AF37">GROWING</span>
+    </div>
+    <div style="margin-top:10px;font-size:10px;color:#B8C2D0;line-height:1.6">Water scarcity forces companies to pay market rates for previously free or subsidised water — directly increasing operating costs, reducing margins, and in extreme cases halting production entirely. Any company in a water-stressed region faces this as a growing P&amp;L risk that most analysts have not yet priced in.</div>
+  </div>
+
+  <!-- Economic Impact Chain -->
+  <div class="stitle">Water+Gas Shortage → Economic Chain Reaction</div>
+  <div class="card" style="margin-bottom:14px">
+    <div style="background:#1C2438;border-radius:8px;padding:12px;margin-bottom:10px">
+      <div style="font-size:10px;color:#FCD34D;font-weight:700;margin-bottom:8px">THE CHAIN REACTION</div>
+      <div style="display:flex;align-items:center;margin-bottom:6px">
+        <span style="font-size:9px;color:#E05555;background:#E0555522;padding:2px 8px;border-radius:3px;margin-right:6px">Water shortage</span>
+        <span style="font-size:9px;color:#A0AABB">→ agricultural output falls → food prices rise → CPI spike</span>
+      </div>
+      <div style="display:flex;align-items:center;margin-bottom:6px">
+        <span style="font-size:9px;color:#FB923C;background:#FB923C22;padding:2px 8px;border-radius:3px;margin-right:6px">Gas shortage</span>
+        <span style="font-size:9px;color:#A0AABB">→ electricity price spike → industrial shutdown → unemployment</span>
+      </div>
+      <div style="display:flex;align-items:center;margin-bottom:6px">
+        <span style="font-size:9px;color:#D4AF37;background:#D4AF3722;padding:2px 8px;border-radius:3px;margin-right:6px">Both together</span>
+        <span style="font-size:9px;color:#A0AABB">→ stagflation → central banks in dilemma → rate uncertainty</span>
+      </div>
+      <div style="display:flex;align-items:center;margin-bottom:6px">
+        <span style="font-size:9px;color:#818CF8;background:#818CF822;padding:2px 8px;border-radius:3px;margin-right:6px">Rate uncertainty</span>
+        <span style="font-size:9px;color:#A0AABB">→ USD weakens or strengthens → silver moves sharply</span>
+      </div>
+      <div style="display:flex;align-items:center">
+        <span style="font-size:9px;color:#3DBA7A;background:#3DBA7A22;padding:2px 8px;border-radius:3px;margin-right:6px">Silver outcome</span>
+        <span style="font-size:9px;color:#A0AABB">→ inflation hedge demand surges → industrial demand may dip short-term</span>
+      </div>
+    </div>
+    <div style="font-size:10px;color:#B8C2D0;line-height:1.7">Historically, combined water and energy crises create the most powerful inflation environments — the exact conditions where silver outperforms. The 1970s oil shock + drought combination drove silver from $1.50 to $50/oz. The 2022 European gas crisis + drought pushed silver up 40% within 6 months before Fed rate hikes capped the move. The 2026 setup — EU gas at 37% storage, global water bankruptcy, CUSMA renegotiation — is the same structural environment.</div>
+  </div>
+
+  <!-- Early Warning Signals -->
+  <div class="stitle">Early Warning Signals to Watch</div>
+  <div class="card" style="margin-bottom:14px">
+    <div style="border-left:3px solid #E05555;padding-left:10px;margin-bottom:10px">
+      <div style="font-size:10px;color:#E05555;font-weight:700">EU gas storage weekly update (GIE AGSI)</div>
+      <div style="font-size:10px;color:#B8C2D0;margin-top:3px;line-height:1.5">Current: 37%. Below 40% entering summer = major winter crisis risk. Must watch injection rate daily from now. If injection pace falls below +0.20%/day by August, rationing protocols activate. Direct TTF price signal.</div>
+    </div>
+    <div style="border-left:3px solid #38BDF8;padding-left:10px;margin-bottom:10px">
+      <div style="font-size:10px;color:#38BDF8;font-weight:700">CUSMA water renegotiation news (June 2026)</div>
+      <div style="font-size:10px;color:#B8C2D0;margin-top:3px;line-height:1.5">Any CUSMA negotiation outcome mentioning water as a "tradable good" = watershed moment (literally). Watch Canadian PM and US Trade Representative joint statements. Water commodity status = immediate Xylem, Veolia, water ETF surge.</div>
+    </div>
+    <div style="border-left:3px solid #D4AF37;padding-left:10px;margin-bottom:10px">
+      <div style="font-size:10px;color:#D4AF37;font-weight:700">Lake Mead / Colorado River levels</div>
+      <div style="font-size:10px;color:#B8C2D0;margin-top:3px;line-height:1.5">Bureau of Reclamation monthly reports. Below 1,025 feet elevation = Tier 2 shortage. Below 1,000 feet = emergency cuts. Phoenix semiconductor fabs put on restricted water use. Watch for impact on TSMC Arizona production guidance.</div>
+    </div>
+    <div style="border-left:3px solid #818CF8;padding-left:10px;margin-bottom:10px">
+      <div style="font-size:10px;color:#818CF8;font-weight:700">Turkey / India drought monitoring</div>
+      <div style="font-size:10px;color:#B8C2D0;margin-top:3px;line-height:1.5">Turkish State Meteorological Service (MGM) reservoir levels. Indian Meteorological Department monsoon progress (June-September). Below-normal monsoon = 600M people in agricultural stress = food price inflation = EM currency weakness = commodity safe haven flows.</div>
+    </div>
+    <div style="border-left:3px solid #3DBA7A;padding-left:10px">
+      <div style="font-size:10px;color:#3DBA7A;font-weight:700">South Africa mine water reporting</div>
+      <div style="font-size:10px;color:#B8C2D0;margin-top:3px;line-height:1.5">Anglo American Platinum and Sibanye quarterly reports mentioning water availability. Rustenburg PGM belt water stress = direct platinum, palladium, rhodium supply risk signal. Cape Town Day Zero monitoring via City of Cape Town dam levels dashboard.</div>
+    </div>
+  </div>
+
+</div>
+</div>
+
 <!-- COMEX CONTRACT MANIPULATION MONITOR — floats below all tabs -->
 <div style="margin-top:0px">
   <div style="padding:14px 14px 0">
@@ -3593,19 +3911,75 @@ var PCOL = {consolidation:"#D4AF37", correction:"#E05555", accumulation:"#3DBA7A
 var PLBL = {consolidation:"Consolidation", correction:"Correction", accumulation:"Buy Zone", recovery:"Recovery", rally:"Rally"};
 
 function getPhase(d) {
+  var y = d.getFullYear();
   var m = d.getMonth()+1, day = d.getDate();
-  if (m===6 && day>=2) return "consolidation";
-  if (m===7 || (m===8 && day<=15)) return "correction";
-  if ((m===8 && day>=18) || m===9) return "accumulation";
-  if (m===10) return "recovery";
+  // 2026 phases
+  if (y === 2026) {
+    if (m===6 && day>=2) return "consolidation";
+    if (m===7 || (m===8 && day<=15)) return "correction";
+    if ((m===8 && day>=18) || m===9) return "accumulation";
+    if (m===10) return "recovery";
+    return "rally";
+  }
+  // 2027 phases — mirror 2026 structure, recalibrated from year-end 2026 price
+  if (y === 2027) {
+    if (m<=2) return "consolidation_27";
+    if (m>=3 && m<=4) return "correction_27";
+    if (m>=5 && m<=7) return "accumulation_27";
+    if (m>=8 && m<=9) return "recovery_27";
+    return "rally_27";
+  }
+  // 2028+ long range — simplified bullish trend with annual corrections
+  if (y >= 2028) {
+    if (m<=3) return "consolidation_lr";
+    if (m>=4 && m<=6) return "correction_lr";
+    return "rally_lr";
+  }
   return "rally";
 }
 
+// Extended curves for 2027 — starts where 2026 ends (~$106 target)
+// Uses same phase structure: consolidation → correction → accumulation → recovery → rally
+var CURVES_2027 = {
+  consolidation_27: [106.0, 100.0],
+  correction_27:    [100.0, 88.0],
+  accumulation_27:  [88.0,  115.0],
+  recovery_27:      [115.0, 128.0],
+  rally_27:         [128.0, 148.0]
+};
+var PS_2027 = {
+  consolidation_27: "2027-01-01", correction_27: "2027-03-01",
+  accumulation_27:  "2027-05-01", recovery_27:   "2027-08-01",
+  rally_27:         "2027-10-01"
+};
+var PE_2027 = {
+  consolidation_27: "2027-02-28", correction_27: "2027-04-30",
+  accumulation_27:  "2027-07-31", recovery_27:   "2027-09-30",
+  rally_27:         "2027-12-31"
+};
+
+// Long range 2028+ simplified model
+var CURVES_LR = {
+  consolidation_lr: [148.0, 142.0],
+  correction_lr:    [142.0, 125.0],
+  rally_lr:         [125.0, 165.0]
+};
+var PS_LR = { consolidation_lr: "2028-01-01", correction_lr: "2028-04-01", rally_lr: "2028-07-01" };
+var PE_LR = { consolidation_lr: "2028-03-31", correction_lr: "2028-06-30", rally_lr: "2028-12-31" };
+
 function modelPrice(date) {
   var ph = getPhase(date);
-  var c = CURVES[ph]; var s = c[0]; var e = c[1];
-  var total = Math.max((new Date(PE[ph]) - new Date(PS[ph])) / 86400000, 1);
-  var elapsed = (date - new Date(PS[ph])) / 86400000;
+  var c, ps, pe;
+  if (ph.endsWith("_27")) {
+    c = CURVES_2027[ph]; ps = PS_2027[ph]; pe = PE_2027[ph];
+  } else if (ph.endsWith("_lr")) {
+    c = CURVES_LR[ph]; ps = PS_LR[ph]; pe = PE_LR[ph];
+  } else {
+    c = CURVES[ph]; ps = PS[ph]; pe = PE[ph];
+  }
+  var s = c[0]; var e = c[1];
+  var total = Math.max((new Date(pe) - new Date(ps)) / 86400000, 1);
+  var elapsed = (date - new Date(ps)) / 86400000;
   var prog = Math.max(0, Math.min(1, elapsed / total));
   var doy = Math.floor((date - new Date(date.getFullYear(),0,0)) / 86400000);
   var osc = Math.sin(doy*0.82)*1.35 + Math.sin(doy*0.31)*0.75;
@@ -3729,6 +4103,43 @@ var HISTORICAL_2026 = [
   {date:"2026-06-09",label:"9 Jun",weekday:"Tu",month:"Jun 2026",open:68.86,hi:69.44,lo:67.61,price:68.42,phase:"accumulation",real:true}
 ];
 
+var FORECAST_YEARS = {2027: false, long: false};
+
+function genForecastForYear(yr) {
+  var rows = [];
+  var d, end;
+  if (yr === 2027) {
+    d = new Date("2027-01-02"); end = new Date("2027-12-31");
+  } else {
+    d = new Date("2028-01-02"); end = new Date("2035-12-31");
+  }
+  var hols = ["2027-01-01","2027-07-04","2027-09-06","2027-11-25","2027-12-24",
+              "2028-01-01","2028-07-04","2028-12-25","2029-01-01","2030-01-01"];
+  var seed = yr === 2027 ? 99 : 137;
+  function rand() { seed = (seed*16807) % 2147483647; return (seed-1)/2147483646; }
+  while (d <= end) {
+    var ds = d.toISOString().split("T")[0];
+    var dow = d.getDay();
+    if (dow!==0 && dow!==6 && hols.indexOf(ds)<0) {
+      var price = modelPrice(d);
+      var spread = price*0.045 + rand()*1.5;
+      var open = +(price+(rand()-0.5)*spread*0.6).toFixed(2);
+      rows.push({
+        date: ds,
+        label: d.toLocaleDateString("en-GB",{month:"short",day:"numeric",year:"2-digit"}),
+        weekday: ["Su","Mo","Tu","We","Th","Fr","Sa"][dow],
+        month: d.toLocaleDateString("en-GB",{month:"long",year:"numeric"}),
+        open: open, price: price,
+        lo: +(price-spread*0.55).toFixed(2),
+        hi: +(price+spread*0.45).toFixed(2),
+        phase: getPhase(d), real: false
+      });
+    }
+    d.setDate(d.getDate()+1);
+  }
+  return rows;
+}
+
 function genForecast() {
   var rows = []; var d = new Date("2026-06-01");
   var end = new Date("2026-12-31");
@@ -3755,7 +4166,37 @@ function genForecast() {
     }
     d.setDate(d.getDate()+1);
   }
+  // Append extended years if enabled
+  if (FORECAST_YEARS[2027]) rows = rows.concat(genForecastForYear(2027));
+  if (FORECAST_YEARS['long']) rows = rows.concat(genForecastForYear('long'));
   return rows;
+}
+
+function toggleForecastYear(yr, btn) {
+  FORECAST_YEARS[yr] = !FORECAST_YEARS[yr];
+  btn.textContent = FORECAST_YEARS[yr] ? 'ON' : 'OFF';
+  btn.style.background = FORECAST_YEARS[yr] ? '#7C3AED' : '#6B7A8D';
+  // Rebuild forecast
+  FORECAST = genForecast();
+  if (typeof FORECAST_LIVE !== 'undefined') FORECAST_LIVE = genForecast();
+  // Update chart title
+  var lbl = document.getElementById('forecast-end-label');
+  if (lbl) {
+    if (FORECAST_YEARS['long']) lbl.textContent = '2035';
+    else if (FORECAST_YEARS[2027]) lbl.textContent = '2027';
+    else lbl.textContent = '2026';
+  }
+  // Show/hide phase sections
+  var p27 = document.getElementById('phase-2027');
+  var plr = document.getElementById('phase-longrange');
+  if (p27) p27.style.display = FORECAST_YEARS[2027] ? 'block' : 'none';
+  if (plr) plr.style.display = FORECAST_YEARS['long'] ? 'block' : 'none';
+  // Show status
+  var st = document.getElementById('forecast-ext-status');
+  if (st) { st.style.display = 'block'; setTimeout(function(){ st.style.display='none'; }, 3000); }
+  // Redraw chart
+  if (typeof drawChart === 'function') drawChart();
+  else if (typeof renderChart === 'function') renderChart();
 }
 
 var FORECAST = genForecast();
