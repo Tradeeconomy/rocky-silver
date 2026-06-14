@@ -6150,8 +6150,15 @@ async function runBusinessScan() {
       body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1000,messages:[{role:'user',content:prompt}]})
     });
     var data = await resp.json();
+    if (!data.content || !data.content[0]) {
+      throw new Error('No response from AI: '+JSON.stringify(data));
+    }
     var text = data.content[0].text;
     var clean = text.replace(/```json|```/g,'').trim();
+    // Find JSON object in response
+    var jsonStart = clean.indexOf('{');
+    var jsonEnd = clean.lastIndexOf('}');
+    if (jsonStart >= 0 && jsonEnd >= 0) clean = clean.slice(jsonStart, jsonEnd+1);
     var biz = JSON.parse(clean);
     renderBusinessResults(name, biz);
   } catch(e) {
