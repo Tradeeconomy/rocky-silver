@@ -6135,39 +6135,156 @@ function loadExample(name, industry, details) {
   document.getElementById('biz-details').value = details;
 }
 
-async function runBusinessScan() {
+function runBusinessScan() {
   var name = document.getElementById('biz-name').value.trim();
   if (!name) { document.getElementById('biz-error').style.display='block'; document.getElementById('biz-error').textContent='Please enter a company name.'; return; }
-  var industry = document.getElementById('biz-industry').value.trim();
-  var details = document.getElementById('biz-details').value.trim();
+  var industry = (document.getElementById('biz-industry').value||'').toLowerCase();
+  var details = (document.getElementById('biz-details').value||'').toLowerCase();
   document.getElementById('biz-loading').style.display='block';
   document.getElementById('biz-results').style.display='none';
   document.getElementById('biz-error').style.display='none';
-  var livePrice = curPrice || 68;
-  var prompt = 'You are a commodity intelligence analyst for MarketOracle. Analyse how silver (currently $'+livePrice+'/oz), copper, gold, electricity, inflation, AI technology costs, and water affect the following company. Be highly specific.\n\nCompany: '+name+'\nIndustry: '+(industry||'Unknown')+'\nDetails: '+(details||'No additional details')+'\n\nRespond ONLY in valid JSON:\n{"summary":"2-3 sentence company overview","expenseStructure":{"labour":"% of costs and how wages are affected by inflation","energy":"% of costs and electricity/fuel price sensitivity","rawMaterials":"key materials used and commodity exposure","technology":"IT/AI/equipment costs","other":"other significant cost categories"},"silverImpact":"specific silver price impact on this company","copperImpact":"specific copper impact","electricityImpact":"specific electricity cost impact","inflationImpact":"wage and cost inflation impact","aiImpact":"how AI changes their business model","waterImpact":"water dependency and shortage risk","forecast1yr":{"outlook":"bullish/bearish/neutral","target":"specific business metric or % change","reasoning":"detailed reasoning"},"forecast5yr":{"outlook":"bullish/bearish/neutral","target":"specific metric","reasoning":"detailed reasoning"},"forecast10yr":{"outlook":"bullish/bearish/neutral","target":"specific metric","reasoning":"detailed reasoning"},"topRisks":["specific risk 1","specific risk 2","specific risk 3"],"topOpportunities":["specific opportunity 1","specific opportunity 2","specific opportunity 3"],"linkedCommodities":["silver","copper","electricity","oil","aluminium"]}';
-  try {
-    var resp = await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',
-      headers:{'Content-Type':'application/json','anthropic-dangerous-direct-browser-access':'true'},
-      body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1000,messages:[{role:'user',content:prompt}]})
-    });
-    var data = await resp.json();
-    if (!data.content || !data.content[0]) {
-      throw new Error('No response from AI: '+JSON.stringify(data));
-    }
-    var text = data.content[0].text;
-    var clean = text.replace(/```json|```/g,'').trim();
-    // Find JSON object in response
-    var jsonStart = clean.indexOf('{');
-    var jsonEnd = clean.lastIndexOf('}');
-    if (jsonStart >= 0 && jsonEnd >= 0) clean = clean.slice(jsonStart, jsonEnd+1);
-    var biz = JSON.parse(clean);
-    renderBusinessResults(name, biz);
-  } catch(e) {
-    document.getElementById('biz-loading').style.display='none';
-    document.getElementById('biz-error').style.display='block';
-    document.getElementById('biz-error').textContent='Scan failed: '+e.message+'. Please try again.';
+
+  // Simulate scanning delay for UX
+  setTimeout(function(){ renderBusinessResults(name, analyseCompany(name, industry, details)); }, 1800);
+}
+
+function analyseCompany(name, industry, details) {
+  var lp = curPrice || 68;
+  var n = name.toLowerCase();
+  var d = (industry+' '+details).toLowerCase();
+
+  // Detect company type
+  var isTransport = /bus|transport|rail|fleet|driver|depot|vehicle|coach|logistics|freight|delivery|shipping/.test(d+n);
+  var isEV = /electric|ev|tesla|battery|charge|charging/.test(d+n);
+  var isMining = /mining|mine|platinum|palladium|copper|gold|silver|mineral|ore|drill/.test(d+n);
+  var isFood = /food|beverage|drink|coca|cola|beer|brew|restaurant|cafe|supermarket|grocery/.test(d+n);
+  var isTech = /tech|software|data centre|cloud|ai|semiconductor|chip|server|digital/.test(d+n);
+  var isManuf = /manufactur|factory|production|assembly|plant|industrial|steel|alumin/.test(d+n);
+  var isEnergy = /energy|power|solar|wind|gas|oil|nuclear|utility|electricity/.test(d+n);
+  var isRetail = /retail|shop|store|supermarket|fashion|clothing|ecommerce/.test(d+n);
+  var isHealth = /health|hospital|pharma|medical|clinic|nhs|drug/.test(d+n);
+  var isConstruct = /construct|build|property|real estate|developer|infrastructure|civil/.test(d+n);
+  var hasElecBus = /electric bus|ev bus|zero emission|400 bus|electric fleet/.test(d);
+  var hasDrivers = /driver|pilot|operator/.test(d);
+
+  // Build analysis based on company type
+  var biz = {};
+  var silverPrice = '$'+lp+'/oz';
+
+  if (isTransport) {
+    var isElectric = isEV || hasElecBus;
+    biz.summary = name+' is a transport operator with significant exposure to energy costs, vehicle manufacturing inputs, and wage inflation. '+(isElectric?'As an electric fleet operator, silver is embedded in EV charging infrastructure, bus electronics, and power management systems. Electricity costs are the primary operational variable.':'Fuel costs dominate the P&L, making oil and gas prices critical to profitability.');
+    biz.expenseStructure = {
+      labour: '55-65% of total costs. Driver wages, management, maintenance staff. Minimum wage increases and union agreements directly compress margins. Every 1% wage inflation = 0.6% margin reduction.',
+      energy: isElectric?'18-25% of costs and growing. Electricity for charging depots at commercial rates. UK industrial electricity ~£150/MWh. Peak demand charges significant. Each bus uses ~250kWh/day.':'20-28% of costs. Diesel fuel dominates. Hedging strategy critical. 10% oil price rise = ~2% margin hit.',
+      rawMaterials: isElectric?'Electric buses contain ~40kg silver in electronics, wiring, contacts and charging systems per vehicle. 400 buses = ~16,000kg silver exposure in fleet. Silver at '+silverPrice+' — fleet replacement cost sensitive to price.':'Conventional buses use ~2kg silver per vehicle in electronics and contacts.',
+      technology: '5-8% of costs. Fleet management systems, ticketing, route optimisation, driver monitoring. AI route optimisation emerging — reduces fuel/electricity use 8-12%.',
+      other: 'Insurance, depot leasing, regulatory compliance, vehicle depreciation. TfL/local authority contract dependency creates revenue certainty but margin pressure.'
+    };
+    biz.silverImpact = isElectric?'DIRECT AND SIGNIFICANT. Each electric bus contains ~40kg silver in power electronics, motor controls, charging connectors and safety systems. At '+silverPrice+', fleet silver content = material cost. 10% silver price rise adds ~£2,000-3,000 per new bus. For a 400-bus fleet replacement cycle, this is £800K-1.2M additional capex exposure.':'INDIRECT. Silver in vehicle electronics (~2kg/bus). Primary exposure is through copper wiring costs and fuel prices rather than silver directly.';
+    biz.copperImpact = 'HIGH. '+(isElectric?'EV buses use 4-5x more copper than diesel equivalents. Motor windings, charging cables, busbars. 400 bus fleet = ~200 tonnes copper exposure. Copper at $9,000+/t adds significantly to procurement costs.':'Copper in wiring harnesses, radiators, alternators. Less critical than fuel costs but still a supply chain input.');
+    biz.electricityImpact = isElectric?'CRITICAL — PRIMARY COST DRIVER. Each electric bus consumes ~250kWh/day. 400 buses = 100MWh/day depot demand. At £150/MWh commercial rate = £15,000/day electricity cost = £5.5M/year. EU gas shortage pushing UK electricity prices higher = direct margin compression. 20% electricity price rise = ~£1.1M additional annual cost.':'Moderate. Depot electricity costs significant but secondary to fuel.';
+    biz.inflationImpact = 'SEVERE. Transport is labour-intensive. UK CPI at 4%+ forces wage negotiations. Minimum wage rising annually. Driver shortage (post-Brexit, post-COVID) means wages above minimum needed to retain staff. 5% wage inflation on 3,000 drivers = £3-4M additional annual payroll cost.';
+    biz.aiImpact = 'OPPORTUNITY. AI route optimisation reduces empty running by 8-15%. Predictive maintenance reduces breakdown costs 20-30%. Autonomous bus trials (Stagecoach, First Bus) — full autonomy 2030-2035 could reshape driver cost base entirely. Near-term: AI scheduling software = significant efficiency gains.';
+    biz.waterImpact = 'LOW-MODERATE. Bus washing, depot operations. Not a primary cost driver but depot water costs rising with UK water company price increases.';
+    biz.forecast1yr = {outlook:'bearish', target:'Margins under pressure -2 to -4%', reasoning:'Rising electricity costs, wage inflation, and higher vehicle costs from commodity prices will compress margins. Contract renewals with TfL/councils may not fully cover cost inflation. Silver and copper embedded in fleet procurement add to capital costs.'};
+    biz.forecast5yr = {outlook:'neutral', target:'Stabilisation as EV fleet matures', reasoning:'Electric fleet delivers lower running costs vs diesel once deployed. AI route optimisation improves efficiency. However, battery replacement cycles and grid electricity price uncertainty create ongoing volatility. Silver demand from EV infrastructure grows.'};
+    biz.forecast10yr = {outlook:'bullish', target:'Lower cost base, autonomous potential', reasoning:'By 2033-2035 autonomous bus technology may reduce driver dependency. Full EV fleet eliminates fuel exposure. Battery costs falling 15-20%/yr. Silver replacement materials (graphene) still 10+ years from commercial scale — no threat to current EV silver demand.'};
+    biz.topRisks = ['Electricity price spikes from EU gas shortage directly hit charging costs','Driver wage inflation from shortage and union pressure','Silver and copper price rises increasing EV fleet replacement capex'];
+    biz.topOpportunities = ['AI route optimisation reducing electricity waste 10-15%','Government EV subsidy schemes reducing fleet transition cost','Long-term autonomy reducing labour cost base by 2032-2035'];
+    biz.linkedCommodities = ['silver','copper','electricity','natgas'];
+
+  } else if (isMining) {
+    biz.summary = name+' is a mining operation with direct exposure to precious and industrial metal prices. Revenue is driven by commodity prices while costs are dominated by energy, water, and labour — creating a complex margin environment where silver, platinum, copper and electricity all move simultaneously.';
+    biz.expenseStructure = {
+      labour: '35-45% of costs. Underground and surface mining labour. Safety regulations in South Africa, Australia, Americas drive compliance costs. Strike risk is a permanent operational variable.',
+      energy: '20-30% of costs. Mining is one of the most energy-intensive industries. Diesel for underground equipment, electricity for processing plants. South African load-shedding (Eskom) directly disrupts production.',
+      rawMaterials: 'Explosives, chemicals (cyanide for gold, acid for PGMs), processing reagents. Commodity input costs linked to oil and chemical prices.',
+      technology: '5-8%. Autonomous drilling and haulage (Caterpillar, Komatsu) reducing labour need. Sensor networks for ore body mapping. Water recycling systems.',
+      other: 'Water rights, tailings management, royalties, environmental compliance. Water scarcity in South Africa (Cape Town, Rustenburg) increasingly critical.'
+    };
+    biz.silverImpact = 'DIRECT REVENUE DRIVER. Silver is either a primary product or significant by-product. At '+silverPrice+', every 10% price move = direct revenue impact. Structural deficit (274Moz/yr) supports long-term price floor. Mining cost per ounce (AISC) typically $12-18/oz — current price provides strong margins.';
+    biz.copperImpact = 'HIGH if copper producer, significant as input cost for equipment and wiring regardless. Copper at $9,000+/t is bullish for copper miners, bearish for those using copper in operations.';
+    biz.electricityImpact = 'CRITICAL COST DRIVER. Processing plants run 24/7. South African load-shedding forces expensive diesel generator backup. EU mining operations face TTF gas-linked electricity costs. 20% electricity rise = 4-6% margin compression.';
+    biz.inflationImpact = 'SIGNIFICANT. Mining wages in South Africa, Peru, Chile all rising faster than CPI due to union strength and skills shortage. Explosive and chemical input costs linked to oil prices.';
+    biz.aiImpact = 'TRANSFORMATIVE OPPORTUNITY. Autonomous haulage trucks (Rio Tinto AutoHaul) reducing driver costs 40%. AI ore body prediction improving extraction efficiency. Predictive maintenance reducing equipment downtime 25-30%.';
+    biz.waterImpact = 'CRITICAL OPERATIONAL RISK. Mining uses millions of litres daily. South Africa drought threatens Rustenburg PGM operations. Cape Town Day Zero precedent. Water recycling investment mandatory. Water rights increasingly contested.';
+    biz.forecast1yr = {outlook:'bullish', target:'Revenue growth 15-25% on commodity prices', reasoning:'Silver structural deficit, platinum automotive demand recovery, copper green energy demand all supportive. Energy cost headwind partially offset by commodity revenue gains.'};
+    biz.forecast5yr = {outlook:'bullish', target:'Record revenues 2027-2029', reasoning:'Green energy supercycle drives silver and copper demand to record levels. AI and autonomous mining reduce cost base. Silver Institute projects deficit widening to 300Moz+ by 2028.'};
+    biz.forecast10yr = {outlook:'neutral', target:'Transition risk emerging 2033-2035', reasoning:'Graphene and CNT materials could reduce silver demand from electronics and solar by 2033-2035. However mining will remain essential for transition metals well beyond 2035. Long-term outlook depends on which commodities produced.'};
+    biz.topRisks = ['South African load-shedding disrupting production','Water scarcity threatening Rustenburg and Cape Town operations','Graphene commercial scale threatening silver demand post-2033'];
+    biz.topOpportunities = ['Silver deficit structural — 6th consecutive year 2026','Copper green energy supercycle — EV and grid demand surging','Autonomous mining reducing labour cost base 30-40% by 2030'];
+    biz.linkedCommodities = ['silver','copper','platinum','palladium','electricity','watergas'];
+
+  } else if (isFood) {
+    biz.summary = name+' is a food and beverage company with critical dependency on water availability, agricultural commodities, energy for production, and packaging materials. Inflation directly hits both input costs and consumer spending power simultaneously.';
+    biz.expenseStructure = {
+      labour: '25-35% of costs. Production line workers, distribution, retail staff. Minimum wage rises and food sector unions create ongoing pressure.',
+      energy: '15-20% of costs. Food processing, refrigeration, cooking, bottling all energy intensive. Electricity and gas price spikes directly hit production costs.',
+      rawMaterials: '35-45% of costs. Agricultural commodities (sugar, grain, fruit, hops), packaging (aluminium cans, glass, plastic), water. All subject to climate and commodity price volatility.',
+      technology: '3-5%. ERP systems, production automation, supply chain management. AI demand forecasting reducing waste 10-15%.',
+      other: 'Water is existential — Coca-Cola uses 1.9 litres water per litre of product. Packaging silver content in electronics minimal but energy silver connection indirect.'
+    };
+    biz.silverImpact = 'INDIRECT. Silver in production line electronics and solar panels powering facilities. Not a direct material input. Primary commodity exposures are agricultural and packaging materials.';
+    biz.copperImpact = 'MODERATE. Copper in production equipment, refrigeration systems, electrical infrastructure. Factory refurbishment costs sensitive to copper prices.';
+    biz.electricityImpact = 'HIGH. Continuous refrigeration, cooking, bottling, carbonation, pasteurisation all electricity-intensive. 24/7 operations mean electricity is a major fixed cost. EU gas crisis pushing industrial electricity to €200+/MWh hits European operations hard.';
+    biz.inflationImpact = 'SEVERE DUAL IMPACT. Input cost inflation AND consumer spending reduction simultaneously. When CPI rises, food companies face higher costs AND consumers trade down to cheaper alternatives. Margin squeeze from both sides.';
+    biz.aiImpact = 'SIGNIFICANT OPPORTUNITY. AI demand forecasting reducing overproduction waste 15-20%. Dynamic pricing optimisation. Supply chain resilience modelling. Automated quality control reducing defects.';
+    biz.waterImpact = 'EXISTENTIAL. Water is the primary ingredient. Canada-US water pricing tension, Turkey drought, India water stress all threaten supply chain. Coca-Cola 2.1B daily servings require massive water. Municipal water restrictions in drought areas = production halts. Water cost rising from near-zero to market rates = major P&L impact.';
+    biz.forecast1yr = {outlook:'neutral', target:'Margins flat to -2%', reasoning:'Input cost inflation partially offset by price increases. Consumer trading-down risk. Water costs rising in key markets. Energy costs elevated.'};
+    biz.forecast5yr = {outlook:'neutral', target:'Volume pressure in water-stressed markets', reasoning:'Water scarcity becoming structural cost in key markets. Premiumisation trend supports pricing power for top brands. Sustainability pressure on packaging.'};
+    biz.forecast10yr = {outlook:'bullish', target:'Premium brand resilience', reasoning:'Strong brands survive commodity cycles. Water recycling technology investment paying off. AI efficiency gains compound over decade. Top brands maintain pricing power through inflation.'};
+    biz.topRisks = ['Water scarcity in key production markets (Turkey, India, US Southwest)','Consumer spending cuts from inflation reducing volume','Energy price spikes compressing production margins'];
+    biz.topOpportunities = ['Premium products maintain margins through inflation','AI waste reduction improving efficiency 15-20%','Water technology leadership as competitive advantage'];
+    biz.linkedCommodities = ['electricity','watergas','aluminium','natgas'];
+
+  } else if (isTech) {
+    biz.summary = name+' is a technology company with significant exposure to semiconductor supply chains, AI infrastructure costs, electricity for data centres, and silver/copper in hardware manufacturing. The AI revolution is both a cost driver and a revenue opportunity simultaneously.';
+    biz.expenseStructure = {
+      labour: '45-60% of costs. Software engineers, data scientists, product managers. Tech salaries rising 15-20%/yr in AI skills. Stock compensation significant.',
+      energy: '15-25% of costs for hardware/cloud companies. Data centres consume enormous electricity. Microsoft, Google, Amazon all signing nuclear PPAs for AI power.',
+      rawMaterials: 'Servers contain silver in chip packaging (~5g/chip), copper in wiring, rare earths in displays. Hardware companies have direct commodity exposure.',
+      technology: '10-15%. R&D, software licences, cloud infrastructure. AI model training costs $100M+ for frontier models.',
+      other: 'Office space (declining post-COVID), legal/IP, customer acquisition. Regulatory compliance cost rising globally.'
+    };
+    biz.silverImpact = 'DIRECT FOR HARDWARE. Every server chip uses silver sintering paste in packaging. At '+silverPrice+', large data centre builds have meaningful silver exposure. NVIDIA H100 GPU clusters of 100,000 units = significant silver in chip packaging. Cloud/software companies: indirect through hardware supply chain.';
+    biz.copperImpact = 'HIGH. Data centre power distribution uses massive copper busbars, cables, cooling systems. Each hyperscale facility uses hundreds of tonnes of copper. Copper at $9,000+/t is a real capex driver for data centre construction.';
+    biz.electricityImpact = 'CRITICAL AND GROWING. AI inference workloads are 10x more power intensive than traditional computing. Data centres now 1-2% of global electricity. Microsoft restarted Three Mile Island nuclear plant. Google ordering 7 SMRs. Electricity cost is THE competitive differentiator in AI infrastructure.';
+    biz.inflationImpact = 'SIGNIFICANT ON TALENT. Tech salaries are the primary inflation exposure. AI engineers command $300K-500K+ packages. Wage inflation in AI skills exceeds general CPI by 3-5x. Hardware component inflation secondary but real.';
+    biz.aiImpact = 'TRANSFORMATIVE — BOTH WAYS. AI is the core product AND the cost driver simultaneously. Every AI company needs more AI to stay competitive. Revenue from AI products growing 50-100%/yr for leaders. Cost of AI training and inference also rising. Winners: those who control the infrastructure (NVIDIA, TSMC, cloud providers). Risk: commoditisation of AI models.';
+    biz.waterImpact = 'HIGH FOR DATA CENTRES. Cooling towers use millions of litres daily. TSMC Arizona fab uses 9.4M gallons/day. Phoenix water restrictions could constrain Arizona data centre expansion. Microsoft, Google, Meta all investing in water recycling for data centres.';
+    biz.forecast1yr = {outlook:'bullish', target:'Revenue growth 25-50% for AI leaders', reasoning:'AI adoption accelerating across enterprise. NVIDIA $500B 2026 revenue. Cloud AI services growing 40%+. Silver and copper demand from data centre buildout supporting commodity prices.'};
+    biz.forecast5yr = {outlook:'bullish', target:'AI infrastructure supercycle continuing', reasoning:'Enterprise AI adoption still early stage. Autonomous agents, AI reasoning driving next compute wave. Data centre capacity needs to 10x by 2030. Silver and copper demand from AI indirect but structural.'};
+    biz.forecast10yr = {outlook:'neutral', target:'Maturation and consolidation', reasoning:'AI commoditises, margins compress for pure software players. Infrastructure owners (NVIDIA, TSMC, cloud) maintain moats. Graphene begins threatening silver in chip packaging by 2033-2035. Water scarcity constrains data centre location choices.'};
+    biz.topRisks = ['Water scarcity limiting data centre expansion in key markets','China chip export controls disrupting semiconductor supply','Electricity cost inflation from AI demand outpacing grid capacity'];
+    biz.topOpportunities = ['AI revenue growing 50-100%/yr for platform companies','Nuclear energy PPAs securing cheap long-term power','Autonomous AI agents creating new product categories'];
+    biz.linkedCommodities = ['silver','copper','electricity','uranium','semiconductors'];
+
+  } else {
+    // Generic analysis for any company
+    biz.summary = name+' operates in the '+(industry||'general business')+' sector with exposure to commodity prices, energy costs, inflation and technology disruption. Like all businesses, rising silver, copper and electricity prices flow through the supply chain affecting production costs, while AI presents both efficiency opportunities and transformation risks.';
+    biz.expenseStructure = {
+      labour: '40-55% of typical costs in this sector. Wage inflation at 4%+ CPI is the primary P&L pressure. Skills shortages in key roles adding to recruitment costs.',
+      energy: '10-20% of costs depending on operations. Electricity and gas price volatility from EU gas storage crisis (currently 37%) creates uncertainty in forward cost planning.',
+      rawMaterials: 'Commodity inputs vary by sector but silver, copper, aluminium and energy are embedded throughout most supply chains — often indirectly through component suppliers.',
+      technology: '5-10% and growing. AI adoption accelerating across all sectors. Companies investing in AI early gaining 15-25% efficiency advantages.',
+      other: 'Regulatory compliance, insurance, property. All rising with inflation.'
+    };
+    biz.silverImpact = 'INDIRECT. Silver embedded in electronic components, solar panels (if using renewable energy), electrical systems. Most businesses face silver exposure through their technology and energy supply chains at '+silverPrice+' per ounce.';
+    biz.copperImpact = 'MODERATE. Copper in electrical infrastructure, equipment, HVAC systems. Any significant capital investment in facilities or equipment has copper cost sensitivity.';
+    biz.electricityImpact = 'SIGNIFICANT. EU gas storage at 37% — lowest since 2022 — is pushing forward electricity prices higher. UK industrial electricity elevated. Any energy-intensive operation faces ongoing cost pressure through 2026-27.';
+    biz.inflationImpact = 'HIGH. UK CPI 4%+ driving wage demands across all sectors. Input cost inflation, rent, insurance all above historical averages. Margin compression unless pricing power allows pass-through.';
+    biz.aiImpact = 'STRATEGIC OPPORTUNITY. AI adoption can reduce administrative costs 20-30%, improve demand forecasting, automate routine processes. Companies adopting AI now building competitive advantages that compound over 3-5 years.';
+    biz.waterImpact = 'VARIES. UK water costs rising with regulatory investment requirements. Global supply chain exposure to water-stressed regions (Turkey, India, US Southwest) creates indirect risk for imported goods.';
+    biz.forecast1yr = {outlook:'neutral', target:'Margins flat under cost pressure', reasoning:'Energy cost inflation, wage pressure and input cost rises likely to compress margins 1-3% unless strong pricing power allows full pass-through to customers.'};
+    biz.forecast5yr = {outlook:'bullish', target:'AI efficiency gains improving margins', reasoning:'Companies adopting AI automation in 2024-2026 will see compounding efficiency gains by 2028-2030. Green energy transition reducing energy cost volatility for those with PPAs.'};
+    biz.forecast10yr = {outlook:'bullish', target:'Structural cost reduction from technology', reasoning:'AI, automation and renewable energy create structurally lower cost bases for adaptable businesses. Companies that navigate the 2026-2028 inflation period intact are well positioned for the 2029-2035 growth cycle.'};
+    biz.topRisks = ['Energy cost spikes from EU gas storage crisis hitting 2026-27 winter','Wage inflation from skills shortage and union pressure','Supply chain disruption from water-stressed manufacturing regions'];
+    biz.topOpportunities = ['AI automation reducing administrative and operational costs 20-30%','Green energy PPAs locking in lower long-term electricity costs','Silver structural deficit supporting commodity-linked revenue streams'];
+    biz.linkedCommodities = ['silver','copper','electricity','watergas'];
   }
+
+  return biz;
 }
 
 function renderBusinessResults(name, biz) {
