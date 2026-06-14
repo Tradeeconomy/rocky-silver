@@ -3970,8 +3970,12 @@ var spkChart = null;
 var CURVES = {consolidation:[76.0,72.0], correction:[72.0,64.0], accumulation:[64.0,81.0], recovery:[81.0,92.0], rally:[92.0,106.0]};
 var PS = {consolidation:"2026-06-02", correction:"2026-06-07", accumulation:"2026-06-10", recovery:"2026-08-01", rally:"2026-10-01"};
 var PE = {consolidation:"2026-06-06", correction:"2026-06-09", accumulation:"2026-07-31", recovery:"2026-09-30", rally:"2026-12-31"};
-var PCOL = {consolidation:"#D4AF37", correction:"#E05555", accumulation:"#3DBA7A", recovery:"#D4AF37", rally:"#3DBA7A"};
-var PLBL = {consolidation:"Consolidation", correction:"Correction", accumulation:"Buy Zone", recovery:"Recovery", rally:"Rally"};
+var PCOL = {consolidation:"#D4AF37", correction:"#E05555", accumulation:"#3DBA7A", recovery:"#D4AF37", rally:"#3DBA7A",
+  consolidation_27:"#D4AF37", correction_27:"#E05555", accumulation_27:"#3DBA7A", recovery_27:"#D4AF37", rally_27:"#3DBA7A",
+  consolidation_lr:"#D4AF37", correction_lr:"#E05555", rally_lr:"#3DBA7A"};
+var PLBL = {consolidation:"Consolidation", correction:"Correction", accumulation:"Buy Zone", recovery:"Recovery", rally:"Rally",
+  consolidation_27:"Consolidation", correction_27:"Correction", accumulation_27:"Buy Zone", recovery_27:"Recovery", rally_27:"Rally",
+  consolidation_lr:"Consolidation", correction_lr:"Correction", rally_lr:"Rally"};
 
 function getPhase(d) {
   var y = d.getFullYear();
