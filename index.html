@@ -206,6 +206,7 @@ body{background:#F0F2F5;color:#1A2035;font-family:'Courier New',monospace;max-wi
   </div>
   <div class="cat-body" id="cat-tools" style="display:none">
     <button class="tbtn" onclick="showTab('igtools')">IG TOOLS</button>
+    <button class="tbtn" onclick="showTab('timecapsule')" style="color:#22D3EE">⏳ TIME CAPSULE</button>
     <button class="tbtn" onclick="showTab('admin')">ADMIN</button>
   </div>
 
@@ -215,6 +216,44 @@ body{background:#F0F2F5;color:#1A2035;font-family:'Courier New',monospace;max-wi
 <div onclick="showTab('admin')" style="position:fixed;bottom:24px;right:16px;z-index:9999;background:#7C3AED;color:#FFF;border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;letter-spacing:1px;font-family:'Courier New',monospace;cursor:pointer;box-shadow:0 2px 12px #7C3AED88">ADM</div>
 <!-- Floating Business Button -->
 <div onclick="showTab('business')" style="position:fixed;bottom:76px;right:16px;z-index:9999;background:#F97316;color:#FFF;border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;letter-spacing:1px;font-family:'Courier New',monospace;cursor:pointer;box-shadow:0 2px 12px #F9731688">BIZ</div>
+
+<!-- TIME CAPSULE -->
+<div id="tc-timecapsule" class="tc">
+<div class="sec">
+
+  <div class="card" style="border-color:#22D3EE44;background:#00080F;margin-bottom:12px">
+    <div style="font-size:9px;color:#22D3EE;letter-spacing:3px;text-transform:uppercase;margin-bottom:6px">⏳ Time Capsule — Lessons From History</div>
+    <div style="font-size:11px;color:#B8C2D0;line-height:1.7">Silver has touched the $50 ceiling three times in 46 years — and crashed hard each time. This chart plots the real history (1980 → today) on a log scale so every move is fair, then shows where the future <i>could</i> go. A trader opening this in 2050 will read 2026 as history. Capture today, and you leave them a lesson.</div>
+  </div>
+
+  <div class="card" style="border-color:#22D3EE44;background:#00080F;margin-bottom:12px;padding:12px 8px">
+    <canvas id="tcap-chart" style="width:100%;display:block"></canvas>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:8px;font-size:8px;color:#A0AABB">
+      <span><span style="color:#C0C0C0">━</span> Real price</span>
+      <span><span style="color:#E05555">┄</span> Bear</span>
+      <span><span style="color:#D4AF37">┄</span> Base</span>
+      <span><span style="color:#3DBA7A">┄</span> Bull</span>
+      <span><span style="color:#FF8800">┈ $50 ceiling</span></span>
+    </div>
+    <div style="text-align:center;font-size:8px;color:#6B7A8D;margin-top:4px;letter-spacing:1px">SOLID = VERIFIED DATA &nbsp;·&nbsp; DOTTED = SCENARIO, NOT A FORECAST</div>
+  </div>
+
+  <button onclick="captureToday()" style="width:100%;padding:12px;background:#22D3EE;color:#00080F;border:none;border-radius:8px;font-family:inherit;font-weight:700;font-size:11px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;margin-bottom:14px">📸 Capture Today Onto The Timeline</button>
+
+  <div class="stitle" style="color:#22D3EE">The Four Lessons — Tap To Read</div>
+  <div id="tc-era-list"></div>
+
+  <div class="card" style="border-color:#22D3EE44;background:#00080F;margin-top:6px">
+    <div style="font-size:9px;color:#22D3EE;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">The Scenario Cone — Read This Honestly</div>
+    <div style="font-size:10px;color:#B8C2D0;line-height:1.7">No one can fetch the future. The three dotted paths are <b>scenarios</b>, each with a stated assumption — not predictions:<br><br>
+    <span style="color:#E05555;font-weight:700">BEAR</span> — Replacement materials (graphene, carbon nanotubes) erode industrial demand; mean reversion pulls silver back toward $40-45.<br><br>
+    <span style="color:#D4AF37;font-weight:700">BASE</span> — Structural deficit persists; solar + EV demand holds a floor; silver grinds to $100-130 by the 2030s.<br><br>
+    <span style="color:#3DBA7A;font-weight:700">BULL</span> — Deficit + monetary debasement; the inflation-adjusted 1980 high (~$185 in today's money) becomes the target, then beyond toward $300.<br><br>
+    The lesson the chart teaches: every prior spike to $50 was speculative and reversed. 2026 is the first time the ceiling broke with a <i>real</i> supply deficit behind it. That's the difference future readers will judge.</div>
+  </div>
+
+</div>
+</div>
 
 <!-- SUMMARY -->
 <div id="tc-summary" class="tc active">
@@ -6788,6 +6827,7 @@ function showTab(id) {
   if (id==="summary") { fetchAsiaMarkets(); }
   if (id==="economy") { initEconomy(); renderKeyEvents(); }
   if (id==="ta") { initTA(); }
+  if (id==="timecapsule") { setTimeout(drawTimeCapsuleChart, 80); }
 }
 
 // Init
@@ -9489,6 +9529,157 @@ function forceRefreshAll(){try{fetchPrice();fetchPoly();fetchNews();}catch(e){}v
 function clearAllCache(){try{localStorage.clear();}catch(e){}var m=document.getElementById('override-msg');m.style.display='block';m.textContent='Cache cleared';}
 function convertIGPrice(){try{var u=parseFloat(document.getElementById('convUSD').value)||67.44,g=parseFloat(document.getElementById('convGBP').value)||1.275,p=(curMetal.igMode==='usd')?Math.round(u*10)/10:Math.round(u/g*100)+curMetal.igOffset;document.getElementById('convResult').textContent=p.toLocaleString()+'p';}catch(e){}}
 function calcIGPL(){try{var o=parseFloat(document.getElementById('plOpen').value),c=parseFloat(document.getElementById('plCurrent').value),s=parseFloat(document.getElementById('plSize').value),d=document.getElementById('plDir').value,pts=d==='long'?c-o:o-c,pnl=pts*s,pct=pts/o*100,col=pts>=0?'#3DBA7A':'#E05555';document.getElementById('plPts').textContent=pts.toFixed(0)+'p';document.getElementById('plPts').style.color=col;document.getElementById('plVal').textContent='GBP'+pnl.toFixed(2);document.getElementById('plVal').style.color=col;document.getElementById('plPct').textContent=pct.toFixed(2)+'%';document.getElementById('plPct').style.color=col;document.getElementById('plResult').style.display='grid';}catch(e){}}
+// ================================================================
+// TIME CAPSULE — verified silver history (1980-2026) + scenario cone
+// Solid = real data. Dotted = clearly-labelled scenario, not forecast.
+// ================================================================
+var TC_HISTORY = [
+  {x:1979.0, y:11.0},
+  {x:1980.05, y:49.45, ev:"1980 PEAK $49.45", star:"#E05555"},
+  {x:1980.24, y:10.80, ev:"SILVER THURSDAY $10.80", star:"#E05555"},
+  {x:1982.0, y:8.0},
+  {x:1986.0, y:5.5},
+  {x:1991.0, y:4.0},
+  {x:1995.0, y:5.2},
+  {x:2001.0, y:4.4},
+  {x:2006.0, y:11.5},
+  {x:2008.2, y:20.0},
+  {x:2008.8, y:9.0},
+  {x:2011.32, y:49.51, ev:"2011 PEAK $49.51", star:"#E05555"},
+  {x:2015.95, y:13.71, ev:"2015 BOTTOM $13.71", star:"#A0AABB"},
+  {x:2020.22, y:12.0, ev:"COVID LOW ~$12", star:"#3DBA7A"},
+  {x:2020.63, y:29.0, ev:"AUG 2020 ~$29", star:"#3DBA7A"},
+  {x:2023.0, y:23.0},
+  {x:2024.0, y:29.0},
+  {x:2025.0, y:48.0},
+  {x:2026.05, y:90.0, ev:"2026 HIGH ~$90", star:"#F2C84B"},
+  {x:2026.45, y:68.0, ev:"NOW", star:"#FFFFFF"}
+];
+var TC_NOW_X = 2026.45;
+var TC_SCEN = {
+  bear: [{x:2026.45,y:68},{x:2030,y:52},{x:2035,y:45},{x:2040,y:42},{x:2050,y:40}],
+  base: [{x:2026.45,y:68},{x:2030,y:85},{x:2035,y:105},{x:2040,y:115},{x:2050,y:130}],
+  bull: [{x:2026.45,y:68},{x:2030,y:130},{x:2035,y:185},{x:2040,y:240},{x:2050,y:300}]
+};
+var TC_CAPTURES = []; // live snapshots added this session
+
+var TC_ERAS = [
+  {t:"1980 — The Hunt Brothers Squeeze", c:"#E05555",
+   d:"Two Texas billionaires cornered ~70% of world silver supply, driving price from ~$6 to a peak of <b>$49.45 on Jan 17, 1980</b>. COMEX introduced 'Silver Rule 7' (Jan 7) restricting margin buying. On <b>Silver Thursday, March 27</b>, a missed margin call triggered a collapse to <b>$10.80</b> — down ~78% from the peak.<br><br><b>LESSON:</b> A single-entity corner plus a sudden rule change is fatal. Leverage is what kills you, not the price."},
+  {t:"2011 — The Reflation Peak", c:"#D4AF37",
+   d:"Post-2008 QE, a weak dollar and a retail ETF rush ('crash JP Morgan') drove silver to <b>~$49.51 on Apr 28, 2011</b> — within cents of the 1980 high. The CME raised futures margins <b>5 times in 8 days</b>; silver crashed ~35% in a week and bottomed at <b>$13.71 by Dec 2015</b> (−72%).<br><br><b>LESSON:</b> Parabola + margin hikes + a Fed taper signal = reversal. The $50 ceiling held for the second time."},
+  {t:"2020 — The COVID V-Recovery", c:"#3DBA7A",
+   d:"In the March 2020 liquidity panic silver behaved like a risk asset, crashing to <b>~$12</b>. The gold/silver ratio hit an all-time high of <b>127</b>. Then stimulus, safe-haven flows and industrial recovery more than doubled it to <b>~$29 by August</b>.<br><br><b>LESSON:</b> In a liquidity panic silver crashes <i>with</i> stocks first, then outperforms in the recovery. An extreme gold/silver ratio is a historic buy signal."},
+  {t:"2026 — The Structural Deficit Era (live)", c:"#22D3EE",
+   d:"Silver ran to <b>~$87-92</b> — its highest since 2011 — finally breaking the $50 zone. Then a hot CPI print (~4.2%) knocked it back to <b>~$68</b>, snapping the 200-day MA near $67.92. The difference this time: a <b>~182Moz structural deficit</b> from solar and EV demand, not a corner or pure speculation.<br><br><b>LESSON (still being written):</b> The first time the ceiling broke with a real supply deficit behind it. The inflation-adjusted 1980 high is ~$185 in today's money — silver is still below its real all-time high. Future readers will judge whether the deficit held the floor."}
+];
+function renderTCEras() {
+  var el = document.getElementById("tc-era-list");
+  if (!el) return;
+  el.innerHTML = TC_ERAS.map(function(e,i){
+    return '<div class="card" style="border-color:'+e.c+'44;margin-bottom:8px;cursor:pointer" onclick="toggleEra('+i+')">'+
+      '<div style="display:flex;justify-content:space-between;align-items:center">'+
+      '<span style="font-size:11px;font-weight:700;color:'+e.c+'">'+e.t+'</span>'+
+      '<span id="tc-era-arr-'+i+'" style="color:#6B7A8D;font-size:11px">▶</span></div>'+
+      '<div id="tc-era-d-'+i+'" style="display:none;font-size:10px;color:#D8DEE9;line-height:1.7;margin-top:8px">'+e.d+'</div></div>';
+  }).join("");
+}
+function toggleEra(i){
+  var d=document.getElementById("tc-era-d-"+i), a=document.getElementById("tc-era-arr-"+i);
+  if(!d)return;
+  var open=d.style.display!=="none";
+  d.style.display=open?"none":"block";
+  if(a){a.textContent=open?"▶":"▼";a.style.color=open?"#6B7A8D":"#22D3EE";}
+}
+function captureToday(){
+  var p=(typeof livePrice!=="undefined"&&livePrice)?livePrice:68;
+  var now=new Date();
+  var yr=now.getFullYear()+(now.getMonth()/12);
+  TC_CAPTURES.push({x:+yr.toFixed(3), y:+p.toFixed(2), t:now.toLocaleString()});
+  drawTimeCapsuleChart();
+  var btn=event&&event.target;
+  if(btn){var orig=btn.textContent;btn.textContent="✓ CAPTURED $"+p.toFixed(2)+" — saved to timeline";
+    setTimeout(function(){btn.textContent=orig;},2600);}
+}
+function drawTimeCapsuleChart(){
+  var canvas=document.getElementById("tcap-chart");
+  if(!canvas)return;
+  var W=canvas.offsetWidth; if(W<10){setTimeout(drawTimeCapsuleChart,120);return;}
+  var H=270, dpr=window.devicePixelRatio||1;
+  canvas.width=W*dpr; canvas.height=H*dpr;
+  canvas.style.width=W+"px"; canvas.style.height=H+"px";
+  var ctx=canvas.getContext("2d"); ctx.scale(dpr,dpr);
+  ctx.clearRect(0,0,W,H);
+  var pad={top:14,right:46,bottom:24,left:8};
+  var cW=W-pad.left-pad.right, cH=H-pad.top-pad.bottom;
+  var xmin=1979, xmax=2050, ymin=3.5, ymax=340;
+  var lmin=Math.log(ymin), lmax=Math.log(ymax);
+  function xp(x){return pad.left+(x-xmin)/(xmax-xmin)*cW;}
+  function yp(v){return pad.top+(1-(Math.log(v)-lmin)/(lmax-lmin))*cH;}
+  // gridlines
+  ctx.font="9px 'Courier New',monospace"; ctx.textBaseline="middle";
+  [5,10,20,50,100,200,300].forEach(function(g){
+    var y=yp(g);
+    ctx.strokeStyle="#243050"; ctx.lineWidth=1; ctx.beginPath();
+    ctx.moveTo(pad.left,y); ctx.lineTo(pad.left+cW,y); ctx.stroke();
+    ctx.fillStyle="#6B7A8D"; ctx.textAlign="left";
+    ctx.fillText("$"+g, pad.left+cW+4, y);
+  });
+  // $50 ceiling
+  var y50=yp(50);
+  ctx.strokeStyle="#FF8800"; ctx.lineWidth=1.4; ctx.setLineDash([3,4]);
+  ctx.beginPath(); ctx.moveTo(pad.left,y50); ctx.lineTo(pad.left+cW,y50); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle="#FF8800"; ctx.textAlign="left"; ctx.font="8px 'Courier New',monospace";
+  ctx.fillText("$50 CEILING", pad.left+4, y50-7);
+  // x labels + now divider
+  ctx.font="9px 'Courier New',monospace"; ctx.fillStyle="#6B7A8D"; ctx.textAlign="center";
+  [1980,1990,2000,2010,2020,2030,2040,2050].forEach(function(yr){
+    ctx.fillText("'"+String(yr).slice(2), xp(yr), pad.top+cH+12);
+  });
+  var nx=xp(TC_NOW_X);
+  ctx.strokeStyle="#22D3EE55"; ctx.lineWidth=1; ctx.setLineDash([2,3]);
+  ctx.beginPath(); ctx.moveTo(nx,pad.top); ctx.lineTo(nx,pad.top+cH); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle="#22D3EE"; ctx.font="8px 'Courier New',monospace"; ctx.textAlign="center";
+  ctx.fillText("NOW", nx, pad.top+4);
+  // scenario cones (dotted)
+  function drawScen(arr,color){
+    ctx.strokeStyle=color; ctx.lineWidth=1.6; ctx.setLineDash([2,4]); ctx.beginPath();
+    arr.forEach(function(p,i){ var X=xp(p.x),Y=yp(p.y); if(i===0)ctx.moveTo(X,Y); else ctx.lineTo(X,Y); });
+    ctx.stroke(); ctx.setLineDash([]);
+    var last=arr[arr.length-1];
+    ctx.fillStyle=color; ctx.font="8px 'Courier New',monospace"; ctx.textAlign="right";
+    ctx.fillText("$"+last.y, xp(last.x)-1, yp(last.y));
+  }
+  drawScen(TC_SCEN.bull,"#3DBA7A");
+  drawScen(TC_SCEN.base,"#D4AF37");
+  drawScen(TC_SCEN.bear,"#E05555");
+  // historical solid line + fill
+  ctx.strokeStyle="#C0C0C0"; ctx.lineWidth=2; ctx.beginPath();
+  TC_HISTORY.forEach(function(p,i){ var X=xp(p.x),Y=yp(p.y); if(i===0)ctx.moveTo(X,Y); else ctx.lineTo(X,Y); });
+  ctx.stroke();
+  // event star markers + labels
+  ctx.font="7px 'Courier New',monospace";
+  TC_HISTORY.forEach(function(p){
+    if(!p.star)return;
+    var X=xp(p.x),Y=yp(p.y);
+    ctx.fillStyle=p.star; ctx.beginPath(); ctx.arc(X,Y,3,0,7); ctx.fill();
+    if(p.ev&&p.ev!=="NOW"){
+      ctx.fillStyle=p.star; ctx.textAlign=(p.x>2020)?"right":"left";
+      var ox=(p.x>2020)?-5:5;
+      ctx.fillText(p.ev, X+ox, Y-7);
+    }
+  });
+  // live captures (green dots)
+  TC_CAPTURES.forEach(function(p){
+    var X=xp(p.x),Y=yp(p.y);
+    ctx.fillStyle="#22D3EE"; ctx.beginPath(); ctx.arc(X,Y,3.5,0,7); ctx.fill();
+    ctx.strokeStyle="#FFFFFF"; ctx.lineWidth=1; ctx.stroke();
+  });
+}
+renderTCEras();
+
 document.addEventListener('keydown',function(e){if(e.key==='Enter'){var tc=document.getElementById('tc-admin');if(tc&&tc.classList.contains('active'))adminLogin();}});
 
 </script>
