@@ -6157,7 +6157,7 @@ function runBusinessScan() {
 }
 
 function analyseCompany(name, industry, details) {
-  var lp = (typeof curPrice !== 'undefined' && curPrice) ? curPrice : (typeof LIVE_PRICE !== 'undefined' ? LIVE_PRICE : 68);
+  var lp = (typeof livePrice !== 'undefined' && livePrice) ? livePrice : 68;
   var n = name.toLowerCase();
   var d = (industry+' '+details).toLowerCase();
 
