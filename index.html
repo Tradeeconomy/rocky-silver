@@ -215,6 +215,19 @@ body{background:#F0F2F5;color:#1A2035;font-family:'Courier New',monospace;max-wi
     <button class="tbtn" onclick="showTab('nikkei')">NIKKEI</button>
   </div>
 
+  <!-- Category: Forex Crosses -->
+  <div class="cat-header" onclick="toggleCat('cat-fx')">
+    <span>💱 FOREX CROSSES</span><span class="cat-arrow" id="arr-cat-fx">▶</span>
+  </div>
+  <div class="cat-body" id="cat-fx" style="display:none">
+    <button class="tbtn" onclick="showTab('eurgbp')">EUR/GBP</button>
+    <button class="tbtn" onclick="showTab('gbpjpy')">GBP/JPY</button>
+    <button class="tbtn" onclick="showTab('eurjpy')">EUR/JPY</button>
+    <button class="tbtn" onclick="showTab('audusd')">AUD/USD</button>
+    <button class="tbtn" onclick="showTab('usdcad')">USD/CAD</button>
+    <button class="tbtn" onclick="showTab('nzdusd')">NZD/USD</button>
+  </div>
+
   <!-- Category: Technology -->
   <div class="cat-header" onclick="toggleCat('cat-tech')">
     <span>💻 TECHNOLOGY</span><span class="cat-arrow" id="arr-cat-tech">▶</span>
@@ -313,6 +326,14 @@ body{background:#F0F2F5;color:#1A2035;font-family:'Courier New',monospace;max-wi
 <div id="tc-nasdaq" class="tc"><div class="sec" id="lm-nasdaq-body"></div></div>
 <div id="tc-dax" class="tc"><div class="sec" id="lm-dax-body"></div></div>
 <div id="tc-nikkei" class="tc"><div class="sec" id="lm-nikkei-body"></div></div>
+
+<!-- FOREX CROSSES (generic lite engine) -->
+<div id="tc-eurgbp" class="tc"><div class="sec" id="lm-eurgbp-body"></div></div>
+<div id="tc-gbpjpy" class="tc"><div class="sec" id="lm-gbpjpy-body"></div></div>
+<div id="tc-eurjpy" class="tc"><div class="sec" id="lm-eurjpy-body"></div></div>
+<div id="tc-audusd" class="tc"><div class="sec" id="lm-audusd-body"></div></div>
+<div id="tc-usdcad" class="tc"><div class="sec" id="lm-usdcad-body"></div></div>
+<div id="tc-nzdusd" class="tc"><div class="sec" id="lm-nzdusd-body"></div></div>
 
 <!-- SUMMARY -->
 <div id="tc-summary" class="tc active">
@@ -6969,6 +6990,7 @@ var TAB_CAT = {
   crudeoil:'cat-energy',natgas:'cat-energy',uranium:'cat-energy',electricity:'cat-energy',watergas:'cat-energy',
   coffee:'cat-soft',sugar:'cat-soft',cocoa:'cat-soft',wheat:'cat-soft',corn:'cat-soft',soybeans:'cat-soft',
   ftse:'cat-indices',sp500:'cat-indices',dow:'cat-indices',nasdaq:'cat-indices',dax:'cat-indices',nikkei:'cat-indices',
+  eurgbp:'cat-fx',gbpjpy:'cat-fx',eurjpy:'cat-fx',audusd:'cat-fx',usdcad:'cat-fx',nzdusd:'cat-fx',
   semiconductors:'cat-tech', aiconductor:'cat-tech', aicompanies:'cat-tech',
   igtools:'cat-tools',admin:'cat-tools'
 };
@@ -7028,6 +7050,7 @@ function showTab(id) {
   if (id==="timecapsule") { setTimeout(drawTimeCapsuleChart, 80); }
   if (["coffee","sugar","cocoa","wheat","corn","soybeans"].indexOf(id) >= 0) { fetchSoftsLive(); }
   if (["ftse","sp500","dow","nasdaq","dax","nikkei"].indexOf(id) >= 0) { liteFetch(INDICES); }
+  if (["eurgbp","gbpjpy","eurjpy","audusd","usdcad","nzdusd"].indexOf(id) >= 0) { liteFetch(FX); }
   // COMEX silver monitor is irrelevant on utility/admin tabs — hide it there
   var cf = document.getElementById("comexFloat");
   if (cf) { cf.style.display = (["admin","igtools","timecapsule","pricing"].indexOf(id) >= 0) ? "none" : "block"; }
@@ -9664,6 +9687,7 @@ window.onload = function() {
   fetchCurrenciesLive();
   fetchSoftsLive();
   liteFetch(INDICES);
+  liteFetch(FX);
   setInterval(fetchPrice, 10000);
   setInterval(fetchPoly, 60000);
   setInterval(fetchNews, 300000);
@@ -9672,6 +9696,7 @@ window.onload = function() {
   setInterval(fetchCurrenciesLive, 300000);
   setInterval(fetchSoftsLive, 300000);
   setInterval(function(){ liteFetch(INDICES); }, 300000);
+  setInterval(function(){ liteFetch(FX); }, 300000);
   // Risk Radar - load baseline immediately, fetch live data, poll every 120s
   loadGeopoliticalBaseline();
   openCatForTab('summary');
@@ -10025,6 +10050,16 @@ var INDICES = [
   {id:"nikkei", name:"Nikkei 225",sym:"^N225",  venue:"Japan 225",   unit:"pts", color:"#E05555", note:"Japan's benchmark. A weak yen lifts it (helps exporters); BoJ policy and global risk sentiment are the main drivers."}
 ];
 liteRender(INDICES);
+
+var FX = [
+  {id:"eurgbp", name:"EUR/GBP", sym:"EURGBP=X", venue:"Euro vs Pound",     unit:"rate", color:"#FB923C", note:"Euro against the pound — driven by ECB vs Bank of England policy divergence, relative growth, and UK politics. A core pair for UK traders."},
+  {id:"gbpjpy", name:"GBP/JPY", sym:"GBPJPY=X", venue:"Pound vs Yen",      unit:"rate", color:"#E05555", note:"Nicknamed 'the dragon' — highly volatile. Driven by risk sentiment plus BoE vs BoJ policy gaps. A favourite of spread bettors for its big swings."},
+  {id:"eurjpy", name:"EUR/JPY", sym:"EURJPY=X", venue:"Euro vs Yen",       unit:"rate", color:"#A78BFA", note:"A classic risk barometer — rises in risk-on, falls in risk-off. Driven by ECB vs BoJ and global appetite for carry trades."},
+  {id:"audusd", name:"AUD/USD", sym:"AUDUSD=X", venue:"Aussie Dollar",     unit:"rate", color:"#3DBA7A", note:"'The Aussie' — a commodity and China proxy. Rises with iron ore, copper and Chinese demand; falls in risk-off. Watch RBA policy."},
+  {id:"usdcad", name:"USD/CAD", sym:"USDCAD=X", venue:"US vs Canada",      unit:"rate", color:"#22D3EE", note:"'The loonie' — tightly tied to oil (Canada exports it). When crude rises, USD/CAD usually falls. Driven by Fed vs Bank of Canada."},
+  {id:"nzdusd", name:"NZD/USD", sym:"NZDUSD=X", venue:"Kiwi Dollar",       unit:"rate", color:"#D4AF37", note:"'The kiwi' — driven by dairy prices, risk sentiment and RBNZ policy. Trades closely with the Aussie as a commodity-linked currency."}
+];
+liteRender(FX);
 
 function calcRevenue(){
   function v(id){var e=document.getElementById(id);return e?(parseInt(e.value)||0):0;}
