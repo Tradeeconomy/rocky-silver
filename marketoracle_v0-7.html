@@ -4170,9 +4170,10 @@ var HISTORICAL_2026 = [
   {date:"2026-06-09",label:"9 Jun",weekday:"Tu",month:"Jun 2026",open:68.86,hi:69.44,lo:67.61,price:68.42,phase:"accumulation",real:true}
 ];
 
-var FORECAST_YEARS = {2027: false, 2028: false, long: false};
+var FORECAST_YEARS = {2027: true, 2028: false, long: false};
 // Restore from storage
 try {
+  if(localStorage.getItem('fy2027')==='0') FORECAST_YEARS[2027]=false;
   if(localStorage.getItem('fy2027')==='1') FORECAST_YEARS[2027]=true;
   if(localStorage.getItem('fy2028')==='1') FORECAST_YEARS[2028]=true;
   if(localStorage.getItem('fylong')==='1') FORECAST_YEARS['long']=true;
@@ -4297,7 +4298,7 @@ function toggleForecastYear(yr, btn) {
   else if (typeof renderChart === 'function') renderChart();
 }
 
-var FORECAST = genForecast();
+var FORECAST = []; // filled after localStorage restore in window.onload
 
 // Sectors
 var SECTORS = [
@@ -8086,6 +8087,7 @@ window.onload = function() {
   loadGeopoliticalBaseline();
   openCatForTab('summary');
   restoreForecastButtons();
+  FORECAST = genForecast();
   loadCOMEXMonitor();
   // Key events \u2014 render and add to risk
   renderKeyEvents();
