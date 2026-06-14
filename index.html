@@ -304,6 +304,7 @@ body{background:#F0F2F5;color:#1A2035;font-family:'Courier New',monospace;max-wi
     <button class="tbtn" onclick="showTab('igtools')">IG TOOLS</button>
     <button class="tbtn" onclick="showTab('timecapsule')" style="color:#22D3EE">⏳ TIME CAPSULE</button>
     <button class="tbtn" onclick="showTab('pricing')" style="color:#3DBA7A">💎 MEMBERSHIP</button>
+    <button class="tbtn" onclick="showTab('ledger')" style="color:#D4AF37">📒 LEDGER</button>
     <button class="tbtn" onclick="showTab('admin')">ADMIN</button>
   </div>
 
@@ -426,6 +427,27 @@ body{background:#F0F2F5;color:#1A2035;font-family:'Courier New',monospace;max-wi
 <div id="tc-azn" class="tc"><div class="sec" id="lm-azn-body"></div></div>
 <div id="tc-pfe" class="tc"><div class="sec" id="lm-pfe-body"></div></div>
 <div id="tc-jnj" class="tc"><div class="sec" id="lm-jnj-body"></div></div>
+
+<!-- ACCOUNTABILITY LEDGER (prototype) -->
+<div id="tc-ledger" class="tc">
+  <div class="sec">
+    <div style="font-size:15px;font-weight:700;color:#D4AF37;letter-spacing:1px">📒 ACCOUNTABILITY LEDGER</div>
+    <div style="font-size:10px;color:#A0AABB;line-height:1.6;margin-top:4px">Every forecast timestamped, locked, and scored against reality — hits <b>and</b> misses. The track record competitors won't show.</div>
+    <div style="font-size:8px;color:#F97316;margin-top:4px">⚠ DEMO DATA — real records auto-log once the server is connected.</div>
+    <div style="display:flex;gap:6px;margin:12px 0">
+      <button id="lv-scorecard" onclick="ledgerView('scorecard')" style="flex:1;padding:7px;font-size:10px;letter-spacing:1px;font-weight:700;background:#D4AF37;color:#000;border:none;border-radius:8px;cursor:pointer;font-family:'Courier New',monospace">SCORECARD</button>
+      <button id="lv-feed" onclick="ledgerView('feed')" style="flex:1;padding:7px;font-size:10px;letter-spacing:1px;font-weight:700;background:transparent;color:#A0AABB;border:1px solid #2A3550;border-radius:8px;cursor:pointer;font-family:'Courier New',monospace">LEDGER</button>
+      <button id="lv-calib" onclick="ledgerView('calib')" style="flex:1;padding:7px;font-size:10px;letter-spacing:1px;font-weight:700;background:transparent;color:#A0AABB;border:1px solid #2A3550;border-radius:8px;cursor:pointer;font-family:'Courier New',monospace">CALIBRATION</button>
+    </div>
+    <div id="ledger-scorecard"></div>
+    <div id="ledger-feed" style="display:none"></div>
+    <div id="ledger-calib" style="display:none">
+      <canvas id="calib-canvas" style="width:100%;display:block;margin-top:6px"></canvas>
+      <div style="font-size:9px;color:#A0AABB;line-height:1.6;margin-top:8px">Each dot is a probability bucket: where it sits left-to-right is what we <i>predicted</i>, up-and-down is what <i>actually happened</i>. The dashed diagonal is perfect honesty — dots on the line mean "when we said 70%, it happened 70% of the time." Dot size = number of calls.</div>
+    </div>
+    <div id="ledger-detail" style="display:none"></div>
+  </div>
+</div>
 
 <!-- SUMMARY -->
 <div id="tc-summary" class="tc active">
@@ -7089,7 +7111,7 @@ var TAB_CAT = {
   slv:'cat-etf',gld:'cat-etf',spy:'cat-etf',qqq:'cat-etf',iwm:'cat-etf',vxx:'cat-etf',
   unh:'cat-health',lly:'cat-health',nvo:'cat-health',azn:'cat-health',pfe:'cat-health',jnj:'cat-health',
   semiconductors:'cat-tech', aiconductor:'cat-tech', aicompanies:'cat-tech',
-  igtools:'cat-tools',admin:'cat-tools'
+  igtools:'cat-tools',admin:'cat-tools',ledger:'cat-tools'
 };
 function openCatForTab(id) {
   var cat = TAB_CAT[id];
@@ -7145,6 +7167,7 @@ function showTab(id) {
   if (id==="economy") { initEconomy(); renderKeyEvents(); }
   if (id==="ta") { initTA(); }
   if (id==="timecapsule") { setTimeout(drawTimeCapsuleChart, 80); }
+  if (id==="ledger") { ledgerView('scorecard'); }
   if (["coffee","sugar","cocoa","wheat","corn","soybeans"].indexOf(id) >= 0) { fetchSoftsLive(); }
   if (["ftse","sp500","dow","nasdaq","dax","nikkei"].indexOf(id) >= 0) { liteFetch(INDICES); }
   if (["eurgbp","gbpjpy","eurjpy","audusd","usdcad","nzdusd"].indexOf(id) >= 0) { liteFetch(FX); }
@@ -7155,7 +7178,7 @@ function showTab(id) {
   if (["unh","lly","nvo","azn","pfe","jnj"].indexOf(id) >= 0) { liteFetch(HEALTH); }
   // COMEX silver monitor is irrelevant on utility/admin tabs — hide it there
   var cf = document.getElementById("comexFloat");
-  if (cf) { cf.style.display = (["admin","igtools","timecapsule","pricing"].indexOf(id) >= 0) ? "none" : "block"; }
+  if (cf) { cf.style.display = (["admin","igtools","timecapsule","pricing","ledger"].indexOf(id) >= 0) ? "none" : "block"; }
 }
 
 // Init
@@ -10224,6 +10247,153 @@ var HEALTH = [
   {id:"jnj", name:"Johnson & Johnson (JNJ)",sym:"JNJ",venue:"NYSE", unit:"$/share", color:"#D4AF37", note:"Diversified health — pharma plus medical devices. A defensive dividend aristocrat; aging populations underpin long-term demand for implants and medtech. Lower volatility, steady."}
 ];
 liteRender(HEALTH);
+
+/* ==================== ACCOUNTABILITY LEDGER (prototype) ==================== */
+var LEDGER_DATA = [
+  {id:"p1",  created:"2026-01-10", asset:"XAG", type:"direction",    statement:"Silver to break $50 by end February",      baselinePrice:47.0,  horizon:"2026-02-28", source:"calcSignal", predictedDirection:"up",   confidence:72, status:"resolved", actualValue:53.2,  whatHappened:"Broke $50 mid-Feb on ETF inflows + industrial demand."},
+  {id:"p2",  created:"2026-01-15", asset:"XAG", type:"price_target",  statement:"Silver Q1 close in $55–62 band",            baselinePrice:50.0,  horizon:"2026-03-31", source:"genForecast",predictedRange:{low:55,high:62}, confidence:64, status:"resolved", actualValue:61.5,  whatHappened:"Closed Q1 at $61.5 — top of the band."},
+  {id:"p3",  created:"2026-01-20", asset:"XAU", type:"direction",    statement:"Gold above $4,000 by mid-March",           baselinePrice:3850,  horizon:"2026-03-15", source:"calcSignal", predictedDirection:"up",   confidence:70, status:"resolved", actualValue:4180,  whatHappened:"Cleared $4,000 on central-bank buying."},
+  {id:"p4",  created:"2026-02-01", asset:"HG",  type:"price_target",  statement:"Copper $5.50–6.00 by end Q1",             baselinePrice:5.10,  horizon:"2026-03-31", source:"genForecast",predictedRange:{low:5.50,high:6.00}, confidence:58, status:"resolved", actualValue:5.93, whatHappened:"AI-grid demand pushed copper into the band."},
+  {id:"p5",  created:"2026-03-01", asset:"XAG", type:"probability",   statement:"70% chance silver tops $80 by end May",   baselinePrice:64.0,  horizon:"2026-05-31", source:"oracle",     predictedProb:0.70, confidence:70, status:"resolved", actualHappened:true,  actualValue:87.0, whatHappened:"Ran to ~$87 — well above $80."},
+  {id:"p6",  created:"2026-04-01", asset:"XAG", type:"price_target",  statement:"Silver peak $90–95 by early June",         baselinePrice:82.0,  horizon:"2026-06-01", source:"genForecast",predictedRange:{low:90,high:95}, confidence:55, status:"resolved", actualValue:88.0,  whatHappened:"Peaked ~$88 — just shy of the band (within 5%)."},
+  {id:"p7",  created:"2026-05-20", asset:"XAG", type:"direction",    statement:"Silver corrects below $70 after hot CPI",  baselinePrice:85.0,  horizon:"2026-06-12", source:"calcSignal", predictedDirection:"down", confidence:66, status:"resolved", actualValue:68.0,  whatHappened:"Hot CPI broke the 200-day MA; fell to ~$68."},
+  {id:"p8",  created:"2026-06-05", asset:"US10Y",type:"probability",  statement:"65% chance 10Y yield rises post-CPI",     baselinePrice:4.20,  horizon:"2026-06-12", source:"oracle",     predictedProb:0.65, confidence:65, status:"resolved", actualHappened:true,  actualValue:4.41, whatHappened:"Yield jumped on the inflation print."},
+  {id:"p11", created:"2026-04-15", asset:"WTI", type:"direction",    statement:"Crude drifts lower into summer on weak demand",baselinePrice:78.0, horizon:"2026-06-01", source:"genForecast",predictedDirection:"down", confidence:54, status:"resolved", actualValue:82.0,  whatHappened:"MISS — supply cuts lifted crude instead."},
+  {id:"p12", created:"2026-03-10", asset:"XPT", type:"probability",   statement:"60% chance platinum breaks $1,200 by May", baselinePrice:1080,  horizon:"2026-05-31", source:"oracle",     predictedProb:0.60, confidence:60, status:"resolved", actualHappened:false, actualValue:1140, whatHappened:"MISS — stalled at $1,140, never cleared $1,200."},
+  {id:"p15", created:"2026-05-10", asset:"NG",  type:"direction",    statement:"Nat gas spikes on early-summer heatwave",  baselinePrice:3.20,  horizon:"2026-06-05", source:"calcSignal", predictedDirection:"up",   confidence:51, status:"resolved", actualValue:2.90,  whatHappened:"MISS — mild weather, storage builds; gas fell."},
+  {id:"p9",  created:"2026-06-10", asset:"XAU", type:"price_target",  statement:"Gold year-end $4,600–5,200",               baselinePrice:4218,  horizon:"2026-12-31", source:"genForecast",predictedRange:{low:4600,high:5200}, confidence:60, status:"open"},
+  {id:"p10", created:"2026-06-12", asset:"XAG", type:"price_target",  statement:"Silver year-end $98–108",                   baselinePrice:68.0,  horizon:"2026-12-31", source:"genForecast",predictedRange:{low:98,high:108}, confidence:62, status:"open"},
+  {id:"p13", created:"2026-05-01", asset:"HG",  type:"direction",    statement:"Copper makes new high on AI-grid build-out",baselinePrice:5.50, horizon:"2026-06-30", source:"calcSignal", predictedDirection:"up",   confidence:57, status:"open"},
+  {id:"p14", created:"2026-06-12", asset:"XAG", type:"probability",   statement:"55% chance silver holds $65 floor at end-June",baselinePrice:68.0,horizon:"2026-06-30", source:"oracle",     predictedProb:0.55, confidence:55, status:"open"}
+];
+
+// --- Scoring math (the honest heart) ---
+function lgGrade(p){
+  if(p.status!=="resolved") return {outcome:"open"};
+  if(p.type==="direction"){
+    var dir = p.actualValue>p.baselinePrice?"up":(p.actualValue<p.baselinePrice?"down":"flat");
+    return {outcome: dir===p.predictedDirection?"hit":"miss"};
+  }
+  if(p.type==="price_target"){
+    var lo=p.predictedRange.low, hi=p.predictedRange.high;
+    if(p.actualValue>=lo && p.actualValue<=hi) return {outcome:"hit"};
+    var edge = p.actualValue<lo?lo:hi;
+    if(Math.abs(p.actualValue-edge)/edge <= 0.05) return {outcome:"partial"};
+    return {outcome:"miss"};
+  }
+  if(p.type==="probability"){
+    var happened = !!p.actualHappened;
+    var brier = Math.pow(p.predictedProb - (happened?1:0), 2);   // Brier score: lower = better
+    var hit = (p.predictedProb>=0.5)===happened;
+    return {outcome: hit?"hit":"miss", brier:brier};
+  }
+  return {outcome:"open"};
+}
+function lgMetrics(){
+  var res = LEDGER_DATA.filter(function(p){return p.status==="resolved";});
+  var hit=0,part=0,miss=0,briers=[];
+  res.forEach(function(p){var g=lgGrade(p);
+    if(g.outcome==="hit")hit++; else if(g.outcome==="partial")part++; else if(g.outcome==="miss")miss++;
+    if(typeof g.brier==="number")briers.push(g.brier);});
+  var total=res.length;
+  return {
+    total:total, hit:hit, part:part, miss:miss,
+    hitRate: total? (hit + 0.5*part)/total : 0,
+    avgBrier: briers.length? briers.reduce(function(a,b){return a+b;},0)/briers.length : null,
+    open: LEDGER_DATA.filter(function(p){return p.status==="open";}).length,
+    all: LEDGER_DATA.length
+  };
+}
+var LG_CHIP = {open:["🟡 OPEN","#FCD34D"],hit:["🟢 HIT","#3DBA7A"],miss:["🔴 MISS","#E05555"],partial:["🟠 PARTIAL","#F97316"]};
+function lgCard(label,val,color,sub){
+  return '<div style="flex:1;min-width:130px;background:#0A0E1A;border:1px solid '+color+'44;border-radius:10px;padding:10px">'+
+    '<div style="font-size:8px;color:#6B7A8D;letter-spacing:1px">'+label+'</div>'+
+    '<div style="font-size:22px;font-weight:700;color:'+color+';margin:2px 0">'+val+'</div>'+
+    '<div style="font-size:8px;color:#A0AABB">'+sub+'</div></div>';
+}
+function renderLedgerScorecard(){
+  var m=lgMetrics(); var el=document.getElementById("ledger-scorecard"); if(!el)return;
+  var hr=(m.hitRate*100).toFixed(0);
+  var brier=m.avgBrier==null?"—":m.avgBrier.toFixed(3);
+  var brierCol=(m.avgBrier!=null&&m.avgBrier<0.25)?"#3DBA7A":"#FCD34D";
+  el.innerHTML =
+    '<div style="display:flex;gap:8px;flex-wrap:wrap">'+
+      lgCard("HIT RATE", hr+"%", "#3DBA7A", m.hit+" hit · "+m.part+" partial · "+m.miss+" miss")+
+      lgCard("BRIER SCORE", brier, brierCol, "lower is better · 0.25 = coin-flip")+
+      lgCard("RESOLVED", m.total, "#22D3EE", m.open+" still open")+
+      lgCard("TOTAL LOGGED", m.all, "#A78BFA", "every one timestamped")+
+    '</div>'+
+    '<div style="background:#0A0E1A;border:1px solid #D4AF3744;border-radius:10px;padding:12px;margin-top:10px;font-size:11px;color:#D8DEE9;line-height:1.7">'+
+      'MarketOracle has logged <b style="color:#D4AF37">'+m.all+'</b> public calls. <b style="color:#22D3EE">'+m.total+'</b> resolved, <b style="color:#3DBA7A">'+hr+'%</b> hit rate, Brier <b style="color:'+brierCol+'">'+brier+'</b>. Every call locked at the moment it was made — wins and losses both on the record.'+
+    '</div>';
+}
+function renderLedgerFeed(){
+  var el=document.getElementById("ledger-feed"); if(!el)return;
+  var rows = LEDGER_DATA.slice().sort(function(a,b){return b.created.localeCompare(a.created);}).map(function(p){
+    var g=lgGrade(p), chip=LG_CHIP[g.outcome];
+    return '<div onclick="lgDetail(\''+p.id+'\')" style="background:#0A0E1A;border:1px solid #1C2740;border-left:3px solid '+chip[1]+';border-radius:8px;padding:10px;margin-bottom:8px;cursor:pointer">'+
+      '<div style="display:flex;justify-content:space-between;align-items:center">'+
+        '<span style="font-size:9px;font-weight:700;color:'+chip[1]+'">'+chip[0]+'</span>'+
+        '<span style="font-size:8px;color:#6B7A8D">'+p.created+'</span></div>'+
+      '<div style="font-size:12px;color:#E8EDF2;margin:4px 0;line-height:1.4">'+p.statement+'</div>'+
+      '<div style="font-size:8px;color:#A0AABB">'+p.asset+' · base '+p.baselinePrice+' · resolves '+p.horizon+' · tap for detail</div></div>';
+  }).join("");
+  el.innerHTML=rows;
+}
+function lgDetail(id){
+  var p=LEDGER_DATA.filter(function(x){return x.id===id;})[0]; if(!p)return;
+  var g=lgGrade(p), chip=LG_CHIP[g.outcome];
+  var pred = p.type==="direction" ? ("Direction: <b>"+p.predictedDirection.toUpperCase()+"</b> from "+p.baselinePrice)
+           : p.type==="price_target" ? ("Target range: <b>"+p.predictedRange.low+"–"+p.predictedRange.high+"</b>")
+           : ("Probability: <b>"+(p.predictedProb*100).toFixed(0)+"%</b>");
+  var resolution = p.status==="resolved"
+    ? ('<div style="margin-top:10px;padding-top:10px;border-top:1px solid #1C2740">'+
+       '<div style="font-size:9px;color:#6B7A8D;letter-spacing:1px">OUTCOME</div>'+
+       '<div style="font-size:14px;font-weight:700;color:'+chip[1]+';margin:3px 0">'+chip[0]+(typeof g.brier==="number"?'  ·  Brier '+g.brier.toFixed(3):'')+'</div>'+
+       '<div style="font-size:10px;color:#A0AABB">Actual: <b style="color:#E8EDF2">'+p.actualValue+'</b></div>'+
+       '<div style="font-size:11px;color:#D8DEE9;line-height:1.6;margin-top:6px">'+p.whatHappened+'</div></div>')
+    : '<div style="margin-top:10px;font-size:11px;color:#FCD34D">🟡 Still open — resolves '+p.horizon+'.</div>';
+  document.getElementById("ledger-detail").innerHTML =
+    '<button onclick="ledgerView(\'feed\')" style="background:transparent;color:#22D3EE;border:1px solid #22D3EE55;border-radius:8px;padding:6px 12px;font-size:10px;cursor:pointer;font-family:\'Courier New\',monospace;margin-bottom:10px">← back to ledger</button>'+
+    '<div style="background:#0A0E1A;border:1px solid '+chip[1]+'55;border-radius:10px;padding:14px">'+
+      '<div style="font-size:8px;color:#6B7A8D">'+p.asset+' · made '+p.created+' · source '+p.source+'</div>'+
+      '<div style="font-size:14px;color:#E8EDF2;font-weight:700;margin:6px 0;line-height:1.4">'+p.statement+'</div>'+
+      '<div style="font-size:11px;color:#A0AABB;line-height:1.7">'+pred+'<br>Baseline price when made: <b style="color:#E8EDF2">'+p.baselinePrice+'</b><br>Confidence stated: <b>'+p.confidence+'%</b><br>Resolves: '+p.horizon+'</div>'+
+      resolution+'</div>';
+  ["scorecard","feed","calib"].forEach(function(v){var e=document.getElementById("ledger-"+v); if(e)e.style.display="none";});
+  document.getElementById("ledger-detail").style.display="block";
+}
+function renderLedgerCalibration(){
+  var cv=document.getElementById("calib-canvas"); if(!cv)return;
+  var W=cv.offsetWidth||300; cv.width=W; cv.height=Math.round(W*0.78);
+  var ctx=cv.getContext("2d"); ctx.clearRect(0,0,cv.width,cv.height);
+  var pad=36, w=cv.width-pad*2, h=cv.height-pad*2;
+  ctx.strokeStyle="#2A3550"; ctx.lineWidth=1;
+  ctx.beginPath(); ctx.moveTo(pad,pad); ctx.lineTo(pad,pad+h); ctx.lineTo(pad+w,pad+h); ctx.stroke();
+  ctx.setLineDash([5,4]); ctx.strokeStyle="#5A6A7D";
+  ctx.beginPath(); ctx.moveTo(pad,pad+h); ctx.lineTo(pad+w,pad); ctx.stroke(); ctx.setLineDash([]);
+  var bins=[[0.5,0.6],[0.6,0.7],[0.7,0.8],[0.8,0.9],[0.9,1.0]];
+  var probs=LEDGER_DATA.filter(function(p){return p.type==="probability"&&p.status==="resolved";});
+  bins.forEach(function(b){
+    var inb=probs.filter(function(p){return p.predictedProb>=b[0] && p.predictedProb<(b[1]===1.0?1.001:b[1]);});
+    if(!inb.length)return;
+    var avgPred=inb.reduce(function(a,p){return a+p.predictedProb;},0)/inb.length;
+    var freq=inb.reduce(function(a,p){return a+(p.actualHappened?1:0);},0)/inb.length;
+    var x=pad+avgPred*w, y=pad+h-freq*h, r=4+inb.length*2;
+    ctx.fillStyle="#22D3EE"; ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2); ctx.fill();
+  });
+  ctx.fillStyle="#6B7A8D"; ctx.font="9px monospace";
+  ctx.fillText("0%",pad-4,pad+h+14); ctx.fillText("100% predicted",pad+w-66,pad+h+14);
+  ctx.save(); ctx.translate(12,pad+h-2); ctx.rotate(-Math.PI/2); ctx.fillText("actual frequency →",0,0); ctx.restore();
+}
+function ledgerView(which){
+  ["scorecard","feed","calib"].forEach(function(v){var e=document.getElementById("ledger-"+v); if(e)e.style.display=(v===which)?"block":"none";});
+  var d=document.getElementById("ledger-detail"); if(d)d.style.display="none";
+  ["scorecard","feed","calib"].forEach(function(v){var b=document.getElementById("lv-"+v); if(b){b.style.background=(v===which)?"#D4AF37":"transparent"; b.style.color=(v===which)?"#000":"#A0AABB"; b.style.border=(v===which)?"none":"1px solid #2A3550";}});
+  if(which==="scorecard") renderLedgerScorecard();
+  else if(which==="feed") renderLedgerFeed();
+  else if(which==="calib") setTimeout(renderLedgerCalibration,30);
+}
 
 function calcRevenue(){
   function v(id){var e=document.getElementById(id);return e?(parseInt(e.value)||0):0;}
