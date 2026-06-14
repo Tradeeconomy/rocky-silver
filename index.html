@@ -251,6 +251,30 @@ body{background:#F0F2F5;color:#1A2035;font-family:'Courier New',monospace;max-wi
     <button class="tbtn" onclick="showTab('gasoline')">GASOLINE</button>
   </div>
 
+  <!-- Category: Bonds & Rates -->
+  <div class="cat-header" onclick="toggleCat('cat-bonds')">
+    <span>🏦 BONDS &amp; RATES</span><span class="cat-arrow" id="arr-cat-bonds">▶</span>
+  </div>
+  <div class="cat-body" id="cat-bonds" style="display:none">
+    <button class="tbtn" onclick="showTab('us3m')">US 3M</button>
+    <button class="tbtn" onclick="showTab('us5y')">US 5Y</button>
+    <button class="tbtn" onclick="showTab('us10y')">US 10Y</button>
+    <button class="tbtn" onclick="showTab('us30y')">US 30Y</button>
+  </div>
+
+  <!-- Category: ETFs -->
+  <div class="cat-header" onclick="toggleCat('cat-etf')">
+    <span>📂 ETFs</span><span class="cat-arrow" id="arr-cat-etf">▶</span>
+  </div>
+  <div class="cat-body" id="cat-etf" style="display:none">
+    <button class="tbtn" onclick="showTab('slv')">SILVER ETF</button>
+    <button class="tbtn" onclick="showTab('gld')">GOLD ETF</button>
+    <button class="tbtn" onclick="showTab('spy')">S&amp;P 500</button>
+    <button class="tbtn" onclick="showTab('qqq')">NASDAQ 100</button>
+    <button class="tbtn" onclick="showTab('iwm')">SMALL CAPS</button>
+    <button class="tbtn" onclick="showTab('vxx')">VOLATILITY</button>
+  </div>
+
   <!-- Category: Technology -->
   <div class="cat-header" onclick="toggleCat('cat-tech')">
     <span>💻 TECHNOLOGY</span><span class="cat-arrow" id="arr-cat-tech">▶</span>
@@ -370,6 +394,20 @@ body{background:#F0F2F5;color:#1A2035;font-family:'Courier New',monospace;max-wi
 <div id="tc-brent" class="tc"><div class="sec" id="lm-brent-body"></div></div>
 <div id="tc-heatoil" class="tc"><div class="sec" id="lm-heatoil-body"></div></div>
 <div id="tc-gasoline" class="tc"><div class="sec" id="lm-gasoline-body"></div></div>
+
+<!-- BONDS & RATES (generic lite engine) -->
+<div id="tc-us3m" class="tc"><div class="sec" id="lm-us3m-body"></div></div>
+<div id="tc-us5y" class="tc"><div class="sec" id="lm-us5y-body"></div></div>
+<div id="tc-us10y" class="tc"><div class="sec" id="lm-us10y-body"></div></div>
+<div id="tc-us30y" class="tc"><div class="sec" id="lm-us30y-body"></div></div>
+
+<!-- ETFs (generic lite engine) -->
+<div id="tc-slv" class="tc"><div class="sec" id="lm-slv-body"></div></div>
+<div id="tc-gld" class="tc"><div class="sec" id="lm-gld-body"></div></div>
+<div id="tc-spy" class="tc"><div class="sec" id="lm-spy-body"></div></div>
+<div id="tc-qqq" class="tc"><div class="sec" id="lm-qqq-body"></div></div>
+<div id="tc-iwm" class="tc"><div class="sec" id="lm-iwm-body"></div></div>
+<div id="tc-vxx" class="tc"><div class="sec" id="lm-vxx-body"></div></div>
 
 <!-- SUMMARY -->
 <div id="tc-summary" class="tc active">
@@ -7029,6 +7067,8 @@ var TAB_CAT = {
   eurgbp:'cat-fx',gbpjpy:'cat-fx',eurjpy:'cat-fx',audusd:'cat-fx',usdcad:'cat-fx',nzdusd:'cat-fx',
   aapl:'cat-shares',tsla:'cat-shares',nvda:'cat-shares',msft:'cat-shares',amzn:'cat-shares',googl:'cat-shares',
   brent:'cat-energyx',heatoil:'cat-energyx',gasoline:'cat-energyx',
+  us3m:'cat-bonds',us5y:'cat-bonds',us10y:'cat-bonds',us30y:'cat-bonds',
+  slv:'cat-etf',gld:'cat-etf',spy:'cat-etf',qqq:'cat-etf',iwm:'cat-etf',vxx:'cat-etf',
   semiconductors:'cat-tech', aiconductor:'cat-tech', aicompanies:'cat-tech',
   igtools:'cat-tools',admin:'cat-tools'
 };
@@ -7091,6 +7131,8 @@ function showTab(id) {
   if (["eurgbp","gbpjpy","eurjpy","audusd","usdcad","nzdusd"].indexOf(id) >= 0) { liteFetch(FX); }
   if (["aapl","tsla","nvda","msft","amzn","googl"].indexOf(id) >= 0) { liteFetch(SHARES); }
   if (["brent","heatoil","gasoline"].indexOf(id) >= 0) { liteFetch(ENERGYX); }
+  if (["us3m","us5y","us10y","us30y"].indexOf(id) >= 0) { liteFetch(BONDS); }
+  if (["slv","gld","spy","qqq","iwm","vxx"].indexOf(id) >= 0) { liteFetch(ETFS); }
   // COMEX silver monitor is irrelevant on utility/admin tabs — hide it there
   var cf = document.getElementById("comexFloat");
   if (cf) { cf.style.display = (["admin","igtools","timecapsule","pricing"].indexOf(id) >= 0) ? "none" : "block"; }
@@ -9730,6 +9772,8 @@ window.onload = function() {
   liteFetch(FX);
   liteFetch(SHARES);
   liteFetch(ENERGYX);
+  liteFetch(BONDS);
+  liteFetch(ETFS);
   setInterval(fetchPrice, 10000);
   setInterval(fetchPoly, 60000);
   setInterval(fetchNews, 300000);
@@ -9741,6 +9785,8 @@ window.onload = function() {
   setInterval(function(){ liteFetch(FX); }, 300000);
   setInterval(function(){ liteFetch(SHARES); }, 300000);
   setInterval(function(){ liteFetch(ENERGYX); }, 300000);
+  setInterval(function(){ liteFetch(BONDS); }, 300000);
+  setInterval(function(){ liteFetch(ETFS); }, 300000);
   // Risk Radar - load baseline immediately, fetch live data, poll every 120s
   loadGeopoliticalBaseline();
   openCatForTab('summary');
@@ -10121,6 +10167,27 @@ var ENERGYX = [
   {id:"gasoline", name:"Gasoline (RBOB)", sym:"RB=F", venue:"NYMEX — RBOB",          unit:"$/gal", color:"#E05555", note:"US petrol futures. Driven by the summer driving season, refinery outages and crude prices. The crack spread (gasoline minus crude) shows refining margins."}
 ];
 liteRender(ENERGYX);
+
+// NOTE: Yahoo gives Treasury YIELDS (^IRX/^FVX/^TNX/^TYX), not the bond futures PRICES IG quotes.
+// So these tabs show the yield as a percentage (unit "% yield"), with notes explaining the difference.
+// Remember: yields move INVERSELY to bond prices — yield up = bond price down.
+var BONDS = [
+  {id:"us3m",  name:"US 3-Month",  sym:"^IRX", venue:"13-wk T-bill",  unit:"% yield", color:"#A0AABB", note:"The short-end rate — tracks the Fed funds rate almost exactly. The market's 'risk-free' rate; it rises and falls with Fed policy. Shown as a yield (%) — not a futures price."},
+  {id:"us5y",  name:"US 5-Year",   sym:"^FVX", venue:"5yr Treasury",  unit:"% yield", color:"#22D3EE", note:"The belly of the curve — reflects medium-term Fed and inflation expectations. Shown as a yield (%). Remember: when this rises, bond prices fall."},
+  {id:"us10y", name:"US 10-Year",  sym:"^TNX", venue:"10yr Treasury", unit:"% yield", color:"#F97316", note:"THE benchmark global rate. It drives mortgages, equity valuations and the dollar. Rising 10Y = headwind for gold, silver and growth stocks; falling 10Y = tailwind. The single most-watched number in markets. Shown as a yield (%)."},
+  {id:"us30y", name:"US 30-Year",  sym:"^TYX", venue:"30yr Treasury", unit:"% yield", color:"#E05555", note:"The long bond — long-term growth and inflation expectations. The curve shape (e.g. 10Y vs 2Y, or 10Y vs 30Y) is a classic recession signal. Shown as a yield (%)."}
+];
+liteRender(BONDS);
+
+var ETFS = [
+  {id:"slv", name:"iShares Silver (SLV)",   sym:"SLV", venue:"NYSE Arca", unit:"$/share", color:"#C0C0C0", note:"The largest silver ETF — its holdings ARE physical silver. SLV inflows and outflows directly move the silver price, so it's your single most relevant ETF. Watch the holdings trend, not just the price."},
+  {id:"gld", name:"SPDR Gold (GLD)",        sym:"GLD", venue:"NYSE Arca", unit:"$/share", color:"#D4AF37", note:"The largest gold ETF. Gold-ETF flows are a key safe-haven demand signal — watch it alongside the gold/silver ratio to read the precious-metals mood."},
+  {id:"spy", name:"SPDR S&P 500 (SPY)",     sym:"SPY", venue:"NYSE Arca", unit:"$/share", color:"#3DBA7A", note:"The most-traded ETF on earth — the tradeable version of the S&P 500. Broad US equity exposure in one ticket. Moves on Fed policy and megacap earnings."},
+  {id:"qqq", name:"Invesco Nasdaq 100 (QQQ)",sym:"QQQ", venue:"NASDAQ",   unit:"$/share", color:"#A78BFA", note:"The tech/growth ETF — the cleanest single-ticket exposure to AI and big tech. The most rate-sensitive of the major ETFs."},
+  {id:"iwm", name:"iShares Russell 2000 (IWM)",sym:"IWM",venue:"NYSE Arca",unit:"$/share", color:"#F97316", note:"US small-caps — a barometer of domestic economic health and risk appetite. Tends to lag the megacaps during AI-driven, narrow rallies."},
+  {id:"vxx", name:"Volatility (VXX)",       sym:"VXX", venue:"Cboe VIX futures", unit:"$/share", color:"#E05555", note:"Tracks short-term VIX futures — the market's 'fear gauge'. Spikes when stocks sell off. A risk-off warning light, though it bleeds value over time (not a buy-and-hold)."}
+];
+liteRender(ETFS);
 
 function calcRevenue(){
   function v(id){var e=document.getElementById(id);return e?(parseInt(e.value)||0):0;}
