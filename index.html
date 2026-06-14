@@ -241,6 +241,16 @@ body{background:#F0F2F5;color:#1A2035;font-family:'Courier New',monospace;max-wi
     <button class="tbtn" onclick="showTab('googl')">ALPHABET</button>
   </div>
 
+  <!-- Category: Energy Extras -->
+  <div class="cat-header" onclick="toggleCat('cat-energyx')">
+    <span>🛢️ ENERGY EXTRAS</span><span class="cat-arrow" id="arr-cat-energyx">▶</span>
+  </div>
+  <div class="cat-body" id="cat-energyx" style="display:none">
+    <button class="tbtn" onclick="showTab('brent')">BRENT</button>
+    <button class="tbtn" onclick="showTab('heatoil')">HEATING OIL</button>
+    <button class="tbtn" onclick="showTab('gasoline')">GASOLINE</button>
+  </div>
+
   <!-- Category: Technology -->
   <div class="cat-header" onclick="toggleCat('cat-tech')">
     <span>💻 TECHNOLOGY</span><span class="cat-arrow" id="arr-cat-tech">▶</span>
@@ -355,6 +365,11 @@ body{background:#F0F2F5;color:#1A2035;font-family:'Courier New',monospace;max-wi
 <div id="tc-msft" class="tc"><div class="sec" id="lm-msft-body"></div></div>
 <div id="tc-amzn" class="tc"><div class="sec" id="lm-amzn-body"></div></div>
 <div id="tc-googl" class="tc"><div class="sec" id="lm-googl-body"></div></div>
+
+<!-- ENERGY EXTRAS (generic lite engine) -->
+<div id="tc-brent" class="tc"><div class="sec" id="lm-brent-body"></div></div>
+<div id="tc-heatoil" class="tc"><div class="sec" id="lm-heatoil-body"></div></div>
+<div id="tc-gasoline" class="tc"><div class="sec" id="lm-gasoline-body"></div></div>
 
 <!-- SUMMARY -->
 <div id="tc-summary" class="tc active">
@@ -7013,6 +7028,7 @@ var TAB_CAT = {
   ftse:'cat-indices',sp500:'cat-indices',dow:'cat-indices',nasdaq:'cat-indices',dax:'cat-indices',nikkei:'cat-indices',
   eurgbp:'cat-fx',gbpjpy:'cat-fx',eurjpy:'cat-fx',audusd:'cat-fx',usdcad:'cat-fx',nzdusd:'cat-fx',
   aapl:'cat-shares',tsla:'cat-shares',nvda:'cat-shares',msft:'cat-shares',amzn:'cat-shares',googl:'cat-shares',
+  brent:'cat-energyx',heatoil:'cat-energyx',gasoline:'cat-energyx',
   semiconductors:'cat-tech', aiconductor:'cat-tech', aicompanies:'cat-tech',
   igtools:'cat-tools',admin:'cat-tools'
 };
@@ -7074,6 +7090,7 @@ function showTab(id) {
   if (["ftse","sp500","dow","nasdaq","dax","nikkei"].indexOf(id) >= 0) { liteFetch(INDICES); }
   if (["eurgbp","gbpjpy","eurjpy","audusd","usdcad","nzdusd"].indexOf(id) >= 0) { liteFetch(FX); }
   if (["aapl","tsla","nvda","msft","amzn","googl"].indexOf(id) >= 0) { liteFetch(SHARES); }
+  if (["brent","heatoil","gasoline"].indexOf(id) >= 0) { liteFetch(ENERGYX); }
   // COMEX silver monitor is irrelevant on utility/admin tabs — hide it there
   var cf = document.getElementById("comexFloat");
   if (cf) { cf.style.display = (["admin","igtools","timecapsule","pricing"].indexOf(id) >= 0) ? "none" : "block"; }
@@ -9712,6 +9729,7 @@ window.onload = function() {
   liteFetch(INDICES);
   liteFetch(FX);
   liteFetch(SHARES);
+  liteFetch(ENERGYX);
   setInterval(fetchPrice, 10000);
   setInterval(fetchPoly, 60000);
   setInterval(fetchNews, 300000);
@@ -9722,6 +9740,7 @@ window.onload = function() {
   setInterval(function(){ liteFetch(INDICES); }, 300000);
   setInterval(function(){ liteFetch(FX); }, 300000);
   setInterval(function(){ liteFetch(SHARES); }, 300000);
+  setInterval(function(){ liteFetch(ENERGYX); }, 300000);
   // Risk Radar - load baseline immediately, fetch live data, poll every 120s
   loadGeopoliticalBaseline();
   openCatForTab('summary');
@@ -10095,6 +10114,13 @@ var SHARES = [
   {id:"googl", name:"Alphabet (GOOGL)",  sym:"GOOGL", venue:"NASDAQ", unit:"$/share", color:"#D4AF37", note:"Search & ads + Google Cloud + Gemini AI + DeepMind. Driven by ad revenue and how it competes in the AI race against OpenAI and Microsoft."}
 ];
 liteRender(SHARES);
+
+var ENERGYX = [
+  {id:"brent",    name:"Brent Crude",     sym:"BZ=F", venue:"ICE — global benchmark", unit:"$/bbl", color:"#3DBA7A", note:"The global oil benchmark (vs WTI, the US one). Driven by OPEC+ supply policy, Middle East geopolitics and global demand. The Brent–WTI spread signals global vs US supply tightness."},
+  {id:"heatoil",  name:"Heating Oil",     sym:"HO=F", venue:"NYMEX — ULSD",          unit:"$/gal", color:"#F97316", note:"Distillate fuel and a diesel proxy. Driven by winter heating demand, refinery capacity and freight/diesel demand. Tracks crude but with strong seasonal swings."},
+  {id:"gasoline", name:"Gasoline (RBOB)", sym:"RB=F", venue:"NYMEX — RBOB",          unit:"$/gal", color:"#E05555", note:"US petrol futures. Driven by the summer driving season, refinery outages and crude prices. The crack spread (gasoline minus crude) shows refining margins."}
+];
+liteRender(ENERGYX);
 
 function calcRevenue(){
   function v(id){var e=document.getElementById(id);return e?(parseInt(e.value)||0):0;}
