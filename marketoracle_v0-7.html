@@ -4166,7 +4166,33 @@ var HISTORICAL_2026 = [
   {date:"2026-06-09",label:"9 Jun",weekday:"Tu",month:"Jun 2026",open:68.86,hi:69.44,lo:67.61,price:68.42,phase:"accumulation",real:true}
 ];
 
-var FORECAST_YEARS = {2027: false, long: false};
+var FORECAST_YEARS = {2027: false, 2028: false, long: false};
+// Restore from storage
+try {
+  if(localStorage.getItem('fy2027')==='1') FORECAST_YEARS[2027]=true;
+  if(localStorage.getItem('fy2028')==='1') FORECAST_YEARS[2028]=true;
+  if(localStorage.getItem('fylong')==='1') FORECAST_YEARS['long']=true;
+} catch(e){}
+
+function restoreForecastButtons() {
+  [2027,2028,'long'].forEach(function(yr){
+    var key = yr===2027?'btn-2027':yr===2028?'btn-2028':'btn-longrange';
+    var btn = document.getElementById(key);
+    if(btn && FORECAST_YEARS[yr]) {
+      btn.textContent='ON'; btn.style.background='#7C3AED';
+    }
+  });
+  var p27=document.getElementById('phase-2027');
+  var plr=document.getElementById('phase-longrange');
+  if(p27) p27.style.display=FORECAST_YEARS[2027]?'block':'none';
+  if(plr) plr.style.display=FORECAST_YEARS['long']?'block':'none';
+  var lbl=document.getElementById('forecast-end-label');
+  if(lbl){
+    if(FORECAST_YEARS['long']) lbl.textContent='2035';
+    else if(FORECAST_YEARS[2027]) lbl.textContent='2027';
+    else lbl.textContent='2026';
+  }
+}
 
 function genForecastForYear(yr) {
   var rows = [];
@@ -4239,6 +4265,11 @@ function toggleForecastYear(yr, btn) {
   FORECAST_YEARS[yr] = !FORECAST_YEARS[yr];
   btn.textContent = FORECAST_YEARS[yr] ? 'ON' : 'OFF';
   btn.style.background = FORECAST_YEARS[yr] ? '#7C3AED' : '#6B7A8D';
+  try {
+    if(yr===2027) localStorage.setItem('fy2027', FORECAST_YEARS[yr]?'1':'0');
+    if(yr===2028) localStorage.setItem('fy2028', FORECAST_YEARS[yr]?'1':'0');
+    if(yr==='long') localStorage.setItem('fylong', FORECAST_YEARS[yr]?'1':'0');
+  } catch(e){}
   // Rebuild forecast
   FORECAST = genForecast();
   if (typeof FORECAST_LIVE !== 'undefined') FORECAST_LIVE = genForecast();
@@ -8050,6 +8081,7 @@ window.onload = function() {
   // Risk Radar - load baseline immediately, fetch live data, poll every 120s
   loadGeopoliticalBaseline();
   openCatForTab('summary');
+  restoreForecastButtons();
   loadCOMEXMonitor();
   // Key events \u2014 render and add to risk
   renderKeyEvents();
