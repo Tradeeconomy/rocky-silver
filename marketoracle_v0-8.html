@@ -128,8 +128,8 @@ body{background:#F0F2F5;color:#1A2035;font-family:'Courier New',monospace;max-wi
     <span>⬡ SILVER INTELLIGENCE</span><span class="cat-arrow" id="arr-cat-silver">▶</span>
   </div>
   <div class="cat-body" id="cat-silver" style="display:none">
+    <button class="tbtn" onclick="showTab('business')" style="color:#FFFFFF;background:#F97316;border-radius:4px;margin:4px">🏢 BUSINESS</button>
     <button class="tbtn active" onclick="showTab('summary')">DAILY</button>
-    <button class="tbtn" onclick="showTab('business')" style="color:#F97316;border-bottom-color:#F97316">BUSINESS</button>
     <button class="tbtn" onclick="showTab('chart')">CHART</button>
     <button class="tbtn" onclick="showTab('poly')">POLY</button>
     <button class="tbtn" onclick="showTab('comex')">COMEX</button>
@@ -211,6 +211,8 @@ body{background:#F0F2F5;color:#1A2035;font-family:'Courier New',monospace;max-wi
 
 <!-- Floating Admin Button — always visible -->
 <div onclick="showTab('admin')" style="position:fixed;bottom:24px;right:16px;z-index:9999;background:#7C3AED;color:#FFF;border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;letter-spacing:1px;font-family:'Courier New',monospace;cursor:pointer;box-shadow:0 2px 12px #7C3AED88">ADM</div>
+<!-- Floating Business Button -->
+<div onclick="showTab('business')" style="position:fixed;bottom:76px;right:16px;z-index:9999;background:#F97316;color:#FFF;border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;letter-spacing:1px;font-family:'Courier New',monospace;cursor:pointer;box-shadow:0 2px 12px #F9731688">BIZ</div>
 
 <!-- SUMMARY -->
 <div id="tc-summary" class="tc active">
