@@ -1148,7 +1148,9 @@ body{background:#F0F2F5;color:#1A2035;font-family:'Courier New',monospace;max-wi
     </div>
     <div style="margin-bottom:12px">
       <div style="font-size:8px;color:#6B7A8D;text-transform:uppercase;margin-bottom:4px">Password</div>
-      <input id="admin-pass" type="password" placeholder="..." style="width:100%;background:#FFFFFF;border:2px solid #7C3AED;border-radius:6px;padding:10px;color:#000000;font-size:13px;font-family:inherit;font-size:11px;outline:none">
+      <div style="position:relative">
+        <input id="admin-pass" type="text" placeholder="Enter password here" style="width:100%;background:#FFFFFF;border:3px solid #7C3AED;border-radius:8px;padding:12px;color:#000000;font-size:16px;font-family:'Courier New',monospace;outline:none;box-sizing:border-box;letter-spacing:2px">
+      </div>
     </div>
     <button onclick="adminLogin()" style="width:100%;padding:10px;background:#D4AF37;color:#000;border:none;border-radius:6px;font-family:inherit;font-size:11px;font-weight:700;cursor:pointer;letter-spacing:1px">SIGN IN</button>
     <div id="admin-error" style="display:none;margin-top:8px;text-align:center;font-size:10px;color:#E05555">Invalid credentials. Try again.</div>
