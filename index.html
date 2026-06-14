@@ -207,6 +207,7 @@ body{background:#F0F2F5;color:#1A2035;font-family:'Courier New',monospace;max-wi
   <div class="cat-body" id="cat-tools" style="display:none">
     <button class="tbtn" onclick="showTab('igtools')">IG TOOLS</button>
     <button class="tbtn" onclick="showTab('timecapsule')" style="color:#22D3EE">⏳ TIME CAPSULE</button>
+    <button class="tbtn" onclick="showTab('pricing')" style="color:#3DBA7A">💎 MEMBERSHIP</button>
     <button class="tbtn" onclick="showTab('admin')">ADMIN</button>
   </div>
 
@@ -255,6 +256,22 @@ body{background:#F0F2F5;color:#1A2035;font-family:'Courier New',monospace;max-wi
 </div>
 </div>
 
+<!-- MEMBERSHIP / PRICING -->
+<div id="tc-pricing" class="tc">
+<div class="sec">
+  <div class="card" style="border-color:#3DBA7A44;background:#001A0A;margin-bottom:12px">
+    <div style="font-size:9px;color:#3DBA7A;letter-spacing:3px;text-transform:uppercase;margin-bottom:6px">💎 MarketOracle Membership</div>
+    <div style="font-size:11px;color:#B8C2D0;line-height:1.7">Multi-commodity intelligence, live data, and the Oracle AI. Your current plan: <b id="plan-name" style="color:#3DBA7A">FREE</b>.</div>
+  </div>
+  <div id="tier-list"></div>
+  <div class="card" style="border-color:#6B7A8D44;margin-top:6px">
+    <div style="font-size:9px;color:#6B7A8D;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px">Preview a plan (admin/dev)</div>
+    <div id="tier-preview" style="display:flex;gap:5px;flex-wrap:wrap"></div>
+    <div style="font-size:8px;color:#6B7A8D;margin-top:8px;line-height:1.5">Plan switching here is for previewing gated features during build. Real access is enforced server-side once payments are live on the MarketOracle server — client-side gating alone can be bypassed, so it never holds back real revenue.</div>
+  </div>
+</div>
+</div>
+
 <!-- SUMMARY -->
 <div id="tc-summary" class="tc active">
 <div class="sec">
@@ -263,6 +280,13 @@ body{background:#F0F2F5;color:#1A2035;font-family:'Courier New',monospace;max-wi
     <div style="font-size:9px;color:#D4AF37;letter-spacing:3px;text-transform:uppercase;margin-bottom:8px">Live Market Intelligence</div>
     <div id="sum-text" style="font-size:13px;color:#1A2035;line-height:1.8">Loading...</div>
     <div style="font-size:9px;color:#888888;margin-top:10px" id="sum-time">--:--:--</div>
+  </div>
+
+  <div class="card" style="border-color:#22D3EE44;background:#00080F;margin-bottom:14px">
+    <div style="font-size:9px;color:#22D3EE;letter-spacing:3px;text-transform:uppercase;margin-bottom:8px">🔮 Ask The Oracle</div>
+    <textarea id="oracle-q" placeholder="e.g. Is silver's break above the 200-day a buy, given the deficit?" style="width:100%;min-height:54px;background:#0A0F1A;border:1px solid #22D3EE44;border-radius:6px;color:#D8DEE9;font-family:inherit;font-size:11px;padding:8px;resize:vertical"></textarea>
+    <button onclick="runOracle()" style="width:100%;margin-top:8px;padding:10px;background:#22D3EE;color:#00080F;border:none;border-radius:6px;font-family:inherit;font-weight:700;font-size:11px;letter-spacing:2px;text-transform:uppercase;cursor:pointer">Consult The Oracle</button>
+    <div id="oracle-out" style="display:none;margin-top:10px;font-size:11px;color:#D8DEE9;line-height:1.7;background:#0A0F1A;border:1px solid #D4AF3755;border-radius:6px;padding:10px;white-space:pre-wrap"></div>
   </div>
 
 
@@ -4717,7 +4741,7 @@ body{background:#F0F2F5;color:#1A2035;font-family:'Courier New',monospace;max-wi
 </div>
 
 <!-- COMEX CONTRACT MANIPULATION MONITOR — floats below all tabs -->
-<div style="margin-top:0px">
+<div id="comexFloat" style="margin-top:0px">
   <div style="padding:14px 14px 0">
     <div class="stitle" style="color:#E05555">COMEX Contract Manipulation Monitor</div>
   </div>
@@ -4898,6 +4922,66 @@ var AV_HIST = "https://www.alphavantage.co/query?function=FX_DAILY&from_symbol=X
 
 // State
 var livePrice = 74.87;
+
+// ================================================================
+// ASK THE ORACLE — the single model-agnostic AI engine.
+// EVERY AI feature in the app routes through askOracle().
+// To upgrade to any future model, change ONE line: AI_CONFIG.model.
+// Real Claude runs server-side (Bluehost) — the browser never holds
+// the API key. Until the server is live, a graceful fallback shows.
+// ================================================================
+var AI_CONFIG = {
+  model:   "claude-sonnet-4-6",   // <<< CHANGE THIS ONE LINE to upgrade to any future model
+  endpoint: "",                    // <<< set to "https://YOURDOMAIN/api/oracle.php" when Bluehost is live
+  enabled:  false,                 // <<< flip to true once the server endpoint is deployed
+  maxTokens: 700
+};
+
+// Single entry point for all AI. cb(text, ok)
+function askOracle(prompt, cb) {
+  if (!AI_CONFIG.enabled || !AI_CONFIG.endpoint) {
+    cb("🔮 Oracle AI activates the moment MarketOracle connects to its server. "
+       + "Until then, all intelligence on this dashboard is generated by the built-in analysis engine. "
+       + "(Model ready: " + AI_CONFIG.model + ")", false);
+    return;
+  }
+  var xhr = new XMLHttpRequest();
+  var tid = setTimeout(function(){ xhr.abort(); cb("Oracle timed out — try again.", false); }, 30000);
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState !== 4) return;
+    clearTimeout(tid);
+    if (xhr.status !== 200) { cb("Oracle unavailable (status " + xhr.status + ").", false); return; }
+    try {
+      var d = JSON.parse(xhr.responseText);
+      // server returns {text:"..."} OR raw Anthropic {content:[{text}]}
+      var text = d.text || (d.content && d.content.filter(function(b){return b.type==="text";}).map(function(b){return b.text;}).join("\n")) || "No response.";
+      cb(text, true);
+    } catch(e) { cb("Oracle returned an unreadable response.", false); }
+  };
+  xhr.open("POST", AI_CONFIG.endpoint);
+  xhr.setRequestHeader("Content-Type", "application/json");
+  xhr.send(JSON.stringify({ model: AI_CONFIG.model, max_tokens: AI_CONFIG.maxTokens, prompt: prompt }));
+}
+
+// Build the live-context prompt the Oracle reasons over
+function buildOracleContext() {
+  var p = (typeof livePrice!=="undefined"&&livePrice)?livePrice.toFixed(2):"?";
+  var g = (typeof goldPrice!=="undefined"&&goldPrice>0)?goldPrice.toFixed(2):"?";
+  var fx= (typeof gbpUsd!=="undefined")?gbpUsd.toFixed(4):"?";
+  var m = (typeof curMetal!=="undefined"&&curMetal.label)?curMetal.label:"Silver";
+  return "You are MarketOracle, a precise commodities analyst. Current live context: "
+    + m + " $" + p + "/oz, Gold $" + g + ", GBP/USD " + fx
+    + ", silver structural deficit ~182Moz. Be concise, specific, and never fabricate numbers. ";
+}
+function runOracle() {
+  var q = (document.getElementById("oracle-q")||{}).value || "";
+  var out = document.getElementById("oracle-out");
+  if (!q.trim()) { if(out){out.style.display="block";out.textContent="Ask the Oracle a question first.";} return; }
+  if (out) { out.style.display="block"; out.textContent="🔮 Consulting the Oracle…"; }
+  askOracle(buildOracleContext() + "User question: " + q, function(text, ok) {
+    if (out) { out.textContent = text; out.style.borderColor = ok ? "#3DBA7A55" : "#D4AF3755"; }
+  });
+}
 var lastLivePriceTime = 0;
 var staleWarningActive = false;
 
@@ -6828,6 +6912,9 @@ function showTab(id) {
   if (id==="economy") { initEconomy(); renderKeyEvents(); }
   if (id==="ta") { initTA(); }
   if (id==="timecapsule") { setTimeout(drawTimeCapsuleChart, 80); }
+  // COMEX silver monitor is irrelevant on utility/admin tabs — hide it there
+  var cf = document.getElementById("comexFloat");
+  if (cf) { cf.style.display = (["admin","igtools","timecapsule","pricing"].indexOf(id) >= 0) ? "none" : "block"; }
 }
 
 // Init
@@ -9679,6 +9766,58 @@ function drawTimeCapsuleChart(){
   });
 }
 renderTCEras();
+
+// ================================================================
+// MEMBERSHIP — tier structure + access control.
+// Prices/features live in ONE config block. Real enforcement is
+// server-side at launch; this is the structure + storefront + gating hook.
+// ================================================================
+var TIERS = [
+  {id:"free",   name:"FREE",   price:"£0",       per:"forever", color:"#6B7A8D", rank:0,
+   feats:["Live silver price & IG pence","Core dashboard & intraday chart","Time Capsule (history view)","Daily market summary"]},
+  {id:"trader", name:"TRADER", price:"£9.99",    per:"/month",  color:"#22D3EE", rank:1,
+   feats:["Everything in Free","All metals, energy & industrial tabs","Currencies & Crypto (live)","Signals, COMEX & Polymarket feeds","Capture Today on the timeline"]},
+  {id:"pro",    name:"PRO",    price:"£14.99",   per:"/month",  color:"#D4AF37", rank:2,
+   feats:["Everything in Trader","🔮 Ask the Oracle — live AI analysis","Business Scanner (any company)","Global Inflation Monitor","Full multi-year forecasts"]},
+  {id:"elite",  name:"ELITE",  price:"£19.99",   per:"/month",  color:"#3DBA7A", rank:3,
+   feats:["Everything in Pro","Perpetual Calendar long-range (to 2035)","Priority Oracle AI + auto-updates","All devices (mobile + desktop)","Early access to new modules"]}
+];
+var MEMBERSHIP = { plan: "free" };
+function currentRank(){ var t=TIERS.find(function(x){return x.id===MEMBERSHIP.plan;}); return t?t.rank:0; }
+// Gating hook: hasAccess("pro") etc. Use to lock premium features later.
+function hasAccess(tierId){
+  var need=TIERS.find(function(x){return x.id===tierId;});
+  return need ? currentRank() >= need.rank : true;
+}
+function setPlan(id){
+  MEMBERSHIP.plan=id;
+  var pn=document.getElementById("plan-name");
+  var t=TIERS.find(function(x){return x.id===id;});
+  if(pn&&t){pn.textContent=t.name;pn.style.color=t.color;}
+  renderTiers();
+}
+function subscribe(id){
+  var t=TIERS.find(function(x){return x.id===id;});
+  alert("💎 "+(t?t.name:"")+" — secure checkout activates when MarketOracle goes live on its server. Your pension-funded launch wires Stripe/PayPal here. For now this previews the plan.");
+  setPlan(id);
+}
+function renderTiers(){
+  var el=document.getElementById("tier-list"); if(!el)return;
+  el.innerHTML=TIERS.map(function(t){
+    var isCur=MEMBERSHIP.plan===t.id;
+    return '<div class="card" style="border-color:'+t.color+(isCur?'':'44')+';border-width:'+(isCur?'2px':'1px')+';margin-bottom:8px">'+
+      '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px">'+
+      '<span style="font-size:13px;font-weight:700;color:'+t.color+'">'+t.name+(isCur?' ✓':'')+'</span>'+
+      '<span style="font-size:14px;font-weight:700;color:#D8DEE9">'+t.price+'<span style="font-size:9px;color:#6B7A8D">'+t.per+'</span></span></div>'+
+      t.feats.map(function(f){return '<div style="font-size:10px;color:#B8C2D0;line-height:1.6;padding:1px 0">• '+f+'</div>';}).join('')+
+      (isCur?'<div style="text-align:center;font-size:9px;color:'+t.color+';margin-top:8px;letter-spacing:1px">YOUR CURRENT PLAN</div>'
+            :'<button onclick="subscribe(\''+t.id+'\')" style="width:100%;margin-top:9px;padding:9px;background:'+t.color+';color:#00080F;border:none;border-radius:6px;font-family:inherit;font-weight:700;font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer">'+(t.id==='free'?'Downgrade to Free':'Choose '+t.name)+'</button>')+
+      '</div>';
+  }).join('');
+  var pv=document.getElementById("tier-preview");
+  if(pv){pv.innerHTML=TIERS.map(function(t){return '<button onclick="setPlan(\''+t.id+'\')" style="flex:1;min-width:64px;padding:6px;background:'+(MEMBERSHIP.plan===t.id?t.color:'#1C2438')+';color:'+(MEMBERSHIP.plan===t.id?'#00080F':t.color)+';border:1px solid '+t.color+'66;border-radius:5px;font-family:inherit;font-size:9px;font-weight:700;cursor:pointer">'+t.name+'</button>';}).join('');}
+}
+renderTiers();
 
 document.addEventListener('keydown',function(e){if(e.key==='Enter'){var tc=document.getElementById('tc-admin');if(tc&&tc.classList.contains('active'))adminLogin();}});
 
