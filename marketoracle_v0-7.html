@@ -6142,7 +6142,7 @@ async function runBusinessScan() {
   document.getElementById('biz-results').style.display='none';
   document.getElementById('biz-error').style.display='none';
   var livePrice = curPrice || 68;
-  var prompt = 'You are a commodity intelligence analyst. Analyse how silver (currently $'+livePrice+'/oz), copper, gold, platinum, electricity prices, inflation, AI technology costs, and water availability affect the following company. Be specific about their cost structure, supply chain exposure, and profit margins.\n\nCompany: '+name+'\nIndustry: '+(industry||'Unknown')+'\nDetails: '+(details||'No additional details provided')+'\n\nRespond ONLY in JSON with this exact structure:\n{"summary":"2-3 sentence overview of the company and their commodity exposure","silverImpact":"how silver price changes affect this company specifically","copperImpact":"how copper prices affect this company","electricityImpact":"how electricity costs affect operations","inflationImpact":"how inflation affects wages costs and profits","aiImpact":"how AI technology changes their business","waterImpact":"how water scarcity affects operations","forecast1yr":{"outlook":"bullish/bearish/neutral","target":"specific metric","reasoning":"why"},"forecast5yr":{"outlook":"bullish/bearish/neutral","target":"specific metric","reasoning":"why"},"forecast10yr":{"outlook":"bullish/bearish/neutral","target":"specific metric","reasoning":"why"},"topRisks":["risk1","risk2","risk3"],"topOpportunities":["opp1","opp2","opp3"]}';
+  var prompt = 'You are a commodity intelligence analyst for MarketOracle. Analyse how silver (currently $'+livePrice+'/oz), copper, gold, electricity, inflation, AI technology costs, and water affect the following company. Be highly specific.\n\nCompany: '+name+'\nIndustry: '+(industry||'Unknown')+'\nDetails: '+(details||'No additional details')+'\n\nRespond ONLY in valid JSON:\n{"summary":"2-3 sentence company overview","expenseStructure":{"labour":"% of costs and how wages are affected by inflation","energy":"% of costs and electricity/fuel price sensitivity","rawMaterials":"key materials used and commodity exposure","technology":"IT/AI/equipment costs","other":"other significant cost categories"},"silverImpact":"specific silver price impact on this company","copperImpact":"specific copper impact","electricityImpact":"specific electricity cost impact","inflationImpact":"wage and cost inflation impact","aiImpact":"how AI changes their business model","waterImpact":"water dependency and shortage risk","forecast1yr":{"outlook":"bullish/bearish/neutral","target":"specific business metric or % change","reasoning":"detailed reasoning"},"forecast5yr":{"outlook":"bullish/bearish/neutral","target":"specific metric","reasoning":"detailed reasoning"},"forecast10yr":{"outlook":"bullish/bearish/neutral","target":"specific metric","reasoning":"detailed reasoning"},"topRisks":["specific risk 1","specific risk 2","specific risk 3"],"topOpportunities":["specific opportunity 1","specific opportunity 2","specific opportunity 3"],"linkedCommodities":["silver","copper","electricity","oil","aluminium"]}';
   try {
     var resp = await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',
@@ -6165,31 +6165,67 @@ function renderBusinessResults(name, biz) {
   document.getElementById('biz-loading').style.display='none';
   document.getElementById('biz-results').style.display='block';
   var outCol = function(o){return o==='bullish'?'#3DBA7A':o==='bearish'?'#E05555':'#D4AF37';};
+  var outIcon = function(o){return o==='bullish'?'📈':o==='bearish'?'📉':'➡️';};
+
+  // Summary + Expense Structure
+  var expHtml = '';
+  if (biz.expenseStructure) {
+    var exp = biz.expenseStructure;
+    expHtml = '<div style="margin-top:12px"><div style="font-size:9px;color:#F97316;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">💰 Business Expense Structure</div>'+
+    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px">'+
+    '<div style="background:#1C2438;border-radius:6px;padding:8px"><div style="font-size:8px;color:#AAAAAA;text-transform:uppercase">Labour</div><div style="font-size:10px;color:#D8DEE9;margin-top:3px">'+exp.labour+'</div></div>'+
+    '<div style="background:#1C2438;border-radius:6px;padding:8px"><div style="font-size:8px;color:#AAAAAA;text-transform:uppercase">Energy</div><div style="font-size:10px;color:#FCD34D;margin-top:3px">'+exp.energy+'</div></div>'+
+    '<div style="background:#1C2438;border-radius:6px;padding:8px"><div style="font-size:8px;color:#AAAAAA;text-transform:uppercase">Raw Materials</div><div style="font-size:10px;color:#FB923C;margin-top:3px">'+exp.rawMaterials+'</div></div>'+
+    '<div style="background:#1C2438;border-radius:6px;padding:8px"><div style="font-size:8px;color:#AAAAAA;text-transform:uppercase">Technology</div><div style="font-size:10px;color:#818CF8;margin-top:3px">'+exp.technology+'</div></div>'+
+    '</div>'+
+    (exp.other?'<div style="background:#1C2438;border-radius:6px;padding:8px"><div style="font-size:8px;color:#AAAAAA;text-transform:uppercase">Other</div><div style="font-size:10px;color:#D8DEE9;margin-top:3px">'+exp.other+'</div></div>':'')+'</div>';
+  }
+
   document.getElementById('biz-summary-card').innerHTML =
-    '<div style="font-size:9px;color:#F97316;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">🏢 '+name+' — Commodity Exposure Analysis</div>'+
+    '<div style="font-size:9px;color:#F97316;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">🏢 '+name+' — Intelligence Report</div>'+
     '<div style="font-size:11px;color:#B8C2D0;line-height:1.7;margin-bottom:10px">'+biz.summary+'</div>'+
-    '<div style="border-left:3px solid #C0C0C0;padding-left:10px;margin-bottom:8px"><div style="font-size:10px;color:#C0C0C0;font-weight:700">Silver Impact</div><div style="font-size:10px;color:#D8DEE9;margin-top:3px">'+biz.silverImpact+'</div></div>'+
-    '<div style="border-left:3px solid #FB923C;padding-left:10px;margin-bottom:8px"><div style="font-size:10px;color:#FB923C;font-weight:700">Copper Impact</div><div style="font-size:10px;color:#D8DEE9;margin-top:3px">'+biz.copperImpact+'</div></div>'+
-    '<div style="border-left:3px solid #FCD34D;padding-left:10px;margin-bottom:8px"><div style="font-size:10px;color:#FCD34D;font-weight:700">Electricity Impact</div><div style="font-size:10px;color:#D8DEE9;margin-top:3px">'+biz.electricityImpact+'</div></div>'+
-    '<div style="border-left:3px solid #38BDF8;padding-left:10px;margin-bottom:8px"><div style="font-size:10px;color:#38BDF8;font-weight:700">Water Impact</div><div style="font-size:10px;color:#D8DEE9;margin-top:3px">'+biz.waterImpact+'</div></div>'+
+    expHtml+
+    '<div style="margin-top:12px"><div style="font-size:9px;color:#F97316;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">📊 Commodity Exposure</div>'+
+    '<div style="border-left:3px solid #C0C0C0;padding-left:10px;margin-bottom:8px"><div style="font-size:10px;color:#C0C0C0;font-weight:700">Silver (XAG $'+( curPrice||68)+'/oz)</div><div style="font-size:10px;color:#D8DEE9;margin-top:3px">'+biz.silverImpact+'</div></div>'+
+    '<div style="border-left:3px solid #FB923C;padding-left:10px;margin-bottom:8px"><div style="font-size:10px;color:#FB923C;font-weight:700">Copper</div><div style="font-size:10px;color:#D8DEE9;margin-top:3px">'+biz.copperImpact+'</div></div>'+
+    '<div style="border-left:3px solid #FCD34D;padding-left:10px;margin-bottom:8px"><div style="font-size:10px;color:#FCD34D;font-weight:700">Electricity</div><div style="font-size:10px;color:#D8DEE9;margin-top:3px">'+biz.electricityImpact+'</div></div>'+
+    '<div style="border-left:3px solid #38BDF8;padding-left:10px;margin-bottom:8px"><div style="font-size:10px;color:#38BDF8;font-weight:700">Water</div><div style="font-size:10px;color:#D8DEE9;margin-top:3px">'+biz.waterImpact+'</div></div>'+
     '<div style="border-left:3px solid #818CF8;padding-left:10px;margin-bottom:8px"><div style="font-size:10px;color:#818CF8;font-weight:700">AI & Technology</div><div style="font-size:10px;color:#D8DEE9;margin-top:3px">'+biz.aiImpact+'</div></div>'+
-    '<div style="border-left:3px solid #E05555;padding-left:10px"><div style="font-size:10px;color:#E05555;font-weight:700">Inflation Impact</div><div style="font-size:10px;color:#D8DEE9;margin-top:3px">'+biz.inflationImpact+'</div></div>';
+    '<div style="border-left:3px solid #E05555;padding-left:10px"><div style="font-size:10px;color:#E05555;font-weight:700">Inflation</div><div style="font-size:10px;color:#D8DEE9;margin-top:3px">'+biz.inflationImpact+'</div></div></div>';
+
   document.getElementById('biz-1yr').innerHTML =
-    '<div style="font-size:9px;color:#3DBA7A;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">📅 1 Year Forecast</div>'+
-    '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><span style="font-size:14px;font-weight:700;color:'+outCol(biz.forecast1yr.outlook)+'">'+biz.forecast1yr.outlook.toUpperCase()+'</span><span style="font-size:11px;color:#D8DEE9">'+biz.forecast1yr.target+'</span></div>'+
+    '<div style="font-size:9px;color:#3DBA7A;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">'+outIcon(biz.forecast1yr.outlook)+' 1 Year Forecast</div>'+
+    '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><span style="font-size:16px;font-weight:700;color:'+outCol(biz.forecast1yr.outlook)+'">'+biz.forecast1yr.outlook.toUpperCase()+'</span><span style="font-size:11px;color:#D8DEE9;font-weight:600">'+biz.forecast1yr.target+'</span></div>'+
     '<div style="font-size:10px;color:#B8C2D0;line-height:1.6">'+biz.forecast1yr.reasoning+'</div>';
+
   document.getElementById('biz-5yr').innerHTML =
-    '<div style="font-size:9px;color:#D4AF37;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">📅 5 Year Forecast</div>'+
-    '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><span style="font-size:14px;font-weight:700;color:'+outCol(biz.forecast5yr.outlook)+'">'+biz.forecast5yr.outlook.toUpperCase()+'</span><span style="font-size:11px;color:#D8DEE9">'+biz.forecast5yr.target+'</span></div>'+
+    '<div style="font-size:9px;color:#D4AF37;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">'+outIcon(biz.forecast5yr.outlook)+' 5 Year Forecast</div>'+
+    '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><span style="font-size:16px;font-weight:700;color:'+outCol(biz.forecast5yr.outlook)+'">'+biz.forecast5yr.outlook.toUpperCase()+'</span><span style="font-size:11px;color:#D8DEE9;font-weight:600">'+biz.forecast5yr.target+'</span></div>'+
     '<div style="font-size:10px;color:#B8C2D0;line-height:1.6">'+biz.forecast5yr.reasoning+'</div>';
+
   document.getElementById('biz-10yr').innerHTML =
-    '<div style="font-size:9px;color:#818CF8;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">📅 10 Year Forecast</div>'+
-    '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><span style="font-size:14px;font-weight:700;color:'+outCol(biz.forecast10yr.outlook)+'">'+biz.forecast10yr.outlook.toUpperCase()+'</span><span style="font-size:11px;color:#D8DEE9">'+biz.forecast10yr.target+'</span></div>'+
+    '<div style="font-size:9px;color:#818CF8;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">'+outIcon(biz.forecast10yr.outlook)+' 10 Year Forecast</div>'+
+    '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><span style="font-size:16px;font-weight:700;color:'+outCol(biz.forecast10yr.outlook)+'">'+biz.forecast10yr.outlook.toUpperCase()+'</span><span style="font-size:11px;color:#D8DEE9;font-weight:600">'+biz.forecast10yr.target+'</span></div>'+
     '<div style="font-size:10px;color:#B8C2D0;line-height:1.6">'+biz.forecast10yr.reasoning+'</div>';
+
   var risksHtml = '<div style="font-size:9px;color:#E05555;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">⚠️ Top Risks</div>';
-  biz.topRisks.forEach(function(r){risksHtml+='<div style="border-left:3px solid #E05555;padding-left:8px;margin-bottom:6px;font-size:10px;color:#D8DEE9">'+r+'</div>';});
+  (biz.topRisks||[]).forEach(function(r){risksHtml+='<div style="border-left:3px solid #E05555;padding-left:8px;margin-bottom:6px;font-size:10px;color:#D8DEE9">'+r+'</div>';});
   risksHtml+='<div style="font-size:9px;color:#3DBA7A;letter-spacing:2px;text-transform:uppercase;margin:10px 0 8px">✅ Top Opportunities</div>';
-  biz.topOpportunities.forEach(function(o){risksHtml+='<div style="border-left:3px solid #3DBA7A;padding-left:8px;margin-bottom:6px;font-size:10px;color:#D8DEE9">'+o+'</div>';});
+  (biz.topOpportunities||[]).forEach(function(o){risksHtml+='<div style="border-left:3px solid #3DBA7A;padding-left:8px;margin-bottom:6px;font-size:10px;color:#D8DEE9">'+o+'</div>';});
+
+  // Linked MarketOracle tabs
+  var linked = biz.linkedCommodities || [];
+  var tabMap = {silver:'summary',copper:'copper',electricity:'electricity',oil:'crudeoil',aluminium:'aluminium',uranium:'uranium',lithium:'lithium',nickel:'nickel',cobalt:'cobalt',natgas:'natgas',platinum:'platinum',palladium:'palladium'};
+  if (linked.length > 0) {
+    risksHtml += '<div style="font-size:9px;color:#F97316;letter-spacing:2px;text-transform:uppercase;margin:12px 0 8px">🔗 Open in MarketOracle</div>';
+    risksHtml += '<div style="display:flex;flex-wrap:wrap;gap:6px">';
+    linked.forEach(function(c){
+      var tid = tabMap[c.toLowerCase().replace(/ /g,'')];
+      if (tid) risksHtml += '<button onclick="showTab(\''+tid+'\')" style="padding:5px 10px;background:#F9731620;border:1px solid #F97316;border-radius:14px;color:#F97316;font-size:9px;font-family:inherit;cursor:pointer">'+c.toUpperCase()+'</button>';
+    });
+    risksHtml += '</div>';
+  }
+
   document.getElementById('biz-risks').innerHTML = risksHtml;
 }
 
