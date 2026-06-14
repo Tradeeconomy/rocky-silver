@@ -6530,25 +6530,80 @@ function loadExample(name, industry, details) {
   document.getElementById('biz-details').value = details;
 }
 
+// ===== BUSINESS SCANNER GATE =====
+// false = fully open (use now). Flip to true when you start reaching
+// businesses → instantly locks full report behind Pro with an upgrade teaser.
+var SCANNER_GATE = false;
+
+function showScannerTeaser(name) {
+  document.getElementById('biz-loading').style.display='none';
+  document.getElementById('biz-error').style.display='none';
+  var r = document.getElementById('biz-results');
+  // hide detailed cards, repurpose summary card as the teaser
+  ['biz-1yr','biz-5yr','biz-10yr','biz-risks'].forEach(function(id){var e=document.getElementById(id);if(e)e.style.display='none';});
+  var sc = document.getElementById('biz-summary-card');
+  if (sc) {
+    sc.style.display='block';
+    sc.innerHTML =
+      '<div style="font-size:10px;color:#F97316;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">🔒 '+name+' — Full Report Locked</div>'+
+      '<div style="font-size:11px;color:#B8C2D0;line-height:1.7;margin-bottom:10px">A MarketOracle commodity-exposure scan reveals how <b>silver, copper, electricity and inflation</b> hit this company\'s costs and margins across 1, 5 and 10-year scenarios — the analysis no other dashboard provides.</div>'+
+      '<div style="filter:blur(4px);user-select:none;font-size:10px;color:#6B7A8D;line-height:1.6;margin-bottom:12px">Labour 55-65% of costs · Energy 20-28% · Silver exposure INDIRECT via electronics · Copper HIGH in wiring · 1yr margin scenario −2 to −4% · 5yr stabilisation · 10yr efficiency gains from automation…</div>'+
+      '<button onclick="showTab(\'pricing\')" style="width:100%;padding:11px;background:#D4AF37;color:#000;border:none;border-radius:6px;font-family:inherit;font-weight:700;font-size:11px;letter-spacing:2px;text-transform:uppercase;cursor:pointer">💎 Unlock with Pro — £14.99/mo</button>';
+  }
+  r.style.display='block';
+}
+
+function renderOracleBusiness(name, text) {
+  document.getElementById('biz-loading').style.display='none';
+  ['biz-1yr','biz-5yr','biz-10yr','biz-risks'].forEach(function(id){var e=document.getElementById(id);if(e)e.style.display='none';});
+  var sc = document.getElementById('biz-summary-card');
+  if (sc) {
+    sc.style.display='block';
+    sc.innerHTML =
+      '<div style="font-size:10px;color:#F97316;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">🔮 '+name+' — Oracle Commodity Scan</div>'+
+      '<div style="font-size:11px;color:#D8DEE9;line-height:1.7;white-space:pre-wrap">'+text+'</div>'+
+      '<div style="font-size:8px;color:#6B7A8D;margin-top:10px;line-height:1.5">Scenario analysis based on live commodity data and stated assumptions — not a guaranteed forecast.</div>';
+  }
+  document.getElementById('biz-results').style.display='block';
+}
+
 function runBusinessScan() {
   var name = document.getElementById('biz-name').value.trim();
   if (!name) { document.getElementById('biz-error').style.display='block'; document.getElementById('biz-error').textContent='Please enter a company name.'; return; }
+
+  // Pro gate (off until launch — flip SCANNER_GATE to true to activate)
+  if (SCANNER_GATE && !hasAccess("pro")) { showScannerTeaser(name); return; }
+
   var industry = (document.getElementById('biz-industry').value||'').toLowerCase();
   var details = (document.getElementById('biz-details').value||'').toLowerCase();
   document.getElementById('biz-loading').style.display='block';
   document.getElementById('biz-results').style.display='none';
   document.getElementById('biz-error').style.display='none';
+  // restore detail cards (in case a teaser/oracle render hid them)
+  ['biz-1yr','biz-5yr','biz-10yr','biz-risks'].forEach(function(id){var e=document.getElementById(id);if(e)e.style.display='block';});
 
-  setTimeout(function(){
-    try {
-      var result = analyseCompany(name, industry, details);
-      renderBusinessResults(name, result);
-    } catch(err) {
-      document.getElementById('biz-loading').style.display='none';
-      document.getElementById('biz-error').style.display='block';
-      document.getElementById('biz-error').textContent='Analysis error: '+err.message;
-    }
-  }, 1500);
+  // Live Oracle AI if connected; otherwise the built-in analysis engine
+  if (AI_CONFIG.enabled && AI_CONFIG.endpoint) {
+    var prompt = buildOracleContext() + "Act as a commodity-exposure analyst. For the company below, explain how silver, copper, electricity and inflation affect its cost base and margins over 1-year, 5-year and 10-year horizons. Use scenario framing with stated assumptions — never guarantee outcomes. Be concise and specific. COMPANY: "+name+". INDUSTRY: "+industry+". DETAILS: "+details;
+    askOracle(prompt, function(text, ok){
+      if (ok) { renderOracleBusiness(name, text); }
+      else {
+        try { renderBusinessResults(name, analyseCompany(name, industry, details)); }
+        catch(err){ document.getElementById('biz-loading').style.display='none'; document.getElementById('biz-error').style.display='block'; document.getElementById('biz-error').textContent='Analysis error: '+err.message; }
+      }
+    });
+  } else {
+    setTimeout(function(){
+      try {
+        var result = analyseCompany(name, industry, details);
+        renderBusinessResults(name, result);
+      } catch(err) {
+        document.getElementById('biz-loading').style.display='none';
+        document.getElementById('biz-error').style.display='block';
+        document.getElementById('biz-error').textContent='Analysis error: '+err.message;
+      }
+    }, 1500);
+  }
 }
 
 function analyseCompany(name, industry, details) {
