@@ -6146,7 +6146,7 @@ async function runBusinessScan() {
   try {
     var resp = await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',
-      headers:{'Content-Type':'application/json'},
+      headers:{'Content-Type':'application/json','anthropic-dangerous-direct-browser-access':'true'},
       body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1000,messages:[{role:'user',content:prompt}]})
     });
     var data = await resp.json();
@@ -6157,7 +6157,7 @@ async function runBusinessScan() {
   } catch(e) {
     document.getElementById('biz-loading').style.display='none';
     document.getElementById('biz-error').style.display='block';
-    document.getElementById('biz-error').textContent='Scan failed. Please try again.';
+    document.getElementById('biz-error').textContent='Scan failed: '+e.message+'. Please try again.';
   }
 }
 
