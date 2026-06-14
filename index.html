@@ -228,6 +228,19 @@ body{background:#F0F2F5;color:#1A2035;font-family:'Courier New',monospace;max-wi
     <button class="tbtn" onclick="showTab('nzdusd')">NZD/USD</button>
   </div>
 
+  <!-- Category: Shares -->
+  <div class="cat-header" onclick="toggleCat('cat-shares')">
+    <span>📈 SHARES</span><span class="cat-arrow" id="arr-cat-shares">▶</span>
+  </div>
+  <div class="cat-body" id="cat-shares" style="display:none">
+    <button class="tbtn" onclick="showTab('aapl')">APPLE</button>
+    <button class="tbtn" onclick="showTab('tsla')">TESLA</button>
+    <button class="tbtn" onclick="showTab('nvda')">NVIDIA</button>
+    <button class="tbtn" onclick="showTab('msft')">MICROSOFT</button>
+    <button class="tbtn" onclick="showTab('amzn')">AMAZON</button>
+    <button class="tbtn" onclick="showTab('googl')">ALPHABET</button>
+  </div>
+
   <!-- Category: Technology -->
   <div class="cat-header" onclick="toggleCat('cat-tech')">
     <span>💻 TECHNOLOGY</span><span class="cat-arrow" id="arr-cat-tech">▶</span>
@@ -334,6 +347,14 @@ body{background:#F0F2F5;color:#1A2035;font-family:'Courier New',monospace;max-wi
 <div id="tc-audusd" class="tc"><div class="sec" id="lm-audusd-body"></div></div>
 <div id="tc-usdcad" class="tc"><div class="sec" id="lm-usdcad-body"></div></div>
 <div id="tc-nzdusd" class="tc"><div class="sec" id="lm-nzdusd-body"></div></div>
+
+<!-- SHARES (generic lite engine) -->
+<div id="tc-aapl" class="tc"><div class="sec" id="lm-aapl-body"></div></div>
+<div id="tc-tsla" class="tc"><div class="sec" id="lm-tsla-body"></div></div>
+<div id="tc-nvda" class="tc"><div class="sec" id="lm-nvda-body"></div></div>
+<div id="tc-msft" class="tc"><div class="sec" id="lm-msft-body"></div></div>
+<div id="tc-amzn" class="tc"><div class="sec" id="lm-amzn-body"></div></div>
+<div id="tc-googl" class="tc"><div class="sec" id="lm-googl-body"></div></div>
 
 <!-- SUMMARY -->
 <div id="tc-summary" class="tc active">
@@ -6991,6 +7012,7 @@ var TAB_CAT = {
   coffee:'cat-soft',sugar:'cat-soft',cocoa:'cat-soft',wheat:'cat-soft',corn:'cat-soft',soybeans:'cat-soft',
   ftse:'cat-indices',sp500:'cat-indices',dow:'cat-indices',nasdaq:'cat-indices',dax:'cat-indices',nikkei:'cat-indices',
   eurgbp:'cat-fx',gbpjpy:'cat-fx',eurjpy:'cat-fx',audusd:'cat-fx',usdcad:'cat-fx',nzdusd:'cat-fx',
+  aapl:'cat-shares',tsla:'cat-shares',nvda:'cat-shares',msft:'cat-shares',amzn:'cat-shares',googl:'cat-shares',
   semiconductors:'cat-tech', aiconductor:'cat-tech', aicompanies:'cat-tech',
   igtools:'cat-tools',admin:'cat-tools'
 };
@@ -7051,6 +7073,7 @@ function showTab(id) {
   if (["coffee","sugar","cocoa","wheat","corn","soybeans"].indexOf(id) >= 0) { fetchSoftsLive(); }
   if (["ftse","sp500","dow","nasdaq","dax","nikkei"].indexOf(id) >= 0) { liteFetch(INDICES); }
   if (["eurgbp","gbpjpy","eurjpy","audusd","usdcad","nzdusd"].indexOf(id) >= 0) { liteFetch(FX); }
+  if (["aapl","tsla","nvda","msft","amzn","googl"].indexOf(id) >= 0) { liteFetch(SHARES); }
   // COMEX silver monitor is irrelevant on utility/admin tabs — hide it there
   var cf = document.getElementById("comexFloat");
   if (cf) { cf.style.display = (["admin","igtools","timecapsule","pricing"].indexOf(id) >= 0) ? "none" : "block"; }
@@ -9688,6 +9711,7 @@ window.onload = function() {
   fetchSoftsLive();
   liteFetch(INDICES);
   liteFetch(FX);
+  liteFetch(SHARES);
   setInterval(fetchPrice, 10000);
   setInterval(fetchPoly, 60000);
   setInterval(fetchNews, 300000);
@@ -9697,6 +9721,7 @@ window.onload = function() {
   setInterval(fetchSoftsLive, 300000);
   setInterval(function(){ liteFetch(INDICES); }, 300000);
   setInterval(function(){ liteFetch(FX); }, 300000);
+  setInterval(function(){ liteFetch(SHARES); }, 300000);
   // Risk Radar - load baseline immediately, fetch live data, poll every 120s
   loadGeopoliticalBaseline();
   openCatForTab('summary');
@@ -10060,6 +10085,16 @@ var FX = [
   {id:"nzdusd", name:"NZD/USD", sym:"NZDUSD=X", venue:"Kiwi Dollar",       unit:"rate", color:"#D4AF37", note:"'The kiwi' — driven by dairy prices, risk sentiment and RBNZ policy. Trades closely with the Aussie as a commodity-linked currency."}
 ];
 liteRender(FX);
+
+var SHARES = [
+  {id:"aapl",  name:"Apple (AAPL)",      sym:"AAPL",  venue:"NASDAQ", unit:"$/share", color:"#A0AABB", note:"The world's most valuable company. Driven by iPhone cycles, services growth, China sales and huge buybacks. A bellwether for the whole market."},
+  {id:"tsla",  name:"Tesla (TSLA)",      sym:"TSLA",  venue:"NASDAQ", unit:"$/share", color:"#E05555", note:"EV leader, highly volatile. Driven by delivery numbers, margins, sentiment, and the robotaxi/AI narrative. EVs are silver-heavy — ties to your demand thesis."},
+  {id:"nvda",  name:"Nvidia (NVDA)",     sym:"NVDA",  venue:"NASDAQ", unit:"$/share", color:"#3DBA7A", note:"The AI chip king and the single biggest AI-trade proxy. Driven by data-centre GPU demand and hyperscaler capex — the engine behind your semiconductor + silver-demand story."},
+  {id:"msft",  name:"Microsoft (MSFT)",  sym:"MSFT",  venue:"NASDAQ", unit:"$/share", color:"#22D3EE", note:"Cloud (Azure) + OpenAI stake + enterprise AI (Copilot). A core AI-infrastructure play; driven by Azure growth and enterprise AI adoption."},
+  {id:"amzn",  name:"Amazon (AMZN)",     sym:"AMZN",  venue:"NASDAQ", unit:"$/share", color:"#F97316", note:"E-commerce plus AWS cloud — its real profit engine. Driven by AWS growth, consumer spending and margins. AWS powers a huge share of AI compute."},
+  {id:"googl", name:"Alphabet (GOOGL)",  sym:"GOOGL", venue:"NASDAQ", unit:"$/share", color:"#D4AF37", note:"Search & ads + Google Cloud + Gemini AI + DeepMind. Driven by ad revenue and how it competes in the AI race against OpenAI and Microsoft."}
+];
+liteRender(SHARES);
 
 function calcRevenue(){
   function v(id){var e=document.getElementById(id);return e?(parseInt(e.value)||0):0;}
