@@ -272,6 +272,19 @@ body{background:#F0F2F5;color:#1A2035;font-family:'Courier New',monospace;max-wi
     <button class="tbtn" onclick="showTab('vxx')">VOLATILITY</button>
   </div>
 
+  <!-- Category: Healthcare -->
+  <div class="cat-header" onclick="toggleCat('cat-health')">
+    <span>🏥 HEALTHCARE</span><span class="cat-arrow" id="arr-cat-health">▶</span>
+  </div>
+  <div class="cat-body" id="cat-health" style="display:none">
+    <button class="tbtn" onclick="showTab('unh')">UNITEDHEALTH</button>
+    <button class="tbtn" onclick="showTab('lly')">ELI LILLY</button>
+    <button class="tbtn" onclick="showTab('nvo')">NOVO NORDISK</button>
+    <button class="tbtn" onclick="showTab('azn')">ASTRAZENECA</button>
+    <button class="tbtn" onclick="showTab('pfe')">PFIZER</button>
+    <button class="tbtn" onclick="showTab('jnj')">JOHNSON &amp; J</button>
+  </div>
+
   <!-- Category: Technology -->
   <div class="cat-header" onclick="toggleCat('cat-tech')">
     <span>💻 TECHNOLOGY</span><span class="cat-arrow" id="arr-cat-tech">▶</span>
@@ -405,6 +418,14 @@ body{background:#F0F2F5;color:#1A2035;font-family:'Courier New',monospace;max-wi
 <div id="tc-qqq" class="tc"><div class="sec" id="lm-qqq-body"></div></div>
 <div id="tc-iwm" class="tc"><div class="sec" id="lm-iwm-body"></div></div>
 <div id="tc-vxx" class="tc"><div class="sec" id="lm-vxx-body"></div></div>
+
+<!-- HEALTHCARE (generic lite engine) -->
+<div id="tc-unh" class="tc"><div class="sec" id="lm-unh-body"></div></div>
+<div id="tc-lly" class="tc"><div class="sec" id="lm-lly-body"></div></div>
+<div id="tc-nvo" class="tc"><div class="sec" id="lm-nvo-body"></div></div>
+<div id="tc-azn" class="tc"><div class="sec" id="lm-azn-body"></div></div>
+<div id="tc-pfe" class="tc"><div class="sec" id="lm-pfe-body"></div></div>
+<div id="tc-jnj" class="tc"><div class="sec" id="lm-jnj-body"></div></div>
 
 <!-- SUMMARY -->
 <div id="tc-summary" class="tc active">
@@ -7066,6 +7087,7 @@ var TAB_CAT = {
   brent:'cat-energyx',heatoil:'cat-energyx',gasoline:'cat-energyx',
   us3m:'cat-bonds',us5y:'cat-bonds',us10y:'cat-bonds',us30y:'cat-bonds',
   slv:'cat-etf',gld:'cat-etf',spy:'cat-etf',qqq:'cat-etf',iwm:'cat-etf',vxx:'cat-etf',
+  unh:'cat-health',lly:'cat-health',nvo:'cat-health',azn:'cat-health',pfe:'cat-health',jnj:'cat-health',
   semiconductors:'cat-tech', aiconductor:'cat-tech', aicompanies:'cat-tech',
   igtools:'cat-tools',admin:'cat-tools'
 };
@@ -7130,6 +7152,7 @@ function showTab(id) {
   if (["brent","heatoil","gasoline"].indexOf(id) >= 0) { liteFetch(ENERGYX); }
   if (["us3m","us5y","us10y","us30y"].indexOf(id) >= 0) { liteFetch(BONDS); }
   if (["slv","gld","spy","qqq","iwm","vxx"].indexOf(id) >= 0) { liteFetch(ETFS); }
+  if (["unh","lly","nvo","azn","pfe","jnj"].indexOf(id) >= 0) { liteFetch(HEALTH); }
   // COMEX silver monitor is irrelevant on utility/admin tabs — hide it there
   var cf = document.getElementById("comexFloat");
   if (cf) { cf.style.display = (["admin","igtools","timecapsule","pricing"].indexOf(id) >= 0) ? "none" : "block"; }
@@ -9771,6 +9794,7 @@ window.onload = function() {
   liteFetch(ENERGYX);
   liteFetch(BONDS);
   liteFetch(ETFS);
+  liteFetch(HEALTH);
   setInterval(fetchPrice, 10000);
   setInterval(fetchPoly, 60000);
   setInterval(fetchNews, 300000);
@@ -9784,6 +9808,7 @@ window.onload = function() {
   setInterval(function(){ liteFetch(ENERGYX); }, 300000);
   setInterval(function(){ liteFetch(BONDS); }, 300000);
   setInterval(function(){ liteFetch(ETFS); }, 300000);
+  setInterval(function(){ liteFetch(HEALTH); }, 300000);
   // Risk Radar - load baseline immediately, fetch live data, poll every 120s
   loadGeopoliticalBaseline();
   openCatForTab('summary');
@@ -10185,6 +10210,20 @@ var ETFS = [
   {id:"vxx", name:"Volatility (VXX)",       sym:"VXX", venue:"Cboe VIX futures", unit:"$/share", color:"#E05555", note:"Tracks short-term VIX futures — the market's 'fear gauge'. Spikes when stocks sell off. A risk-off warning light, though it bleeds value over time (not a buy-and-hold)."}
 ];
 liteRender(ETFS);
+
+// HEALTHCARE — the tradeable core of the "healthcare = fiscal/political risk" thesis.
+// Notes carry the macro story: aging populations + wage/drug inflation push government
+// health spending up (US $5.3T/18% GDP, UK £242bn; biggest line in many budgets) → wider
+// deficits → more borrowing → higher bond yields → which feeds gold/silver/currency moves.
+var HEALTH = [
+  {id:"unh", name:"UnitedHealth (UNH)",  sym:"UNH", venue:"NYSE",   unit:"$/share", color:"#22D3EE", note:"Largest US health insurer — the purest single trade on America's $5.3T healthcare bill. Earns on Medicare Advantage + employer plans, so it swings hard on medical-cost inflation and any Medicare/Medicaid policy change. A barometer of US healthcare-cost pressure."},
+  {id:"lly", name:"Eli Lilly (LLY)",     sym:"LLY", venue:"NYSE",   unit:"$/share", color:"#3DBA7A", note:"Maker of tirzepatide (Mounjaro/Zepbound). The weight-loss / GLP-1 boom made it one of the world's most valuable companies. Driven by obesity & diabetes demand and how fast it can scale manufacturing vs Novo Nordisk."},
+  {id:"nvo", name:"Novo Nordisk (NVO)",  sym:"NVO", venue:"NYSE ADR",unit:"$/share", color:"#F97316", note:"The Ozempic / Wegovy maker that started the GLP-1 wave. Danish pharma; driven by global weight-loss demand, supply capacity, and US pricing pressure plus competition from Lilly."},
+  {id:"azn", name:"AstraZeneca (AZN)",   sym:"AZN", venue:"NYSE ADR",unit:"$/share", color:"#A78BFA", note:"UK pharma giant and one of the FTSE 100's heaviest names — so it moves the UK index too. Oncology-led pipeline; driven by drug approvals and China / emerging-market demand."},
+  {id:"pfe", name:"Pfizer (PFE)",        sym:"PFE", venue:"NYSE",   unit:"$/share", color:"#A0AABB", note:"Big-cap pharma in a post-COVID reset. Driven by its pipeline, patent cliffs, M&A and a high dividend — a slower, income-style health play rather than a growth rocket."},
+  {id:"jnj", name:"Johnson & Johnson (JNJ)",sym:"JNJ",venue:"NYSE", unit:"$/share", color:"#D4AF37", note:"Diversified health — pharma plus medical devices. A defensive dividend aristocrat; aging populations underpin long-term demand for implants and medtech. Lower volatility, steady."}
+];
+liteRender(HEALTH);
 
 function calcRevenue(){
   function v(id){var e=document.getElementById(id);return e?(parseInt(e.value)||0):0;}
