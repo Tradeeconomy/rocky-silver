@@ -6144,8 +6144,16 @@ function runBusinessScan() {
   document.getElementById('biz-results').style.display='none';
   document.getElementById('biz-error').style.display='none';
 
-  // Simulate scanning delay for UX
-  setTimeout(function(){ renderBusinessResults(name, analyseCompany(name, industry, details)); }, 1800);
+  setTimeout(function(){
+    try {
+      var result = analyseCompany(name, industry, details);
+      renderBusinessResults(name, result);
+    } catch(err) {
+      document.getElementById('biz-loading').style.display='none';
+      document.getElementById('biz-error').style.display='block';
+      document.getElementById('biz-error').textContent='Analysis error: '+err.message;
+    }
+  }, 1500);
 }
 
 function analyseCompany(name, industry, details) {
