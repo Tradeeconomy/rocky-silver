@@ -189,6 +189,32 @@ body{background:#F0F2F5;color:#1A2035;font-family:'Courier New',monospace;max-wi
     <button class="tbtn" onclick="showTab('watergas')">WATER+GAS</button>
   </div>
 
+  <!-- Category: Soft Commodities -->
+  <div class="cat-header" onclick="toggleCat('cat-soft')">
+    <span>🌾 SOFT COMMODITIES</span><span class="cat-arrow" id="arr-cat-soft">▶</span>
+  </div>
+  <div class="cat-body" id="cat-soft" style="display:none">
+    <button class="tbtn" onclick="showTab('coffee')">COFFEE</button>
+    <button class="tbtn" onclick="showTab('sugar')">SUGAR</button>
+    <button class="tbtn" onclick="showTab('cocoa')">COCOA</button>
+    <button class="tbtn" onclick="showTab('wheat')">WHEAT</button>
+    <button class="tbtn" onclick="showTab('corn')">CORN</button>
+    <button class="tbtn" onclick="showTab('soybeans')">SOYBEANS</button>
+  </div>
+
+  <!-- Category: Indices -->
+  <div class="cat-header" onclick="toggleCat('cat-indices')">
+    <span>📊 INDICES</span><span class="cat-arrow" id="arr-cat-indices">▶</span>
+  </div>
+  <div class="cat-body" id="cat-indices" style="display:none">
+    <button class="tbtn" onclick="showTab('ftse')">FTSE 100</button>
+    <button class="tbtn" onclick="showTab('sp500')">S&amp;P 500</button>
+    <button class="tbtn" onclick="showTab('dow')">DOW</button>
+    <button class="tbtn" onclick="showTab('nasdaq')">NASDAQ</button>
+    <button class="tbtn" onclick="showTab('dax')">DAX</button>
+    <button class="tbtn" onclick="showTab('nikkei')">NIKKEI</button>
+  </div>
+
   <!-- Category: Technology -->
   <div class="cat-header" onclick="toggleCat('cat-tech')">
     <span>💻 TECHNOLOGY</span><span class="cat-arrow" id="arr-cat-tech">▶</span>
@@ -271,6 +297,22 @@ body{background:#F0F2F5;color:#1A2035;font-family:'Courier New',monospace;max-wi
   </div>
 </div>
 </div>
+
+<!-- SOFT COMMODITIES (lightweight live-price tabs, rendered by renderSofts) -->
+<div id="tc-coffee" class="tc"><div class="sec" id="soft-coffee-body"></div></div>
+<div id="tc-sugar" class="tc"><div class="sec" id="soft-sugar-body"></div></div>
+<div id="tc-cocoa" class="tc"><div class="sec" id="soft-cocoa-body"></div></div>
+<div id="tc-wheat" class="tc"><div class="sec" id="soft-wheat-body"></div></div>
+<div id="tc-corn" class="tc"><div class="sec" id="soft-corn-body"></div></div>
+<div id="tc-soybeans" class="tc"><div class="sec" id="soft-soybeans-body"></div></div>
+
+<!-- INDICES (lightweight live-price tabs, generic lite engine) -->
+<div id="tc-ftse" class="tc"><div class="sec" id="lm-ftse-body"></div></div>
+<div id="tc-sp500" class="tc"><div class="sec" id="lm-sp500-body"></div></div>
+<div id="tc-dow" class="tc"><div class="sec" id="lm-dow-body"></div></div>
+<div id="tc-nasdaq" class="tc"><div class="sec" id="lm-nasdaq-body"></div></div>
+<div id="tc-dax" class="tc"><div class="sec" id="lm-dax-body"></div></div>
+<div id="tc-nikkei" class="tc"><div class="sec" id="lm-nikkei-body"></div></div>
 
 <!-- SUMMARY -->
 <div id="tc-summary" class="tc active">
@@ -1422,6 +1464,21 @@ body{background:#F0F2F5;color:#1A2035;font-family:'Courier New',monospace;max-wi
     <div><div style="font-size:9px;letter-spacing:3px;color:#D4AF37;text-transform:uppercase">Admin Panel</div><div style="font-size:10px;color:#3DBA7A;margin-top:2px">Logged in: 123Rocky@trade</div></div>
     <button onclick="adminLogout()" style="padding:5px 10px;background:#E0555520;color:#E05555;border:1px solid #E0555544;border-radius:4px;font-family:inherit;font-size:9px;cursor:pointer">LOGOUT</button>
   </div>
+  <div class="card" style="border:1px solid #3DBA7A66;background:#001A0A;margin-bottom:8px">
+    <div style="font-size:9px;color:#3DBA7A;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px">💰 Revenue Calculator</div>
+    <div style="font-size:9px;color:#6B7A8D;margin-bottom:10px;line-height:1.5">Enter real subscriber counts as they come in — shows live monthly & annual run-rate (gross, before costs).</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px">
+      <div><div style="font-size:9px;color:#22D3EE;margin-bottom:2px">Trader £9.99</div><input id="rev-trader" type="number" value="0" min="0" oninput="calcRevenue()" style="width:100%;background:#0A0F1A;border:1px solid #22D3EE44;border-radius:5px;padding:7px;color:#fff;font-family:inherit;font-size:13px"></div>
+      <div><div style="font-size:9px;color:#D4AF37;margin-bottom:2px">Pro £14.99</div><input id="rev-pro" type="number" value="0" min="0" oninput="calcRevenue()" style="width:100%;background:#0A0F1A;border:1px solid #D4AF3744;border-radius:5px;padding:7px;color:#fff;font-family:inherit;font-size:13px"></div>
+      <div><div style="font-size:9px;color:#3DBA7A;margin-bottom:2px">Elite £19.99</div><input id="rev-elite" type="number" value="0" min="0" oninput="calcRevenue()" style="width:100%;background:#0A0F1A;border:1px solid #3DBA7A44;border-radius:5px;padding:7px;color:#fff;font-family:inherit;font-size:13px"></div>
+      <div><div style="font-size:9px;color:#F97316;margin-bottom:2px">Business £49</div><input id="rev-biz" type="number" value="0" min="0" oninput="calcRevenue()" style="width:100%;background:#0A0F1A;border:1px solid #F9731644;border-radius:5px;padding:7px;color:#fff;font-family:inherit;font-size:13px"></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;padding:7px 0;border-top:1px solid #2E3148"><span style="font-size:10px;color:#A0AABB">Total subscribers</span><span id="rev-count" style="font-size:12px;font-weight:700;color:#D8DEE9">0</span></div>
+    <div style="display:flex;justify-content:space-between;padding:7px 0;border-top:1px solid #2E3148"><span style="font-size:11px;color:#3DBA7A">MONTHLY (gross)</span><span id="rev-month" style="font-size:16px;font-weight:700;color:#3DBA7A">£0.00</span></div>
+    <div style="display:flex;justify-content:space-between;padding:7px 0;border-top:1px solid #2E3148"><span style="font-size:11px;color:#D4AF37">ANNUAL (gross)</span><span id="rev-year" style="font-size:16px;font-weight:700;color:#D4AF37">£0.00</span></div>
+    <div style="display:flex;justify-content:space-between;padding:7px 0;border-top:1px solid #2E3148"><span style="font-size:9px;color:#6B7A8D">Est. after costs (~Stripe 1.9% + £40/mo infra)</span><span id="rev-net" style="font-size:11px;font-weight:700;color:#A0AABB">£0.00/mo</span></div>
+  </div>
+
   <div class="card" style="border:1px solid #D4AF3744;margin-bottom:8px">
     <div style="font-size:9px;color:#D4AF37;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px">AI Function Controls</div>
     <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #D8DDE5"><div><div style="font-size:11px;color:#1A2035">Live Price Feed</div><div style="font-size:9px;color:#6B7A8D">Swissquote</div></div><button onclick="toggleAI('price')" id="btn-price" style="padding:4px 12px;border-radius:4px;font-family:inherit;font-size:9px;font-weight:700;cursor:pointer;border:none;background:#3DBA7A;color:#000">ON</button></div>
@@ -6910,6 +6967,8 @@ var TAB_CAT = {
   platinum:'cat-precious',palladium:'cat-precious',rhodium:'cat-precious',iridium:'cat-precious',
   copper:'cat-industrial',nickel:'cat-industrial',cobalt:'cat-industrial',lithium:'cat-industrial',aluminium:'cat-industrial',
   crudeoil:'cat-energy',natgas:'cat-energy',uranium:'cat-energy',electricity:'cat-energy',watergas:'cat-energy',
+  coffee:'cat-soft',sugar:'cat-soft',cocoa:'cat-soft',wheat:'cat-soft',corn:'cat-soft',soybeans:'cat-soft',
+  ftse:'cat-indices',sp500:'cat-indices',dow:'cat-indices',nasdaq:'cat-indices',dax:'cat-indices',nikkei:'cat-indices',
   semiconductors:'cat-tech', aiconductor:'cat-tech', aicompanies:'cat-tech',
   igtools:'cat-tools',admin:'cat-tools'
 };
@@ -6967,6 +7026,8 @@ function showTab(id) {
   if (id==="economy") { initEconomy(); renderKeyEvents(); }
   if (id==="ta") { initTA(); }
   if (id==="timecapsule") { setTimeout(drawTimeCapsuleChart, 80); }
+  if (["coffee","sugar","cocoa","wheat","corn","soybeans"].indexOf(id) >= 0) { fetchSoftsLive(); }
+  if (["ftse","sp500","dow","nasdaq","dax","nikkei"].indexOf(id) >= 0) { liteFetch(INDICES); }
   // COMEX silver monitor is irrelevant on utility/admin tabs — hide it there
   var cf = document.getElementById("comexFloat");
   if (cf) { cf.style.display = (["admin","igtools","timecapsule","pricing"].indexOf(id) >= 0) ? "none" : "block"; }
@@ -9601,12 +9662,16 @@ window.onload = function() {
   fetchGoldGSR();
   fetchCryptoLive();
   fetchCurrenciesLive();
+  fetchSoftsLive();
+  liteFetch(INDICES);
   setInterval(fetchPrice, 10000);
   setInterval(fetchPoly, 60000);
   setInterval(fetchNews, 300000);
   setInterval(fetchGoldGSR, 300000);
   setInterval(fetchCryptoLive, 120000);
   setInterval(fetchCurrenciesLive, 300000);
+  setInterval(fetchSoftsLive, 300000);
+  setInterval(function(){ liteFetch(INDICES); }, 300000);
   // Risk Radar - load baseline immediately, fetch live data, poll every 120s
   loadGeopoliticalBaseline();
   openCatForTab('summary');
@@ -9873,6 +9938,106 @@ function renderTiers(){
   if(pv){pv.innerHTML=TIERS.map(function(t){return '<button onclick="setPlan(\''+t.id+'\')" style="flex:1;min-width:64px;padding:6px;background:'+(MEMBERSHIP.plan===t.id?t.color:'#1C2438')+';color:'+(MEMBERSHIP.plan===t.id?'#00080F':t.color)+';border:1px solid '+t.color+'66;border-radius:5px;font-family:inherit;font-size:9px;font-weight:700;cursor:pointer">'+t.name+'</button>';}).join('');}
 }
 renderTiers();
+
+// ===== SOFT COMMODITIES — lightweight live-price tabs =====
+var SOFTS = [
+  {id:"coffee",   name:"Coffee (Arabica)", sym:"KC=F", venue:"ICE — KC", unit:"¢/lb",   color:"#C8860B", note:"Driven by Brazil & Vietnam weather (frost, drought), harvest cycles, the Brazilian real, and global demand. Supply shocks spike prices fast."},
+  {id:"sugar",    name:"Sugar (No.11)",    sym:"SB=F", venue:"ICE — SB", unit:"¢/lb",   color:"#E0E0E0", note:"Driven by Brazil & India output, ethanol demand (cane diverted to fuel when oil is high), and weather. Very policy-sensitive (export bans)."},
+  {id:"cocoa",    name:"Cocoa",            sym:"CC=F", venue:"ICE — CC", unit:"$/tonne", color:"#A0522D", note:"West Africa (Ivory Coast, Ghana) is ~60% of supply — disease, weather and politics there drive violent moves. Hit record highs in 2024."},
+  {id:"wheat",    name:"Wheat",            sym:"ZW=F", venue:"CBOT — ZW",unit:"¢/bu",    color:"#D4AF37", note:"Driven by Black Sea supply (Russia/Ukraine), US & EU harvests, drought, and export policy. War and weather are the big catalysts."},
+  {id:"corn",     name:"Corn",             sym:"ZC=F", venue:"CBOT — ZC",unit:"¢/bu",    color:"#F2C84B", note:"US is the dominant exporter. Driven by planting weather, ethanol mandates, feed demand and the US dollar. Tightly linked to soybeans."},
+  {id:"soybeans", name:"Soybeans",         sym:"ZS=F", venue:"CBOT — ZS",unit:"¢/bu",    color:"#9ACD32", note:"Driven by US & Brazil crops, China demand (largest importer), and trade policy/tariffs. A key China–US trade barometer."}
+];
+function renderSofts(){
+  SOFTS.forEach(function(s){
+    var el=document.getElementById("soft-"+s.id+"-body");
+    if(!el)return;
+    el.innerHTML=
+      '<div class="card" style="border-color:'+s.color+'55;background:#0A0700;margin-bottom:12px">'+
+      '<div style="display:flex;justify-content:space-between;align-items:baseline">'+
+      '<div><div style="font-size:14px;font-weight:700;color:'+s.color+'">'+s.name+'</div>'+
+      '<div style="font-size:9px;color:#A0AABB">'+s.venue+' · '+s.unit+'</div></div>'+
+      '<div style="text-align:right"><div style="font-size:20px;font-weight:700;color:#fff" id="soft-'+s.id+'">--</div>'+
+      '<div style="font-size:11px" id="soft-'+s.id+'-c">--</div></div></div></div>'+
+      '<div class="card" style="border-color:'+s.color+'33;margin-bottom:10px">'+
+      '<div style="font-size:9px;color:'+s.color+';letter-spacing:2px;text-transform:uppercase;margin-bottom:6px">What Moves '+s.name.split(" ")[0]+'</div>'+
+      '<div style="font-size:11px;color:#B8C2D0;line-height:1.7">'+s.note+'</div></div>'+
+      '<div style="font-size:8px;color:#6B7A8D;text-align:center" id="soft-'+s.id+'-stamp">Live via Yahoo when markets open</div>';
+  });
+}
+function fetchSoftsLive(){
+  SOFTS.forEach(function(s,i){
+    setTimeout(function(){
+      yahooQuote(s.sym, function(d){
+        if(d && d.price>0){
+          var pv=document.getElementById("soft-"+s.id);
+          var cv=document.getElementById("soft-"+s.id+"-c");
+          var st=document.getElementById("soft-"+s.id+"-stamp");
+          if(pv) pv.textContent = d.price.toLocaleString(undefined,{maximumFractionDigits:2});
+          if(cv){ var up=d.chg>=0; cv.textContent=(up?"▲ ":"▼ ")+Math.abs(d.chg).toFixed(2)+"%"; cv.style.color=up?"#3DBA7A":"#E05555"; }
+          if(st){ st.textContent="● LIVE — "+new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}); st.style.color="#3DBA7A"; }
+        }
+      });
+    }, i*650);
+  });
+}
+renderSofts();
+
+// ===== GENERIC LITE-MARKET ENGINE — reusable for ALL future IG categories =====
+// Each new category = just a data array + 3 wiring lines. Containers use id="lm-<id>-body".
+function liteRender(list){
+  list.forEach(function(s){
+    var el=document.getElementById("lm-"+s.id+"-body");
+    if(!el)return;
+    el.innerHTML=
+      '<div class="card" style="border-color:'+s.color+'55;background:#05070F;margin-bottom:12px">'+
+      '<div style="display:flex;justify-content:space-between;align-items:baseline">'+
+      '<div><div style="font-size:14px;font-weight:700;color:'+s.color+'">'+s.name+'</div>'+
+      '<div style="font-size:9px;color:#A0AABB">'+s.venue+' · '+s.unit+'</div></div>'+
+      '<div style="text-align:right"><div style="font-size:20px;font-weight:700;color:#fff" id="lm-'+s.id+'">--</div>'+
+      '<div style="font-size:11px" id="lm-'+s.id+'-c">--</div></div></div></div>'+
+      '<div class="card" style="border-color:'+s.color+'33;margin-bottom:10px">'+
+      '<div style="font-size:9px;color:'+s.color+';letter-spacing:2px;text-transform:uppercase;margin-bottom:6px">What Moves It</div>'+
+      '<div style="font-size:11px;color:#B8C2D0;line-height:1.7">'+s.note+'</div></div>'+
+      '<div style="font-size:8px;color:#6B7A8D;text-align:center" id="lm-'+s.id+'-stamp">Live via Yahoo when markets open</div>';
+  });
+}
+function liteFetch(list){
+  list.forEach(function(s,i){
+    setTimeout(function(){
+      yahooQuote(s.sym, function(d){
+        if(d && d.price>0){
+          var pv=document.getElementById("lm-"+s.id), cv=document.getElementById("lm-"+s.id+"-c"), st=document.getElementById("lm-"+s.id+"-stamp");
+          if(pv) pv.textContent=d.price.toLocaleString(undefined,{maximumFractionDigits:2});
+          if(cv){ var up=d.chg>=0; cv.textContent=(up?"▲ ":"▼ ")+Math.abs(d.chg).toFixed(2)+"%"; cv.style.color=up?"#3DBA7A":"#E05555"; }
+          if(st){ st.textContent="● LIVE — "+new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}); st.style.color="#3DBA7A"; }
+        }
+      });
+    }, i*650);
+  });
+}
+var INDICES = [
+  {id:"ftse",   name:"FTSE 100",  sym:"^FTSE",  venue:"UK 100",      unit:"pts", color:"#22D3EE", note:"UK large-caps — heavy in miners, banks and energy. A weak pound often lifts it (most earnings are overseas). Driven by BoE policy, commodity prices and global risk."},
+  {id:"sp500",  name:"S&P 500",   sym:"^GSPC",  venue:"US 500",      unit:"pts", color:"#3DBA7A", note:"The global equity benchmark — 500 largest US firms. Driven by Fed policy, megacap tech earnings, and US economic data (CPI, jobs)."},
+  {id:"dow",    name:"Dow Jones", sym:"^DJI",   venue:"Wall St 30",  unit:"pts", color:"#D4AF37", note:"30 US blue-chips, price-weighted — more industrial/value tilt than the S&P. Moved by big-name earnings and US macro data."},
+  {id:"nasdaq", name:"Nasdaq 100",sym:"^NDX",   venue:"US Tech 100", unit:"pts", color:"#A78BFA", note:"100 largest non-financial US tech & growth names. The most rate-sensitive index — falls hard when yields rise, soars on AI/tech optimism."},
+  {id:"dax",    name:"DAX 40",    sym:"^GDAXI", venue:"Germany 40",  unit:"pts", color:"#F97316", note:"Germany's top 40 — export-heavy (autos, industrials, chemicals). Driven by ECB policy, the euro, China demand and European energy costs."},
+  {id:"nikkei", name:"Nikkei 225",sym:"^N225",  venue:"Japan 225",   unit:"pts", color:"#E05555", note:"Japan's benchmark. A weak yen lifts it (helps exporters); BoJ policy and global risk sentiment are the main drivers."}
+];
+liteRender(INDICES);
+
+function calcRevenue(){
+  function v(id){var e=document.getElementById(id);return e?(parseInt(e.value)||0):0;}
+  var t=v('rev-trader'),p=v('rev-pro'),e=v('rev-elite'),b=v('rev-biz');
+  var month = t*9.99 + p*14.99 + e*19.99 + b*49.00;
+  var count = t+p+e+b;
+  var net = month*(1-0.019) - 40; if(net<0) net=0;
+  function set(id,val){var el=document.getElementById(id);if(el)el.textContent=val;}
+  set('rev-count', count.toLocaleString());
+  set('rev-month', '£'+month.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2}));
+  set('rev-year',  '£'+(month*12).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2}));
+  set('rev-net',   '£'+net.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})+'/mo');
+}
 
 document.addEventListener('keydown',function(e){if(e.key==='Enter'){var tc=document.getElementById('tc-admin');if(tc&&tc.classList.contains('active'))adminLogin();}});
 
