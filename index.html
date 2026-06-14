@@ -4416,7 +4416,7 @@ body{background:#F0F2F5;color:#1A2035;font-family:'Courier New',monospace;max-wi
     <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:10px">
       <div style="background:#1C2438;border-radius:6px;padding:8px;text-align:center">
         <div style="font-size:8px;color:#AAAAAA;text-transform:uppercase">DXY Index</div>
-        <div style="font-size:16px;font-weight:700;color:#22D3EE;margin-top:3px" id="dxy-val">~99.3</div>
+        <div style="font-size:16px;font-weight:700;color:#22D3EE;margin-top:3px" id="dxy-cur">~99.3</div>
         <div style="font-size:8px;color:#3DBA7A;margin-top:2px">Weakening trend</div>
       </div>
       <div style="background:#1C2438;border-radius:6px;padding:8px;text-align:center">
@@ -4426,12 +4426,14 @@ body{background:#F0F2F5;color:#1A2035;font-family:'Courier New',monospace;max-wi
       </div>
       <div style="background:#1C2438;border-radius:6px;padding:8px;text-align:center">
         <div style="font-size:8px;color:#AAAAAA;text-transform:uppercase">EUR/USD</div>
-        <div style="font-size:16px;font-weight:700;color:#D4AF37;margin-top:3px">~1.085</div>
+        <div style="font-size:16px;font-weight:700;color:#D4AF37;margin-top:3px" id="eurusd-val">~1.085</div>
         <div style="font-size:8px;color:#AAAAAA;margin-top:2px">ECB rate decision</div>
       </div>
     </div>
     <div style="font-size:11px;color:#B8C2D0;line-height:1.7">Silver is priced in USD globally. When the dollar strengthens, silver gets more expensive in local currencies — reducing demand. When dollar weakens, silver becomes cheaper globally — demand rises. The DXY (US Dollar Index) is the single most important external factor for silver price direction. A 1% DXY move = approximately 1-2% silver price move in the opposite direction.</div>
   </div>
+
+  <div id="fx-updated" style="font-size:9px;color:#6B7A8D;text-align:center;margin-bottom:12px">○ Static reference — fetching live rates…</div>
 
   <!-- DXY Impact on Silver -->
   <div class="stitle" style="color:#22D3EE">DXY — Dollar Index & Silver</div>
@@ -4450,7 +4452,7 @@ body{background:#F0F2F5;color:#1A2035;font-family:'Courier New',monospace;max-wi
       </div>
     </div>
     <div style="border-left:3px solid #22D3EE;padding-left:10px;margin-bottom:10px">
-      <div style="font-size:10px;color:#22D3EE;font-weight:700">Current DXY Situation (~99.3)</div>
+      <div style="font-size:10px;color:#22D3EE;font-weight:700">Current DXY Situation (<span id="dxy-ref">~99.3</span>)</div>
       <div style="font-size:10px;color:#D8DEE9;margin-top:3px;line-height:1.5">DXY has weakened from 114 peak in 2022 — a significant tailwind for silver over this period. Currently hovering around 99-100. Fed rate cut expectations keeping dollar under pressure. If DXY breaks below 97-98, silver historically surges. Watch for Fed pivot signals.</div>
     </div>
     <div style="border-left:3px solid #D4AF37;padding-left:10px;margin-bottom:10px">
@@ -4489,23 +4491,23 @@ body{background:#F0F2F5;color:#1A2035;font-family:'Courier New',monospace;max-wi
   <div class="stitle">Major Currency Pairs — Silver Impact</div>
   <div class="card" style="margin-bottom:14px">
     <div style="border-left:3px solid #FB923C;padding-left:10px;margin-bottom:10px">
-      <div style="font-size:10px;color:#FB923C;font-weight:700">EUR/USD (~1.085) — ECB vs Fed</div>
+      <div style="font-size:10px;color:#FB923C;font-weight:700">EUR/USD (<span id="eur-pair">~1.085</span>) — ECB vs Fed</div>
       <div style="font-size:10px;color:#D8DEE9;margin-top:3px;line-height:1.5">ECB raised rates for first time since 2023 — bearish EUR short term. But EU energy crisis resolution + German recovery could strengthen EUR. Strong EUR = weak USD = bullish silver. Watch ECB meetings and EU gas storage weekly updates.</div>
     </div>
     <div style="border-left:3px solid #A78BFA;padding-left:10px;margin-bottom:10px">
-      <div style="font-size:10px;color:#A78BFA;font-weight:700">USD/JPY (~148) — Yen Carry Trade</div>
+      <div style="font-size:10px;color:#A78BFA;font-weight:700">USD/JPY (<span id="jpy-val">~148</span>) — Yen Carry Trade</div>
       <div style="font-size:10px;color:#D8DEE9;margin-top:3px;line-height:1.5">Bank of Japan exiting ultra-loose policy — yen strengthening. When JPY strengthens, carry trades unwind = global risk-off = silver dips short term. But yen strength also = weaker dollar = silver support. Complex but important signal. Watch BOJ policy meetings.</div>
     </div>
     <div style="border-left:3px solid #F97316;padding-left:10px;margin-bottom:10px">
-      <div style="font-size:10px;color:#F97316;font-weight:700">USD/CNY (~7.25) — China Yuan</div>
+      <div style="font-size:10px;color:#F97316;font-weight:700">USD/CNY (<span id="cny-val">~7.25</span>) — China Yuan</div>
       <div style="font-size:10px;color:#D8DEE9;margin-top:3px;line-height:1.5">China is the world's largest silver consumer. When CNY weakens (USDCNY rises), Chinese buyers pay more for silver — reducing demand. When CNY strengthens, Chinese silver demand increases. PBOC managing currency carefully — watch for sudden devaluation signals.</div>
     </div>
     <div style="border-left:3px solid #22D3EE;padding-left:10px;margin-bottom:10px">
-      <div style="font-size:10px;color:#22D3EE;font-weight:700">USD/INR (~83.5) — India Rupee</div>
+      <div style="font-size:10px;color:#22D3EE;font-weight:700">USD/INR (<span id="inr-val">~83.5</span>) — India Rupee</div>
       <div style="font-size:10px;color:#D8DEE9;margin-top:3px;line-height:1.5">India is the world's largest silver importer. Rupee weakness makes silver more expensive in local terms — reducing Indian demand. India silver imports fell sharply when INR weakened in 2022. Strong INR = more Indian silver buying = bullish signal.</div>
     </div>
     <div style="border-left:3px solid #D4AF37;padding-left:10px">
-      <div style="font-size:10px;color:#D4AF37;font-weight:700">USD/CHF (~0.895) — Swiss Franc Safe Haven</div>
+      <div style="font-size:10px;color:#D4AF37;font-weight:700">USD/CHF (<span id="chf-val">~0.895</span>) — Swiss Franc Safe Haven</div>
       <div style="font-size:10px;color:#D8DEE9;margin-top:3px;line-height:1.5">CHF and gold/silver move together as safe havens. CHF strengthening = global risk-off = silver safe haven demand rising. Swiss National Bank (SNB) actively manages CHF — interventions create FX volatility that spills into precious metals.</div>
     </div>
   </div>
@@ -4545,12 +4547,12 @@ body{background:#F0F2F5;color:#1A2035;font-family:'Courier New',monospace;max-wi
     <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:10px">
       <div style="background:#1C2438;border-radius:6px;padding:8px;text-align:center">
         <div style="font-size:8px;color:#AAAAAA;text-transform:uppercase">Bitcoin</div>
-        <div style="font-size:14px;font-weight:700;color:#F7931A;margin-top:3px">~$105K</div>
+        <div style="font-size:14px;font-weight:700;color:#F7931A;margin-top:3px" id="cr-btc-top">~$105K</div>
         <div style="font-size:8px;color:#3DBA7A;margin-top:2px">Post-halving cycle</div>
       </div>
       <div style="background:#1C2438;border-radius:6px;padding:8px;text-align:center">
         <div style="font-size:8px;color:#AAAAAA;text-transform:uppercase">Ethereum</div>
-        <div style="font-size:14px;font-weight:700;color:#627EEA;margin-top:3px">~$3,800</div>
+        <div style="font-size:14px;font-weight:700;color:#627EEA;margin-top:3px" id="cr-eth-top">~$3,800</div>
         <div style="font-size:8px;color:#AAAAAA;margin-top:2px">Post-merge era</div>
       </div>
       <div style="background:#1C2438;border-radius:6px;padding:8px;text-align:center">
@@ -4562,12 +4564,14 @@ body{background:#F0F2F5;color:#1A2035;font-family:'Courier New',monospace;max-wi
     <div style="font-size:11px;color:#B8C2D0;line-height:1.7">Bitcoin is often called "digital gold" but silver has a stronger parallel — both are scarce physical/digital assets with industrial/utility use cases. When crypto rises in a risk-on environment, silver often follows. When crypto crashes (risk-off), silver initially dips then recovers as safe-haven demand takes over. The key connection: both compete for the same inflation-hedge investor capital.</div>
   </div>
 
+  <div id="cr-updated" style="font-size:9px;color:#6B7A8D;text-align:center;margin-bottom:10px">○ Static reference — fetching live prices…</div>
+
   <!-- Bitcoin -->
   <div class="stitle" style="color:#F7931A">Bitcoin (BTC) — Digital Gold Standard</div>
   <div class="card" style="border-color:#F7931A44;background:#0A0500;margin-bottom:10px">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
       <div><div style="font-size:13px;font-weight:700;color:#F7931A">Bitcoin</div><div style="font-size:9px;color:#A0AABB">21M supply cap — 4th halving Apr 2024</div></div>
-      <div style="text-align:right"><div style="font-size:14px;font-weight:700;color:#F7931A">~$105K</div><div style="font-size:8px;color:#A0AABB">Jun 2026</div></div>
+      <div style="text-align:right"><div style="font-size:14px;font-weight:700;color:#F7931A" id="cr-btc">~$105K</div><div style="font-size:8px;color:#A0AABB">Jun 2026</div></div>
     </div>
     <div style="font-size:10px;color:#B8C2D0;line-height:1.6;margin-bottom:8px">Bitcoin's 4th halving (April 2024) reduced block reward from 6.25 to 3.125 BTC. Historically price peaks 12-18 months post-halving — suggesting peak Oct 2025-Oct 2026. US spot Bitcoin ETFs approved Jan 2024 brought institutional money. BlackRock IBIT now holds more BTC than most sovereign wealth funds. MicroStrategy holds 214,000+ BTC. El Salvador legal tender.</div>
     <div style="border-left:3px solid #F7931A;padding-left:10px;margin-bottom:8px">
@@ -4585,7 +4589,7 @@ body{background:#F0F2F5;color:#1A2035;font-family:'Courier New',monospace;max-wi
   <div class="card" style="border-color:#627EEA44;background:#05050F;margin-bottom:10px">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
       <div><div style="font-size:13px;font-weight:700;color:#627EEA">Ethereum (ETH)</div><div style="font-size:9px;color:#A0AABB">Smart contracts — DeFi — NFTs — Proof of Stake</div></div>
-      <div style="text-align:right"><div style="font-size:14px;font-weight:700;color:#627EEA">~$3,800</div><div style="font-size:8px;color:#A0AABB">Jun 2026</div></div>
+      <div style="text-align:right"><div style="font-size:14px;font-weight:700;color:#627EEA" id="cr-eth">~$3,800</div><div style="font-size:8px;color:#A0AABB">Jun 2026</div></div>
     </div>
     <div style="font-size:10px;color:#B8C2D0;line-height:1.6;margin-bottom:6px">Post-Merge Ethereum uses 99.9% less electricity than Bitcoin — no longer a significant silver demand driver through mining. ETH is the backbone of DeFi (decentralised finance) and Web3. Spot ETH ETFs approved May 2024. Ethereum's role: programmable money infrastructure. Silver connection: ETH's proof-of-stake uses minimal energy so no solar/silver mining link, but institutional adoption of ETH ETFs competes with silver ETF flows for inflation-hedge capital.</div>
     <div style="display:flex;gap:6px;flex-wrap:wrap">
@@ -4600,15 +4604,15 @@ body{background:#F0F2F5;color:#1A2035;font-family:'Courier New',monospace;max-wi
   <div class="card" style="margin-bottom:14px">
     <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #2E3148;align-items:center">
       <div><div style="font-size:10px;color:#D8DEE9;font-weight:700">XRP (Ripple)</div><div style="font-size:9px;color:#A0AABB">Cross-border payments. SEC lawsuit resolved 2024.</div></div>
-      <span style="font-size:11px;font-weight:700;color:#00AAE4">~$2.50</span>
+      <span style="font-size:11px;font-weight:700;color:#00AAE4" id="cr-xrp">~$2.50</span>
     </div>
     <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #2E3148;align-items:center">
       <div><div style="font-size:10px;color:#D8DEE9;font-weight:700">Solana (SOL)</div><div style="font-size:9px;color:#A0AABB">High-speed chain. NFTs, DeFi, meme coins.</div></div>
-      <span style="font-size:11px;font-weight:700;color:#9945FF">~$185</span>
+      <span style="font-size:11px;font-weight:700;color:#9945FF" id="cr-sol">~$185</span>
     </div>
     <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #2E3148;align-items:center">
       <div><div style="font-size:10px;color:#D8DEE9;font-weight:700">BNB (Binance)</div><div style="font-size:9px;color:#A0AABB">Binance exchange token. Regulatory risk.</div></div>
-      <span style="font-size:11px;font-weight:700;color:#F3BA2F">~$620</span>
+      <span style="font-size:11px;font-weight:700;color:#F3BA2F" id="cr-bnb">~$620</span>
     </div>
     <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #2E3148;align-items:center">
       <div><div style="font-size:10px;color:#D8DEE9;font-weight:700">USDT / USDC</div><div style="font-size:9px;color:#A0AABB">Stablecoins. $1 peg. Crypto liquidity backbone.</div></div>
@@ -4616,7 +4620,7 @@ body{background:#F0F2F5;color:#1A2035;font-family:'Courier New',monospace;max-wi
     </div>
     <div style="display:flex;justify-content:space-between;padding:7px 0;align-items:center">
       <div><div style="font-size:10px;color:#D8DEE9;font-weight:700">Bitcoin Cash (BCH)</div><div style="font-size:9px;color:#A0AABB">Peer-to-peer payments focus. Bitcoin fork 2017.</div></div>
-      <span style="font-size:11px;font-weight:700;color:#F7931A">~$480</span>
+      <span style="font-size:11px;font-weight:700;color:#F7931A" id="cr-bch">~$480</span>
     </div>
   </div>
 
@@ -7746,6 +7750,9 @@ function updateAllCurrencyDisplays() {
   if (rateEl) {
     rateEl.textContent = "GBP/USD " + gbpUsd.toFixed(4) + " | " + usdToIGPence(livePrice).toLocaleString() + "p IG equiv";
   }
+  // Live GBP/USD value in Currencies tab
+  var gv = document.getElementById("gbpusd-val");
+  if (gv) gv.textContent = gbpUsd.toFixed(4);
   // Update position tracker if values entered
   updatePosition();
   // Update forecast table currency column
@@ -7762,6 +7769,75 @@ function toggleCurrency() {
   }
   updateForecastCurrency();
   drawChart();
+}
+
+// ================================================================
+// LIVE CRYPTO + EXTENDED FX FEEDS — reuse the yahooQuote engine
+// Static values remain as automatic fallback if any fetch fails.
+// ================================================================
+function moSetTxt(id, val) {
+  var e = document.getElementById(id);
+  if (e && val) e.textContent = val;
+}
+function moStamp(id) {
+  var e = document.getElementById(id);
+  if (e) {
+    var t = new Date();
+    e.textContent = "● LIVE — updated " + t.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+    e.style.color = "#3DBA7A";
+  }
+}
+function fmtCrypto(p) {
+  if (!p || isNaN(p)) return null;
+  if (p >= 1000) return "$" + Math.round(p).toLocaleString();
+  if (p >= 100)  return "$" + p.toFixed(0);
+  if (p >= 1)    return "$" + p.toFixed(2);
+  return "$" + p.toFixed(3);
+}
+function fetchCryptoLive() {
+  var jobs = [
+    ["BTC-USD", ["cr-btc", "cr-btc-top"]],
+    ["ETH-USD", ["cr-eth", "cr-eth-top"]],
+    ["XRP-USD", ["cr-xrp"]],
+    ["SOL-USD", ["cr-sol"]],
+    ["BNB-USD", ["cr-bnb"]],
+    ["BCH-USD", ["cr-bch"]]
+  ];
+  var stamped = false;
+  jobs.forEach(function(j, i) {
+    setTimeout(function() {
+      yahooQuote(j[0], function(d) {
+        if (d && d.price > 0) {
+          var s = fmtCrypto(d.price);
+          j[1].forEach(function(id) { moSetTxt(id, s); });
+          if (!stamped) { stamped = true; moStamp("cr-updated"); }
+        }
+      });
+    }, i * 650);
+  });
+}
+function fetchCurrenciesLive() {
+  // GBP/USD is already live via fetchGBPUSD()/updateAllCurrencyDisplays()
+  var jobs = [
+    ["DX-Y.NYB", function(p){return p.toFixed(1);},  ["dxy-cur", "dxy-val", "dxy-ref"]],
+    ["EURUSD=X", function(p){return p.toFixed(4);},  ["eurusd-val", "eur-pair"]],
+    ["JPY=X",    function(p){return p.toFixed(1);},  ["jpy-val"]],
+    ["CNY=X",    function(p){return p.toFixed(3);},  ["cny-val"]],
+    ["INR=X",    function(p){return p.toFixed(2);},  ["inr-val"]],
+    ["CHF=X",    function(p){return p.toFixed(4);},  ["chf-val"]]
+  ];
+  var stamped = false;
+  jobs.forEach(function(j, i) {
+    setTimeout(function() {
+      yahooQuote(j[0], function(d) {
+        if (d && d.price > 0) {
+          var s = j[1](d.price);
+          j[2].forEach(function(id) { moSetTxt(id, s); });
+          if (!stamped) { stamped = true; moStamp("fx-updated"); }
+        }
+      });
+    }, i * 650);
+  });
 }
 
 // Update forecast table to show pence column
@@ -9341,10 +9417,14 @@ window.onload = function() {
   fetchPoly();
   fetchNews();
   fetchGoldGSR();
+  fetchCryptoLive();
+  fetchCurrenciesLive();
   setInterval(fetchPrice, 10000);
   setInterval(fetchPoly, 60000);
   setInterval(fetchNews, 300000);
   setInterval(fetchGoldGSR, 300000);
+  setInterval(fetchCryptoLive, 120000);
+  setInterval(fetchCurrenciesLive, 300000);
   // Risk Radar - load baseline immediately, fetch live data, poll every 120s
   loadGeopoliticalBaseline();
   openCatForTab('summary');
