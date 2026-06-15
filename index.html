@@ -8611,32 +8611,26 @@ function autoRecalibrate() {
 
   // Recalculate forecast anchored to current live price
   // Adjust all phase curves proportionally from current price
-  var base = 74.87; // original model base
-  var current = livePrice;
-  var ratio = current / base;
-
-  // Rebuild forecast with price-adjusted curves
-  var adjCurves = {
-    consolidation: [current, current * (CURVES.consolidation[1]/CURVES.consolidation[0])],
-    correction:    [current * (CURVES.correction[0]/CURVES.consolidation[0]),
-                    current * (CURVES.correction[1]/CURVES.consolidation[0])],
-    accumulation:  [current * (CURVES.accumulation[0]/CURVES.consolidation[0]),
-                    current * (CURVES.accumulation[1]/CURVES.consolidation[0])],
-    recovery:      [current * (CURVES.recovery[0]/CURVES.consolidation[0]),
-                    current * (CURVES.recovery[1]/CURVES.consolidation[0])],
-    rally:         [current * (CURVES.rally[0]/CURVES.consolidation[0]),
-                    current * (CURVES.rally[1]/CURVES.consolidation[0])],
-  };
-
-  // Store original curves, temporarily swap, regenerate, restore
-  var origCurves = {};
-  Object.keys(CURVES).forEach(function(k){ origCurves[k] = CURVES[k].slice(); });
-  Object.keys(adjCurves).forEach(function(k){ CURVES[k] = adjCurves[k]; });
-
+  // Re-anchor so that TODAY's forecast candle equals the live price, and the
+  // forecast projects FORWARD from there. (Previous version anchored the phase
+  // START — a past date (June 2) — to the live price, so as the curve declined
+  // it dragged today's candle ~$4 below the real price. Fixed 15 Jun 2026.)
   FORECAST_LIVE = genForecast();
-
-  // Restore original curves (model stays intact)
-  Object.keys(origCurves).forEach(function(k){ CURVES[k] = origCurves[k]; });
+  var anchorDay = new Date().toISOString().split("T")[0];
+  var mToday = null;
+  for (var a = 0; a < FORECAST_LIVE.length; a++) {
+    if (FORECAST_LIVE[a].date >= anchorDay) { mToday = FORECAST_LIVE[a].price; break; }
+  }
+  if (!mToday || mToday <= 0) mToday = livePrice;
+  var anchorRatio = livePrice / mToday;   // scale whole forward path to start at live price
+  for (var b = 0; b < FORECAST_LIVE.length; b++) {
+    if (FORECAST_LIVE[b].date >= anchorDay) {
+      FORECAST_LIVE[b].price = +(FORECAST_LIVE[b].price * anchorRatio).toFixed(2);
+      FORECAST_LIVE[b].open  = +(FORECAST_LIVE[b].open  * anchorRatio).toFixed(2);
+      FORECAST_LIVE[b].lo    = +(FORECAST_LIVE[b].lo    * anchorRatio).toFixed(2);
+      FORECAST_LIVE[b].hi    = +(FORECAST_LIVE[b].hi    * anchorRatio).toFixed(2);
+    }
+  }
 
   // Update global FORECAST reference
   // Only update future dates \u2014 keep real historical OHLC intact
